@@ -1,0 +1,40 @@
+@font-face {
+  font-family: "roboto";
+  src: url(./../../assets/fonts/Roboto/Roboto-Medium.ttf);
+}
+
+$font1: "roboto", sans-serif;
+
+$color1: #15202b;
+$color2: #ebeeee;
+$color3: #006fb7;
+$color4: #1e2732;
+$color5: #38444d;
+
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  background: $color1;
+  color: $color2;
+  font-family: $font1;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: $color2;
+}
+
+a:visited {
+  color: $color2;
+}
