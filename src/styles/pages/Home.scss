@@ -1,5 +1,5 @@
 .home-page {
-  height: 100vh;
+  height: 112vh;
   width: 100%;
   display: grid;
   grid-template-columns: 45% 55%;
@@ -8,16 +8,70 @@
 
   .container-img {
     grid-area: img;
-    background: url(../../assets/img/lohp_1302x955.png) no-repeat;
+    background: url(../../assets/img/lohp_1302x955.png) no-repeat center;
+    @extend .flex-center;
+    img {
+      width: 55%;
+    }
   }
 
   .container-content {
     grid-area: content;
+    @include flex(column, start, null);
+    gap: 2rem;
+    padding-left: 2.3rem;
 
-    .farme-herder {
+    header {
+      height: 6rem;
+      margin-top: 1rem;
+      @include flex(row, null, center);
       .logo {
-        width: 50px;
+        width: 45px;
       }
+    }
+
+    .frame-title {
+      h1 {
+        font-size: 56px;
+        margin-bottom: 2rem;
+      }
+      h2 {
+        font-size: 30px;
+      }
+    }
+  }
+
+  .frame-btn-connexion {
+    @include flex(column, start, null);
+    gap: 2rem;
+
+    .frame1 {
+      @include flex(column, start, null);
+      gap: 1rem;
+    }
+
+    .widget-btn {
+      width: 305px;
+      padding: 10px 0;
+      border: 1px solid $color5;
+      border-radius: 20px;
+      @extend .flex-center;
+      gap: 15px;
+
+      img {
+        width: 20px;
+      }
+    }
+
+    .signup-ext {
+      background-color: $color2;
+      color: $color1;
+      border: 1px solid $color2;
+    }
+
+    .signup-int {
+      background-color: $color3;
+      border: 1px solid $color3;
     }
   }
 

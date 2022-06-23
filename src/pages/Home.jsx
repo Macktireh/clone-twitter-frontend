@@ -1,22 +1,58 @@
 import React from "react";
 
+import Button from "../components/widgets/Button";
+
 const Home = () => {
   return (
     <div className="home-page">
-      <div className="container-img"></div>
+      <div className="container-img">
+        <img src="./static/svg/twitter.svg" />
+      </div>
       <div className="container-content">
-        <div className="farme-herder">
+        <header>
           <img
             className="logo"
             src="./static/svg/twitter.svg"
             alt="logo Twitter"
           />
-        </div>
+        </header>
         <div className="frame-title">
           <h1>Ça se passe maintenant</h1>
           <h2>Rejoignez Twitter dès aujourd'hui.</h2>
         </div>
-        <div className="frame-btn-connexion"></div>
+        <div className="frame-btn-connexion">
+          <div className="frame1">
+            <Button
+              nameClass={"signup-ext"}
+              pic={"./static/svg/google.svg"}
+              text={"S'inscrire avec Google"}
+            />
+            <Button
+              nameClass={"signup-ext"}
+              pic={"./static/svg/apple.svg"}
+              text={"S'inscrire avec Apple"}
+            />
+            <div className="sep">
+              <hr />
+              <span>ou</span>
+            </div>
+            <div>
+              <Button
+                nameClass={"signup-int"}
+                text={"S'inscrire avec un email et password"}
+              />
+              <p>
+                En vous inscrivant, vous acceptez les Conditions d'Utilisation
+                et la Politique de Confidentialité, incluant l'Utilisation de
+                Cookies.
+              </p>
+            </div>
+          </div>
+          <div className="frame2">
+            <p>Vous avez déjà un compte ?</p>
+            <Button text={"Se connecter"} />
+          </div>
+        </div>
       </div>
       <div className="container-footer">
         <a id="items-footer-home">À propos</a>
