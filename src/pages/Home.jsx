@@ -36,20 +36,21 @@ const Home = () => {
               <hr />
               <span>ou</span>
             </div>
-            <div>
+            <div className="frame-signup-int">
               <Button
                 nameClass={"signup-int"}
                 text={"S'inscrire avec un email et password"}
               />
               <p>
-                En vous inscrivant, vous acceptez les Conditions d'Utilisation
-                et la Politique de Confidentialité, incluant l'Utilisation de
-                Cookies.
+                En vous inscrivant, vous acceptez les{" "}
+                <a href="">Conditions d'Utilisation</a> et la{" "}
+                <a href="">Politique de Confidentialité</a>, incluant l'
+                <a href="">Utilisation de Cookies</a>.
               </p>
             </div>
           </div>
-          <div className="frame2">
-            <p>Vous avez déjà un compte ?</p>
+          <div className="frame-signin">
+            <h4>Vous avez déjà un compte ?</h4>
             <Button text={"Se connecter"} />
           </div>
         </div>

@@ -24,8 +24,8 @@
 @mixin hr($m-t, $m-b, $width, $color) {
   margin: $m-t auto $m-b;
   width: $width;
-  max-width: 3.5rem;
-  height: 0.2rem;
+  // max-width: 3.5rem;
+  // height: 0.2rem;
   background-color: $color;
   border: none;
   outline: none;

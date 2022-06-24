@@ -1,15 +1,16 @@
 @font-face {
   font-family: "roboto";
-  src: url(./../../assets/fonts/Roboto/Roboto-Medium.ttf);
+  // src: url(./../../assets/fonts/Roboto/Roboto-Medium.ttf);
+  src: url(./../../assets/fonts/chirp-extended-heavy-web.woff);
 }
 
-$font1: "roboto", sans-serif;
+$font1: ui-sans-serif, system-ui, sans-serif;
 
 $color1: #15202b;
 $color2: #ebeeee;
 $color3: #1d9bf0;
 $color4: #1e2732;
-$color5: #4e5e6a;
+$color5: #919090;
 
 *,
 ::after,
