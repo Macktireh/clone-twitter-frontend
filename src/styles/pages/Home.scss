@@ -21,6 +21,7 @@
     @include flex(column, start, null);
     gap: 1rem;
     padding-left: 2.3rem;
+    padding-bottom: 2rem;
 
     header {
       height: 5rem;
@@ -127,5 +128,11 @@
     a {
       color: $color5;
     }
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .home-page {
+    @include flex(column, start, null);
   }
 }

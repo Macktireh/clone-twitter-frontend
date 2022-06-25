@@ -5,9 +5,6 @@ import Button from "../components/widgets/Button";
 const Home = () => {
   return (
     <div className="home-page">
-      <div className="container-img">
-        <img src="./static/svg/twitter.svg" />
-      </div>
       <div className="container-content">
         <header>
           <img
@@ -54,6 +51,9 @@ const Home = () => {
             <Button text={"Se connecter"} />
           </div>
         </div>
+      </div>
+      <div className="container-img">
+        <img src="./static/svg/twitter.svg" />
       </div>
       <div className="container-footer">
         <a id="items-footer-home">À propos</a>
