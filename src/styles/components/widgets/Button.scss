@@ -1,9 +1,0 @@
-@mixin Btn($top, $right, $bottom, $left, $x, $y) {
-  position: absolute;
-  top: $top;
-  right: $right;
-  bottom: $bottom;
-  left: $left;
-  transform: translateX($x);
-  transform: translateY($y);
-}

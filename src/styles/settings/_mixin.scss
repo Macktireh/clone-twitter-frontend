@@ -17,8 +17,7 @@
   right: $right;
   bottom: $bottom;
   left: $left;
-  transform: translateX($x);
-  transform: translateY($y);
+  transform: translate($x, $y);
 }
 
 @mixin hr($m-t, $m-b, $width, $color) {

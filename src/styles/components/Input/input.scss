@@ -1,0 +1,53 @@
+.input-group {
+  width: 100%;
+  max-width: 460px;
+  position: relative;
+  border: 1px solid $color5;
+  border-radius: 8px;
+  // margin: 32px;
+}
+.input-group input {
+  padding: 16px 24px;
+  border: none;
+  background-color: transparent;
+  width: 100%;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+// .input-group:hover,
+.input-group:focus-within {
+  border-color: $color3;
+}
+
+.input-group input:focus,
+.input-group:hover input {
+  color: $color3;
+}
+
+.input-group label {
+  position: absolute;
+  background-color: transparent;
+  padding: 16px 24px;
+  line-height: 24px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  color: $color5;
+  cursor: text;
+  transition: 0.4s ease;
+}
+
+.input-group {
+  &:focus-within ~ label,
+  input:focus ~ label,
+  input:valid ~ label {
+    padding: 0px 8px;
+    background-color: $color1;
+    top: -12px;
+    left: 16px;
+    bottom: auto;
+    color: $color3;
+  }
+}

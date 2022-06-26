@@ -51,26 +51,17 @@
         gap: 1rem;
       }
 
-      .widget-btn {
+      .btn-signup-ext,
+      .btn-signup-int,
+      .btn-signin {
         width: 305px;
-        padding: 10px 0;
-        border: 1px solid $color5;
-        border-radius: 20px;
-        @extend .flex-center;
-        gap: 15px;
-
-        img {
-          width: 20px;
-        }
       }
-
-      .signup-ext {
+      .btn-signup-ext {
         background-color: $color2;
         color: $color1;
         border: 1px solid $color2;
       }
-
-      .signup-int {
+      .btn-signup-int {
         background-color: $color3;
         border: 1px solid $color3;
       }
@@ -94,7 +85,7 @@
         width: 35px;
         background-color: $color1;
         color: $color5;
-        z-index: 2;
+        // z-index: ;
       }
     }
 

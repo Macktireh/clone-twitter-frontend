@@ -1,3 +1,8 @@
 @import "./settings/settings";
 @import "./settings/mixin";
+
+@import "./components/Buttons/Button";
+@import "./components/Input/input";
+
 @import "./pages/Home";
+@import "./pages/account/SignUp";
