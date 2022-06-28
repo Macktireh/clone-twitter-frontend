@@ -43,15 +43,19 @@ const Home = () => {
               </Link>
               <p>
                 En vous inscrivant, vous acceptez les{" "}
-                <span href="">Conditions d'Utilisation</span> et la{" "}
-                <span href="">Politique de Confidentialité</span>, incluant l'
-                <span href="">Utilisation de Cookies</span>.
+                <Link to="https://twitter.com/fr/tos">
+                  <span>Conditions d'Utilisation</span>
+                </Link>{" "}
+                et la <span>Politique de Confidentialité</span>, incluant l'
+                <span>Utilisation de Cookies</span>.
               </p>
             </div>
           </div>
           <div className="frame-signin">
             <h4>Vous avez déjà un compte ?</h4>
-            <Button nameClass={"btn-signin"} text={"Se connecter"} />
+            <Link to="/account/signin">
+              <Button nameClass={"btn-signin"} text={"Se connecter"} />
+            </Link>
           </div>
         </div>
       </div>

@@ -1,3 +1,7 @@
+.container-input-group {
+  width: 100%;
+  max-width: 460px;
+}
 .input-group {
   width: 100%;
   max-width: 460px;
@@ -7,7 +11,7 @@
   // margin: 32px;
 }
 .input-group input {
-  padding: 16px 24px;
+  padding: 16px 30px;
   border: none;
   background-color: transparent;
   width: 100%;
@@ -50,4 +54,49 @@
     bottom: auto;
     color: $color3;
   }
+}
+
+span.maxLength {
+  @include position-abs(4px, 10px, null, null, null, null);
+  font-size: 11px;
+  color: $color5;
+}
+
+.input-error {
+  margin-left: 1.5rem;
+  margin-top: 5px;
+  color: $red;
+}
+
+.container-input-group .indicator {
+  height: 10px;
+  margin: 10px 5px;
+  @include flex(row, space-between, center);
+  display: none;
+  gap: 0.2rem;
+}
+.container-input-group .indicator span {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: lightgrey;
+  border-radius: 5px;
+}
+.container-input-group .indicator span.active:before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+}
+.indicator span.weak:before {
+  background-color: $red;
+}
+.indicator span.medium:before {
+  background-color: $orange;
+}
+.indicator span.strong:before {
+  background-color: $green;
 }

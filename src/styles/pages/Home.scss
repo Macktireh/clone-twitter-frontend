@@ -9,7 +9,7 @@
 
   .container-img {
     grid-area: img;
-    background: url(../../assets/img/lohp_1302x955.png) no-repeat center;
+    background: url("../../assets/img/lohp_1302x955.png") no-repeat center;
     @extend .flex-center;
     img {
       width: 55%;
@@ -95,8 +95,9 @@
         margin-top: 8px;
         font-size: 10px;
         color: $color5;
-        a {
+        span {
           color: $color3;
+          cursor: pointer;
         }
       }
     }
