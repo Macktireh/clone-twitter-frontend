@@ -1,10 +1,13 @@
 import React from "react";
 
+import Routes from "./routes";
+import "./styles/index.scss";
+
 const App = () => {
   return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <>
+      <Routes />
+    </>
   );
 };
 
