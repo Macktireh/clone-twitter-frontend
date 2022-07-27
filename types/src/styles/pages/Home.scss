@@ -1,0 +1,130 @@
+.home-page {
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 45% 55%;
+  grid-template-rows: 1fr 80px;
+  grid-template-areas: "img content" "footer footer";
+  padding-bottom: 1rem;
+
+  .container-img {
+    grid-area: img;
+    background: url("../../assets/img/lohp_1302x955.png") no-repeat center;
+    @extend .flex-center;
+    img {
+      width: 55%;
+    }
+  }
+
+  .container-content {
+    grid-area: content;
+    @include flex(column, start, null);
+    gap: 1rem;
+    padding-left: 2.3rem;
+    padding-bottom: 2rem;
+
+    header {
+      height: 5rem;
+      margin-top: 1rem;
+      @include flex(row, null, center);
+      .logo {
+        width: 45px;
+      }
+    }
+
+    .frame-title {
+      h1 {
+        font-size: 56px;
+        margin-bottom: 2rem;
+      }
+      h2 {
+        font-size: 30px;
+      }
+    }
+
+    .frame-btn-connexion {
+      @include flex(column, start, null);
+      gap: 2rem;
+
+      .frame1 {
+        @include flex(column, start, null);
+        gap: 1rem;
+      }
+
+      .btn-signup-ext,
+      .btn-signup-int,
+      .btn-signin {
+        width: 305px;
+      }
+      .btn-signup-ext {
+        background-color: $color2;
+        color: $color1;
+        border: 1px solid $color2;
+      }
+      .btn-signup-int {
+        background-color: $color3;
+        border: 1px solid $color3;
+      }
+    }
+
+    .sep {
+      @include flex(column, center, null);
+      width: 305px;
+      height: 10px;
+      position: relative;
+      hr {
+        background-color: $color5;
+        height: 1px;
+        width: 300px;
+        border: none;
+        outline: none;
+      }
+      span {
+        @include position-abs(50%, 0, 0, 44%, -50%, -50%);
+        @extend .flex-center;
+        width: 35px;
+        background-color: $color1;
+        color: $color5;
+        // z-index: ;
+      }
+    }
+
+    .frame-signup-int {
+      p {
+        width: 305px;
+        margin-top: 8px;
+        font-size: 10px;
+        color: $color5;
+        span {
+          color: $color3;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .frame-signin {
+      h4 {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  .container-footer {
+    grid-area: footer;
+    @extend .flex-center;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 1rem;
+    font-size: 12px;
+    a {
+      color: $color5;
+    }
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .home-page {
+    @include flex(column, start, null);
+  }
+}
