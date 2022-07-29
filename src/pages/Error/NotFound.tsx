@@ -1,14 +1,17 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
   useEffect(() => {
-    const container = document.getElementById("container-404");
+    const container: HTMLElement | null =
+      document.getElementById("container-404");
     window.onmousemove = (e) => {
       let x = -e.clientX / 5;
       let y = -e.clientY / 5;
-      container.style.backgroundPositionX = x + "px";
-      container.style.backgroundPositionY = y + "px";
+      if (container) {
+        container.style.backgroundPositionX = x + "px";
+        container.style.backgroundPositionY = y + "px";
+      }
     };
   }, []);
 

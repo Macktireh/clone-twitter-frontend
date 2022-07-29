@@ -1,6 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Button = (props) => {
+interface Props {
+  nameClass?: string;
+  handleClick?: any;
+  pic?: string;
+  text?: string;
+}
+
+const Button: React.FC<Props> = (props) => {
   return (
     <button
       className={props.nameClass ? `button ${props.nameClass}` : "button"}
