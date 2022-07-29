@@ -1,1 +1,1 @@
-# Clone Twitter Frontend React
+# Clone Twitter Frontend React JS
