@@ -4,7 +4,7 @@
 @import "./components/Buttons/Button";
 @import "./components/Input/input";
 
-@import "./pages/Home";
-@import "./pages/account/account";
+@import "./pages/home/Home";
+@import "./pages/auth/auth";
 
-@import "./pages/NotFound.scss";
+@import "./pages/error/NotFound";

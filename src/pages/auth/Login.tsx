@@ -1,28 +1,38 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import * as React from "react";
+import { Link, Navigate } from "react-router-dom";
+import { connect } from "react-redux";
 
 import Input from "../../components/Input/Input";
 import Button from "../../components/Buttons/buttonSubmit";
-import { ILogin } from "../../interfaces";
+import { ILogin, IState } from "../../interfaces";
+import { login } from "../../actions/auth.action";
+import useLogin from "../../hooks/auth/useLogin";
 
-const Login: React.FC = () => {
-  const [formData, setFormData] = useState<ILogin>({ email: "", password: "" });
-  const [displayError, setDisplayError] = useState(false);
+const Login: React.FC<any> = ({ login, isAuthenticated }) => {
+  const [formData, setFormData] = React.useState<ILogin>({
+    email: "",
+    password: "",
+  });
+  const [displayError, setDisplayError] = React.useState(false);
 
   const { email, password } = formData;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const OnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(`Connexion :\n email: ${email} password: ${password}`);
+    useLogin(email, password, setDisplayError, login);
   };
+
+  if (isAuthenticated) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="container-auth">
       <div className="modal-auth">
-        <form onSubmit={onSubmit}>
+        <form onSubmit={OnSubmit}>
           <h2>Connectez-vous à Mack-Twitter</h2>
           {displayError ? (
             <div className="error-auth">
@@ -45,12 +55,20 @@ const Login: React.FC = () => {
             onChange={handleChange}
           />
           <Button nameClass={"btn-signup"} text={"Se connecter"} />
-          <h4>
-            Vous n'avez pas de compte ?{" "}
-            <Link to="/auth/signup">
-              <span>Inscrivez-vous</span>
-            </Link>
-          </h4>
+          <div className="info">
+            <h4>
+              Mot de passe ?{" "}
+              <Link to="/auth/password/reset/send-email/">
+                <span>Cliquer ici</span>
+              </Link>
+            </h4>
+            <h4>
+              Vous n'avez pas de compte ?{" "}
+              <Link to="/auth/signup/">
+                <span>Inscrivez-vous</span>
+              </Link>
+            </h4>
+          </div>
         </form>
 
         <Link to="/">
@@ -63,4 +81,10 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+type TauthState = { userState: IState };
+
+const mapStateToProps = (state: TauthState) => ({
+  isAuthenticated: state.userState.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);

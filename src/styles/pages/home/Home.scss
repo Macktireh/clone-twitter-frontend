@@ -6,10 +6,11 @@
   grid-template-rows: 1fr 80px;
   grid-template-areas: "img content" "footer footer";
   padding-bottom: 1rem;
+  background-color: $color1;
 
   .container-img {
     grid-area: img;
-    background: url("../../assets/img/lohp_1302x955.png") no-repeat center;
+    background: url("../../../assets/img/lohp_1302x955.png") no-repeat center;
     @extend .flex-center;
     img {
       width: 55%;
@@ -22,6 +23,7 @@
     gap: 1rem;
     padding-left: 2.3rem;
     padding-bottom: 2rem;
+    background-color: $color1;
 
     header {
       height: 5rem;
@@ -80,7 +82,7 @@
         outline: none;
       }
       span {
-        @include position-abs(50%, 0, 0, 44%, -50%, -50%);
+        @include position-abs(50%, 0, 0, 50%, -50%, -50%);
         @extend .flex-center;
         width: 35px;
         background-color: $color1;
@@ -117,6 +119,7 @@
     gap: 20px;
     padding: 1rem;
     font-size: 12px;
+    background-color: $color1;
     a {
       color: $color5;
     }

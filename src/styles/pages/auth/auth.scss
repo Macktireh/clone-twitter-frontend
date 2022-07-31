@@ -52,9 +52,15 @@
       margin-bottom: 0.8rem;
     }
 
-    h4 {
-      span {
-        color: $color3;
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      h4 {
+        text-align: center;
+        span {
+          color: $color3;
+        }
       }
     }
 
@@ -62,7 +68,6 @@
       @extend .flex-center;
       gap: 0.8rem;
       color: $red;
-      padding: 1rem;
       img {
         width: 30px;
       }

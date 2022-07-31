@@ -24,12 +24,6 @@ const SignUp: React.FC = () => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(`
-    firstName: ${firstName}
-    lastName: ${lastName}
-    email: ${email} 
-    password: ${password}
-    confirmPassword: ${confirmPassword}`);
   };
 
   return (
@@ -79,12 +73,14 @@ const SignUp: React.FC = () => {
             onChange={handleChange}
           />
           <Button nameClass={"btn-signup"} text={"S'inscrire"} />
-          <h4>
-            Vous avez déjà un compte ?{" "}
-            <Link to="/auth/login">
-              <span>Connectez-vous</span>
-            </Link>
-          </h4>
+          <div className="info">
+            <h4>
+              Vous avez déjà un compte ?{" "}
+              <Link to="/auth/login/">
+                <span>Connectez-vous</span>
+              </Link>
+            </h4>
+          </div>
         </form>
 
         <Link to="/">
