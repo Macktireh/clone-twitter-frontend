@@ -1,6 +1,7 @@
 import React, { PropsWithChildren, useEffect } from "react";
 import { connect } from "react-redux";
-import { checkAuthenticated, loadUser } from "./../actions/auth.action";
+import { checkAuthenticated } from "../actions/auth/checkAuthenticated.action";
+import { loadUser } from "../actions/auth/loadUser.action";
 
 const Layout = (props: PropsWithChildren<any>) => {
   useEffect(() => {

@@ -20,13 +20,13 @@ const useLogin = async (
       body,
       config
     );
-    console.log(res.data.token);
 
     sessionStorage.setItem("access", res.data.token.access);
     sessionStorage.setItem("refresh", res.data.token.refresh);
     setDisplayError(false);
     login(true);
   } catch (error) {
+    // console.log(error);
     setDisplayError(true);
     login();
   }

@@ -1,25 +1,45 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Link, Navigate, useParams } from "react-router-dom";
+import resetPasswordConfirm from "../../actions/auth/resetPasswordConfirm.action";
 import Button from "../../components/Buttons/buttonSubmit";
 import Input from "../../components/Input/Input";
 
-const ResetPasswordConfirm: React.FC = () => {
+const ResetPasswordConfirm: React.FC<any> = ({ resetPasswordConfirm }) => {
   const [formData, setFormData] = React.useState({
     password: "",
     confirmPassword: "",
   });
   const [displayError, setDisplayError] = React.useState(false);
+  const [redirect, setRedirect] = React.useState("");
 
   const { password, confirmPassword } = formData;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  // const CheckeredPassword = async () => {};
+  const { uid, token } = useParams();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const res = await resetPasswordConfirm(
+      uid,
+      token,
+      password,
+      confirmPassword
+    );
+    if (!res.error) {
+      setRedirect("home");
+      setDisplayError(false);
+    } else {
+      setRedirect("404");
+      setDisplayError(false);
+    }
   };
+
+  if (redirect === "home") return <Navigate to="/" />;
+  else if (redirect === "404") return <Navigate to="/not-found/" />;
+
   return (
     <div className="container-auth">
       <div className="modal-auth">
@@ -58,4 +78,4 @@ const ResetPasswordConfirm: React.FC = () => {
   );
 };
 
-export default ResetPasswordConfirm;
+export default connect(null, { resetPasswordConfirm })(ResetPasswordConfirm);

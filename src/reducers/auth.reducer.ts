@@ -58,6 +58,14 @@ const userState = (state: IState = initialState, action: IAction) => {
         currentUser: null,
       };
 
+    case Types.REQUEST_RESET_PASSWORD_SUCCESS:
+    case Types.REQUEST_RESET_PASSWORD_FAIL:
+    case Types.RESET_PASSWORD_CONFIRM_SUCCESS:
+    case Types.RESET_PASSWORD_CONFIRM_FAIL:
+      return {
+        ...state,
+      };
+
     default:
       return state;
   }

@@ -4,9 +4,12 @@ import { connect } from "react-redux";
 
 import Input from "../../components/Input/Input";
 import Button from "../../components/Buttons/buttonSubmit";
-import { ILogin, IState } from "../../interfaces";
-import { login } from "../../actions/auth.action";
+
 import useLogin from "../../hooks/auth/useLogin";
+
+import { ILogin, IState } from "../../interfaces";
+
+import { login } from "../../actions/auth/login.action";
 
 const Login: React.FC<any> = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = React.useState<ILogin>({

@@ -2,7 +2,7 @@ import SignUp from "../pages/auth/SignUp";
 import Activate from "../pages/auth/Activate";
 import Login from "../pages/auth/Login";
 import ResetPasswordConfirm from "../pages/auth/ResetPasswordConfirm";
-import SendEmailResetPassword from "../pages/auth/SendEmailResetPassword";
+import RequestResetPasswordSendEmail from "../pages/auth/RequestResetPasswordSendEmail";
 
 const authRoutes = [
   { path: "/auth/signup/", element: <SignUp /> },
@@ -10,7 +10,7 @@ const authRoutes = [
   { path: "/auth/login", element: <Login /> },
   {
     path: "/auth/password/reset/send-email/",
-    element: <SendEmailResetPassword />,
+    element: <RequestResetPasswordSendEmail />,
   },
   {
     path: "/auth/password/reset/confirm/:uid/:token/",
