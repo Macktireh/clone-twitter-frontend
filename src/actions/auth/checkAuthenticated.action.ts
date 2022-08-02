@@ -2,7 +2,7 @@ import axios from "axios";
 import { AnyAction, Dispatch } from "redux";
 
 import * as Types from "../types";
-import { loadUser } from "./loadUser.action";
+import loadUser from "./loadUser.action";
 
 const refreshToken = async (
   config: any,
@@ -31,7 +31,7 @@ const refreshToken = async (
   }
 };
 
-export const checkAuthenticated =
+const checkAuthenticated =
   () => async (dispatch: Dispatch<AnyAction> | any) => {
     if (sessionStorage.getItem("access")) {
       const config = {
@@ -62,3 +62,5 @@ export const checkAuthenticated =
       dispatch({ type: Types.LOGIN_FAIL });
     }
   };
+
+export default checkAuthenticated;

@@ -62,6 +62,16 @@ span.maxLength {
   color: $color5;
 }
 
+div.showValue {
+  @include position-abs(29%, 10px, null, null, null, null);
+  width: 25px;
+  @extend .flex-center;
+  cursor: pointer;
+  img {
+    width: 25px;
+  }
+}
+
 .input-error {
   margin-left: 1.5rem;
   margin-top: 5px;

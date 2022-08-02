@@ -13,6 +13,11 @@ interface Props {
 
 const Input: React.FC<Props> = (props) => {
   const [len, setLen] = useState(0);
+  const [showValue, setShowValue] = useState(props.type || "");
+
+  const toggleShowValue = () => {
+    showValue === "password" ? setShowValue("text") : setShowValue("password");
+  };
 
   return (
     <div className="container-input-group">
@@ -22,7 +27,7 @@ const Input: React.FC<Props> = (props) => {
         }
       >
         <input
-          type={props.type ? props.type : "text"}
+          type={props.type ? showValue : "text"}
           id={props.id ? props.id : ""}
           name={props.name ? props.name : ""}
           onChange={(e) => {
@@ -38,6 +43,18 @@ const Input: React.FC<Props> = (props) => {
         </label>
         {len > 0 && props.maxLength && (
           <span className="maxLength">{len + "/" + props.maxLength}</span>
+        )}
+        {showValue === "password" && (
+          <div className="showValue" onClick={toggleShowValue}>
+            <img
+              src={
+                showValue === "password"
+                  ? "/static/svg/eye-slash.svg"
+                  : "/static/svg/eye.svg"
+              }
+              alt="showValue"
+            />
+          </div>
         )}
       </div>
       {props.error ? <div className="input-error">{props.error}</div> : null}

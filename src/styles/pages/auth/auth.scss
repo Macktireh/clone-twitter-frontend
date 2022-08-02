@@ -66,10 +66,15 @@
 
     .error-auth {
       @extend .flex-center;
+      width: 100%;
+      max-width: 460px;
       gap: 0.8rem;
       color: $red;
+      border: 1px solid $red;
+      border-radius: 8px;
+      padding: 16px;
       img {
-        width: 30px;
+        width: 50px;
       }
     }
   }

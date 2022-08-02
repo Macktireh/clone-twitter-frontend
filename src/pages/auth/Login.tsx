@@ -9,7 +9,7 @@ import useLogin from "../../hooks/auth/useLogin";
 
 import { ILogin, IState } from "../../interfaces";
 
-import { login } from "../../actions/auth/login.action";
+import login from "../../actions/auth/login.action";
 
 const Login: React.FC<any> = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = React.useState<ILogin>({
@@ -18,14 +18,16 @@ const Login: React.FC<any> = ({ login, isAuthenticated }) => {
   });
   const [displayError, setDisplayError] = React.useState(false);
 
+  const customHooksLogin = useLogin;
+
   const { email, password } = formData;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const OnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    useLogin(email, password, setDisplayError, login);
+    customHooksLogin(email, password, setDisplayError, login);
   };
 
   if (isAuthenticated) {
@@ -35,7 +37,7 @@ const Login: React.FC<any> = ({ login, isAuthenticated }) => {
   return (
     <div className="container-auth">
       <div className="modal-auth">
-        <form onSubmit={OnSubmit}>
+        <form onSubmit={onSubmit}>
           <h2>Connectez-vous à Mack-Twitter</h2>
           {displayError ? (
             <div className="error-auth">
@@ -84,10 +86,10 @@ const Login: React.FC<any> = ({ login, isAuthenticated }) => {
   );
 };
 
-type TauthState = { userState: IState };
+type TauthState = { userReducer: IState };
 
 const mapStateToProps = (state: TauthState) => ({
-  isAuthenticated: state.userState.isAuthenticated,
+  isAuthenticated: state.userReducer.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { login })(Login);

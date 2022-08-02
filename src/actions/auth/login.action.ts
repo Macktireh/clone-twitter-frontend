@@ -1,9 +1,9 @@
 import { AnyAction, Dispatch } from "redux";
 
 import * as Types from "../types";
-import { loadUser } from "./loadUser.action";
+import loadUser from "./loadUser.action";
 
-export const login =
+const login =
   (isAuthenticated: boolean = false) =>
   async (dispatch: Dispatch<AnyAction> | any) => {
     if (isAuthenticated) {
@@ -17,3 +17,5 @@ export const login =
       });
     }
   };
+
+export default login;

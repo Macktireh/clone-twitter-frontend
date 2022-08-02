@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
-import { requestResetPasswordSendEmail } from "../../actions/auth/requestResetPasswordSendEmail.action";
+import requestResetPasswordSendEmail from "../../actions/auth/requestResetPasswordSendEmail.action";
 import Button from "../../components/Buttons/buttonSubmit";
 import Input from "../../components/Input/Input";
 import { IState } from "../../interfaces";
@@ -19,7 +19,7 @@ const RequestResetPasswordSendEmail: React.FC<any> = ({
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const res = await requestResetPasswordSendEmail(email);
-    !res.error ? setRedirect(true) : setRedirect(false);
+    !res.error ? setRedirect(true) : setRedirect(true);
   };
 
   if (redirect) return <Navigate to="/" />;
@@ -55,10 +55,10 @@ const RequestResetPasswordSendEmail: React.FC<any> = ({
   );
 };
 
-type TauthState = { userState: IState };
+type TauthState = { userReducer: IState };
 
 const mapStateToProps = (state: TauthState) => ({
-  isAuthenticated: state.userState.isAuthenticated,
+  isAuthenticated: state.userReducer.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { requestResetPasswordSendEmail })(

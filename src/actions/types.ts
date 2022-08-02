@@ -1,16 +1,27 @@
 // Types Authentication
+export const SIGNUP_SUCCESS: string = "SIGNUP_SUCCESS";
+export const SIGNUP_FAIL: string = "SIGNUP_FAIL";
+
+export const ACTIVATE_ACCOUNT_SUCCESS: string = "ACTIVATE_ACCOUNT_SUCCESS";
+export const ACTIVATE_ACCOUNT_FAIL: string = "ACTIVATE_ACCOUNT_FAIL";
+
 export const LOGIN_SUCCESS: string = "LOGIN_SUCCESS";
 export const LOGIN_FAIL: string = "LOGIN_FAIL";
+
 export const USER_LOADED_SUCCESS: string = "USER_LOADED_SUCCESS";
 export const USER_LOADED_FAIL: string = "USER_LOADED_FAIL";
+
 export const AUTHENTICATED_SUCCESS: string = "AUTHENTICATED_SUCCESS";
 export const AUTHENTICATED_FAIL: string = "AUTHENTICATED_FAIL";
+
 export const REQUEST_RESET_PASSWORD_SUCCESS: string =
   "REQUEST_RESET_PASSWORD_SUCCESS";
 export const REQUEST_RESET_PASSWORD_FAIL: string =
   "REQUEST_RESET_PASSWORD_FAIL";
+
 export const RESET_PASSWORD_CONFIRM_SUCCESS: string =
   "RESET_PASSWORD_CONFIRM_SUCCESS";
 export const RESET_PASSWORD_CONFIRM_FAIL: string =
   "RESET_PASSWORD_CONFIRM_FAIL";
+
 export const LOGOUT: string = "LOGOUT";

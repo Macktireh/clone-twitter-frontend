@@ -3,7 +3,7 @@ import { AnyAction, Dispatch } from "redux";
 
 import * as Types from "../types";
 
-export const loadUser = () => async (dispatch: Dispatch<AnyAction> | any) => {
+const loadUser = () => async (dispatch: Dispatch<AnyAction> | any) => {
   if (sessionStorage.getItem("access")) {
     const config = {
       headers: {
@@ -33,3 +33,5 @@ export const loadUser = () => async (dispatch: Dispatch<AnyAction> | any) => {
     });
   }
 };
+
+export default loadUser;

@@ -8,7 +8,7 @@ const initialState: IState = {
   currentUser: null,
 };
 
-const userState = (state: IState = initialState, action: IAction) => {
+const userReducer = (state: IState = initialState, action: IAction) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -16,6 +16,12 @@ const userState = (state: IState = initialState, action: IAction) => {
       return {
         ...state,
         isAuthenticated: true,
+      };
+
+    case Types.SIGNUP_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: false,
       };
 
     case Types.LOGIN_SUCCESS:
@@ -46,6 +52,7 @@ const userState = (state: IState = initialState, action: IAction) => {
         currentUser: null,
       };
 
+    case Types.SIGNUP_FAIL:
     case Types.LOGIN_FAIL:
     case Types.LOGOUT:
       sessionStorage.removeItem("access");
@@ -58,6 +65,8 @@ const userState = (state: IState = initialState, action: IAction) => {
         currentUser: null,
       };
 
+    case Types.ACTIVATE_ACCOUNT_SUCCESS:
+    case Types.ACTIVATE_ACCOUNT_FAIL:
     case Types.REQUEST_RESET_PASSWORD_SUCCESS:
     case Types.REQUEST_RESET_PASSWORD_FAIL:
     case Types.RESET_PASSWORD_CONFIRM_SUCCESS:
@@ -71,4 +80,4 @@ const userState = (state: IState = initialState, action: IAction) => {
   }
 };
 
-export default userState;
+export default userReducer;
