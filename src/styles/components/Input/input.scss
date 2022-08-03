@@ -64,11 +64,11 @@ span.maxLength {
 
 div.showValue {
   @include position-abs(29%, 10px, null, null, null, null);
-  width: 25px;
+  width: 22px;
   @extend .flex-center;
   cursor: pointer;
   img {
-    width: 25px;
+    width: 22px;
   }
 }
 

@@ -1,12 +1,12 @@
 const detailPassword =
-  "Le Mot de passe doit contenir au moins minimum 8 caractères, au moins une lettre majuscule et minuscule, un chiffre et un caractère spécial";
+  "Le mot de passe doit contenir au moins 8 caractères, au moins une lettre majuscule et minuscule, un chiffre et un caractère spécial.";
 const detailConfirmPassword = "Les mots de passe ne correspondent pas";
 
 const regexPasswordValidator =
   /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/;
 const regexEmailValidator = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
-export const nameChecker = (name: string, value: string) => {
+export const blankValidator = (name: string, value: string) => {
   if (value === "" || value.length < 1 || value === " ") {
     return {
       validate: false,
@@ -16,7 +16,10 @@ export const nameChecker = (name: string, value: string) => {
   return { validate: true, detail: "OK" };
 };
 
-export const passwordChecker = (password: string, confirmPassword: string) => {
+export const passwordValidator = (
+  password: string,
+  confirmPassword: string
+) => {
   if (!password.match(regexPasswordValidator)) {
     return { validate: false, detail: detailPassword };
   } else if (password !== confirmPassword) {
@@ -28,9 +31,12 @@ export const passwordChecker = (password: string, confirmPassword: string) => {
   return { validate: true, detail: "OK" };
 };
 
-export const emailChecker = (email: string) => {
+export const emailValidator = (email: string) => {
   if (!email.match(regexEmailValidator)) {
-    return { validate: false, detail: "L'email n'est pas valide" };
+    return {
+      validate: false,
+      detail: "Veuillez entrer une adresse email valide.",
+    };
   }
   return { validate: true, detail: "OK" };
 };

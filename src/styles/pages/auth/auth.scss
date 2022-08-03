@@ -87,6 +87,21 @@
       width: 30px;
     }
   }
+
+  .success {
+    padding: 1em 0;
+    @extend .flex-center;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    img {
+      width: 300px;
+    }
+
+    p {
+      line-height: 1.5;
+    }
+  }
 }
 
 .container-auth:after {

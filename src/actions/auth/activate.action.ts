@@ -27,7 +27,7 @@ const activateAccount =
       return { response: res.data, error: false };
     } catch (error: any) {
       dispatch({
-        type: Types.ACTIVATE_ACCOUNT_SUCCESS,
+        type: Types.ACTIVATE_ACCOUNT_FAIL,
       });
       return { response: error.response.data, error: true };
     }

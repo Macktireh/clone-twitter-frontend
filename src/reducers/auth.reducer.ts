@@ -65,6 +65,10 @@ const userReducer = (state: IState = initialState, action: IAction) => {
         currentUser: null,
       };
 
+    case Types.VERIFY_TOKEN_SUCCESS:
+    case Types.VERIFY_TOKEN_FAIL:
+    case Types.REFRESH_TOKEN_SUCCESS:
+    case Types.REFRESH_TOKEN_FAIL:
     case Types.ACTIVATE_ACCOUNT_SUCCESS:
     case Types.ACTIVATE_ACCOUNT_FAIL:
     case Types.REQUEST_RESET_PASSWORD_SUCCESS:

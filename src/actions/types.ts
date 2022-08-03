@@ -11,6 +11,12 @@ export const LOGIN_FAIL: string = "LOGIN_FAIL";
 export const USER_LOADED_SUCCESS: string = "USER_LOADED_SUCCESS";
 export const USER_LOADED_FAIL: string = "USER_LOADED_FAIL";
 
+export const VERIFY_TOKEN_SUCCESS: string = "VERIFY_TOKEN_SUCCESS";
+export const VERIFY_TOKEN_FAIL: string = "VERIFY_TOKEN_FAIL";
+
+export const REFRESH_TOKEN_SUCCESS: string = "REFRESH_TOKEN_SUCCESS";
+export const REFRESH_TOKEN_FAIL: string = "REFRESH_TOKEN_FAIL";
+
 export const AUTHENTICATED_SUCCESS: string = "AUTHENTICATED_SUCCESS";
 export const AUTHENTICATED_FAIL: string = "AUTHENTICATED_FAIL";
 

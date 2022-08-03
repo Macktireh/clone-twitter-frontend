@@ -6,7 +6,8 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Buttons/buttonSubmit";
 import { ISignUp } from "../../interfaces";
 import signup from "../../actions/auth/signup.action";
-import * as controlField from "../../utils/controlField";
+import * as controlField from "../../validators/controlField";
+import { verifyErrorMessage } from "../../utils/function";
 
 const SignUp: React.FC<any> = ({ signup }) => {
   const [formData, setFormData] = React.useState<ISignUp>({
@@ -21,23 +22,26 @@ const SignUp: React.FC<any> = ({ signup }) => {
 
   const { firstName, lastName, email, password, confirmPassword } = formData;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const checkfirstName = await controlField.nameChecker("Prénom", firstName);
-    const checklastName = await controlField.nameChecker("Nom", lastName);
-    const checkEmail = await controlField.emailChecker(email);
-    const checkPassword = await controlField.passwordChecker(
+    const checkFirstName = await controlField.blankValidator(
+      "Prénom",
+      firstName
+    );
+    const checkLastName = await controlField.blankValidator("Nom", lastName);
+    const checkEmail = await controlField.emailValidator(email);
+    const checkPassword = await controlField.passwordValidator(
       password,
       confirmPassword
     );
 
     if (
-      checkfirstName.validate &&
-      checklastName.validate &&
+      checkFirstName.validate &&
+      checkLastName.validate &&
       checkEmail.validate &&
       checkPassword.validate
     ) {
@@ -51,21 +55,16 @@ const SignUp: React.FC<any> = ({ signup }) => {
         password,
         confirmPassword
       );
-      if (!res.SignUpSuccess) setDisplayError(true);
-    } else {
-      if (!checkfirstName.validate) {
-        setDisplayError(true);
-        setDetailError(checkfirstName.detail);
-      } else if (!checklastName.validate) {
-        setDisplayError(true);
-        setDetailError(checklastName.detail);
-      } else if (!checkEmail.validate) {
-        setDisplayError(true);
-        setDetailError(checkEmail.detail);
-      } else if (!checkPassword.validate) {
-        setDisplayError(true);
-        setDetailError(checkPassword.detail);
-      }
+
+      verifyErrorMessage(
+        res,
+        setDisplayError,
+        setDetailError,
+        checkFirstName,
+        checkLastName,
+        checkEmail,
+        checkPassword
+      );
     }
   };
 
@@ -107,6 +106,7 @@ const SignUp: React.FC<any> = ({ signup }) => {
             type="password"
             label="Mot de passe *"
             onChange={handleChange}
+            isPasswords={true}
           />
           <Input
             id="confirmPassword"
@@ -114,6 +114,7 @@ const SignUp: React.FC<any> = ({ signup }) => {
             type="password"
             label="Confimer mot de passe *"
             onChange={handleChange}
+            isPasswords={true}
           />
           <Button nameClass={"btn-signup"} text={"S'inscrire"} />
           <div className="info">

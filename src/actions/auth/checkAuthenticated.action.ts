@@ -19,13 +19,16 @@ const refreshToken = async (
     );
     if (res.data.code !== "token_not_valid") {
       await sessionStorage.setItem("access", res.data.access);
+      dispatch({ type: Types.REFRESH_TOKEN_SUCCESS });
       dispatch({ type: Types.AUTHENTICATED_SUCCESS });
       dispatch(loadUser());
     } else {
+      dispatch({ type: Types.REFRESH_TOKEN_FAIL });
       dispatch({ type: Types.AUTHENTICATED_FAIL });
       dispatch({ type: Types.LOGIN_FAIL });
     }
   } catch (error) {
+    dispatch({ type: Types.REFRESH_TOKEN_FAIL });
     dispatch({ type: Types.AUTHENTICATED_FAIL });
     dispatch({ type: Types.LOGIN_FAIL });
   }
@@ -49,12 +52,15 @@ const checkAuthenticated =
           config
         );
         if (res.data.code !== "token_not_valid") {
+          dispatch({ type: Types.VERIFY_TOKEN_SUCCESS });
           dispatch({ type: Types.AUTHENTICATED_SUCCESS });
           dispatch(loadUser());
         } else {
+          dispatch({ type: Types.VERIFY_TOKEN_FAIL });
           refreshToken(config, dispatch);
         }
       } catch (error) {
+        dispatch({ type: Types.VERIFY_TOKEN_FAIL });
         refreshToken(config, dispatch);
       }
     } else {

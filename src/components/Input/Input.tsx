@@ -9,11 +9,12 @@ interface Props {
   label?: string;
   type?: string;
   error?: string;
+  isPasswords?: boolean;
 }
 
 const Input: React.FC<Props> = (props) => {
   const [len, setLen] = useState(0);
-  const [showValue, setShowValue] = useState(props.type || "");
+  const [showValue, setShowValue] = useState(props.type || "text");
 
   const toggleShowValue = () => {
     showValue === "password" ? setShowValue("text") : setShowValue("password");
@@ -44,7 +45,7 @@ const Input: React.FC<Props> = (props) => {
         {len > 0 && props.maxLength && (
           <span className="maxLength">{len + "/" + props.maxLength}</span>
         )}
-        {showValue === "password" && (
+        {props.isPasswords && (
           <div className="showValue" onClick={toggleShowValue}>
             <img
               src={
