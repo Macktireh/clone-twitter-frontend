@@ -16,10 +16,7 @@ export const blankValidator = (name: string, value: string) => {
   return { validate: true, detail: "OK" };
 };
 
-export const passwordValidator = (
-  password: string,
-  confirmPassword: string
-) => {
+export const passwordValidator = (password: string, confirmPassword: string) => {
   if (!password.match(regexPasswordValidator)) {
     return { validate: false, detail: detailPassword };
   } else if (password !== confirmPassword) {

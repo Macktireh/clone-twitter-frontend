@@ -3,7 +3,7 @@ import { AnyAction, Dispatch } from "redux";
 import * as Types from "../types";
 import loadUser from "./loadUser.action";
 
-const login =
+const loginAction =
   (isAuthenticated: boolean = false) =>
   async (dispatch: Dispatch<AnyAction> | any) => {
     if (isAuthenticated) {
@@ -18,4 +18,4 @@ const login =
     }
   };
 
-export default login;
+export default loginAction;

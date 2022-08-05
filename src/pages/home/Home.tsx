@@ -2,6 +2,7 @@ import React from "react";
 
 import Button from "../../components/Buttons/buttonSubmit";
 import { Link } from "react-router-dom";
+import { authPath } from "../../routes/auth.route";
 
 const Home: React.FC = () => {
   return (
@@ -35,7 +36,7 @@ const Home: React.FC = () => {
               <span>ou</span>
             </div>
             <div className="frame-signup-int">
-              <Link to="/auth/signup">
+              <Link to={authPath.signup}>
                 <Button
                   nameClass={"btn-signup-int"}
                   text={"S'inscrire avec un email et password"}
@@ -53,7 +54,7 @@ const Home: React.FC = () => {
           </div>
           <div className="frame-signin">
             <h4>Vous avez déjà un compte ?</h4>
-            <Link to="/auth/login">
+            <Link to={authPath.login}>
               <Button nameClass={"btn-signin"} text={"Se connecter"} />
             </Link>
           </div>

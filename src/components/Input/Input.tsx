@@ -22,11 +22,7 @@ const Input: React.FC<Props> = (props) => {
 
   return (
     <div className="container-input-group">
-      <div
-        className={
-          props.nameClass ? `input-group ${props.nameClass}` : "input-group"
-        }
-      >
+      <div className={props.nameClass ? `input-group ${props.nameClass}` : "input-group"}>
         <input
           type={props.type ? showValue : "text"}
           id={props.id ? props.id : ""}
@@ -39,20 +35,14 @@ const Input: React.FC<Props> = (props) => {
           autoComplete="off"
           maxLength={props.maxLength ? props.maxLength : ""}
         />
-        <label htmlFor={props.id ? props.id : ""}>
-          {props.label ? props.label : ""}
-        </label>
+        <label htmlFor={props.id ? props.id : ""}>{props.label ? props.label : ""}</label>
         {len > 0 && props.maxLength && (
           <span className="maxLength">{len + "/" + props.maxLength}</span>
         )}
         {props.isPasswords && (
           <div className="showValue" onClick={toggleShowValue}>
             <img
-              src={
-                showValue === "password"
-                  ? "/static/svg/eye-slash.svg"
-                  : "/static/svg/eye.svg"
-              }
+              src={showValue === "password" ? "/static/svg/eye-slash.svg" : "/static/svg/eye.svg"}
               alt="showValue"
             />
           </div>

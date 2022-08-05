@@ -1,10 +1,10 @@
-import React from "react";
+import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Button from "../../components/Buttons/buttonSubmit";
 import { authPath } from "../../routes/auth.route";
 
-const ResetPasswordConfirm: React.FC = () => {
+const AccountActivationSuccess: React.FC = () => {
   const navigate = useNavigate();
   return (
     <div className="container-auth">
@@ -13,12 +13,9 @@ const ResetPasswordConfirm: React.FC = () => {
           <img src="/static/svg/success.svg" className="icon-success" alt="" />
           <br />
           <br />
-          <h2>Réinitialisation du mot de passe terminée !</h2>
+          <h2>Votre compte a été créé et activé avec succès !</h2>
           <br />
-          <p>
-            Votre mot de passe a été bien défini. Vous pouvez continuer et vous connecter
-            maintenant.
-          </p>
+          <p>Vous pouvez continuer et vous connecter maintenant.</p>
           <br />
           <Button
             nameClass={"btn-signin btn-success"}
@@ -36,4 +33,4 @@ const ResetPasswordConfirm: React.FC = () => {
   );
 };
 
-export default ResetPasswordConfirm;
+export default AccountActivationSuccess;

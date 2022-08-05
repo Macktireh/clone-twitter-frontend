@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 
-const SignUpSuccess: React.FC<any> = () => {
+const SignUpConfirm: React.FC<any> = () => {
   return (
     <div className="container-auth">
       <div className="modal-auth">
@@ -9,15 +9,11 @@ const SignUpSuccess: React.FC<any> = () => {
           <img src="/static/svg/envelope.svg" alt="" />
           <h3>Merci de vous être inscrit à un compte Clone Twitter</h3>
           <br />
+          <p>Veuillez vérifier votre adresse e-mail afin d'accéder à votre compte Clone Twitter.</p>
           <p>
-            Veuillez vérifier votre adresse e-mail afin d'accéder à votre compte
-            Clone Twitter.
-          </p>
-          <p>
-            Nous avons envoyé un email à <strong>abdimack97@gmail.com</strong>{" "}
-            <br /> Pour continuer, veuillez vérifier votre boîte de réception et
-            vérifier votre adresse e-mail. Si vous n'avez pas reçu l'email,
-            veuillez vérifier votre dossier spam.
+            Nous avons envoyé un email à <strong>abdimack97@gmail.com</strong> <br /> Pour
+            continuer, veuillez vérifier votre boîte de réception et vérifier votre adresse e-mail.
+            Si vous n'avez pas reçu l'email, veuillez vérifier votre dossier spam.
           </p>
         </div>
         <Link to="/">
@@ -30,4 +26,4 @@ const SignUpSuccess: React.FC<any> = () => {
   );
 };
 
-export default SignUpSuccess;
+export default SignUpConfirm;

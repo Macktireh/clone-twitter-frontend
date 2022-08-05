@@ -2,8 +2,6 @@ import * as Types from "../actions/types";
 import { IAction, IState } from "../interfaces";
 
 const initialState: IState = {
-  // access: sessionStorage.getItem("access"),
-  // refresh: sessionStorage.getItem("refresh"),
   isAuthenticated: false,
   currentUser: null,
 };
@@ -25,13 +23,9 @@ const userReducer = (state: IState = initialState, action: IAction) => {
       };
 
     case Types.LOGIN_SUCCESS:
-      // sessionStorage.setItem("access", payload.access);
-      // sessionStorage.setItem("refresh", payload.refresh);
       return {
         ...state,
         isAuthenticated: true,
-        // access: payload.access,
-        // refresh: payload.refresh,
       };
 
     case Types.USER_LOADED_SUCCESS:
@@ -59,8 +53,6 @@ const userReducer = (state: IState = initialState, action: IAction) => {
       sessionStorage.removeItem("refresh");
       return {
         ...state,
-        // access: null,
-        // refresh: null,
         isAuthenticated: false,
         currentUser: null,
       };
@@ -69,12 +61,12 @@ const userReducer = (state: IState = initialState, action: IAction) => {
     case Types.VERIFY_TOKEN_FAIL:
     case Types.REFRESH_TOKEN_SUCCESS:
     case Types.REFRESH_TOKEN_FAIL:
-    case Types.ACTIVATE_ACCOUNT_SUCCESS:
-    case Types.ACTIVATE_ACCOUNT_FAIL:
+    case Types.ACCOUNT_ACTIVATION_SUCCESS:
+    case Types.ACCOUNT_ACTIVATION_FAIL:
     case Types.REQUEST_RESET_PASSWORD_SUCCESS:
     case Types.REQUEST_RESET_PASSWORD_FAIL:
-    case Types.RESET_PASSWORD_CONFIRM_SUCCESS:
-    case Types.RESET_PASSWORD_CONFIRM_FAIL:
+    case Types.RESET_PASSWORD_SUCCESS:
+    case Types.RESET_PASSWORD_FAIL:
       return {
         ...state,
       };

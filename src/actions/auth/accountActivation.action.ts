@@ -3,9 +3,8 @@ import { AnyAction, Dispatch } from "redux";
 
 import * as Types from "../types";
 
-const activateAccount =
-  (uidb64: string, token: string) =>
-  async (dispatch: Dispatch<AnyAction> | any) => {
+const accountActivationAction =
+  (uidb64: string, token: string) => async (dispatch: Dispatch<AnyAction> | any) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -22,15 +21,15 @@ const activateAccount =
       );
 
       dispatch({
-        type: Types.ACTIVATE_ACCOUNT_SUCCESS,
+        type: Types.ACCOUNT_ACTIVATION_SUCCESS,
       });
       return { response: res.data, error: false };
     } catch (error: any) {
       dispatch({
-        type: Types.ACTIVATE_ACCOUNT_FAIL,
+        type: Types.ACCOUNT_ACTIVATION_FAIL,
       });
       return { response: error.response.data, error: true };
     }
   };
 
-export default activateAccount;
+export default accountActivationAction;

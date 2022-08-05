@@ -3,14 +3,8 @@ import { AnyAction, Dispatch } from "redux";
 
 import * as Types from "../types";
 
-const signup =
-  (
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-    confirmPassword: string
-  ) =>
+const signupAction =
+  (firstName: string, lastName: string, email: string, password: string, confirmPassword: string) =>
   async (dispatch: Dispatch<AnyAction> | any) => {
     const config = {
       headers: {
@@ -47,4 +41,4 @@ const signup =
     }
   };
 
-export default signup;
+export default signupAction;

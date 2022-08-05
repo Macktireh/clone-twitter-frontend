@@ -3,7 +3,7 @@ import { AnyAction, Dispatch } from "redux";
 
 import * as Types from "../types";
 
-const loadUser = () => async (dispatch: Dispatch<AnyAction> | any) => {
+const loadUserAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
   if (sessionStorage.getItem("access")) {
     const config = {
       headers: {
@@ -14,10 +14,7 @@ const loadUser = () => async (dispatch: Dispatch<AnyAction> | any) => {
     };
 
     try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/me/`,
-        config
-      );
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/me/`, config);
       dispatch({
         type: Types.USER_LOADED_SUCCESS,
         payload: res.data,
@@ -34,4 +31,4 @@ const loadUser = () => async (dispatch: Dispatch<AnyAction> | any) => {
   }
 };
 
-export default loadUser;
+export default loadUserAction;

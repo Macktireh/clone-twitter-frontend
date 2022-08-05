@@ -4,8 +4,11 @@ const useLogin = async (
   email: string,
   password: string,
   setDisplayError: React.Dispatch<React.SetStateAction<boolean>>,
-  login: (isAuthenticated?: boolean) => (dispatch: any) => Promise<void>
+  setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
+  setDetailError: React.Dispatch<React.SetStateAction<string>>,
+  loginAction: (isAuthenticated?: boolean) => (dispatch: any) => Promise<void>
 ) => {
+  setDisabled(true);
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -24,11 +27,20 @@ const useLogin = async (
     sessionStorage.setItem("access", res.data.token.access);
     sessionStorage.setItem("refresh", res.data.token.refresh);
     setDisplayError(false);
-    login(true);
-  } catch (error) {
+    loginAction(true);
+  } catch (error: any) {
     // console.log(error);
+    setDisabled(false);
     setDisplayError(true);
-    login();
+    if (
+      error.response.data.errors === "L'email ou le mot de passe n'est pas valide !" ||
+      error.response.data.errors === "Veuillez confirmer votre adresse e-mail !"
+    ) {
+      setDetailError(error.response.data.errors);
+    } else if (error.response.data.errors.email[0] === "Saisissez une adresse e-mail valide.") {
+      setDetailError(error.response.data.errors.email[0]);
+    } else setDetailError("L'email ou le mot de passe n'est pas valide !");
+    loginAction();
   }
 };
 

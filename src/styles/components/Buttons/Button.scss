@@ -1,6 +1,7 @@
 .button {
   background-color: transparent;
   cursor: pointer;
+  width: 100%;
 
   @extend .flex-center;
   gap: 15px;

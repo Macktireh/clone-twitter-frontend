@@ -44,6 +44,6 @@ export interface IAction {
   loadUser?: (args?: any) => void;
 }
 
-export interface DispatchType {
-  dispash: (args: IAction) => IAction;
-}
+export type TauthState = { userReducer: IState };
+
+export type TcheckError = { validate: boolean; detail: string };

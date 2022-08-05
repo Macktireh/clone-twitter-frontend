@@ -37,6 +37,10 @@
     gap: 2rem;
     width: 100%;
 
+    h2 {
+      margin-bottom: 0.8rem;
+    }
+
     .btn-signup {
       width: 100%;
       max-width: 460px;
@@ -48,10 +52,6 @@
       box-shadow: 0 0 8px $color4;
     }
 
-    h2 {
-      margin-bottom: 0.8rem;
-    }
-
     .info {
       display: flex;
       flex-direction: column;
@@ -59,6 +59,7 @@
       h4 {
         text-align: center;
         span {
+          cursor: pointer;
           color: $color3;
         }
       }
@@ -83,6 +84,7 @@
     @include position-abs(15px, 0, 0, 15px, 0, 0);
     width: 30px;
     height: 30px;
+    cursor: pointer;
     img {
       width: 30px;
     }
@@ -98,8 +100,18 @@
       width: 300px;
     }
 
+    img.icon-success {
+      width: 100px;
+    }
+
     p {
       line-height: 1.5;
+    }
+    .btn-success {
+      width: 80%;
+      background-color: $color3;
+      border: 1px solid $color3;
+      box-shadow: 0 0 8px $color4;
     }
   }
 }
@@ -113,4 +125,11 @@
   position: absolute;
   background: url("../../../assets/img/home.png") no-repeat;
   pointer-events: none;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+.disabled.btn-signup {
+  background-color: $color3-2 !important;
 }
