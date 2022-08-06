@@ -1,11 +1,21 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import Button from "../../components/Buttons/buttonSubmit";
-import { authPath } from "../../routes/auth.route";
+import { TAuthUserReducer } from "../../models";
+import { authRoutes } from "../../routes/auth.routes";
+import { tweetRoutes } from "../../routes/tweet.routes";
 
-const ResetPasswordConfirm: React.FC = () => {
+const ResetPasswordConfirm: React.FC<any> = ({ isAuthenticated }) => {
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    document.title = authRoutes.resetPasswordConfirm.title;
+  });
+
+  if (isAuthenticated) return <Navigate to={tweetRoutes.home.path} />;
+
   return (
     <div className="container-auth">
       <div className="modal-auth">
@@ -23,7 +33,7 @@ const ResetPasswordConfirm: React.FC = () => {
           <Button
             nameClass={"btn-signin btn-success"}
             text={"Se connecter"}
-            handleClick={() => navigate(authPath.login)}
+            handleClick={() => navigate(authRoutes.login.path)}
           />
         </div>
         <Link to="/">
@@ -36,4 +46,8 @@ const ResetPasswordConfirm: React.FC = () => {
   );
 };
 
-export default ResetPasswordConfirm;
+const mapStateToProps = (state: TAuthUserReducer) => ({
+  isAuthenticated: state.userReducer.isAuthenticated,
+});
+
+export default connect(mapStateToProps, {})(ResetPasswordConfirm);

@@ -1,12 +1,12 @@
 import * as Types from "../actions/types";
-import { IAction, IState } from "../interfaces";
+import { IAuthUserAction, IAuthUserState } from "../models";
 
-const initialState: IState = {
+const initialState: IAuthUserState = {
   isAuthenticated: false,
   currentUser: null,
 };
 
-const userReducer = (state: IState = initialState, action: IAction) => {
+const userReducer = (state: IAuthUserState = initialState, action: IAuthUserAction) => {
   const { type, payload } = action;
 
   switch (type) {

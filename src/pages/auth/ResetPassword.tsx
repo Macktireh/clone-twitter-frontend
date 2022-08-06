@@ -1,15 +1,17 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 import resetPasswordAction from "../../actions/auth/resetPassword.action";
 import Button from "../../components/Buttons/buttonSubmit";
 import Input from "../../components/Input/Input";
 import * as controlField from "../../validators/controlField";
 import * as ErrorMessage from "../../utils/function";
-import { authPath } from "../../routes/auth.route";
+import { authRoutes } from "../../routes/auth.routes";
+import { tweetRoutes } from "../../routes/tweet.routes";
+import { TAuthUserReducer } from "../../models";
 
-const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
+const ResetPassword: React.FC<any> = ({ isAuthenticated, resetPasswordAction }) => {
   const [formData, setFormData] = React.useState({
     password: "",
     confirmPassword: "",
@@ -18,17 +20,18 @@ const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
   const [detailError, setDetailError] = React.useState("");
   const [disabled, setDisabled] = React.useState(false);
   const navigate = useNavigate();
-
+  const { uid, token } = useParams();
   const { password, confirmPassword } = formData;
+
+  React.useEffect(() => {
+    document.title = authRoutes.resetPassword.title;
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const { uid, token } = useParams();
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const checkPassword = await controlField.passwordValidator(password, confirmPassword);
 
     if (checkPassword.validate) {
@@ -39,7 +42,7 @@ const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
       if (res.error) {
         navigate("/not-found/");
       } else {
-        navigate(authPath.resetPasswordConfirm);
+        navigate(authRoutes.resetPasswordConfirm.path);
         setDisplayError(false);
       }
     } else {
@@ -47,6 +50,8 @@ const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
       ErrorMessage.DispyalErrorMessageFrontend(setDisplayError, setDetailError, checkPassword);
     }
   };
+
+  if (isAuthenticated) return <Navigate to={tweetRoutes.home.path} />;
 
   return (
     <div className="container-auth">
@@ -86,4 +91,8 @@ const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
   );
 };
 
-export default connect(null, { resetPasswordAction })(ResetPassword);
+const mapStateToProps = (state: TAuthUserReducer) => ({
+  isAuthenticated: state.userReducer.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { resetPasswordAction })(ResetPassword);

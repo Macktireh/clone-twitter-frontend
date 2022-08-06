@@ -4,14 +4,15 @@ import { connect } from "react-redux";
 
 import Input from "../../components/Input/Input";
 import Button from "../../components/Buttons/buttonSubmit";
-import { ISignUp, TauthState } from "../../interfaces";
 import signupAction from "../../actions/auth/signup.action";
 import * as controlField from "../../validators/controlField";
 import * as ErrorMessage from "../../utils/function";
-import { authPath } from "../../routes/auth.route";
+import { IAuthUserSignUp, TAuthUserReducer } from "../../models";
+import { authRoutes } from "../../routes/auth.routes";
+import { tweetRoutes } from "../../routes/tweet.routes";
 
 const SignUp: React.FC<any> = ({ signupAction, isAuthenticated }) => {
-  const [formData, setFormData] = React.useState<ISignUp>({
+  const [formData, setFormData] = React.useState<IAuthUserSignUp>({
     firstName: "",
     lastName: "",
     email: "",
@@ -24,12 +25,15 @@ const SignUp: React.FC<any> = ({ signupAction, isAuthenticated }) => {
   const navigate = useNavigate();
   const { firstName, lastName, email, password, confirmPassword } = formData;
 
+  React.useEffect(() => {
+    document.title = authRoutes.signup.title;
+  });
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const checkFirstName = await controlField.blankValidator("Prénom", firstName);
     const checkLastName = await controlField.blankValidator("Nom", lastName);
     const checkEmail = await controlField.emailValidator(email);
@@ -44,7 +48,6 @@ const SignUp: React.FC<any> = ({ signupAction, isAuthenticated }) => {
       setDisplayError(false);
       setDetailError("");
       setDisabled(true);
-
       const res = await signupAction(firstName, lastName, email, password, confirmPassword);
 
       if (!res.SignUpSuccess) {
@@ -53,7 +56,7 @@ const SignUp: React.FC<any> = ({ signupAction, isAuthenticated }) => {
       } else {
         setDisplayError(false);
         setDetailError("");
-        navigate(authPath.signupConfirm);
+        navigate(authRoutes.signupConfirm.path);
       }
     } else {
       ErrorMessage.DispyalErrorMessageFrontend(
@@ -67,7 +70,7 @@ const SignUp: React.FC<any> = ({ signupAction, isAuthenticated }) => {
     }
   };
 
-  if (isAuthenticated) return <Navigate to="/" />;
+  if (isAuthenticated) return <Navigate to={tweetRoutes.home.path} />;
 
   return (
     <div className="container-auth">
@@ -119,7 +122,11 @@ const SignUp: React.FC<any> = ({ signupAction, isAuthenticated }) => {
           <div className="info">
             <h4>
               Vous avez déjà un compte ?{" "}
-              <span onClick={() => navigate(disabled ? "" : authPath.login)}>Connectez-vous</span>
+              <span onClick={() => navigate(disabled ? "" : authRoutes.login.path)}>
+                Connectez-vous
+              </span>
+              <br />
+              <br />
             </h4>
           </div>
         </form>
@@ -132,7 +139,7 @@ const SignUp: React.FC<any> = ({ signupAction, isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = (state: TauthState) => ({
+const mapStateToProps = (state: TAuthUserReducer) => ({
   isAuthenticated: state.userReducer.isAuthenticated,
 });
 

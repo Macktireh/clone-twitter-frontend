@@ -4,13 +4,14 @@ import { connect } from "react-redux";
 
 import Input from "../../components/Input/Input";
 import Button from "../../components/Buttons/buttonSubmit";
-import useLogin from "../../hooks/auth/useLogin";
-import { ILogin, TauthState } from "../../interfaces";
+import useLogin from "../../hooks/useLogin";
 import loginAction from "../../actions/auth/login.action";
-import { authPath } from "../../routes/auth.route";
+import { IAuthUserLogin, TAuthUserReducer } from "../../models";
+import { authRoutes } from "../../routes/auth.routes";
+import { tweetRoutes } from "../../routes/tweet.routes";
 
 const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
-  const [formData, setFormData] = React.useState<ILogin>({
+  const [formData, setFormData] = React.useState<IAuthUserLogin>({
     email: "",
     password: "",
   });
@@ -19,8 +20,11 @@ const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
   const [disabled, setDisabled] = React.useState(false);
   const navigate = useNavigate();
   const customHooksLogin = useLogin;
-
   const { email, password } = formData;
+
+  React.useEffect(() => {
+    document.title = authRoutes.login.title;
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,7 +34,7 @@ const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
     customHooksLogin(email, password, setDisplayError, setDisabled, setDetailError, loginAction);
   };
 
-  if (isAuthenticated) return <Navigate to="/" />;
+  if (isAuthenticated) return <Navigate to={tweetRoutes.home.path} />;
 
   return (
     <div className="container-auth">
@@ -55,13 +59,15 @@ const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
           <div className="info">
             <h4>
               Mot de passe ?{" "}
-              <span onClick={() => navigate(disabled ? "" : authPath.requestResetPassword)}>
+              <span onClick={() => navigate(disabled ? "" : authRoutes.requestResetPassword.path)}>
                 Cliquer ici
               </span>
             </h4>
             <h4>
               Vous n'avez pas de compte ?{" "}
-              <span onClick={() => navigate(disabled ? "" : authPath.signup)}>Inscrivez-vous</span>
+              <span onClick={() => navigate(disabled ? "" : authRoutes.signup.path)}>
+                Inscrivez-vous
+              </span>
               <br />
               <br />
             </h4>
@@ -76,7 +82,7 @@ const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = (state: TauthState) => ({
+const mapStateToProps = (state: TAuthUserReducer) => ({
   isAuthenticated: state.userReducer.isAuthenticated,
 });
 

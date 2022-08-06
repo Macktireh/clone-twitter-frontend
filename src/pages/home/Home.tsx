@@ -2,18 +2,18 @@ import React from "react";
 
 import Button from "../../components/Buttons/buttonSubmit";
 import { Link } from "react-router-dom";
-import { authPath } from "../../routes/auth.route";
+import { authRoutes } from "../../routes/auth.routes";
 
 const Home: React.FC = () => {
+  React.useEffect(() => {
+    document.title = "Clone Twitter";
+  });
+
   return (
     <div className="home-page">
       <div className="container-content">
         <header>
-          <img
-            className="logo"
-            src="/static/svg/twitter.svg"
-            alt="logo Twitter"
-          />
+          <img className="logo" src="/static/svg/twitter.svg" alt="logo Twitter" />
         </header>
         <div className="frame-title">
           <h1>Ça se passe maintenant</h1>
@@ -36,7 +36,7 @@ const Home: React.FC = () => {
               <span>ou</span>
             </div>
             <div className="frame-signup-int">
-              <Link to={authPath.signup}>
+              <Link to={authRoutes.signup.path}>
                 <Button
                   nameClass={"btn-signup-int"}
                   text={"S'inscrire avec un email et password"}
@@ -54,7 +54,7 @@ const Home: React.FC = () => {
           </div>
           <div className="frame-signin">
             <h4>Vous avez déjà un compte ?</h4>
-            <Link to={authPath.login}>
+            <Link to={authRoutes.login.path}>
               <Button nameClass={"btn-signin"} text={"Se connecter"} />
             </Link>
           </div>
