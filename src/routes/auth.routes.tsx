@@ -48,7 +48,7 @@ export const authRoutes = {
   },
 };
 
-const authRoutesList: TRoutesList[] = [
+export const authRoutesList: TRoutesList[] = [
   { path: authRoutes.signup.path, element: <SignUp /> },
   { path: authRoutes.signupConfirm.path, element: <SignUpConfirm /> },
   { path: authRoutes.accountActivation.path, element: <AccountActivation /> },
@@ -59,5 +59,3 @@ const authRoutesList: TRoutesList[] = [
   { path: authRoutes.resetPassword.path, element: <ResetPassword /> },
   { path: authRoutes.resetPasswordConfirm.path, element: <ResetPasswordConfirm /> },
 ];
-
-export default authRoutesList;

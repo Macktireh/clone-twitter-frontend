@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "../pages/home/Home";
-import authRoutesList from "./auth.routes";
 import NotFound from "../pages/error/NotFound";
 import Layout from "../Layout/Layout";
+import { authRoutesList } from "./auth.routes";
 import { tweetRoutesList } from "./tweet.routes";
 
 const index: React.FC = () => {
