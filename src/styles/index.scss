@@ -1,12 +1,14 @@
 @import "./settings/settings";
 @import "./settings/mixin";
 
-@import "./components/Buttons/Button";
-@import "./components/Input/input";
-
 @import "./pages/home/Home";
 @import "./pages/auth/auth";
 
+@import "./layout/layout";
+
 @import "./components/navbar.scss";
+@import "./components/Buttons/Button";
+@import "./components/Input/input";
+@import "./components/Input/InputSearch";
 
 @import "./pages/error/NotFound";

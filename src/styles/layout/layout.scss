@@ -1,0 +1,38 @@
+.layout {
+  width: 100%;
+  max-width: 1300px;
+  // display: grid;
+  // grid-template-columns: 22% 48% 28%;
+  // grid-gap: 1rem;
+  @include flex(row, space-between, null);
+  gap: 1rem;
+  flex-shrink: 0;
+  padding: 4px 8px;
+
+  .navbar,
+  .main,
+  .aside {
+    width: 100%;
+    border-radius: 8px;
+    background-color: $color4;
+    @include flex(column, start, null);
+    padding: 0.5rem;
+    gap: 1rem;
+  }
+
+  .trends,
+  .follow,
+  .follow2 {
+    background-color: $color1;
+    width: 100%;
+    height: 190px;
+    border-radius: 8px;
+  }
+
+  .follow {
+    height: 150px;
+  }
+  .trends {
+    height: 280px;
+  }
+}

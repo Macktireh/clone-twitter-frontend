@@ -1,15 +1,16 @@
 import * as React from "react";
-import Navbar from "../../components/Navbar";
+import Layout from "../../Layout/Layout";
 
 const AllTweet: React.FC = () => {
   React.useEffect(() => {
     document.title = "Home | Clone Twitter";
   });
   return (
-    <div className="post-global-container">
-      <Navbar />
-      <h1>Les posts...</h1>
-    </div>
+    <Layout>
+      <div className="home-tweet">
+        <h1>Les posts...</h1>
+      </div>
+    </Layout>
   );
 };
 

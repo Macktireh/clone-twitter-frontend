@@ -6,7 +6,7 @@ const initialState: IAuthUserState = {
   currentUser: null,
 };
 
-const userReducer = (state: IAuthUserState = initialState, action: IAuthUserAction) => {
+const userReducer = (state: IAuthUserState = initialState, action: IAuthUserAction): IAuthUserState => {
   const { type, payload } = action;
 
   switch (type) {
