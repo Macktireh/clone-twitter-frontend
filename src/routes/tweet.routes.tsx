@@ -1,5 +1,5 @@
-import { TRoutesList } from "../models";
-import AllTweet from "../pages/tweet/AllTweet";
+import { TRoutesList } from "@/models";
+import AllTweet from "@/pages/tweet/AllTweet";
 
 export const tweetRoutes = {
   home: {

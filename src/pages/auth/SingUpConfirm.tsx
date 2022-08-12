@@ -2,9 +2,9 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 
-import { TAuthUserReducer } from "../../models";
-import { authRoutes } from "../../routes/auth.routes";
-import { tweetRoutes } from "../../routes/tweet.routes";
+import { TAuthUserReducer } from "@/models";
+import { authRoutes } from "@/routes/auth.routes";
+import { tweetRoutes } from "@/routes/tweet.routes";
 
 const SignUpConfirm: React.FC<any> = ({ isAuthenticated }) => {
   React.useEffect(() => {
@@ -22,9 +22,9 @@ const SignUpConfirm: React.FC<any> = ({ isAuthenticated }) => {
           <br />
           <p>Veuillez vérifier votre adresse e-mail afin d'accéder à votre compte Clone Twitter.</p>
           <p>
-            Nous avons envoyé un email à <strong>abdimack97@gmail.com</strong> <br /> Pour
-            continuer, veuillez vérifier votre boîte de réception et vérifier votre adresse e-mail.
-            Si vous n'avez pas reçu l'email, veuillez vérifier votre dossier spam.
+            Nous avons envoyé un email à <strong>abdimack97@gmail.com</strong> <br /> Pour continuer, veuillez
+            vérifier votre boîte de réception et vérifier votre adresse e-mail. Si vous n'avez pas reçu
+            l'email, veuillez vérifier votre dossier spam.
           </p>
         </div>
         <Link to="/">

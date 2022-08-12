@@ -2,10 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
-import Button from "../../components/Buttons/buttonSubmit";
-import { TAuthUserReducer } from "../../models";
-import { authRoutes } from "../../routes/auth.routes";
-import { tweetRoutes } from "../../routes/tweet.routes";
+import Button from "@/components/Buttons/buttonSubmit";
+import { TAuthUserReducer } from "@/models";
+import { authRoutes } from "@/routes/auth.routes";
+import { tweetRoutes } from "@/routes/tweet.routes";
 
 const ResetPasswordConfirm: React.FC<any> = ({ isAuthenticated }) => {
   const navigate = useNavigate();
@@ -25,10 +25,7 @@ const ResetPasswordConfirm: React.FC<any> = ({ isAuthenticated }) => {
           <br />
           <h2>Réinitialisation du mot de passe terminée !</h2>
           <br />
-          <p>
-            Votre mot de passe a été bien défini. Vous pouvez continuer et vous connecter
-            maintenant.
-          </p>
+          <p>Votre mot de passe a été bien défini. Vous pouvez continuer et vous connecter maintenant.</p>
           <br />
           <Button
             nameClass={"btn-signin btn-success"}

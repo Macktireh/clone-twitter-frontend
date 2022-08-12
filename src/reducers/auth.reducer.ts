@@ -1,5 +1,5 @@
-import * as Types from "../actions/types";
-import { IAuthUserAction, IAuthUserState } from "../models";
+import * as Types from "@/actions/types";
+import { IAuthUserAction, IAuthUserState } from "@/models";
 
 const initialState: IAuthUserState = {
   isAuthenticated: false,

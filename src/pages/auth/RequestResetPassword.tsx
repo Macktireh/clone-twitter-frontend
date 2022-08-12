@@ -2,12 +2,12 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 
-import requestResetPasswordActiond from "../../actions/auth/requestResetPassword.action";
-import Button from "../../components/Buttons/buttonSubmit";
-import Input from "../../components/Input/Input";
-import { TAuthUserReducer } from "../../models";
-import { authRoutes } from "../../routes/auth.routes";
-import { tweetRoutes } from "../../routes/tweet.routes";
+import requestResetPasswordActiond from "@/actions/auth/requestResetPassword.action";
+import Button from "@/components/Buttons/buttonSubmit";
+import Input from "@/components/Input/Input";
+import { TAuthUserReducer } from "@/models";
+import { authRoutes } from "@/routes/auth.routes";
+import { tweetRoutes } from "@/routes/tweet.routes";
 
 const RequestResetPassword: React.FC<any> = ({ requestResetPasswordActiond, isAuthenticated }) => {
   const [email, setEmail] = React.useState("");
@@ -35,8 +35,8 @@ const RequestResetPassword: React.FC<any> = ({ requestResetPasswordActiond, isAu
         <form onSubmit={onSubmit}>
           <h2>Réinitialisation du mot de passe</h2>
           <p style={{ textAlign: "center" }}>
-            Mot de passe oublié ? Entrez votre adresse email ci-dessous et si votre adresse email
-            existe, nous vous enverrons par e-mail des instructions pour en définir une nouvelle.
+            Mot de passe oublié ? Entrez votre adresse email ci-dessous et si votre adresse email existe, nous
+            vous enverrons par e-mail des instructions pour en définir une nouvelle.
           </p>
           <Input id="email" name="email" type="email" label="Email" onChange={handleChange} />
           <Button nameClass={"btn-signup"} text={"Envoyer"} isDisabled={disabled} />

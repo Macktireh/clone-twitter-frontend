@@ -1,7 +1,7 @@
-import axios from "axios";
+import Axios from "@/api";
 import { AnyAction, Dispatch } from "redux";
 
-import * as Types from "../types";
+import * as Types from "@/actions/types";
 
 const loadUserAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
   if (sessionStorage.getItem("access")) {
@@ -14,7 +14,7 @@ const loadUserAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
     };
 
     try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/me/`, config);
+      const res = await Axios.get("/api/me/", config);
       dispatch({
         type: Types.USER_LOADED_SUCCESS,
         payload: res.data,

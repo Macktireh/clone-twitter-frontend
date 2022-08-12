@@ -2,14 +2,14 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
-import resetPasswordAction from "../../actions/auth/resetPassword.action";
-import Button from "../../components/Buttons/buttonSubmit";
-import Input from "../../components/Input/Input";
-import * as controlField from "../../validators/controlField";
-import * as ErrorMessage from "../../utils/function";
-import { authRoutes } from "../../routes/auth.routes";
-import { tweetRoutes } from "../../routes/tweet.routes";
-import { TAuthUserReducer } from "../../models";
+import resetPasswordAction from "@/actions/auth/resetPassword.action";
+import Button from "@/components/Buttons/buttonSubmit";
+import Input from "@/components/Input/Input";
+import * as controlField from "@/validators/controlField";
+import * as ErrorMessage from "@/utils/function";
+import { authRoutes } from "@/routes/auth.routes";
+import { tweetRoutes } from "@/routes/tweet.routes";
+import { TAuthUserReducer } from "@/models";
 
 const ResetPassword: React.FC<any> = ({ isAuthenticated, resetPasswordAction }) => {
   const [formData, setFormData] = React.useState({

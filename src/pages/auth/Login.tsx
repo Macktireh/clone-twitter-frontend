@@ -2,13 +2,13 @@ import * as React from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 
-import Input from "../../components/Input/Input";
-import Button from "../../components/Buttons/buttonSubmit";
-import useLogin from "../../hooks/useLogin";
-import loginAction from "../../actions/auth/login.action";
-import { IAuthUserLogin, TAuthUserReducer } from "../../models";
-import { authRoutes } from "../../routes/auth.routes";
-import { tweetRoutes } from "../../routes/tweet.routes";
+import Input from "@/components/Input/Input";
+import Button from "@/components/Buttons/buttonSubmit";
+import useLogin from "@/hooks/useLogin";
+import loginAction from "@/actions/auth/login.action";
+import { IAuthUserLogin, TAuthUserReducer } from "@/models";
+import { authRoutes } from "@/routes/auth.routes";
+import { tweetRoutes } from "@/routes/tweet.routes";
 
 const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
   const [formData, setFormData] = React.useState<IAuthUserLogin>({
@@ -48,13 +48,7 @@ const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
             </div>
           )}
           <Input id="email" name="email" type="email" label="Email" onChange={handleChange} />
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            label="Mot de passe"
-            onChange={handleChange}
-          />
+          <Input id="password" name="password" type="password" label="Mot de passe" onChange={handleChange} />
           <Button nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
           <div className="info">
             <h4>
@@ -65,9 +59,7 @@ const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
             </h4>
             <h4>
               Vous n'avez pas de compte ?{" "}
-              <span onClick={() => navigate(disabled ? "" : authRoutes.signup.path)}>
-                Inscrivez-vous
-              </span>
+              <span onClick={() => navigate(disabled ? "" : authRoutes.signup.path)}>Inscrivez-vous</span>
               <br />
               <br />
             </h4>

@@ -1,19 +1,15 @@
-import axios from "axios";
+import Axios from "@/api";
 import { AnyAction, Dispatch } from "redux";
 
-import * as Types from "../types";
-import loadUserAction from "./loadUser.action";
+import * as Types from "@/actions/types";
+import loadUserAction from "@/actions/auth/loadUser.action";
 
 const refreshToken = async (config: any, dispatch: Dispatch<AnyAction> | any) => {
   try {
     const body = JSON.stringify({
       refresh: sessionStorage.getItem("refresh"),
     });
-    const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/api/account/token/refresh/`,
-      body,
-      config
-    );
+    const res = await Axios.post("/api/account/token/refresh/", body, config);
     if (res.data.code !== "token_not_valid") {
       await sessionStorage.setItem("access", res.data.access);
       dispatch({ type: Types.REFRESH_TOKEN_SUCCESS });
@@ -42,11 +38,7 @@ const checkAuthenticatedAction = () => async (dispatch: Dispatch<AnyAction> | an
     const body = JSON.stringify({ token: sessionStorage.getItem("access") });
 
     try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/account/jwt/verify/`,
-        body,
-        config
-      );
+      const res = await Axios.post("/api/account/jwt/verify/", body, config);
       if (res.data.code !== "token_not_valid") {
         dispatch({ type: Types.VERIFY_TOKEN_SUCCESS });
         dispatch({ type: Types.AUTHENTICATED_SUCCESS });

@@ -1,4 +1,4 @@
-import axios from "axios";
+import Axios from "@/api";
 
 const useLogin = async (
   email: string,
@@ -18,11 +18,7 @@ const useLogin = async (
   const body = JSON.stringify({ email, password });
 
   try {
-    const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/api/account/login/`,
-      body,
-      config
-    );
+    const res = await Axios.post( "/api/account/login/", body, config );
 
     sessionStorage.setItem("access", res.data.token.access);
     sessionStorage.setItem("refresh", res.data.token.refresh);

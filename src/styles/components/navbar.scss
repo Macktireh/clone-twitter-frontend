@@ -1,18 +1,25 @@
 .nav {
   height: 98vh;
   width: 100%;
-  max-width: 300px;
+  // max-width: 300px;
   // border: 1px solid #f1f1f1;
-  padding: 4px;
-  @include flex(column, space-between, start);
+  padding: 4px 10px;
+  @include flex(column, space-between, center);
   flex-direction: column;
   gap: 1rem;
 
+  // @media (max-width: 1150px) {
+  //   align-items: flex-end;
+  // }
+
   .nav-content {
-    width: 80%;
+    width: 90%;
     @include flex(column, space-between, start);
     flex-direction: column;
     gap: 1rem;
+    @media (max-width: 1150px) {
+      align-items: center;
+    }
 
     .nav-logo {
       border-radius: 16px;
@@ -54,6 +61,11 @@
         svg {
           width: 28px;
         }
+        @media (max-width: 1150px) {
+          span {
+            display: none;
+          }
+        }
       }
     }
 
@@ -73,12 +85,20 @@
       svg {
         width: 28px;
       }
+      @media (max-width: 1150px) {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        span {
+          display: none;
+        }
+      }
     }
   }
 
   .nav-user {
     width: 100%;
-    background-color: $color4;
+    background-color: $color6;
     @include flex(row, space-around, start);
     gap: 0.5rem;
     padding: 8px;
@@ -106,6 +126,22 @@
     p {
       color: $color5;
       font-size: 15px;
+    }
+    @media (max-width: 1150px) {
+      justify-content: center;
+      align-items: center;
+      width: auto;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      .point,
+      .username {
+        display: none;
+      }
+      img,
+      svg {
+        width: 100%;
+      }
     }
   }
 }

@@ -2,14 +2,14 @@ import * as React from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 
-import Input from "../../components/Input/Input";
-import Button from "../../components/Buttons/buttonSubmit";
-import signupAction from "../../actions/auth/signup.action";
-import * as controlField from "../../validators/controlField";
-import * as ErrorMessage from "../../utils/function";
-import { IAuthUserSignUp, TAuthUserReducer } from "../../models";
-import { authRoutes } from "../../routes/auth.routes";
-import { tweetRoutes } from "../../routes/tweet.routes";
+import Input from "@/components/Input/Input";
+import Button from "@/components/Buttons/buttonSubmit";
+import signupAction from "@/actions/auth/signup.action";
+import * as controlField from "@/validators/controlField";
+import * as ErrorMessage from "@/utils/function";
+import { IAuthUserSignUp, TAuthUserReducer } from "@/models";
+import { authRoutes } from "@/routes/auth.routes";
+import { tweetRoutes } from "@/routes/tweet.routes";
 
 const SignUp: React.FC<any> = ({ signupAction, isAuthenticated }) => {
   const [formData, setFormData] = React.useState<IAuthUserSignUp>({
@@ -39,12 +39,7 @@ const SignUp: React.FC<any> = ({ signupAction, isAuthenticated }) => {
     const checkEmail = await controlField.emailValidator(email);
     const checkPassword = await controlField.passwordValidator(password, confirmPassword);
 
-    if (
-      checkFirstName.validate &&
-      checkLastName.validate &&
-      checkEmail.validate &&
-      checkPassword.validate
-    ) {
+    if (checkFirstName.validate && checkLastName.validate && checkEmail.validate && checkPassword.validate) {
       setDisplayError(false);
       setDetailError("");
       setDisabled(true);
@@ -83,20 +78,8 @@ const SignUp: React.FC<any> = ({ signupAction, isAuthenticated }) => {
               <span>{detailError}</span>
             </div>
           )}
-          <Input
-            id="firstName"
-            name="firstName"
-            label="Prénom *"
-            maxLength="50"
-            onChange={handleChange}
-          />
-          <Input
-            id="lastName"
-            name="lastName"
-            label="Nom *"
-            maxLength="50"
-            onChange={handleChange}
-          />
+          <Input id="firstName" name="firstName" label="Prénom *" maxLength="50" onChange={handleChange} />
+          <Input id="lastName" name="lastName" label="Nom *" maxLength="50" onChange={handleChange} />
           <Input id="email" name="email" type="email" label="Email *" onChange={handleChange} />
           <Input
             id="password"
@@ -122,9 +105,7 @@ const SignUp: React.FC<any> = ({ signupAction, isAuthenticated }) => {
           <div className="info">
             <h4>
               Vous avez déjà un compte ?{" "}
-              <span onClick={() => navigate(disabled ? "" : authRoutes.login.path)}>
-                Connectez-vous
-              </span>
+              <span onClick={() => navigate(disabled ? "" : authRoutes.login.path)}>Connectez-vous</span>
               <br />
               <br />
             </h4>

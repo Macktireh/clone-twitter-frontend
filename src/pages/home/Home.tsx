@@ -1,8 +1,8 @@
 import React from "react";
-
-import Button from "../../components/Buttons/buttonSubmit";
 import { Link } from "react-router-dom";
-import { authRoutes } from "../../routes/auth.routes";
+
+import Button from "@/components/Buttons/buttonSubmit";
+import { authRoutes } from "@/routes/auth.routes";
 
 const Home: React.FC = () => {
   React.useEffect(() => {
@@ -37,10 +37,7 @@ const Home: React.FC = () => {
             </div>
             <div className="frame-signup-int">
               <Link to={authRoutes.signup.path}>
-                <Button
-                  nameClass={"btn-signup-int"}
-                  text={"S'inscrire avec un email et password"}
-                />
+                <Button nameClass={"btn-signup-int"} text={"S'inscrire avec un email et password"} />
               </Link>
               <p>
                 En vous inscrivant, vous acceptez les{" "}

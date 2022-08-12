@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from "../pages/home/Home";
-import NotFound from "../pages/error/NotFound";
-import { authRoutesList } from "./auth.routes";
-import { tweetRoutesList } from "./tweet.routes";
+import Home from "@/pages/home/Home";
+import NotFound from "@/pages/error/NotFound";
+import { authRoutesList } from "@/routes/auth.routes";
+import { tweetRoutesList } from "@/routes/tweet.routes";
 
 const index: React.FC = () => {
   return (
