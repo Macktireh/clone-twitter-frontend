@@ -1,15 +1,13 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import requestResetPasswordActiond from "@/actions/auth/requestResetPassword.action";
 import Button from "@/components/Buttons/buttonSubmit";
 import Input from "@/components/Input/Input";
-import { TAuthUserReducer } from "@/models";
 import { authRoutes } from "@/routes/auth.routes";
-import { tweetRoutes } from "@/routes/tweet.routes";
 
-const RequestResetPassword: React.FC<any> = ({ requestResetPasswordActiond, isAuthenticated }) => {
+const RequestResetPassword: React.FC<any> = ({ requestResetPasswordActiond }) => {
   const [email, setEmail] = React.useState("");
   const [disabled, setDisabled] = React.useState(false);
   const navigate = useNavigate();
@@ -26,8 +24,6 @@ const RequestResetPassword: React.FC<any> = ({ requestResetPasswordActiond, isAu
     await requestResetPasswordActiond(email);
     navigate(authRoutes.requestResetPasswordConfirm.path);
   };
-
-  if (isAuthenticated) return <Navigate to={tweetRoutes.home.path} />;
 
   return (
     <div className="container-auth">
@@ -51,8 +47,4 @@ const RequestResetPassword: React.FC<any> = ({ requestResetPasswordActiond, isAu
   );
 };
 
-const mapStateToProps = (state: TAuthUserReducer) => ({
-  isAuthenticated: state.userReducer.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { requestResetPasswordActiond })(RequestResetPassword);
+export default connect(null, { requestResetPasswordActiond })(RequestResetPassword);

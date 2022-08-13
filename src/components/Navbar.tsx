@@ -29,12 +29,12 @@ const Navbar: React.FC = () => {
             <span className={active === "home" ? "active" : ""}>Home</span>
           </NavLink>
 
-          <NavLink to="/" className={(nav) => (nav.isActive ? handleActive("explore") : "nav-link")}>
+          <NavLink to={tweetRoutes.explore.path} className={(nav) => (nav.isActive ? handleActive("explore") : "nav-link")}>
             {active === "explore" ? <IconSVG iconName="exploreActive" /> : <IconSVG iconName="explore" />}
             <span className={active === "explore" ? "active" : ""}>Explore</span>
           </NavLink>
 
-          <NavLink to="/" className={(nav) => (nav.isActive ? handleActive("notification") : "nav-link")}>
+          <NavLink to={tweetRoutes.notifications.path} className={(nav) => (nav.isActive ? handleActive("notification") : "nav-link")}>
             {active === "notification" ? (
               <IconSVG iconName="notificationActive" />
             ) : (
@@ -43,22 +43,22 @@ const Navbar: React.FC = () => {
             <span className={active === "notification" ? "active" : ""}>Notifications</span>
           </NavLink>
 
-          <NavLink to="/" className={(nav) => (nav.isActive ? handleActive("message") : "nav-link")}>
+          <NavLink to={tweetRoutes.messages.path} className={(nav) => (nav.isActive ? handleActive("message") : "nav-link")}>
             {active === "message" ? <IconSVG iconName="messageActive" /> : <IconSVG iconName="message" />}
             <span className={active === "message" ? "active" : ""}>Messages</span>
           </NavLink>
 
-          <NavLink to="/" className={(nav) => (nav.isActive ? handleActive("bookmark") : "nav-link")}>
+          <NavLink to={tweetRoutes.bookmarks.path} className={(nav) => (nav.isActive ? handleActive("bookmark") : "nav-link")}>
             {active === "bookmark" ? <IconSVG iconName="bookmarkActive" /> : <IconSVG iconName="bookmark" />}
             <span className={active === "bookmark" ? "active" : ""}>Bookmarks</span>
           </NavLink>
 
-          <NavLink to="/" className={(nav) => (nav.isActive ? handleActive("list") : "nav-link")}>
+          <NavLink to={tweetRoutes.lists.path} className={(nav) => (nav.isActive ? handleActive("list") : "nav-link")}>
             {active === "list" ? <IconSVG iconName="listActive" /> : <IconSVG iconName="list" />}
             <span className={active === "list" ? "active" : ""}>Lists</span>
           </NavLink>
 
-          <NavLink to="/" className={(nav) => (nav.isActive ? handleActive("profile") : "nav-link")}>
+          <NavLink to={tweetRoutes.profile.path} className={(nav) => (nav.isActive ? handleActive("profile") : "nav-link")}>
             {active === "profile" ? <IconSVG iconName="profileActive" /> : <IconSVG iconName="profile" />}
             <span className={active === "profile" ? "active" : ""}>Profile</span>
           </NavLink>

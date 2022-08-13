@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Input from "@/components/Input/Input";
@@ -7,11 +7,10 @@ import Button from "@/components/Buttons/buttonSubmit";
 import signupAction from "@/actions/auth/signup.action";
 import * as controlField from "@/validators/controlField";
 import * as ErrorMessage from "@/utils/function";
-import { IAuthUserSignUp, TAuthUserReducer } from "@/models";
+import { IAuthUserSignUp } from "@/models";
 import { authRoutes } from "@/routes/auth.routes";
-import { tweetRoutes } from "@/routes/tweet.routes";
 
-const SignUp: React.FC<any> = ({ signupAction, isAuthenticated }) => {
+const SignUp: React.FC<any> = ({ signupAction }) => {
   const [formData, setFormData] = React.useState<IAuthUserSignUp>({
     firstName: "",
     lastName: "",
@@ -64,8 +63,6 @@ const SignUp: React.FC<any> = ({ signupAction, isAuthenticated }) => {
       );
     }
   };
-
-  if (isAuthenticated) return <Navigate to={tweetRoutes.home.path} />;
 
   return (
     <div className="container-auth">
@@ -120,8 +117,4 @@ const SignUp: React.FC<any> = ({ signupAction, isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = (state: TAuthUserReducer) => ({
-  isAuthenticated: state.userReducer.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { signupAction })(SignUp);
+export default connect(null, { signupAction })(SignUp);

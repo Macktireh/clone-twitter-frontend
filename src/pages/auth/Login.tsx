@@ -1,16 +1,15 @@
 import * as React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Input from "@/components/Input/Input";
 import Button from "@/components/Buttons/buttonSubmit";
 import useLogin from "@/hooks/useLogin";
 import loginAction from "@/actions/auth/login.action";
-import { IAuthUserLogin, TAuthUserReducer } from "@/models";
+import { IAuthUserLogin } from "@/models";
 import { authRoutes } from "@/routes/auth.routes";
-import { tweetRoutes } from "@/routes/tweet.routes";
 
-const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
+const Login: React.FC<any> = ({ loginAction }) => {
   const [formData, setFormData] = React.useState<IAuthUserLogin>({
     email: "",
     password: "",
@@ -33,8 +32,6 @@ const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
     e.preventDefault();
     customHooksLogin(email, password, setDisplayError, setDisabled, setDetailError, loginAction);
   };
-
-  if (isAuthenticated) return <Navigate to={tweetRoutes.home.path} />;
 
   return (
     <div className="container-auth">
@@ -74,8 +71,4 @@ const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = (state: TAuthUserReducer) => ({
-  isAuthenticated: state.userReducer.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { loginAction })(Login);
+export default connect(null, { loginAction })(Login);

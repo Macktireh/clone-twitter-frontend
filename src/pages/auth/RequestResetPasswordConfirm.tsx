@@ -1,17 +1,12 @@
 import * as React from "react";
-import { connect } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { TAuthUserReducer } from "@/models";
 import { authRoutes } from "@/routes/auth.routes";
-import { tweetRoutes } from "@/routes/tweet.routes";
 
-const RequestResetPasswordConfirm: React.FC<any> = ({ isAuthenticated }) => {
+const RequestResetPasswordConfirm: React.FC<any> = () => {
   React.useEffect(() => {
     document.title = authRoutes.requestResetPasswordConfirm.title;
   });
-
-  if (isAuthenticated) return <Navigate to={tweetRoutes.home.path} />;
 
   return (
     <div className="container-auth">
@@ -39,8 +34,4 @@ const RequestResetPasswordConfirm: React.FC<any> = ({ isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = (state: TAuthUserReducer) => ({
-  isAuthenticated: state.userReducer.isAuthenticated,
-});
-
-export default connect(mapStateToProps, {})(RequestResetPasswordConfirm);
+export default RequestResetPasswordConfirm;

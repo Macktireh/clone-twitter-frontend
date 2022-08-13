@@ -11,7 +11,7 @@ import { TRoutesList } from "@/models";
 
 export const authRoutes = {
   signup: {
-    path: "/auth/user/signup/",
+    path: "/auth/user/signup",
     title: "Inscription | Clone Twitter",
   },
   signupConfirm: {
@@ -19,23 +19,23 @@ export const authRoutes = {
     title: "Inscription Envoyé | Clone Twitter",
   },
   accountActivation: {
-    path: "/auth/user/account/activation/:uidb64/:token/",
+    path: "/auth/user/account/activation/:uidb64/:token",
     title: "Activation du compte en cours | Clone Twitter",
   },
   accountActivationSuccess: {
-    path: "/auth/user/account/activation/success/",
+    path: "/auth/user/account/activation/success",
     title: "Activation réussie du compte | Clone Twitter",
   },
   login: {
-    path: "/auth/user/login/",
+    path: "/auth/user/login",
     title: "Connexion | Clone Twitter",
   },
   requestResetPassword: {
-    path: "/auth/user/request/reset/password/",
+    path: "/auth/user/request/reset/password",
     title: "Demande de réinitialisation du mot de passe | Clone Twitter",
   },
   requestResetPasswordConfirm: {
-    path: "/auth/user/request/reset/password/confirm/",
+    path: "/auth/user/request/reset/password/confirm",
     title: "Réinitialisation du mot de passe envoyée | Clone Twitter",
   },
   resetPassword: {
@@ -43,7 +43,7 @@ export const authRoutes = {
     title: "Réinitialisation du mot de passe | Clone Twitter",
   },
   resetPasswordConfirm: {
-    path: "/auth/user/reset/password/confirm/",
+    path: "/auth/user/reset/password/confirm",
     title: "Confirmation de Réinitialisation du mot de passe | Clone Twitter",
   },
 };
