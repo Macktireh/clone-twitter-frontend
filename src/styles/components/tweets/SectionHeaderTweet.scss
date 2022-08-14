@@ -1,0 +1,25 @@
+.SectionHeaderTweet {
+  @include flex(row, space-between, center);
+  gap: 4px;
+  width: 100%;
+  height: 100%;
+
+  .left,
+  .right {
+    @extend .flex-center;
+  }
+
+  .left {
+    width: 55px;
+  }
+  .center {
+    width: 100%;
+    padding-left: 0.5rem;
+  }
+  .right {
+    width: 80px;
+    svg {
+      width: 25px;
+    }
+  }
+}

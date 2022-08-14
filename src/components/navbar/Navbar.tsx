@@ -2,9 +2,13 @@ import * as React from "react";
 import { NavLink } from "react-router-dom";
 
 import { tweetRoutes } from "@/routes/tweet.routes";
-import IconSVG from "@/components/IconSVG";
+import IconSVG from "@/components/icon/IconSVG";
+import { IAuthUserProfile, TAuthUserReducer } from "@/models";
+import { connect } from "react-redux";
 
-const Navbar: React.FC = () => {
+type TcurrentUser = { currentUser: IAuthUserProfile | null };
+
+const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
   const [active, setActive] = React.useState("");
 
   const handleActive = (active: string): string => {
@@ -29,12 +33,28 @@ const Navbar: React.FC = () => {
             <span className={active === "home" ? "active" : ""}>Home</span>
           </NavLink>
 
-          <NavLink to={tweetRoutes.explore.path} className={(nav) => (nav.isActive ? handleActive("explore") : "nav-link")}>
-            {active === "explore" ? <IconSVG iconName="exploreActive" /> : <IconSVG iconName="explore" />}
+          <NavLink
+            to={tweetRoutes.explore.path}
+            className={(nav) => (nav.isActive ? handleActive("explore") : "nav-link")}
+          >
+            {active === "explore" ? (
+              <>
+                <IconSVG iconName="exploreActive" nameClass="explore" />
+                <IconSVG iconName="#Active" nameClass="htag" />
+              </>
+            ) : (
+              <>
+                <IconSVG iconName="explore" nameClass="explore" />
+                <IconSVG iconName="#" nameClass="htag" />
+              </>
+            )}
             <span className={active === "explore" ? "active" : ""}>Explore</span>
           </NavLink>
 
-          <NavLink to={tweetRoutes.notifications.path} className={(nav) => (nav.isActive ? handleActive("notification") : "nav-link")}>
+          <NavLink
+            to={tweetRoutes.notifications.path}
+            className={(nav) => (nav.isActive ? handleActive("notification") : "nav-link")}
+          >
             {active === "notification" ? (
               <IconSVG iconName="notificationActive" />
             ) : (
@@ -43,30 +63,42 @@ const Navbar: React.FC = () => {
             <span className={active === "notification" ? "active" : ""}>Notifications</span>
           </NavLink>
 
-          <NavLink to={tweetRoutes.messages.path} className={(nav) => (nav.isActive ? handleActive("message") : "nav-link")}>
+          <NavLink
+            to={tweetRoutes.messages.path}
+            className={(nav) => (nav.isActive ? handleActive("message") : "nav-link")}
+          >
             {active === "message" ? <IconSVG iconName="messageActive" /> : <IconSVG iconName="message" />}
             <span className={active === "message" ? "active" : ""}>Messages</span>
           </NavLink>
 
-          <NavLink to={tweetRoutes.bookmarks.path} className={(nav) => (nav.isActive ? handleActive("bookmark") : "nav-link")}>
+          <NavLink
+            to={tweetRoutes.bookmarks.path}
+            className={(nav) => (nav.isActive ? handleActive("bookmark") : "nav-link")}
+          >
             {active === "bookmark" ? <IconSVG iconName="bookmarkActive" /> : <IconSVG iconName="bookmark" />}
             <span className={active === "bookmark" ? "active" : ""}>Bookmarks</span>
           </NavLink>
 
-          <NavLink to={tweetRoutes.lists.path} className={(nav) => (nav.isActive ? handleActive("list") : "nav-link")}>
+          <NavLink
+            to={tweetRoutes.lists.path}
+            className={(nav) => (nav.isActive ? handleActive("list") : "nav-link")}
+          >
             {active === "list" ? <IconSVG iconName="listActive" /> : <IconSVG iconName="list" />}
             <span className={active === "list" ? "active" : ""}>Lists</span>
           </NavLink>
 
-          <NavLink to={tweetRoutes.profile.path} className={(nav) => (nav.isActive ? handleActive("profile") : "nav-link")}>
+          <NavLink
+            to={tweetRoutes.profile.path}
+            className={(nav) => (nav.isActive ? handleActive("profile") : "nav-link")}
+          >
             {active === "profile" ? <IconSVG iconName="profileActive" /> : <IconSVG iconName="profile" />}
             <span className={active === "profile" ? "active" : ""}>Profile</span>
           </NavLink>
 
-          <NavLink to="/" className="nav-link">
+          <div className="nav-link" onClick={() => console.log("Show More")}>
             <IconSVG iconName="more" />
             <span>More</span>
-          </NavLink>
+          </div>
         </div>
         <div className="add-tweet">
           <IconSVG iconName="add-tweet" />
@@ -78,8 +110,10 @@ const Navbar: React.FC = () => {
         <img src="/static/svg/user.svg" alt="" />
 
         <div className="username">
-          <strong>Macktireh Abdi Soubaneh</strong>
-          <p>@macktireh</p>
+          <strong>
+            {currentUser?.user.first_name} {currentUser?.user.last_name}
+          </strong>
+          <p>@{currentUser?.pseudo}</p>
         </div>
         <IconSVG iconName="point" />
       </div>
@@ -87,4 +121,16 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+const NavbarConnectWithStore: React.FC<any> = ({ currentUser }) => {
+  return (
+    <>
+      <Navbar currentUser={currentUser} />
+    </>
+  );
+};
+
+const mapStateToProps = (state: TAuthUserReducer) => ({
+  currentUser: state.userReducer.currentUser,
+});
+
+export default connect(mapStateToProps, {})(NavbarConnectWithStore);

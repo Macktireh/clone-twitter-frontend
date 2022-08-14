@@ -4,27 +4,38 @@
   @include flex(row, space-between, null);
   gap: 0.3rem;
   flex-shrink: 0;
-  padding: 4px 8px;
 
-  .navbar {
+  .header {
     height: 100vh;
     flex: 22%;
-    @include flex(row, flex-end, null);
+    @include flex(row, flex-end, start);
     position: sticky;
     top: 0px;
+    .nav-container {
+      height: 100%;
+      @include flex(row, center, start);
+    }
     @media (max-width: 1150px) {
       flex: 80px;
       align-items: flex-end;
-      .container {
+      .nav-container {
         width: 88px;
       }
     }
   }
+
   .main {
     flex: 50%;
+    @include flex(column, center, center);
   }
+
   .aside {
     flex: 28%;
+    @include flex(column, start, null);
+    gap: 1rem;
+    background-color: $color4;
+    border-radius: 8px;
+    padding: 0.5rem;
     position: relative;
     transition: all 0.2s;
     .search-container {
@@ -37,38 +48,5 @@
       background-color: $color4;
       padding: 8px 0 4px;
     }
-  }
-
-  .navbar,
-  .main,
-  .aside {
-    // width: 100%;
-    border-radius: 8px;
-    background-color: $color4;
-    @include flex(column, start, null);
-    padding: 0.5rem;
-    gap: 1rem;
-  }
-
-  .trends,
-  .follow,
-  .footer {
-    background-color: $color1;
-    width: 100%;
-    height: 120px;
-    border-radius: 8px;
-  }
-
-  .follow {
-    background-color: $color5;
-    height: 300px;
-    @include flex(column, start, null);
-    padding: 0.5rem;
-    gap: 1rem;
-    position: sticky;
-    top: 90px;
-  }
-  .trends {
-    height: 85vh;
   }
 }

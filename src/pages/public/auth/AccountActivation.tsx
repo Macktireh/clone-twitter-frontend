@@ -21,7 +21,7 @@ const AccountActivation: React.FC<any> = ({ accountActivationAction }) => {
     })();
   });
 
-  return <div></div>;
+  return <></>;
 };
 
 export default connect(null, { accountActivationAction })(AccountActivation);

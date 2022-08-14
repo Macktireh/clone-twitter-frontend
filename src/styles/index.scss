@@ -1,14 +1,17 @@
 @import "./settings/settings";
 @import "./settings/mixin";
 
-@import "./pages/home/Home";
-@import "./pages/auth/auth";
+@import "./pages/public/home/Home";
+@import "./pages/public/auth/auth";
 
 @import "./layout/layout";
 
-@import "./components/navbar.scss";
+@import "./pages/private/News";
+
+@import "./components/navbar/navbar";
 @import "./components/Buttons/Button";
 @import "./components/Input/input";
 @import "./components/Input/InputSearch";
+@import "./components/tweets/SectionHeaderTweet";
 
 @import "./pages/error/NotFound";

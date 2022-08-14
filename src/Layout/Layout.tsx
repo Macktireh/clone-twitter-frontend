@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import InputSearch from "@/components/Input/InputSearch";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar/Navbar";
 
 const Layout = (props: React.PropsWithChildren<any>) => {
   React.useEffect(() => {
@@ -12,34 +12,17 @@ const Layout = (props: React.PropsWithChildren<any>) => {
   });
   return (
     <div className="layout">
-      <div className="navbar">
-        <div className="container">
+      <header className="header">
+        <div className="nav-container">
           <Navbar />
         </div>
-      </div>
-      <div className="main">
-        {props.children}
-        <div className="trends"></div>
-        <div className="footer"></div>
-        <div className="trends"></div>
-        <div className="footer"></div>
-        <div className="footer"></div>
-        <div className="footer"></div>
-        <div className="footer"></div>
-        <div className="footer"></div>
-        <div className="footer"></div>
-        <div className="footer"></div>
-      </div>
-      <div className="aside">
+      </header>
+      <main className="main">{props.children}</main>
+      <aside className="aside">
         <div className="search-container">
           <InputSearch />
         </div>
-        <div className="trends"></div>
-        <div className="follow">
-          <div className="footer"></div>
-          <div className="footer"></div>
-        </div>
-      </div>
+      </aside>
     </div>
   );
 };

@@ -1,12 +1,12 @@
-import SignUp from "@/pages/auth/SignUp";
-import SignUpConfirm from "@/pages/auth/SingUpConfirm";
-import AccountActivation from "@/pages/auth/AccountActivation";
-import Login from "@/pages/auth/Login";
-import RequestResetPassword from "@/pages/auth/RequestResetPassword";
-import RequestResetPasswordConfirm from "@/pages/auth/RequestResetPasswordConfirm";
-import ResetPassword from "@/pages/auth/ResetPassword";
-import ResetPasswordConfirm from "@/pages/auth/ResetPasswordConfirm";
-import AccountActivationSuccess from "@/pages/auth/AccountActivationSuccess";
+import SignUp from "@/pages/public/auth/SignUp";
+import SignUpConfirm from "@/pages/public/auth/SingUpConfirm";
+import AccountActivation from "@/pages/public/auth/AccountActivation";
+import Login from "@/pages/public/auth/Login";
+import RequestResetPassword from "@/pages/public/auth/RequestResetPassword";
+import RequestResetPasswordConfirm from "@/pages/public/auth/RequestResetPasswordConfirm";
+import ResetPassword from "@/pages/public/auth/ResetPassword";
+import ResetPasswordConfirm from "@/pages/public/auth/ResetPasswordConfirm";
+import AccountActivationSuccess from "@/pages/public/auth/AccountActivationSuccess";
 import { TRoutesList } from "@/models";
 
 export const authRoutes = {
