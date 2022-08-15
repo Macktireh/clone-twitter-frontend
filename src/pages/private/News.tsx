@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/tweets/SectionHeaderTweet";
+import AddNewPost from "@/components/tweets/AddNewPost";
 import { tweetRoutes } from "@/routes/tweet.routes";
 import { IAuthUserProfile, TAuthUserReducer } from "@/models";
 
@@ -17,7 +18,9 @@ const News: React.FC<TcurrentUser> = ({ currentUser }) => {
       <section className="sec-header">
         <SectionHeaderTweet page={tweetRoutes.home.name} title="Latest Tweets" />
       </section>
-      <section className="sec-add-new-post"></section>
+      <section className="sec-add-new-post">
+        <AddNewPost currentUser={currentUser} />
+      </section>
       <div className="line"></div>
       <section className="sec-list-post"></section>
     </div>

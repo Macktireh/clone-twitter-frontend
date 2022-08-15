@@ -44,7 +44,6 @@ const userReducer = (state: IAuthUserState = initialState, action: IAuthUserActi
       return {
         ...state,
         currentUser: null,
-        isAuthenticated: false,
       };
 
     case Types.SIGNUP_FAIL:

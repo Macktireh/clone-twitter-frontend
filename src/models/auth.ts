@@ -23,7 +23,7 @@ export interface IAuthUserProfile {
   coverPicture: string;
   uid: string;
   bio: string;
-  picture: string;
+  profilePicture: string;
   updated: string;
   following: string[];
 }

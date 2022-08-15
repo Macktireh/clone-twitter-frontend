@@ -10,8 +10,10 @@ import "@/styles/index.scss";
 
 const App: React.FC<any> = ({ checkAuthenticatedAction, loadUserAction }) => {
   React.useEffect(() => {
+    // (async () => {
     checkAuthenticatedAction();
     loadUserAction();
+    // })();
   });
   return <Routes />;
 };
