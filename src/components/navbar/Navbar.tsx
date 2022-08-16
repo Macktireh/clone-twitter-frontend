@@ -109,9 +109,9 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
       <div className="nav-user">
         <img
           src={
-            currentUser?.profilePicture
+            currentUser?.profilePicture === ""
               ? process.env.REACT_APP_API_URL + currentUser.profilePicture
-              : "/static/svg/user.svg"
+              : "/static/img/profilePic.png"
           }
           alt=""
         />

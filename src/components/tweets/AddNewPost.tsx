@@ -42,7 +42,6 @@ const AddNewPost: React.FC<TcurrentUser> = ({ currentUser }) => {
       <form onSubmit={(e) => onSubmit(e)}>
         <div className="textarea">
           <textarea
-            is="textarea-autogrow"
             placeholder="What's happening?"
             value={textareaValue}
             onChange={(e) => setTextareaValue(e.target.value)}
@@ -63,10 +62,9 @@ const AddNewPost: React.FC<TcurrentUser> = ({ currentUser }) => {
               handleClick={() => setChosenEmoji(!chosenEmoji)}
             />
             <IconSVG iconName="schedule" fill="#1d9bf0" />
-            {/* <IconSVG iconName="lieu" fill="#1d9bf0" /> */}
           </div>
           <div className="box-btn" onClick={(e) => {}}>
-            <Button text="Tweet" />
+            <Button text="Tweet" isDisabled={textareaValue ? false : true} />
           </div>
         </div>
         <div className="emojiPicker">

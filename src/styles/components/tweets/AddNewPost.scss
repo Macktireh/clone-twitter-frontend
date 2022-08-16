@@ -62,7 +62,7 @@
 
       .box-btn {
         width: 60%;
-        max-width: 120px;
+        max-width: 100px;
         user-select: none;
         button {
           background-color: $color3;
@@ -70,6 +70,10 @@
           span {
             font-weight: bold;
           }
+        }
+        button[disabled] {
+          cursor: not-allowed;
+          opacity: 0.4;
         }
       }
     }
