@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import Button from "@/components/Buttons/buttonSubmit";
+import Button from "@/components/widgets/ButtonCustom";
 import { authRoutes } from "@/routes/auth.routes";
 
 const Home: React.FC = () => {

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import InputSearch from "@/components/Input/InputSearch";
+import InputSearch from "@/components/widgets/InputSearch";
 import Navbar from "@/components/navbar/Navbar";
 
 const Layout = (props: React.PropsWithChildren<any>) => {

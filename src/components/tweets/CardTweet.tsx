@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import IconSVG from "@/components/icon/IconSVG";
+import IconSVG from "@/components/widgets/IconSVG";
 import { IAuthUserProfile } from "@/models";
 
 type TcurrentUser = { currentUser: IAuthUserProfile | null };

@@ -2,13 +2,14 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 
-import Input from "@/components/Input/Input";
-import Button from "@/components/Buttons/buttonSubmit";
+import InputCustom from "@/components/widgets/InputCoustom";
+import ButtonCustom from "@/components/widgets/ButtonCustom";
 import signupAction from "@/actions/auth/signup.action";
 import * as controlField from "@/validators/controlField";
 import * as ErrorMessage from "@/utils/function";
 import { IAuthUserSignUp } from "@/models";
 import { authRoutes } from "@/routes/auth.routes";
+import SpinnersLoding from "@/components/widgets/SpinnersLoding";
 
 const SignUp: React.FC<any> = ({ signupAction }) => {
   const [formData, setFormData] = React.useState<IAuthUserSignUp>({
@@ -21,8 +22,9 @@ const SignUp: React.FC<any> = ({ signupAction }) => {
   const [displayError, setDisplayError] = React.useState(false);
   const [detailError, setDetailError] = React.useState("");
   const [disabled, setDisabled] = React.useState(false);
-  const navigate = useNavigate();
+  const [loading, setLoading] = React.useState(false);
   const { firstName, lastName, email, password, confirmPassword } = formData;
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     document.title = authRoutes.signup.title;
@@ -39,14 +41,16 @@ const SignUp: React.FC<any> = ({ signupAction }) => {
     const checkPassword = await controlField.passwordValidator(password, confirmPassword);
 
     if (checkFirstName.validate && checkLastName.validate && checkEmail.validate && checkPassword.validate) {
+      setLoading(true);
+      setDisabled(true);
       setDisplayError(false);
       setDetailError("");
-      setDisabled(true);
       const res = await signupAction(firstName, lastName, email, password, confirmPassword);
 
       if (!res.SignUpSuccess) {
         ErrorMessage.DispyalErrorMessageBackend(res, setDisplayError, setDetailError);
         setDisabled(false);
+        setLoading(false);
       } else {
         setDisplayError(false);
         setDetailError("");
@@ -66,6 +70,7 @@ const SignUp: React.FC<any> = ({ signupAction }) => {
 
   return (
     <div className="container-auth">
+      <SpinnersLoding isLoading={loading} nameClass={loading ? "" : "displayNone"} />
       <div className="modal-auth">
         <form onSubmit={onSubmit}>
           <h2>Créer votre compte</h2>
@@ -75,10 +80,10 @@ const SignUp: React.FC<any> = ({ signupAction }) => {
               <span>{detailError}</span>
             </div>
           )}
-          <Input id="firstName" name="firstName" label="Prénom *" maxLength="50" onChange={handleChange} />
-          <Input id="lastName" name="lastName" label="Nom *" maxLength="50" onChange={handleChange} />
-          <Input id="email" name="email" type="email" label="Email *" onChange={handleChange} />
-          <Input
+          <InputCustom id="firstName" name="firstName" label="Prénom *" maxLength="50" onChange={handleChange} />
+          <InputCustom id="lastName" name="lastName" label="Nom *" maxLength="50" onChange={handleChange} />
+          <InputCustom id="email" name="email" type="email" label="Email *" onChange={handleChange} />
+          <InputCustom
             id="password"
             name="password"
             type="password"
@@ -86,7 +91,7 @@ const SignUp: React.FC<any> = ({ signupAction }) => {
             onChange={handleChange}
             isPasswords={true}
           />
-          <Input
+          <InputCustom
             id="confirmPassword"
             name="confirmPassword"
             type="password"
@@ -94,7 +99,7 @@ const SignUp: React.FC<any> = ({ signupAction }) => {
             onChange={handleChange}
             isPasswords={true}
           />
-          <Button
+          <ButtonCustom
             nameClass={disabled ? "btn-signup disabled" : "btn-signup"}
             text={"S'inscrire"}
             isDisabled={disabled}

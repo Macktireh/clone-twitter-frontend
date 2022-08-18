@@ -16,7 +16,7 @@ const App: React.FC<any> = ({ checkAuthenticatedAction, loadUserAction }) => {
   });
   return loading ? (
     <div className="spinners-container">
-      <img src="./static/svg/twitter-blue.svg" alt="" width="60px" />
+      <img src="/static/svg/twitter-blue.svg" alt="" />
     </div>
   ) : (
     <Routes />

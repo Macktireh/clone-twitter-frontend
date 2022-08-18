@@ -2,7 +2,7 @@ import * as React from "react";
 import { NavLink } from "react-router-dom";
 
 import { tweetRoutes } from "@/routes/tweet.routes";
-import IconSVG from "@/components/icon/IconSVG";
+import IconSVG from "@/components/widgets/IconSVG";
 import { IAuthUserProfile, TAuthUserReducer } from "@/models";
 import { connect } from "react-redux";
 

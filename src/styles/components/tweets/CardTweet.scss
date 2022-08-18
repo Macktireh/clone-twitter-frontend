@@ -1,7 +1,7 @@
 .CardTweet {
   width: 100%;
   height: 100%;
-  @include flex(row, space-between, start);
+  @include flex(row, space-between, flex-start);
   flex-basis: 100%;
   gap: 0.5rem;
   padding: 5px;
@@ -9,7 +9,7 @@
   .box-img {
     width: 70px;
     height: 100%;
-    @include flex(row, center, start);
+    @include flex(row, center, flex-start);
     user-select: none;
     img,
     svg {
@@ -22,16 +22,16 @@
   .post-main {
     width: 100%;
     height: 100%;
-    @include flex(column, start, start);
+    @include flex(column, flex-start, flex-start);
     flex-basis: 100%;
     // gap: 0.4rem;
 
     .post-header {
       width: 100%;
-      @include flex(row, space-between, start);
+      @include flex(row, space-between, flex-start);
       p {
         width: 100%;
-        @include flex(row, start, start);
+        @include flex(row, flex-start, flex-start);
         gap: 5px;
         *:hover {
           text-decoration: underline;
@@ -51,7 +51,7 @@
 
     .post-content {
       width: 100%;
-      @include flex(column, start, start);
+      @include flex(column, flex-start, flex-start);
       flex-basis: 100%;
       gap: 1rem;
       .post-text {
@@ -73,7 +73,7 @@
 
       .post-footer {
         // margin-top: 8px;
-        @include flex(row, start, center);
+        @include flex(row, flex-start, center);
         gap: 4em;
         * {
           user-select: none;

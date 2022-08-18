@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import Button from "@/components/Buttons/buttonSubmit";
+import ButtonCustom from "@/components/widgets/ButtonCustom";
 import { authRoutes } from "@/routes/auth.routes";
 
 const ResetPasswordConfirm: React.FC = () => {
@@ -22,7 +22,7 @@ const ResetPasswordConfirm: React.FC = () => {
           <br />
           <p>Votre mot de passe a été bien défini. Vous pouvez continuer et vous connecter maintenant.</p>
           <br />
-          <Button
+          <ButtonCustom
             nameClass={"btn-signin btn-success"}
             text={"Se connecter"}
             handleClick={() => navigate(authRoutes.login.path)}

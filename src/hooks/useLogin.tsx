@@ -3,11 +3,13 @@ import Axios from "@/api";
 const useLogin = async (
   email: string,
   password: string,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setDisplayError: React.Dispatch<React.SetStateAction<boolean>>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
   setDetailError: React.Dispatch<React.SetStateAction<string>>,
   loginAction: (isAuthenticated?: boolean) => (dispatch: any) => Promise<void>
 ) => {
+  setLoading(true);
   setDisabled(true);
   const config = {
     headers: {
@@ -25,7 +27,7 @@ const useLogin = async (
     setDisplayError(false);
     loginAction(true);
   } catch (error: any) {
-    // console.log(error);
+    setLoading(false);
     setDisabled(false);
     setDisplayError(true);
     if (

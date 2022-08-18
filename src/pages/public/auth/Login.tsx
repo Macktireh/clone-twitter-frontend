@@ -2,12 +2,13 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 
-import Input from "@/components/Input/Input";
-import Button from "@/components/Buttons/buttonSubmit";
+import InputCustom from "@/components/widgets/InputCoustom";
+import ButtonCoustom from "@/components/widgets/ButtonCustom";
 import useLogin from "@/hooks/useLogin";
 import loginAction from "@/actions/auth/login.action";
 import { IAuthUserLogin } from "@/models";
 import { authRoutes } from "@/routes/auth.routes";
+import SpinnersLoding from "@/components/widgets/SpinnersLoding";
 
 const Login: React.FC<any> = ({ loginAction }) => {
   const [formData, setFormData] = React.useState<IAuthUserLogin>({
@@ -17,6 +18,7 @@ const Login: React.FC<any> = ({ loginAction }) => {
   const [displayError, setDisplayError] = React.useState(false);
   const [detailError, setDetailError] = React.useState("");
   const [disabled, setDisabled] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
   const customHooksLogin = useLogin;
   const { email, password } = formData;
@@ -30,11 +32,12 @@ const Login: React.FC<any> = ({ loginAction }) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    customHooksLogin(email, password, setDisplayError, setDisabled, setDetailError, loginAction);
+    customHooksLogin(email, password, setLoading, setDisplayError, setDisabled, setDetailError, loginAction);
   };
 
   return (
     <div className="container-auth">
+      <SpinnersLoding isLoading={loading} nameClass={loading ? "" : "displayNone"} />
       <div className="modal-auth">
         <form onSubmit={onSubmit}>
           <h2>Connectez-vous à Mack-Twitter</h2>
@@ -44,9 +47,15 @@ const Login: React.FC<any> = ({ loginAction }) => {
               <span>{detailError}</span>
             </div>
           )}
-          <Input id="email" name="email" type="email" label="Email" onChange={handleChange} />
-          <Input id="password" name="password" type="password" label="Mot de passe" onChange={handleChange} />
-          <Button nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
+          <InputCustom id="email" name="email" type="email" label="Email" onChange={handleChange} />
+          <InputCustom
+            id="password"
+            name="password"
+            type="password"
+            label="Mot de passe"
+            onChange={handleChange}
+          />
+          <ButtonCoustom nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
           <div className="info">
             <h4>
               Mot de passe ?{" "}

@@ -3,11 +3,12 @@ import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 import resetPasswordAction from "@/actions/auth/resetPassword.action";
-import Button from "@/components/Buttons/buttonSubmit";
-import Input from "@/components/Input/Input";
+import ButtonCustom from "@/components/widgets/ButtonCustom";
+import InputCustom from "@/components/widgets/InputCoustom";
 import * as controlField from "@/validators/controlField";
 import * as ErrorMessage from "@/utils/function";
 import { authRoutes } from "@/routes/auth.routes";
+import SpinnersLoding from "@/components/widgets/SpinnersLoding";
 
 const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
   const [formData, setFormData] = React.useState({
@@ -17,6 +18,7 @@ const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
   const [displayError, setDisplayError] = React.useState(false);
   const [detailError, setDetailError] = React.useState("");
   const [disabled, setDisabled] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
   const { uid, token } = useParams();
   const { password, confirmPassword } = formData;
@@ -33,6 +35,7 @@ const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
     const checkPassword = await controlField.passwordValidator(password, confirmPassword);
 
     if (checkPassword.validate) {
+      setLoading(true);
       setDisabled(true);
       setDisplayError(false);
       setDetailError("");
@@ -44,6 +47,7 @@ const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
         setDisplayError(false);
       }
     } else {
+      setLoading(false);
       setDisabled(false);
       ErrorMessage.DispyalErrorMessageFrontend(setDisplayError, setDetailError, checkPassword);
     }
@@ -51,6 +55,7 @@ const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
 
   return (
     <div className="container-auth">
+      <SpinnersLoding isLoading={loading} nameClass={loading ? "" : "displayNone"} />
       <div className="modal-auth">
         <form onSubmit={onSubmit}>
           <h2>Connectez-vous à Mack-Twitter</h2>
@@ -60,7 +65,7 @@ const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
               <span>{detailError}</span>
             </div>
           )}
-          <Input
+          <InputCustom
             id="password"
             name="password"
             type="password"
@@ -68,7 +73,7 @@ const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
             onChange={handleChange}
             isPasswords={true}
           />
-          <Input
+          <InputCustom
             id="confirmPassword"
             name="confirmPassword"
             type="password"
@@ -76,7 +81,7 @@ const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
             onChange={handleChange}
             isPasswords={true}
           />
-          <Button nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
+          <ButtonCustom nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
         </form>
 
         <div className="close" onClick={() => navigate(disabled ? "" : "/")}>

@@ -12,7 +12,7 @@ interface Props {
   isPasswords?: boolean;
 }
 
-const Input: React.FC<Props> = (props) => {
+const InputCoustom: React.FC<Props> = (props) => {
   const [len, setLen] = useState(0);
   const [showValue, setShowValue] = useState(props.type || "text");
 
@@ -53,4 +53,4 @@ const Input: React.FC<Props> = (props) => {
   );
 };
 
-export default Input;
+export default InputCoustom;

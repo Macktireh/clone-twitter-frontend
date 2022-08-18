@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import Button from "@/components/Buttons/buttonSubmit";
+import ButtonCoustom from "@/components/widgets/ButtonCustom";
 import { authRoutes } from "@/routes/auth.routes";
 
 const AccountActivationSuccess: React.FC = () => {
@@ -22,7 +22,7 @@ const AccountActivationSuccess: React.FC = () => {
           <br />
           <p>Vous pouvez continuer et vous connecter maintenant.</p>
           <br />
-          <Button
+          <ButtonCoustom
             nameClass={"btn-signin btn-success"}
             text={"Se connecter"}
             handleClick={() => navigate(authRoutes.login.path)}

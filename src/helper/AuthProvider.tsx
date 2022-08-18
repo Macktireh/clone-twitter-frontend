@@ -1,17 +1,10 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import ScaleLoader from "react-spinners/ScaleLoader";
-
 import { TAuthUserReducer } from "@/models";
 import { Navigate } from "react-router-dom";
 import { tweetRoutes } from "@/routes/tweet.routes";
-
-const override: React.CSSProperties = {
-  display: "block",
-  margin: "0 auto",
-  borderColor: "red",
-};
+import SpinnersLoding from "@/components/widgets/SpinnersLoding";
 
 type TProps = {
   isPublic: boolean;
@@ -28,9 +21,7 @@ const AuthProvider: React.FC<TProps> = ({ isPublic, isAuthenticated, children })
   setTimeout(() => setLoading(false), 1500);
 
   return loading ? (
-    <div className="spinners-container">
-      <ScaleLoader color={"#1d9bf0"} loading={loading} cssOverride={override} />
-    </div>
+    <SpinnersLoding isLoading={loading} />
   ) : (
     <>{children}</>
   );

@@ -3,8 +3,8 @@ import * as React from "react";
 import Picker, { IEmojiData } from "emoji-picker-react";
 
 import { IAuthUserProfile } from "@/models";
-import IconSVG from "@/components/icon/IconSVG";
-import Button from "../Buttons/buttonSubmit";
+import IconSVG from "@/components/widgets/IconSVG";
+import ButtonCoustom from "../widgets/ButtonCustom";
 
 type TcurrentUser = { currentUser: IAuthUserProfile | null };
 
@@ -64,7 +64,7 @@ const AddNewPost: React.FC<TcurrentUser> = ({ currentUser }) => {
             <IconSVG iconName="schedule" fill="#1d9bf0" />
           </div>
           <div className="box-btn" onClick={(e) => {}}>
-            <Button text="Tweet" isDisabled={textareaValue ? false : true} />
+            <ButtonCoustom text="Tweet" isDisabled={textareaValue ? false : true} />
           </div>
         </div>
         <div className="emojiPicker">

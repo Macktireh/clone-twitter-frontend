@@ -4,16 +4,17 @@
   @include flex(row, space-between, null);
   gap: 0.8rem;
   flex-shrink: 0;
+  margin: auto;
 
   .header {
     height: 100vh;
     flex: 22%;
-    @include flex(row, flex-end, start);
+    @include flex(row, flex-end, flex-start);
     position: sticky;
     top: 0px;
     .nav-container {
       height: 100%;
-      @include flex(row, center, start);
+      @include flex(row, center, flex-start);
     }
     @media (max-width: 1150px) {
       flex: 80px;
@@ -31,7 +32,7 @@
 
   .aside {
     flex: 28%;
-    @include flex(column, start, null);
+    @include flex(column, flex-start, null);
     gap: 1rem;
     background-color: $color4;
     border-radius: 8px;

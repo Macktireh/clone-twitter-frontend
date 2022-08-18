@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import accountActivationAction from "@/actions/auth/accountActivation.action";
 import { authRoutes } from "@/routes/auth.routes";
+import SpinnersLoding from "@/components/widgets/SpinnersLoding";
 
 const AccountActivation: React.FC<any> = ({ accountActivationAction }) => {
   const { uidb64, token } = useParams();
@@ -21,7 +22,11 @@ const AccountActivation: React.FC<any> = ({ accountActivationAction }) => {
     })();
   });
 
-  return <></>;
+  return (
+    <>
+      <SpinnersLoding isLoading={true} />
+    </>
+  );
 };
 
 export default connect(null, { accountActivationAction })(AccountActivation);

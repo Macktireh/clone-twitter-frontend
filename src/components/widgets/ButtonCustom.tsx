@@ -8,7 +8,7 @@ interface Props {
   isDisabled?: boolean;
 }
 
-const Button: React.FC<Props> = (props) => {
+const ButtonCustom: React.FC<Props> = (props) => {
   return (
     <button
       className={props.nameClass ? `button ${props.nameClass}` : "button"}
@@ -21,4 +21,4 @@ const Button: React.FC<Props> = (props) => {
   );
 };
 
-export default Button;
+export default ButtonCustom;
