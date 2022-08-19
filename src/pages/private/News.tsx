@@ -7,6 +7,10 @@ import AddNewPost from "@/components/tweets/AddNewPost";
 import CardTweet from "@/components/tweets/CardTweet";
 import { tweetRoutes } from "@/routes/tweet.routes";
 import { IAuthUserProfile, TAuthUserReducer } from "@/models";
+import InputSearch from "@/components/widgets/InputSearch";
+import Trending from "@/components/tweets/Trending";
+import Follow from "@/components/tweets/Follow";
+import FooterPrivate from "@/components/tweets/FooterPrivate";
 
 type TcurrentUser = { currentUser: IAuthUserProfile | null };
 
@@ -19,23 +23,53 @@ const News: React.FC<TcurrentUser> = ({ currentUser }) => {
       secHeaderBg?.classList.toggle("sticky-2", window.scrollY > 0);
     });
   });
+
   return (
-    <div className="News">
-      <section className="sec-header">
-        <SectionHeaderTweet page={tweetRoutes.home.name} title="Latest Tweets" />
-      </section>
-      <section className="sec-add-new-post">
-        <AddNewPost currentUser={currentUser} />
-      </section>
-      <div className="line"></div>
-      <section className="sec-list-post">
-        {[1, 2, 3, 4, 5, 6].map((post) => (
-          <div className="list-post">
-            <CardTweet currentUser={currentUser} />
+    <>
+      <main className="main">
+        <div className="News">
+          <section className="sec-header">
+            <SectionHeaderTweet page={tweetRoutes.home.name} title="Latest Tweets" />
+          </section>
+          <section className="sec-add-new-post">
+            <AddNewPost currentUser={currentUser} />
+          </section>
+          <div className="line"></div>
+          <section className="sec-list-post">
+            {[1, 2, 3, 4, 5, 6].map((post) => (
+              <div className="list-post">
+                <CardTweet currentUser={currentUser} />
+              </div>
+            ))}
+          </section>
+        </div>
+      </main>
+      <aside className="aside">
+        <div className="search-container">
+          <InputSearch />
+        </div>
+        <div className="trends-container">
+          <h3>Trends for you</h3>
+          <Trending />
+          <Trending />
+          <Trending />
+          <Trending />
+          <Trending />
+          <Trending />
+          <Trending />
+        </div>
+        <div className="footer-container">
+          <div className="follow-container">
+            <h3>Who to follow</h3>
+            <Follow />
+            <Follow />
+            <Follow />
+            <span className="show-more">Show more</span>
           </div>
-        ))}
-      </section>
-    </div>
+          <FooterPrivate />
+        </div>
+      </aside>
+    </>
   );
 };
 

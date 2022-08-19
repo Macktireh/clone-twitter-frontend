@@ -24,30 +24,4 @@
       }
     }
   }
-
-  .main {
-    flex: 50%;
-    @include flex(column, center, center);
-  }
-
-  .aside {
-    flex: 28%;
-    @include flex(column, flex-start, null);
-    gap: 1rem;
-    background-color: $color4;
-    border-radius: 8px;
-    padding: 0.5rem;
-    position: relative;
-    transition: all 0.2s;
-    .search-container {
-      width: 100%;
-      @extend .flex-center;
-      position: sticky;
-      top: 0px;
-    }
-    .search-container.sticky {
-      background-color: $color4;
-      padding: 8px 0 4px;
-    }
-  }
 }

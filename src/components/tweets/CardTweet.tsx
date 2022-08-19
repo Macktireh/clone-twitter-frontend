@@ -25,7 +25,7 @@ const CardTweet: React.FC<TcurrentUser> = ({ currentUser }) => {
             <span>·</span>
             <span>Jan 12, 2021</span>
           </p>
-          <IconSVG iconName="point" fill="#919090" />
+          <IconSVG iconName="3-dot" fill="#919090" />
         </div>
         <div className="post-content">
           <div className="post-text">
@@ -49,7 +49,7 @@ const CardTweet: React.FC<TcurrentUser> = ({ currentUser }) => {
               ) : (
                 <IconSVG iconName="unLike" fill="#919090" handleClick={() => setIsLked(!isLiked)} />
               )}
-              <span>112</span>
+              <span className={isLiked ? "like": ""}>112</span>
             </div>
             <div className="share post-icon">
               <IconSVG iconName="share" fill="#919090" />

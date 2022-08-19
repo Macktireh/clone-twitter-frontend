@@ -1,0 +1,51 @@
+.Trending{
+  @include flex(row, space-between, center);
+  // gap: 0.5rem;
+  flex-basis: 100%;
+  width: 100%;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    background-color: $color9;
+  }
+  &:last-child {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+
+  .left, .right {
+    height: 100%;
+    width: 100%;
+  }
+
+  .left{
+    flex: 80%;
+    @include flex(column, flex-start, flex-start);
+
+      span{
+        color: $color5;
+        font-size: 13px;
+      }
+  }
+
+  .right{
+    flex: 20%;
+    @extend .flex-center;
+
+    .option{
+      @extend .flex-center;
+      padding: 4px;
+      border-radius: 50%;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        background-color: $color3-2;
+        border: 1px solid $color3;
+      }
+
+      svg{
+        width: 25px;
+      }
+    }
+  }
+}

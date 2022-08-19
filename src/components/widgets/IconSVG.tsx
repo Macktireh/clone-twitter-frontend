@@ -281,7 +281,7 @@ const IconSVG: React.FC<TIconeName> = ({ iconName, fill, nameClass, handleClick 
             </g>
           </svg>
         );
-      case "point":
+      case "3-dot":
         return (
           <svg
             className={nameClass ? nameClass : ""}

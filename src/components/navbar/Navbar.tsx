@@ -122,7 +122,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
           </strong>
           <p>@{currentUser?.pseudo}</p>
         </div>
-        <IconSVG iconName="point" />
+        <IconSVG iconName="3-dot" />
       </div>
     </nav>
   );

@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import InputSearch from "@/components/widgets/InputSearch";
 import Navbar from "@/components/navbar/Navbar";
 
 const Layout = (props: React.PropsWithChildren<any>) => {
@@ -17,12 +16,7 @@ const Layout = (props: React.PropsWithChildren<any>) => {
           <Navbar />
         </div>
       </header>
-      <main className="main">{props.children}</main>
-      <aside className="aside">
-        <div className="search-container">
-          <InputSearch />
-        </div>
-      </aside>
+      {props.children}
     </div>
   );
 };

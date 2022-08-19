@@ -1,0 +1,56 @@
+.Follow {
+  @include flex(row, space-between, center);
+  flex-basis: 100%;
+  width: 100%;
+  cursor: pointer;
+  padding: 0.8rem 1rem;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    background-color: $color9;
+  }
+
+  .left, .right {
+    height: 100%;
+    width: 100%;
+  }
+
+  .left {
+    flex: 80%;
+    @include flex(row, flex-start, center);
+    gap: 0.6rem;
+
+    .img-container {
+      img {
+        width: 45px;
+        height: 45px;
+        object-position: center;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+
+    .info-container {
+      p {
+        color: $color5;
+      }
+      strong, p {
+        display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .right {
+    flex: 20%;
+    button {
+      background-color: $color2;
+      color: $color1;
+      font-weight: 600;
+      width: 100px;
+      padding: 6px;
+    }
+  }
+}

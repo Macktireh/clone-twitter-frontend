@@ -5,6 +5,7 @@
   flex-direction: column;
   gap: 1rem;
   user-select: none;
+  padding-bottom: 0.8rem;
 
   .nav-content {
     width: 90%;
@@ -106,7 +107,7 @@
 
   .nav-user {
     width: 100%;
-    @include flex(row, space-around, flex-start);
+    @include flex(row, space-around, center);
     gap: 0.5rem;
     padding: 8px;
     cursor: pointer;
@@ -125,6 +126,10 @@
       object-fit: cover;
       border-radius: 50%;
     }
+    svg {
+      width: 30px;
+      height: 30px;
+    }
     strong,
     p {
       display: -webkit-box;
@@ -135,7 +140,7 @@
     }
     p {
       color: $color5;
-      font-size: 15px;
+      font-size: 14px;
     }
     @media (max-width: 1150px) {
       display: flex;
