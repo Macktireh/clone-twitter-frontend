@@ -1,4 +1,4 @@
-.Trending{
+.Trending {
   @include flex(row, space-between, center);
   // gap: 0.5rem;
   flex-basis: 100%;
@@ -14,26 +14,35 @@
     border-bottom-right-radius: 15px;
   }
 
-  .left, .right {
+  .left,
+  .right {
     height: 100%;
     width: 100%;
   }
 
-  .left{
+  .left {
     flex: 80%;
     @include flex(column, flex-start, flex-start);
 
-      span{
-        color: $color5;
-        font-size: 13px;
-      }
+    strong {
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    span {
+      color: $color5;
+      font-size: 13px;
+    }
   }
 
-  .right{
+  .right {
     flex: 20%;
     @extend .flex-center;
 
-    .option{
+    .option {
       @extend .flex-center;
       padding: 4px;
       border-radius: 50%;
@@ -43,7 +52,7 @@
         border: 1px solid $color3;
       }
 
-      svg{
+      svg {
         width: 25px;
       }
     }

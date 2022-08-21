@@ -7,12 +7,14 @@
 @import "./layout/layout";
 
 @import "./pages/private/News";
+@import "./pages/private/Profile";
 
 @import "./components/navbar/navbar";
 
 @import "./components/widgets/Button";
 @import "./components/widgets/input";
 @import "./components/widgets/InputSearch";
+@import "./components/widgets/NavTabs";
 
 @import "./components/tweets/SectionHeaderTweet";
 @import "./components/tweets/AddNewPost";

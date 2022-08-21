@@ -1,13 +1,14 @@
 import * as React from "react";
 
 import ButtonCustom from "@/components/widgets/ButtonCustom";
+import { baseURL } from "@/api";
 
 const Follow: React.FC = () => {
   return (
     <div className="Follow">
       <div className="left">
         <div className="img-container">
-          <img src="/static/img/profilePic.png" alt="" />
+          <img src={baseURL + "/mediafiles/default/profilePic.png"} alt="" />
         </div>
         <div className="info-container">
           <strong>Macktireh AS</strong>

@@ -4,11 +4,11 @@ import { AnyAction, Dispatch } from "redux";
 import * as Types from "@/actions/types";
 
 const loadUserAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
-  if (sessionStorage.getItem("access")) {
+  if (localStorage.getItem("access")) {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + sessionStorage.getItem("access"),
+        Authorization: "Bearer " + localStorage.getItem("access"),
         Accept: "application/json",
       },
     };

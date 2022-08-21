@@ -12,9 +12,9 @@ import Trending from "@/components/tweets/Trending";
 import Follow from "@/components/tweets/Follow";
 import FooterPrivate from "@/components/tweets/FooterPrivate";
 
-type TcurrentUser = { currentUser: IAuthUserProfile | null };
+type Props = { currentUser: IAuthUserProfile | null };
 
-const News: React.FC<TcurrentUser> = ({ currentUser }) => {
+const News: React.FC<Props> = ({ currentUser }) => {
   React.useEffect(() => {
     document.title = tweetRoutes.home.title;
 
@@ -50,20 +50,12 @@ const News: React.FC<TcurrentUser> = ({ currentUser }) => {
         </div>
         <div className="trends-container">
           <h3>Trends for you</h3>
-          <Trending />
-          <Trending />
-          <Trending />
-          <Trending />
-          <Trending />
-          <Trending />
-          <Trending />
+          {[1,2,3,4,5,6,7].map((n) => <Trending />)}
         </div>
         <div className="footer-container">
           <div className="follow-container">
             <h3>Who to follow</h3>
-            <Follow />
-            <Follow />
-            <Follow />
+            {[1,2,3].map((n) => <Follow />)}
             <span className="show-more">Show more</span>
           </div>
           <FooterPrivate />
@@ -73,7 +65,7 @@ const News: React.FC<TcurrentUser> = ({ currentUser }) => {
   );
 };
 
-const NewsConnectWithStore: React.FC<any> = ({ currentUser }) => {
+const NewsConnectWithStore: React.FC<Props> = ({ currentUser }) => {
   return (
     <Layout>
       <News currentUser={currentUser} />

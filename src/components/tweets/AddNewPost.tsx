@@ -5,6 +5,7 @@ import Picker, { IEmojiData } from "emoji-picker-react";
 import { IAuthUserProfile } from "@/models";
 import IconSVG from "@/components/widgets/IconSVG";
 import ButtonCoustom from "../widgets/ButtonCustom";
+import { baseURL } from "@/api";
 
 type TcurrentUser = { currentUser: IAuthUserProfile | null };
 
@@ -33,11 +34,14 @@ const AddNewPost: React.FC<TcurrentUser> = ({ currentUser }) => {
   return (
     <div className="AddNewPost">
       <div className="box-img">
-        {currentUser?.profilePicture ? (
-          <img src={process.env.REACT_APP_API_URL + currentUser.profilePicture} alt="" />
-        ) : (
-          <IconSVG iconName="profile" />
-        )}
+        <img
+          src={
+            currentUser?.profilePicture
+              ? baseURL + currentUser.profilePicture
+              : baseURL + "/mediafiles/default/profilePic.png"
+          }
+          alt=""
+        />
       </div>
       <form onSubmit={(e) => onSubmit(e)}>
         <div className="textarea">

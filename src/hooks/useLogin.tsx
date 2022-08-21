@@ -20,10 +20,10 @@ const useLogin = async (
   const body = JSON.stringify({ email, password });
 
   try {
-    const res = await Axios.post( "/api/account/login/", body, config );
+    const res = await Axios.post("/api/account/login/", body, config);
 
-    sessionStorage.setItem("access", res.data.token.access);
-    sessionStorage.setItem("refresh", res.data.token.refresh);
+    localStorage.setItem("access", res.data.token.access);
+    localStorage.setItem("refresh", res.data.token.refresh);
     setDisplayError(false);
     loginAction(true);
   } catch (error: any) {

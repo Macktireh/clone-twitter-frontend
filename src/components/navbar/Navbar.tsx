@@ -5,6 +5,7 @@ import { tweetRoutes } from "@/routes/tweet.routes";
 import IconSVG from "@/components/widgets/IconSVG";
 import { IAuthUserProfile, TAuthUserReducer } from "@/models";
 import { connect } from "react-redux";
+import { baseURL } from "@/api";
 
 type TcurrentUser = { currentUser: IAuthUserProfile | null };
 
@@ -109,9 +110,9 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
       <div className="nav-user">
         <img
           src={
-            currentUser?.profilePicture === ""
-              ? process.env.REACT_APP_API_URL + currentUser.profilePicture
-              : "/static/img/profilePic.png"
+            currentUser?.profilePicture
+              ? baseURL + currentUser.profilePicture
+              : baseURL + "/mediafiles/default/profilePic.png"
           }
           alt=""
         />

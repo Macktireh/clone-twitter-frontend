@@ -25,6 +25,7 @@ export interface IAuthUserProfile {
   bio: string;
   profilePicture: string;
   updated: string;
+  created: string;
   following: string[];
 }
 

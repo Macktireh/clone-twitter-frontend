@@ -49,8 +49,8 @@ const userReducer = (state: IAuthUserState = initialState, action: IAuthUserActi
     case Types.SIGNUP_FAIL:
     case Types.LOGIN_FAIL:
     case Types.LOGOUT:
-      sessionStorage.removeItem("access");
-      sessionStorage.removeItem("refresh");
+      localStorage.removeItem("access");
+      localStorage.removeItem("refresh");
       return {
         ...state,
         isAuthenticated: false,

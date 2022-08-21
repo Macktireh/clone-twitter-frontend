@@ -1,0 +1,1 @@
+export type TTabState = {id: number, title: string}

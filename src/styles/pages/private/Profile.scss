@@ -1,0 +1,126 @@
+.Profile {
+  width: 100%;
+  height: 100%;
+  @include flex(column, flex-start, center);
+  gap: 3px;
+  border: 0px solid transparent;
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-color: $color7;
+  position: relative;
+
+  .pro-container {
+    width: 100%;
+    @include flex(column, flex-start, center);
+    gap: 3px;
+    position: relative;
+
+    .info-profile-container {
+      width: 100%;
+      @include flex(column, flex-start, center);
+      gap: 3px;
+
+      .cover-profile-pic {
+        width: 100%;
+        height: 200px;
+        position: relative;
+        img {
+          width: 100%;
+          height: 100%;
+          object-position: center;
+          object-fit: cover;
+        }
+
+        .profile-pic {
+          width: 8.5em;
+          height: 8.5em;
+          border: 4px solid $color1;
+          background-color: $color4;
+          border-radius: 50%;
+          @include position-abs(null, null, -60px, 20px, null, null);
+          z-index: 5;
+        }
+      }
+    }
+
+    .info-profile-container {
+      position: relative;
+      button {
+        width: 130px;
+        font-weight: 700;
+        padding: 8px 0;
+        @include position-abs(10px, 20px, null, null, null, null);
+        z-index: 5;
+      }
+      .info-profile {
+        @include flex(column, flex-start, flex-start);
+        gap: 3px;
+        margin-top: 4rem;
+        padding: 1rem;
+        width: 100%;
+
+        .box-info-name {
+          margin-bottom: 0.8rem;
+          h3 {
+            font-size: 20px;
+          }
+          p {
+            color: $color5;
+            font-size: 15px;
+          }
+        }
+
+        .box-info-date-joined {
+          @include flex(row, flex-start, flex-start);
+          gap: 0.5rem;
+          margin-bottom: 0.6rem;
+          svg {
+            width: 22px;
+          }
+          p {
+            color: $color5;
+            font-size: 15px;
+          }
+        }
+
+        .box-info-follow {
+          @include flex(row, flex-start, flex-start);
+          gap: 1.5rem;
+          a {
+            @include flex(row, flex-start, flex-start);
+            gap: 0.2rem;
+            &:hover {
+              text-decoration: underline;
+            }
+            span {
+              color: $color2;
+              font-weight: 700;
+              font-size: 15px;
+            }
+            p {
+              color: $color5;
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }
+
+    nav {
+      width: 100%;
+      border-bottom: 1px solid $color7;
+    }
+
+    .my-content-container {
+      width: 100%;
+
+      .tabs-tweets {
+        .list-post {
+          width: 100%;
+          padding: 0.8rem;
+          border-bottom: 1px solid $color7;
+        }
+      }
+    }
+  }
+}

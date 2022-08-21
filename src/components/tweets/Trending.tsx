@@ -18,7 +18,7 @@ const Trending: React.FC = () => {
       </div>
       <div className="right">
         <div className="option">
-          <IconSVG iconName="3-dot" />
+          <IconSVG iconName="3-dot" fill="#919090" />
         </div>
       </div>
     </div>

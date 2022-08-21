@@ -2,6 +2,7 @@ import * as React from "react";
 
 import IconSVG from "@/components/widgets/IconSVG";
 import { IAuthUserProfile } from "@/models";
+import { baseURL } from "@/api";
 
 type TcurrentUser = { currentUser: IAuthUserProfile | null };
 
@@ -11,16 +12,21 @@ const CardTweet: React.FC<TcurrentUser> = ({ currentUser }) => {
   return (
     <div className="CardTweet">
       <div className="box-img">
-        {currentUser?.profilePicture ? (
-          <img src={process.env.REACT_APP_API_URL + currentUser.profilePicture} alt="" />
-        ) : (
-          <IconSVG iconName="profile" />
-        )}
+        <img
+          src={
+            currentUser?.profilePicture
+              ? baseURL + currentUser.profilePicture
+              : baseURL + "/mediafiles/default/profilePic.png"
+          }
+          alt=""
+        />
       </div>
       <div className="post-main">
         <div className="post-header">
           <p>
-            <strong>{currentUser?.user.first_name} {currentUser?.user.last_name}</strong>
+            <strong>
+              {currentUser?.user.first_name} {currentUser?.user.last_name}
+            </strong>
             <span>@realpython</span>
             <span>·</span>
             <span>Jan 12, 2021</span>
@@ -49,7 +55,7 @@ const CardTweet: React.FC<TcurrentUser> = ({ currentUser }) => {
               ) : (
                 <IconSVG iconName="unLike" fill="#919090" handleClick={() => setIsLked(!isLiked)} />
               )}
-              <span className={isLiked ? "like": ""}>112</span>
+              <span className={isLiked ? "like" : ""}>112</span>
             </div>
             <div className="share post-icon">
               <IconSVG iconName="share" fill="#919090" />

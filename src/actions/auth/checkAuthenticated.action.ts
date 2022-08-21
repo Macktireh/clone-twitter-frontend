@@ -7,11 +7,11 @@ import loadUserAction from "@/actions/auth/loadUser.action";
 const refreshToken = async (config: any, dispatch: Dispatch<AnyAction> | any) => {
   try {
     const body = JSON.stringify({
-      refresh: sessionStorage.getItem("refresh"),
+      refresh: localStorage.getItem("refresh"),
     });
     const res = await Axios.post("/api/account/token/refresh/", body, config);
     if (res.data.code !== "token_not_valid") {
-      await sessionStorage.setItem("access", res.data.access);
+      await localStorage.setItem("access", res.data.access);
       dispatch({ type: Types.REFRESH_TOKEN_SUCCESS });
       dispatch({ type: Types.AUTHENTICATED_SUCCESS });
       dispatch(loadUserAction());
@@ -28,14 +28,14 @@ const refreshToken = async (config: any, dispatch: Dispatch<AnyAction> | any) =>
 };
 
 const checkAuthenticatedAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
-  if (sessionStorage.getItem("access")) {
+  if (localStorage.getItem("access")) {
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
 
-    const body = JSON.stringify({ token: sessionStorage.getItem("access") });
+    const body = JSON.stringify({ token: localStorage.getItem("access") });
 
     try {
       const res = await Axios.post("/api/account/jwt/verify/", body, config);
