@@ -1,1 +1,1 @@
-export type TTabState = {id: number, title: string}
+export type TTabState = {id: number, title: string, grow: boolean}

@@ -1,10 +1,10 @@
-import * as React from "react";
+import React from "react";
 
 import Picker, { IEmojiData } from "emoji-picker-react";
 
-import { IAuthUserProfile } from "@/models";
 import IconSVG from "@/components/widgets/IconSVG";
-import ButtonCoustom from "../widgets/ButtonCustom";
+import ButtonCoustom from "@/components/widgets/ButtonCustom";
+import { IAuthUserProfile } from "@/models";
 import { baseURL } from "@/api";
 
 type TcurrentUser = { currentUser: IAuthUserProfile | null };

@@ -348,7 +348,7 @@ const IconSVG: React.FC<TIconeName> = ({ iconName, fill, nameClass, handleClick 
             </g>
           </svg>
         );
-      case "list-plus":
+      case "lists-plus":
         return (
           <svg
             className={nameClass ? nameClass : ""}
@@ -639,6 +639,22 @@ const IconSVG: React.FC<TIconeName> = ({ iconName, fill, nameClass, handleClick 
               <circle fill={fill ? fill : "#f1f1f1"} cx="12" cy="13.156" r="1.285"></circle>
               <circle fill={fill ? fill : "#f1f1f1"} cx="7.032" cy="17.486" r="1.285"></circle>
               <circle fill={fill ? fill : "#f1f1f1"} cx="12" cy="17.486" r="1.285"></circle>
+            </g>
+          </svg>
+        );
+      case "icon-notif":
+        return (
+          <svg
+            className={nameClass ? nameClass : ""}
+            onClick={(e) => (handleClick ? handleClick(e) : "")}
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <g>
+              <path
+                fill={fill ? fill : "#f1f1f1"}
+                d="M22.99 11.295l-6.986-2.13-.877-.326-.325-.88L12.67.975c-.092-.303-.372-.51-.688-.51-.316 0-.596.207-.688.51l-2.392 7.84-1.774.657-6.148 1.82c-.306.092-.515.372-.515.69 0 .32.21.6.515.69l7.956 2.358 2.356 7.956c.09.306.37.515.69.515.32 0 .6-.21.69-.514l1.822-6.15.656-1.773 7.84-2.392c.303-.09.51-.37.51-.687 0-.316-.207-.596-.51-.688z"
+              ></path>
             </g>
           </svg>
         );

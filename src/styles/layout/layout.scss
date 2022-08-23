@@ -28,6 +28,18 @@
   .main {
     flex: 48%;
     @include flex(column, center, center);
+
+    .main-container {
+      width: 100%;
+      height: 100%;
+      @include flex(column, flex-start, center);
+      // gap: 3px;
+      border: 0px solid transparent;
+      border-right-width: 1px;
+      border-left-width: 1px;
+      border-color: $color7;
+      position: relative;
+    }
   }
 
   .aside {
@@ -53,63 +65,71 @@
 
     .trends-container,
     .follow-container {
-      width: 95%;
-      border-radius: 15px;
-      background-color: $color4;
-      @include flex(column, flex-start, flex-start);
-      h3 {
-        font-size: 20px;
-        font-weight: 700;
-        padding: 1rem;
+      width: 100%;
+
+      .content {
+        width: 95%;
+        border-radius: 15px;
+        background-color: $color4;
+        @include flex(column, flex-start, flex-start);
+        h3 {
+          font-size: 20px;
+          font-weight: 700;
+          padding: 1rem;
+        }
       }
     }
 
     .footer-container {
       width: 100%;
-      @include flex(column, flex-start, center);
+      @include flex(column, flex-start, flex-start);
       gap: 0.5rem;
       position: sticky;
       top: 80px;
-      .follow-container {
-        span.show-more {
-          width: 100%;
-          color: $color3;
-          padding: 1rem;
-          font-size: 15px;
-          border-bottom-left-radius: 15px;
-          border-bottom-right-radius: 15px;
-          transition: all 0.2s ease-in-out;
-          user-select: none;
-          cursor: pointer;
-          &:hover {
-            background-color: $color9;
-          }
+    }
+    .explore {
+      top: 15px;
+    }
+
+    .follow-container {
+      span.show-more {
+        width: 100%;
+        color: $color3;
+        padding: 1rem;
+        font-size: 15px;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        transition: all 0.2s ease-in-out;
+        user-select: none;
+        cursor: pointer;
+        &:hover {
+          background-color: $color9;
         }
       }
+    }
 
-      footer {
-        @include flex(row, flex-start, center);
-        gap: 8px;
-        flex-wrap: wrap;
-        padding: 1.5rem;
-        line-height: 15px;
+    footer {
+      @include flex(row, flex-start, center);
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 1rem;
+      line-height: 12px;
 
-        div {
-          @include flex(row, flex-start, flex-end);
-          gap: 1px;
-          color: $color5;
-          font-size: 15px;
-          span {
-            cursor: pointer;
-            transition: all 0.2s;
-            &:hover {
-              text-decoration: underline;
-            }
+      div {
+        @include flex(row, flex-end, flex-end);
+        gap: 2px;
+        color: rgba($color5, 0.6);
+        font-size: 15px;
+        span {
+          cursor: pointer;
+          transition: all 0.2s;
+          &:hover {
+            text-decoration: underline;
           }
-          svg {
-            width: 15px;
-            cursor: pointer;
-          }
+        }
+        svg {
+          width: 17px;
+          cursor: pointer;
         }
       }
     }

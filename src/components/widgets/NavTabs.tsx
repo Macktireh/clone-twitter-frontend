@@ -1,15 +1,14 @@
-import * as React from "react";
+import React from "react";
 
 import { TTabState } from "@/models";
 
 type Props = {
   listTabs: TTabState[];
   activeTab: number;
-  flexGrow: number;
   toggleTab: (id: number) => void;
 };
 
-const NavTabs: React.FC<Props> = ({ listTabs, activeTab, flexGrow, toggleTab }) => {
+const NavTabs: React.FC<Props> = ({ listTabs, activeTab, toggleTab }) => {
   return (
     <div className="NavTabs">
       {listTabs.map((tab) => (
@@ -17,7 +16,7 @@ const NavTabs: React.FC<Props> = ({ listTabs, activeTab, flexGrow, toggleTab }) 
           className="box-btn"
           onClick={() => toggleTab(tab.id)}
           key={tab.id}
-          style={{ flexGrow: tab.id === flexGrow ? 1.5 : "" }}
+          style={{ flexGrow: tab.grow ? 1.5 : "" }}
         >
           <button
             className={activeTab === tab.id ? "tabs active-tabs" : "tabs"}

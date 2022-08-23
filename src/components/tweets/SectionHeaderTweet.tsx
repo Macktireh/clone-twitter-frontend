@@ -1,30 +1,21 @@
-import * as React from "react";
+import React from "react";
 
 import IconSVG from "@/components/widgets/IconSVG";
 import { tweetRoutes } from "@/routes/tweet.routes";
 import { Link } from "react-router-dom";
+import InputSearch from "@/components/widgets/InputSearch";
 
 type Props = { page: string; title: string; subtitle?: string };
 
 const SectionHeaderTweet: React.FC<Props> = ({ page, title, subtitle }) => {
-  const showIcon = (page: string) => {
-    if (page === tweetRoutes.home.name) return <IconSVG iconName="etoil" />;
-    else if (page === tweetRoutes.explore.name) return <IconSVG iconName="settings" />;
-    else if (page === tweetRoutes.notifications.name) return <IconSVG iconName="settings" />;
+  const showIcon = (page: string): JSX.Element[] | undefined => {
+    if (page === tweetRoutes.home.name) return [<IconSVG iconName="etoil" />];
+    else if (page === tweetRoutes.explore.name) return [<IconSVG iconName="settings" />];
+    else if (page === tweetRoutes.notifications.name) return [<IconSVG iconName="settings" />];
     else if (page === tweetRoutes.messages.name)
-      return (
-        <>
-          <IconSVG iconName="settings" />
-          <IconSVG iconName="msg" />
-        </>
-      );
+      return [<IconSVG iconName="settings" />, <IconSVG iconName="msg" />];
     else if (page === tweetRoutes.lists.name)
-      return (
-        <>
-          <IconSVG iconName="lists-plus" />
-          <IconSVG iconName="point" />
-        </>
-      );
+      return [<IconSVG iconName="lists-plus" />, <IconSVG iconName="3-dot" />];
   };
 
   return (
@@ -37,10 +28,22 @@ const SectionHeaderTweet: React.FC<Props> = ({ page, title, subtitle }) => {
         </div>
       )}
       <div className="center">
-        <h2>{title}</h2>
-        {page === tweetRoutes.profile.name && <span>{subtitle}</span>}
+        {page === tweetRoutes.explore.name ? (
+          <InputSearch />
+        ) : (
+          <div className={page === tweetRoutes.explore.name ? "centent notif" : "centent"}>
+            <strong>{title}</strong>
+            {(page === tweetRoutes.profile.name || page === tweetRoutes.bookmarks.name) && (
+              <span>{subtitle}</span>
+            )}
+          </div>
+        )}
       </div>
-      <div className="right">{showIcon(page)}</div>
+      <div className="right">
+        {showIcon(page)?.map((icon) => (
+          icon && <div className="icon-container">{icon}</div>
+        ))}
+      </div>
     </div>
   );
 };

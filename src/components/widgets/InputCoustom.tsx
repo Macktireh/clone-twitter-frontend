@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
 interface Props {
   id?: string;
   name?: string;
   nameClass?: string;
+  value?: string;
   onChange?: any;
   maxLength?: any;
   label?: string;
@@ -13,8 +14,8 @@ interface Props {
 }
 
 const InputCoustom: React.FC<Props> = (props) => {
-  const [len, setLen] = useState(0);
-  const [showValue, setShowValue] = useState(props.type || "text");
+  const [len, setLen] = React.useState(0);
+  const [showValue, setShowValue] = React.useState(props.type || "text");
 
   const toggleShowValue = () => {
     showValue === "password" ? setShowValue("text") : setShowValue("password");
@@ -34,6 +35,7 @@ const InputCoustom: React.FC<Props> = (props) => {
           required
           autoComplete="off"
           maxLength={props.maxLength ? props.maxLength : ""}
+          value={props.value ? props.value : ""}
         />
         <label htmlFor={props.id ? props.id : ""}>{props.label ? props.label : ""}</label>
         {len > 0 && props.maxLength && (

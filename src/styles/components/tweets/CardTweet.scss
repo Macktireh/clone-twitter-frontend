@@ -29,13 +29,23 @@
     .post-header {
       width: 100%;
       @include flex(row, space-between, flex-start);
+
       p {
         width: 100%;
         @include flex(row, flex-start, flex-start);
-        gap: 5px;
+        gap: 4px;
         *:hover {
           text-decoration: underline;
           cursor: pointer;
+        }
+
+        strong,
+        span {
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         span {

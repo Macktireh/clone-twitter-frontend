@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 import ScaleLoader from "react-spinners/ScaleLoader";
 

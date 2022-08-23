@@ -1,13 +1,41 @@
-import * as React from "react";
+import React from "react";
 
 import Layout from "@/layout/Layout";
+import SectionHeaderTweet from "@/components/tweets/SectionHeaderTweet";
+import { tweetRoutes } from "@/routes/tweet.routes";
+import { connect } from "react-redux";
+import { IAuthUserProfile, TAuthUserReducer } from "@/models";
+import Aside from "@/components/tweets/Aside";
 
-const Lists: React.FC = () => {
+type Props = { currentUser: IAuthUserProfile | null };
+
+const Lists: React.FC<Props> = () => {
+  return (
+    <>
+      <main className="main">
+        <div className="main-container">
+          <section className="sec-header">
+            <SectionHeaderTweet page={tweetRoutes.lists.name} title="Lists" />
+          </section>
+          <div>Lists</div>
+        </div>
+      </main>
+      <Aside page={tweetRoutes.lists.name} />
+    </>
+  );
+};
+
+
+const ListsConnectWithStore: React.FC<Props> = ({ currentUser }) => {
   return (
     <Layout>
-      <div>Lists works !!</div>
+      <Lists currentUser={currentUser} />
     </Layout>
   );
 };
 
-export default Lists;
+const mapStateToProps = (state: TAuthUserReducer) => ({
+  currentUser: state.userReducer.currentUser,
+});
+
+export default connect(mapStateToProps, {})(ListsConnectWithStore);

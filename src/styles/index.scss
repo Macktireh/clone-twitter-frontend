@@ -1,12 +1,13 @@
 @import "./settings/settings";
 @import "./settings/mixin";
 
-@import "./pages/public/home/Home";
-@import "./pages/public/auth/auth";
+@import "./pages/public/Home";
+@import "./pages/auth/auth";
 
 @import "./layout/layout";
 
 @import "./pages/private/News";
+@import "./pages/private/Notifications";
 @import "./pages/private/Profile";
 
 @import "./components/navbar/navbar";

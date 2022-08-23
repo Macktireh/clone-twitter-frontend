@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 import ButtonCustom from "@/components/widgets/ButtonCustom";
 import { baseURL } from "@/api";

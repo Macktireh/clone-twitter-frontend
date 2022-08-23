@@ -1,14 +1,4 @@
 .Profile {
-  width: 100%;
-  height: 100%;
-  @include flex(column, flex-start, center);
-  gap: 3px;
-  border: 0px solid transparent;
-  border-right-width: 1px;
-  border-left-width: 1px;
-  border-color: $color7;
-  position: relative;
-
   .pro-container {
     width: 100%;
     @include flex(column, flex-start, center);

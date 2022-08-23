@@ -1,13 +1,41 @@
-import * as React from "react";
+import React from "react";
 
 import Layout from "@/layout/Layout";
+import SectionHeaderTweet from "@/components/tweets/SectionHeaderTweet";
+import Aside from "@/components/tweets/Aside";
+import { tweetRoutes } from "@/routes/tweet.routes";
+import { connect } from "react-redux";
+import { IAuthUserProfile, TAuthUserReducer } from "@/models";
 
-const Explore: React.FC = () => {
+type Props = { currentUser: IAuthUserProfile | null };
+
+const Explore: React.FC<Props> = () => {
+  return (
+    <>
+      <main className="main">
+        <div className="main-container">
+          <section className="sec-header">
+            <SectionHeaderTweet page={tweetRoutes.explore.name} title="Latest Tweets" />
+          </section>
+          <div>Explore</div>
+        </div>
+      </main>
+      <Aside page={tweetRoutes.explore.name} />
+    </>
+  );
+};
+
+
+const ExploreConnectWithStore: React.FC<Props> = ({ currentUser }) => {
   return (
     <Layout>
-      <div>Explore works !!</div>
+      <Explore currentUser={currentUser} />
     </Layout>
   );
 };
 
-export default Explore;
+const mapStateToProps = (state: TAuthUserReducer) => ({
+  currentUser: state.userReducer.currentUser,
+});
+
+export default connect(mapStateToProps, {})(ExploreConnectWithStore);

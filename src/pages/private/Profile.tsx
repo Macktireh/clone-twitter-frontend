@@ -1,29 +1,28 @@
-import * as React from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Layout from "@/layout/Layout";
 import CardTweet from "@/components/tweets/CardTweet";
-import Trending from "@/components/tweets/Trending";
-import Follow from "@/components/tweets/Follow";
-import FooterPrivate from "@/components/tweets/FooterPrivate";
 import SectionHeaderTweet from "@/components/tweets/SectionHeaderTweet";
 import NavTabs from "@/components/widgets/NavTabs";
-import InputSearch from "@/components/widgets/InputSearch";
 import IconSVG from "@/components/widgets/IconSVG";
 import ButtonCustom from "@/components/widgets/ButtonCustom";
+import Aside from "@/components/tweets/Aside";
 import { tweetRoutes } from "@/routes/tweet.routes";
 import { baseURL } from "@/api";
 import { IAuthUserProfile, TAuthUserReducer, TTabState } from "@/models";
+import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
+import loadUserAction from "@/actions/auth/loadUser.action";
 
 type Props = { currentUser: IAuthUserProfile | null };
 
 const Profile: React.FC<Props> = ({ currentUser }) => {
   const tabState: TTabState[] = [
-    { id: 1, title: "Tweets" },
-    { id: 2, title: "Tweets & replies" },
-    { id: 3, title: "Media" },
-    { id: 4, title: "Likes" },
+    { id: 1, title: "Tweets", grow: false },
+    { id: 2, title: "Tweets & replies", grow: true },
+    { id: 3, title: "Media", grow: false },
+    { id: 4, title: "Likes", grow: false },
   ];
   const [activeTab, setActiveTab] = React.useState(1);
 
@@ -43,7 +42,7 @@ const Profile: React.FC<Props> = ({ currentUser }) => {
   return (
     <>
       <main className="main">
-        <div className="Profile">
+        <div className="Profile main-container">
           <section className="sec-header">
             <SectionHeaderTweet
               page={tweetRoutes.profile.name}
@@ -99,7 +98,7 @@ const Profile: React.FC<Props> = ({ currentUser }) => {
               </div>
             </div>
             <nav>
-              <NavTabs listTabs={tabState} activeTab={activeTab} flexGrow={2} toggleTab={toggleTab} />
+              <NavTabs listTabs={tabState} activeTab={activeTab} toggleTab={toggleTab} />
             </nav>
             <div className="my-content-container">
               {(activeTab === 1 || activeTab === 2) && (
@@ -113,32 +112,12 @@ const Profile: React.FC<Props> = ({ currentUser }) => {
           </div>
         </div>
       </main>
-      <aside className="aside">
-        <div className="search-container">
-          <InputSearch />
-        </div>
-        <div className="trends-container">
-          <h3>You might like</h3>
-          {[1, 2, 3].map((n, index) => (
-            <Follow key={index} />
-          ))}
-        </div>
-        <div className="footer-container">
-          <div className="follow-container">
-            <h3>Trends for you</h3>
-            {[1, 2, 3, 4, 5, 6, 7].map((n, index) => (
-              <Trending key={index} />
-            ))}
-            <span className="show-more">Show more</span>
-          </div>
-          <FooterPrivate />
-        </div>
-      </aside>
+      <Aside page={tweetRoutes.profile.name} />
     </>
   );
 };
 
-const ProfileConnectWithStore: React.FC<Props> = ({ currentUser }) => {
+const ProfileConnectWithStore: React.FC<any> = ({ currentUser, checkAuthenticatedAction }) => {
   return (
     <Layout>
       <Profile currentUser={currentUser} />
@@ -150,4 +129,6 @@ const mapStateToProps = (state: TAuthUserReducer) => ({
   currentUser: state.userReducer.currentUser,
 });
 
-export default connect(mapStateToProps, {})(ProfileConnectWithStore);
+export default connect(mapStateToProps, { checkAuthenticatedAction, loadUserAction })(
+  ProfileConnectWithStore
+);

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -12,8 +12,8 @@ import SpinnersLoding from "@/components/widgets/SpinnersLoding";
 
 const Login: React.FC<any> = ({ loginAction }) => {
   const [formData, setFormData] = React.useState<IAuthUserLogin>({
-    email: "",
-    password: "",
+    email: "abdimack97@gmail.com",
+    password: "Charco@97",
   });
   const [displayError, setDisplayError] = React.useState(false);
   const [detailError, setDetailError] = React.useState("");
@@ -47,13 +47,14 @@ const Login: React.FC<any> = ({ loginAction }) => {
               <span>{detailError}</span>
             </div>
           )}
-          <InputCustom id="email" name="email" type="email" label="Email" onChange={handleChange} />
+          <InputCustom id="email" name="email" type="email" label="Email" onChange={handleChange} value={email} />
           <InputCustom
             id="password"
             name="password"
             type="password"
             label="Mot de passe"
             onChange={handleChange}
+            value={password}
           />
           <ButtonCoustom nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
           <div className="info">

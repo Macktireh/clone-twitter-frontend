@@ -1,6 +1,6 @@
-import * as React from "react";
+import React from "react";
 
-import IconSVG from "@/components/widgets/IconSVG";
+// import IconSVG from "@/components/widgets/IconSVG";
 
 const FooterPrivate: React.FC = () => {
   return (
@@ -10,9 +10,10 @@ const FooterPrivate: React.FC = () => {
       <div>Cookie Policy</div>
       <div>Accessibility</div>
       <div>Ads info</div>
+      <div>About</div>
       <div>
-        <span>More</span>
-        <IconSVG iconName="3-dot" fill="#919090" />
+        <span>More ...</span>
+        {/* <IconSVG iconName="3-dot" fill="#919090" /> */}
       </div>
       <div>© 2022 Twitter, Inc.</div>
     </footer>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 import IconSVG from "@/components/widgets/IconSVG";
 import { IAuthUserProfile } from "@/models";
@@ -25,9 +25,9 @@ const CardTweet: React.FC<TcurrentUser> = ({ currentUser }) => {
         <div className="post-header">
           <p>
             <strong>
-              {currentUser?.user.first_name} {currentUser?.user.last_name}
+              {`${currentUser?.user.first_name} ${currentUser?.user.last_name}`}
             </strong>
-            <span>@realpython</span>
+            <span>@{currentUser?.pseudo}</span>
             <span>·</span>
             <span>Jan 12, 2021</span>
           </p>

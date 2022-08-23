@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 const NotFound: React.FC = () => {
-  useEffect(() => {
+  React.useEffect(() => {
     document.title = "Not Found";
     const container: HTMLElement | null = document.getElementById("container-404");
     window.onmousemove = (e) => {
