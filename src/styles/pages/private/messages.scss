@@ -1,0 +1,42 @@
+.not-msg {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 40vh;
+  @include flex(column, flex-start, flex-start);
+  gap: 0.5rem;
+  h2 {
+    font-size: 32px;
+    font-weight: 800;
+  }
+  p {
+    color: $color5;
+  }
+
+  button {
+    width: 230px;
+    margin-top: 5px;
+    background-color: $color3;
+    font-weight: 700;
+    border: none;
+    padding: 0.8em;
+    border-radius: 30px;
+  }
+}
+
+.message {
+  .inbox-container {
+    .not-msg {
+      margin-top: 20px;
+      gap: 0;
+
+      p {
+        margin: 0.2rem 0 0.5rem;
+      }
+    }
+  }
+}
+
+.chatrom {
+  .not-msg {
+  }
+}

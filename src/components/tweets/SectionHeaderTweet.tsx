@@ -12,6 +12,7 @@ const SectionHeaderTweet: React.FC<Props> = ({ page, title, subtitle }) => {
     if (page === tweetRoutes.home.name) return [<IconSVG iconName="etoil" />];
     else if (page === tweetRoutes.explore.name) return [<IconSVG iconName="settings" />];
     else if (page === tweetRoutes.notifications.name) return [<IconSVG iconName="settings" />];
+    else if (page === tweetRoutes.bookmarks.name) return [<IconSVG iconName="3-dot" />];
     else if (page === tweetRoutes.messages.name)
       return [<IconSVG iconName="settings" />, <IconSVG iconName="msg" />];
     else if (page === tweetRoutes.lists.name)

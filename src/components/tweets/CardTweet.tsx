@@ -8,6 +8,12 @@ type TcurrentUser = { currentUser: IAuthUserProfile | null };
 
 const CardTweet: React.FC<TcurrentUser> = ({ currentUser }) => {
   const [isLiked, setIsLked] = React.useState(false);
+  const [numLikes, setNumLikes] = React.useState(111);
+
+  const handlLiked = async () => {
+    await setIsLked(!isLiked)
+    isLiked ? setNumLikes(numLikes - 1) : setNumLikes(numLikes + 1)
+  }
 
   return (
     <div className="CardTweet">
@@ -49,13 +55,13 @@ const CardTweet: React.FC<TcurrentUser> = ({ currentUser }) => {
               <IconSVG iconName="retweet" fill="#919090" />
               <span>18</span>
             </div>
-            <div className="like-unLike post-icon">
+            <div className="like-unLike post-icon" onClick={() => handlLiked()}>
               {isLiked ? (
-                <IconSVG iconName="like" fill="#F91880" handleClick={() => setIsLked(!isLiked)} />
+                <IconSVG iconName="like" fill="#F91880" handleClick={() => handlLiked()} />
               ) : (
-                <IconSVG iconName="unLike" fill="#919090" handleClick={() => setIsLked(!isLiked)} />
+                <IconSVG iconName="unLike" fill="#919090" handleClick={() => handlLiked()} />
               )}
-              <span className={isLiked ? "like" : ""}>112</span>
+              <span className={isLiked ? "like" : ""} onClick={() => handlLiked()}>{numLikes}</span>
             </div>
             <div className="share post-icon">
               <IconSVG iconName="share" fill="#919090" />

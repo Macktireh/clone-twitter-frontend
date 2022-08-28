@@ -31,7 +31,7 @@ const Profile: React.FC<Props> = ({ currentUser }) => {
   };
 
   React.useEffect(() => {
-    document.title = tweetRoutes.profile.title;
+    document.title = `${currentUser?.user.first_name} ${currentUser?.user.last_name} (@${currentUser?.pseudo}) | Clone Twitter`;
 
     window.addEventListener("scroll", () => {
       const secHeaderBg: HTMLElement | null = document.querySelector(".sec-header");

@@ -91,6 +91,7 @@
         .post-icon {
           @extend .flex-center;
           gap: 4px;
+          cursor: pointer;
           svg {
             width: 20px;
             cursor: pointer;

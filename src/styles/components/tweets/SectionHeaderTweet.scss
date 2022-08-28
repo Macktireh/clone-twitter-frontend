@@ -71,14 +71,14 @@ nav {
   }
 
   .right {
-    width: 75px;
+    width: 80px;
     padding: 2px;
     height: 100%;
     @extend .flex-center;
     gap: 0.1rem;
     .icon-container {
       @extend .flex-center;
-      width: 34px;
+      width: 40px;
       padding: 0.5rem;
       border-radius: 50%;
       cursor: pointer;
