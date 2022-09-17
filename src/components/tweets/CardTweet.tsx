@@ -1,12 +1,12 @@
 import React from "react";
 
 import IconSVG from "@/components/widgets/IconSVG";
-import { IAuthUserProfile } from "@/models";
-import { baseURL } from "@/api";
+import { IAuthUserProfile, IPost } from "@/models";
+import { baseURL } from "@/config/axios";
 
-type TcurrentUser = { currentUser: IAuthUserProfile | null };
+type PropsType = { currentUser: IAuthUserProfile | null; post: IPost };
 
-const CardTweet: React.FC<TcurrentUser> = ({ currentUser }) => {
+const CardTweet: React.FC<PropsType> = ({ currentUser }) => {
   const [isLiked, setIsLked] = React.useState(false);
   const [numLikes, setNumLikes] = React.useState(111);
 

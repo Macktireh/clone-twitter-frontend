@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { TAuthUserReducer } from "@/models";
+import { IStateReduce } from "@/models";
 import { Navigate } from "react-router-dom";
 import { tweetRoutes } from "@/routes/tweet.routes";
 import SpinnersLoding from "@/components/widgets/SpinnersLoding";
@@ -27,8 +27,8 @@ const AuthProvider: React.FC<TProps> = ({ isPublic, isAuthenticated, children })
   );
 };
 
-const mapStateToProps = (state: TAuthUserReducer) => ({
-  isAuthenticated: state.userReducer.isAuthenticated,
+const mapStateToProps = (state: IStateReduce) => ({
+  isAuthenticated: state.authReducer.isAuthenticated,
 });
 
 export default connect(mapStateToProps, {})(AuthProvider);

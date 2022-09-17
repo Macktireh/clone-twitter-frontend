@@ -10,14 +10,21 @@ import IconSVG from "@/components/widgets/IconSVG";
 import ButtonCustom from "@/components/widgets/ButtonCustom";
 import Aside from "@/components/tweets/Aside";
 import { tweetRoutes } from "@/routes/tweet.routes";
-import { baseURL } from "@/api";
-import { IAuthUserProfile, TAuthUserReducer, TTabState } from "@/models";
-import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
-import loadUserAction from "@/actions/auth/loadUser.action";
+import { baseURL } from "@/config/axios";
+import { IStateReduce, PropsStateType, TTabState } from "@/models";
+// import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
+// import getCurrentUserAction from "@/actions/auth/loadUser.action";
+import getAllPostAction from "@/actions/post/getAllPost.action";
+import getAllUsersAction from "@/actions/user/getAllUsers.action";
 
-type Props = { currentUser: IAuthUserProfile | null };
+interface PropsType extends PropsStateType {
+  checkAuthenticatedAction?: Function;
+  getAllUsersAction?: any;
+  getAllPostAction?: any;
+}
 
-const Profile: React.FC<Props> = ({ currentUser }) => {
+const Profile: React.FC<PropsType> = ({ currentUser, posts, getAllUsersAction, getAllPostAction }) => {
+  const flag = React.useRef(false);
   const tabState: TTabState[] = [
     { id: 1, title: "Tweets", grow: false },
     { id: 2, title: "Tweets & replies", grow: true },
@@ -32,6 +39,14 @@ const Profile: React.FC<Props> = ({ currentUser }) => {
 
   React.useEffect(() => {
     document.title = `${currentUser?.user.first_name} ${currentUser?.user.last_name} (@${currentUser?.pseudo}) | Clone Twitter`;
+
+    if (!flag.current) {
+      (async () => {
+        getAllUsersAction()
+        getAllPostAction();
+        flag.current = true;
+      })();
+    }
 
     window.addEventListener("scroll", () => {
       const secHeaderBg: HTMLElement | null = document.querySelector(".sec-header");
@@ -103,9 +118,13 @@ const Profile: React.FC<Props> = ({ currentUser }) => {
             <div className="my-content-container">
               {(activeTab === 1 || activeTab === 2) && (
                 <div className="tabs-tweets">
-                  <div className="list-post">
-                    <CardTweet currentUser={currentUser} />
-                  </div>
+                  {posts
+                    ?.filter((post) => post.authorDetail.public_id === currentUser?.user.public_id)
+                    .map((post) => (
+                      <div className="list-post" key={post.publicId}>
+                        <CardTweet currentUser={currentUser} post={post} />
+                      </div>
+                    ))}
                 </div>
               )}
             </div>
@@ -117,18 +136,32 @@ const Profile: React.FC<Props> = ({ currentUser }) => {
   );
 };
 
-const ProfileConnectWithStore: React.FC<any> = ({ currentUser, checkAuthenticatedAction }) => {
+const ProfileConnectWithStore: React.FC<PropsType> = ({
+  currentUser,
+  users,
+  posts,
+  getAllUsersAction,
+  getAllPostAction,
+}) => {
   return (
     <Layout>
-      <Profile currentUser={currentUser} />
+      <Profile
+        currentUser={currentUser}
+        users={users}
+        posts={posts}
+        getAllUsersAction={getAllUsersAction}
+        getAllPostAction={getAllPostAction}
+      />
     </Layout>
   );
 };
 
-const mapStateToProps = (state: TAuthUserReducer) => ({
-  currentUser: state.userReducer.currentUser,
+const mapStateToProps = (state: IStateReduce) => ({
+  currentUser: state.authReducer.currentUser,
+  users: state.userReducer.users,
+  posts: state.postReducer.tweets,
 });
 
-export default connect(mapStateToProps, { checkAuthenticatedAction, loadUserAction })(
+export default connect(mapStateToProps, { getAllUsersAction, getAllPostAction })(
   ProfileConnectWithStore
 );

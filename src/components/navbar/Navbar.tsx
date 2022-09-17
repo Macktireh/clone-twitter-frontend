@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 
 import { tweetRoutes } from "@/routes/tweet.routes";
 import IconSVG from "@/components/widgets/IconSVG";
-import { IAuthUserProfile, TAuthUserReducer } from "@/models";
+import { IAuthUserProfile, IStateReduce } from "@/models";
 import { connect } from "react-redux";
-import { baseURL } from "@/api";
+import { baseURL } from "@/config/axios";
 
 type TcurrentUser = { currentUser: IAuthUserProfile | null };
 
@@ -108,20 +108,21 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
       </div>
 
       <div className="nav-user">
-        <img
-          src={
-            currentUser?.profilePicture
-              ? baseURL + currentUser.profilePicture
-              : baseURL + "/mediafiles/default/profilePic.png"
-          }
-          alt=""
-        />
-
-        <div className="username">
-          <strong>
-            {currentUser?.user.first_name} {currentUser?.user.last_name}
-          </strong>
-          <p>@{currentUser?.pseudo}</p>
+        <div className="img-and-name">
+          <img
+            src={
+              currentUser?.profilePicture
+                ? baseURL + currentUser.profilePicture
+                : baseURL + "/mediafiles/default/profilePic.png"
+            }
+            alt=""
+          />
+          <div className="username">
+            <strong>
+              {currentUser?.user.first_name} {currentUser?.user.last_name}
+            </strong>
+            <p>@{currentUser?.pseudo}</p>
+          </div>
         </div>
         <IconSVG iconName="3-dot" />
       </div>
@@ -137,8 +138,8 @@ const NavbarConnectWithStore: React.FC<any> = ({ currentUser }) => {
   );
 };
 
-const mapStateToProps = (state: TAuthUserReducer) => ({
-  currentUser: state.userReducer.currentUser,
+const mapStateToProps = (state: IStateReduce) => ({
+  currentUser: state.authReducer.currentUser,
 });
 
 export default connect(mapStateToProps, {})(NavbarConnectWithStore);

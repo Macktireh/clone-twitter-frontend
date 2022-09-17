@@ -1,12 +1,12 @@
 import * as Types from "@/actions/types";
-import { IAuthUserAction, IAuthUserState } from "@/models";
+import { IActionState, IAuthUserState } from "@/models";
 
 const initialState: IAuthUserState = {
   isAuthenticated: false,
   currentUser: null,
 };
 
-const userReducer = (state: IAuthUserState = initialState, action: IAuthUserAction): IAuthUserState => {
+const authReducer = (state: IAuthUserState = initialState, action: IActionState): IAuthUserState => {
   const { type, payload } = action;
 
   switch (type) {
@@ -28,7 +28,7 @@ const userReducer = (state: IAuthUserState = initialState, action: IAuthUserActi
         isAuthenticated: true,
       };
 
-    case Types.USER_LOADED_SUCCESS:
+    case Types.GET_CURRENT_USER_LOADED_SUCCESS:
       return {
         ...state,
         currentUser: payload,
@@ -40,7 +40,7 @@ const userReducer = (state: IAuthUserState = initialState, action: IAuthUserActi
         isAuthenticated: false,
       };
 
-    case Types.USER_LOADED_FAIL:
+    case Types.GET_CURRENT_USER_LOADED_FAIL:
       return {
         ...state,
         currentUser: null,
@@ -76,4 +76,4 @@ const userReducer = (state: IAuthUserState = initialState, action: IAuthUserActi
   }
 };
 
-export default userReducer;
+export default authReducer;

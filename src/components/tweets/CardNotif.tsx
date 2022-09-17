@@ -1,7 +1,7 @@
 import React from "react";
 
 import IconSVG from "@/components/widgets/IconSVG";
-import { baseURL } from "@/api";
+import { baseURL } from "@/config/axios";
 
 const CardNotif: React.FC = () => {
   return (

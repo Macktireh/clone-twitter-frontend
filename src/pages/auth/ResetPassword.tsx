@@ -72,6 +72,7 @@ const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
             label="Mot de passe"
             onChange={handleChange}
             isPasswords={true}
+             value={password}
           />
           <InputCustom
             id="confirmPassword"
@@ -80,6 +81,7 @@ const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
             label="Confimer mot de passe *"
             onChange={handleChange}
             isPasswords={true}
+             value={confirmPassword}
           />
           <ButtonCustom nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
         </form>

@@ -4,7 +4,7 @@ interface Props {
   id?: string;
   name?: string;
   nameClass?: string;
-  value?: string;
+  value: string;
   onChange?: any;
   maxLength?: any;
   label?: string;
@@ -35,7 +35,7 @@ const InputCoustom: React.FC<Props> = (props) => {
           required
           autoComplete="off"
           maxLength={props.maxLength ? props.maxLength : ""}
-          value={props.value ? props.value : ""}
+          value={props.value}
         />
         <label htmlFor={props.id ? props.id : ""}>{props.label ? props.label : ""}</label>
         {len > 0 && props.maxLength && (

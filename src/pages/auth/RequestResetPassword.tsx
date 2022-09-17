@@ -38,7 +38,7 @@ const RequestResetPassword: React.FC<any> = ({ requestResetPasswordActiond }) =>
             Mot de passe oublié ? Entrez votre adresse email ci-dessous et si votre adresse email existe, nous
             vous enverrons par e-mail des instructions pour en définir une nouvelle.
           </p>
-          <InputCustom id="email" name="email" type="email" label="Email" onChange={handleChange} />
+          <InputCustom id="email" name="email" type="email" label="Email" onChange={handleChange} value={email} />
           <ButtonCustom nameClass={"btn-signup"} text={"Envoyer"} isDisabled={disabled} />
         </form>
         <br />

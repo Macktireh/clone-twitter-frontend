@@ -6,7 +6,7 @@ import NavTabs from "@/components/widgets/NavTabs";
 import Aside from "@/components/tweets/Aside";
 import { tweetRoutes } from "@/routes/tweet.routes";
 import { connect } from "react-redux";
-import { IAuthUserProfile, TAuthUserReducer, TTabState } from "@/models";
+import { IAuthUserProfile, IStateReduce, TTabState } from "@/models";
 import CardNotif from "@/components/tweets/CardNotif";
 
 type Props = { currentUser: IAuthUserProfile | null };
@@ -66,8 +66,8 @@ const NotificationsConnectWithStore: React.FC<Props> = ({ currentUser }) => {
   );
 };
 
-const mapStateToProps = (state: TAuthUserReducer) => ({
-  currentUser: state.userReducer.currentUser,
+const mapStateToProps = (state: IStateReduce) => ({
+  currentUser: state.authReducer.currentUser,
 });
 
 export default connect(mapStateToProps, {})(NotificationsConnectWithStore);

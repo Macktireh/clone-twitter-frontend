@@ -1,6 +1,7 @@
-import Axios from "@/api";
 import { AnyAction, Dispatch } from "redux";
 
+import Axios from "@/config/axios";
+import * as Api from "@/config/api";
 import * as Types from "@/actions/types";
 
 const accountActivationAction =
@@ -14,7 +15,7 @@ const accountActivationAction =
     const body = JSON.stringify({ uidb64, token });
 
     try {
-      const res = await Axios.post("/api/account/activate/", body, config);
+      const res = await Axios.post(Api.accountActivationEndpoint, body, config);
 
       dispatch({
         type: Types.ACCOUNT_ACTIVATION_SUCCESS,

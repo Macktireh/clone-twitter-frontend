@@ -5,7 +5,7 @@ import Picker, { IEmojiData } from "emoji-picker-react";
 import IconSVG from "@/components/widgets/IconSVG";
 import ButtonCoustom from "@/components/widgets/ButtonCustom";
 import { IAuthUserProfile } from "@/models";
-import { baseURL } from "@/api";
+import { baseURL } from "@/config/axios";
 
 type TcurrentUser = { currentUser: IAuthUserProfile | null };
 

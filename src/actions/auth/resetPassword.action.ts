@@ -1,6 +1,7 @@
-import Axios from "@/api";
 import { AnyAction, Dispatch } from "redux";
 
+import Axios from "@/config/axios";
+import * as Api from "@/config/api";
 import * as Types from "@/actions/types";
 
 const resetPasswordAction =
@@ -18,7 +19,7 @@ const resetPasswordAction =
     });
 
     try {
-      const res = await Axios.post(`/api/account/reset-password/${uid}/${token}/`, body, config);
+      const res = await Axios.post(`${Api.resetPasswordEndpoint + uid}/${token}/`, body, config);
 
       dispatch({
         type: Types.RESET_PASSWORD_SUCCESS,

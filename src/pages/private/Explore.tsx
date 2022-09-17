@@ -5,7 +5,7 @@ import SectionHeaderTweet from "@/components/tweets/SectionHeaderTweet";
 import Aside from "@/components/tweets/Aside";
 import { tweetRoutes } from "@/routes/tweet.routes";
 import { connect } from "react-redux";
-import { IAuthUserProfile, TAuthUserReducer } from "@/models";
+import { IAuthUserProfile, IStateReduce } from "@/models";
 
 type Props = { currentUser: IAuthUserProfile | null };
 
@@ -34,8 +34,8 @@ const ExploreConnectWithStore: React.FC<Props> = ({ currentUser }) => {
   );
 };
 
-const mapStateToProps = (state: TAuthUserReducer) => ({
-  currentUser: state.userReducer.currentUser,
+const mapStateToProps = (state: IStateReduce) => ({
+  currentUser: state.authReducer.currentUser,
 });
 
 export default connect(mapStateToProps, {})(ExploreConnectWithStore);

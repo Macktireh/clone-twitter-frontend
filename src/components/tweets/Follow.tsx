@@ -1,7 +1,7 @@
 import React from "react";
 
 import ButtonCustom from "@/components/widgets/ButtonCustom";
-import { baseURL } from "@/api";
+import { baseURL } from "@/config/axios";
 
 const Follow: React.FC = () => {
   return (

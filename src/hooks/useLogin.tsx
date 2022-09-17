@@ -1,4 +1,5 @@
-import Axios from "@/api";
+import Axios from "@/config/axios";
+import * as Api from "@/config/api";
 
 const useLogin = async (
   email: string,
@@ -20,7 +21,7 @@ const useLogin = async (
   const body = JSON.stringify({ email, password });
 
   try {
-    const res = await Axios.post("/api/account/login/", body, config);
+    const res = await Axios.post(Api.loginEndpoint, body, config);
 
     localStorage.setItem("access", res.data.token.access);
     localStorage.setItem("refresh", res.data.token.refresh);

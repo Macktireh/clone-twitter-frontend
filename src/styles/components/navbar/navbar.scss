@@ -118,6 +118,11 @@
       background-color: $color6;
     }
 
+    .img-and-name{
+      @include flex(row, flex-start, center);
+      gap: 8px;
+    }
+
     img,
     svg {
       width: 45px;

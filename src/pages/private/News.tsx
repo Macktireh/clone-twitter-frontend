@@ -7,19 +7,31 @@ import AddNewPost from "@/components/tweets/AddNewPost";
 import CardTweet from "@/components/tweets/CardTweet";
 import Aside from "@/components/tweets/Aside";
 import { tweetRoutes } from "@/routes/tweet.routes";
-import { IAuthUserProfile, TAuthUserReducer } from "@/models";
+import { IStateReduce, PropsStateType } from "@/models";
+import getAllPostAction from "@/actions/post/getAllPost.action";
+import getAllUsersAction from "@/actions/user/getAllUsers.action";
 
-type Props = { currentUser: IAuthUserProfile | null };
+interface PropsType extends PropsStateType {
+  getAllPostAction?: any;
+  getAllUsersAction?: any;
+}
 
-const News: React.FC<Props> = ({ currentUser }) => {
+const News: React.FC<PropsType> = ({ currentUser, posts, getAllUsersAction, getAllPostAction }) => {
+  const flag = React.useRef(false);
   React.useEffect(() => {
     document.title = tweetRoutes.home.title;
+
+    if (!flag.current) {
+      getAllUsersAction()
+      getAllPostAction();
+      flag.current = true;
+    }
 
     window.addEventListener("scroll", () => {
       const secHeaderBg: HTMLElement | null = document.querySelector(".sec-header");
       secHeaderBg?.classList.toggle("sticky-2", window.scrollY > 0);
     });
-  });
+  }, [flag, getAllPostAction, getAllUsersAction]);
 
   return (
     <>
@@ -33,9 +45,9 @@ const News: React.FC<Props> = ({ currentUser }) => {
           </section>
           <div className="line"></div>
           <section className="sec-list-post">
-            {[1, 2, 3, 4, 5, 6].map((post) => (
-              <div className="list-post">
-                <CardTweet currentUser={currentUser} />
+            {posts?.map((post) => (
+              <div className="list-post" key={post.publicId}>
+                <CardTweet currentUser={currentUser} post={post} />
               </div>
             ))}
           </section>
@@ -46,16 +58,18 @@ const News: React.FC<Props> = ({ currentUser }) => {
   );
 };
 
-const NewsConnectWithStore: React.FC<Props> = ({ currentUser }) => {
+const NewsConnectWithStore: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAction, getAllPostAction }) => {
   return (
     <Layout>
-      <News currentUser={currentUser} />
+      <News currentUser={currentUser} users={users} posts={posts} getAllUsersAction={getAllUsersAction} getAllPostAction={getAllPostAction} />
     </Layout>
   );
 };
 
-const mapStateToProps = (state: TAuthUserReducer) => ({
-  currentUser: state.userReducer.currentUser,
+const mapStateToProps = (state: IStateReduce) => ({
+  currentUser: state.authReducer.currentUser,
+  users: state.userReducer.users,
+  posts: state.postReducer.tweets,
 });
 
-export default connect(mapStateToProps, {})(NewsConnectWithStore);
+export default connect(mapStateToProps, { getAllUsersAction, getAllPostAction })(NewsConnectWithStore);

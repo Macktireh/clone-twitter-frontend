@@ -13,11 +13,11 @@ import SpinnersLoding from "@/components/widgets/SpinnersLoding";
 
 const SignUp: React.FC<any> = ({ signupAction }) => {
   const [formData, setFormData] = React.useState<IAuthUserSignUp>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    firstName: "Mack",
+    lastName: "AS",
+    email: "abdimack97@gmail.com",
+    password: "Charco@97",
+    confirmPassword: "Charco@97",
   });
   const [displayError, setDisplayError] = React.useState(false);
   const [detailError, setDetailError] = React.useState("");
@@ -80,9 +80,9 @@ const SignUp: React.FC<any> = ({ signupAction }) => {
               <span>{detailError}</span>
             </div>
           )}
-          <InputCustom id="firstName" name="firstName" label="Prénom *" maxLength="50" onChange={handleChange} />
-          <InputCustom id="lastName" name="lastName" label="Nom *" maxLength="50" onChange={handleChange} />
-          <InputCustom id="email" name="email" type="email" label="Email *" onChange={handleChange} />
+          <InputCustom id="firstName" name="firstName" label="Prénom *" maxLength="50" onChange={handleChange} value={firstName} />
+          <InputCustom id="lastName" name="lastName" label="Nom *" maxLength="50" onChange={handleChange} value={lastName} />
+          <InputCustom id="email" name="email" type="email" label="Email *" onChange={handleChange} value={email} />
           <InputCustom
             id="password"
             name="password"
@@ -90,6 +90,7 @@ const SignUp: React.FC<any> = ({ signupAction }) => {
             label="Mot de passe *"
             onChange={handleChange}
             isPasswords={true}
+            value={password}
           />
           <InputCustom
             id="confirmPassword"
@@ -98,6 +99,7 @@ const SignUp: React.FC<any> = ({ signupAction }) => {
             label="Confimer mot de passe *"
             onChange={handleChange}
             isPasswords={true}
+            value={confirmPassword}
           />
           <ButtonCustom
             nameClass={disabled ? "btn-signup disabled" : "btn-signup"}
