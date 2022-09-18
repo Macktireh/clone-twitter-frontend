@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import requestResetPasswordActiond from "@/actions/auth/requestResetPassword.action";
-import ButtonCustom from "@/components/widgets/ButtonCustom";
-import InputCustom from "@/components/widgets/InputCoustom";
+import ButtonCustom from "@/widgets/ButtonCustom";
+import InputCustom from "@/widgets/InputCustom";
 import { authRoutes } from "@/routes/auth.routes";
-import SpinnersLoding from "@/components/widgets/SpinnersLoding";
+import SpinnersLoding from "@/widgets/SpinnersLoding";
 
 const RequestResetPassword: React.FC<any> = ({ requestResetPasswordActiond }) => {
   const [email, setEmail] = React.useState("");

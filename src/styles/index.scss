@@ -1,28 +1,41 @@
-@import "./settings/settings";
+// Settings
+@import "./settings/variables";
 @import "./settings/mixin";
+@import "./settings/settings";
 
-@import "./pages/public/Home";
+// Style Page Public Component
+@import "./pages/public/homePublic";
 @import "./pages/auth/auth";
 
+// Style Layaout Private Component
 @import "./layout/layout";
 
-@import "./pages/private/News";
+// Style Page Private Component
+@import "./pages/private/homePrivate";
 @import "./pages/private/Notifications";
 @import "./pages/private/messages";
 @import "./pages/private/bookmarks";
-@import "./pages/private/Profile";
+@import "./pages/private/profile";
+@import "./pages/error/error404";
 
+// Style Component navbar
 @import "./components/navbar/navbar";
 
-@import "./components/widgets/Button";
-@import "./components/widgets/input";
-@import "./components/widgets/InputSearch";
-@import "./components/widgets/NavTabs";
+// Style Component HomePrivate
+@import "./components/homePrivate/sectionHeaderTweet";
+@import "./components/homePrivate/addNewPost";
+@import "./components/homePrivate/cardTweet";
 
-@import "./components/tweets/SectionHeaderTweet";
-@import "./components/tweets/AddNewPost";
-@import "./components/tweets/CardTweet";
-@import "./components/tweets/Trending";
-@import "./components/tweets/Follow";
+// Style Component Profile
+@import "./components/profile/edidProfile";
 
-@import "./pages/error/NotFound";
+// Style Component aside
+@import "./components/aside/trending";
+@import "./components/aside/follow";
+
+// Style Widgets
+@import "./widgets/buttonCustom";
+@import "./widgets/inputCustom";
+@import "./widgets/inputSearch";
+@import "./widgets/navTabs";
+@import "./widgets/modal";

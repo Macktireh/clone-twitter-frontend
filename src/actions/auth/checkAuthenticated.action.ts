@@ -3,6 +3,7 @@ import { AnyAction, Dispatch } from "redux";
 import Axios from "@/config/axios";
 import * as Api from "@/config/api";
 import * as Types from "@/actions/types";
+import getCurrentUserAction from "../user/getCurrentUser.action";
 // import getCurrentUserAction from "@/actions/user/getCurrentUser.action";
 // import getAllUsersAction from "../user/getAllUsers.action";
 
@@ -16,6 +17,7 @@ const refreshToken = async (config: any, dispatch: Dispatch<AnyAction> | any, ac
       await localStorage.setItem("access", res.data.access);
       dispatch({ type: Types.REFRESH_TOKEN_SUCCESS });
       dispatch({ type: Types.AUTHENTICATED_SUCCESS });
+      dispatch(getCurrentUserAction());
       dispatch(action());
     } else {
       dispatch({ type: Types.REFRESH_TOKEN_FAIL });
@@ -29,7 +31,7 @@ const refreshToken = async (config: any, dispatch: Dispatch<AnyAction> | any, ac
   }
 };
 
-const checkAuthenticatedAction = (action: Function) => async (dispatch: Dispatch<AnyAction> | any) => {
+const checkAuthenticatedAction = (action: Function, param: any = null) => async (dispatch: Dispatch<AnyAction> | any) => {
   if (localStorage.getItem("access")) {
     const config = {
       headers: {
@@ -44,7 +46,8 @@ const checkAuthenticatedAction = (action: Function) => async (dispatch: Dispatch
       if (res.data.code !== "token_not_valid") {
         dispatch({ type: Types.VERIFY_TOKEN_SUCCESS });
         dispatch({ type: Types.AUTHENTICATED_SUCCESS });
-        dispatch(action());
+        dispatch(getCurrentUserAction());
+        param ? dispatch(action(param)) : dispatch(action());
       } else {
         dispatch({ type: Types.VERIFY_TOKEN_FAIL });
         refreshToken(config, dispatch, action);

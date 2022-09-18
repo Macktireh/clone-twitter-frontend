@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 
 import { IStateReduce } from "@/models";
 import { Navigate } from "react-router-dom";
-import { tweetRoutes } from "@/routes/tweet.routes";
-import SpinnersLoding from "@/components/widgets/SpinnersLoding";
+import { privateRoutes } from "@/routes/private.routes";
+import SpinnersLoding from "@/widgets/SpinnersLoding";
 
 type TProps = {
   isPublic: boolean;
@@ -14,17 +14,16 @@ type TProps = {
 
 const AuthProvider: React.FC<TProps> = ({ isPublic, isAuthenticated, children }) => {
   const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    if (isAuthenticated !== null) setLoading(false);
+  }, [loading, isAuthenticated]);
+
   if (!isPublic) {
     if (!isAuthenticated) return <Navigate to="/" />;
-  } else if (isAuthenticated) return <Navigate to={tweetRoutes.home.path} />;
+  } else if (isAuthenticated) return <Navigate to={privateRoutes.home.path} />;
 
-  setTimeout(() => setLoading(false), 1500);
-
-  return loading ? (
-    <SpinnersLoding isLoading={loading} />
-  ) : (
-    <>{children}</>
-  );
+  return loading ? <SpinnersLoding isLoading={loading} /> : <>{children}</>;
 };
 
 const mapStateToProps = (state: IStateReduce) => ({

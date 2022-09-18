@@ -1,13 +1,13 @@
 import React from "react";
 
 import Layout from "@/layout/Layout";
-import SectionHeaderTweet from "@/components/tweets/SectionHeaderTweet";
-import NavTabs from "@/components/widgets/NavTabs";
-import Aside from "@/components/tweets/Aside";
-import { tweetRoutes } from "@/routes/tweet.routes";
+import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
+import NavTabs from "@/widgets/NavTabs";
+import Aside from "@/components/aside/Aside";
+import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
 import { IAuthUserProfile, IStateReduce, TTabState } from "@/models";
-import CardNotif from "@/components/tweets/CardNotif";
+import CardNotif from "@/components/notification/CardNotif";
 
 type Props = { currentUser: IAuthUserProfile | null };
 
@@ -23,7 +23,7 @@ const Notifications: React.FC<Props> = () => {
   };
 
   React.useEffect(() => {
-    document.title = tweetRoutes.notifications.title;
+    document.title = privateRoutes.notifications.title;
 
     window.addEventListener("scroll", () => {
       const secHeaderBg: HTMLElement | null = document.querySelector(".sec-header");
@@ -35,15 +35,17 @@ const Notifications: React.FC<Props> = () => {
     <>
       <main className="main">
         <div className="Notifications main-container">
-          <section className="sec-header">
-            <SectionHeaderTweet page={tweetRoutes.notifications.name} title="Notifications" />
+          <section className="sec-header sticky-2">
+            <SectionHeaderTweet page={privateRoutes.notifications.name} title="Notifications" />
             <nav>
               <NavTabs listTabs={tabState} activeTab={activeTab} toggleTab={toggleTab} />
             </nav>
           </section>
           {activeTab === 1 ? (
             <div className="all-notif">
-              {[1,2,3,4,5,6,7,8,9,10].map(n => <CardNotif />)}
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+                <CardNotif />
+              ))}
             </div>
           ) : (
             <div className="montions">
@@ -53,7 +55,7 @@ const Notifications: React.FC<Props> = () => {
           )}
         </div>
       </main>
-      <Aside page={tweetRoutes.notifications.name} />
+      <Aside page={privateRoutes.notifications.name} />
     </>
   );
 };

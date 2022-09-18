@@ -11,7 +11,7 @@ export interface IAuthUserSignUp extends IAuthUserLogin {
 }
 
 export interface IAuthUser {
-  public_id: string;
+  public_id?: string;
   first_name: string;
   last_name: string;
 }
@@ -19,12 +19,12 @@ export interface IAuthUser {
 export interface IAuthUserProfile {
   user: IAuthUser;
   pseudo: string;
-  birthDate: string | null;
-  profilePicture: string;
-  coverPicture: string;
+  birthDate?: string | null;
+  profilePicture?: string;
+  coverPicture?: string;
   bio: string;
-  updated: string;
-  created: string;
+  updated?: string;
+  created?: string;
 }
 
 // export type TAuthUserReducer = { userReducer: IAuthUserState };

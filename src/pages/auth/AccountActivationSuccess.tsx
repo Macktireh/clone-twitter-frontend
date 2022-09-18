@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import ButtonCoustom from "@/components/widgets/ButtonCustom";
+import ButtonCoustom from "@/widgets/ButtonCustom";
 import { authRoutes } from "@/routes/auth.routes";
 
 const AccountActivationSuccess: React.FC = () => {

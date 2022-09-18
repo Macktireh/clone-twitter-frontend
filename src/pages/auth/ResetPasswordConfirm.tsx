@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import ButtonCustom from "@/components/widgets/ButtonCustom";
+import ButtonCustom from "@/widgets/ButtonCustom";
 import { authRoutes } from "@/routes/auth.routes";
 
 const ResetPasswordConfirm: React.FC = () => {

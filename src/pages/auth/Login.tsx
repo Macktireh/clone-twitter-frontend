@@ -2,13 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 
-import InputCustom from "@/components/widgets/InputCoustom";
-import ButtonCoustom from "@/components/widgets/ButtonCustom";
+import InputCustom from "@/widgets/InputCustom";
+import ButtonCoustom from "@/widgets/ButtonCustom";
 import useLogin from "@/hooks/useLogin";
 import loginAction from "@/actions/auth/login.action";
 import { IAuthUserLogin } from "@/models";
 import { authRoutes } from "@/routes/auth.routes";
-import SpinnersLoding from "@/components/widgets/SpinnersLoding";
+import SpinnersLoding from "@/widgets/SpinnersLoding";
 
 const Login: React.FC<any> = ({ loginAction }) => {
   const [formData, setFormData] = React.useState<IAuthUserLogin>({

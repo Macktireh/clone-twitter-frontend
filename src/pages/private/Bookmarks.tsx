@@ -1,18 +1,17 @@
 import React from "react";
 
 import Layout from "@/layout/Layout";
-import SectionHeaderTweet from "@/components/tweets/SectionHeaderTweet";
-import { tweetRoutes } from "@/routes/tweet.routes";
+import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
+import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
 import { IAuthUserProfile, IStateReduce } from "@/models";
-import Aside from "@/components/tweets/Aside";
+import Aside from "@/components/aside/Aside";
 
 type Props = { currentUser: IAuthUserProfile | null };
 
 const Bookmarks: React.FC<Props> = ({ currentUser }) => {
-
   React.useEffect(() => {
-    document.title = tweetRoutes.bookmarks.title;
+    document.title = privateRoutes.bookmarks.title;
 
     window.addEventListener("scroll", () => {
       const secHeaderBg: HTMLElement | null = document.querySelector(".sec-header");
@@ -24,9 +23,9 @@ const Bookmarks: React.FC<Props> = ({ currentUser }) => {
     <>
       <main className="main">
         <div className="Bookmarks main-container">
-          <section className="sec-header">
+          <section className="sec-header sticky-2">
             <SectionHeaderTweet
-              page={tweetRoutes.bookmarks.name}
+              page={privateRoutes.bookmarks.name}
               title="Bookmarks"
               subtitle={"@" + currentUser?.pseudo}
             />
@@ -43,7 +42,7 @@ const Bookmarks: React.FC<Props> = ({ currentUser }) => {
           </div>
         </div>
       </main>
-      <Aside page={tweetRoutes.bookmarks.name} />
+      <Aside page={privateRoutes.bookmarks.name} />
     </>
   );
 };

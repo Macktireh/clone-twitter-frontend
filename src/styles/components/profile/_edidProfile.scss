@@ -1,0 +1,63 @@
+.EdidProfile {
+  width: 100%;
+  @include flex(column, flex-start, flex-start);
+  gap: 0.5rem;
+
+  .img-container {
+    width: 100%;
+    height: 150px;
+    position: relative;
+    
+        img {
+          width: 100%;
+          height: 100%;
+          object-position: center;
+          object-fit: cover;
+          filter: brightness(60%);
+        }
+
+    .cover-pic {
+      height: 100%;
+      width: 100%;
+      // @extend .flex-center;
+      position: relative;
+
+      label {
+        width: 50px;
+        height: 50px;
+        @include position-abs(50%, 50%, -50%, -50%, null, null);
+        svg {
+          width: 40px;
+        }
+      }
+    }
+
+    .profile-pic {
+      // @extend .flex-center;
+      width: 8.5em;
+      height: 8.5em;
+      border: 4px solid $color1;
+      background-color: $color4;
+      border-radius: 50%;
+      @include position-abs(null, null, -60px, 20px, null, null);
+      z-index: 5;
+      overflow: hidden;
+    }
+  }
+
+  .form-container {
+    margin-top: 60px;
+    padding: 1rem;
+    width: 100%;
+    @include flex(column, flex-start, flex-start);
+    gap: 1rem;
+
+    .entry-container {
+      max-width: 100%;
+      textarea {
+        height: 100px;
+        resize: none;
+      }
+    }
+  }
+}

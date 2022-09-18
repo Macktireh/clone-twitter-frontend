@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from "@/pages/public/Home";
-import NotFound from "@/pages/error/NotFound";
+import HomePublic from "@/pages/public/HomePublic";
+import Error404 from "@/pages/error/Error404";
 import { authRoutesList } from "@/routes/auth.routes";
-import { tweetRoutesList } from "@/routes/tweet.routes";
+import { privateRoutesList } from "@/routes/private.routes";
 import AuthProvider from "@/helper/AuthProvider";
 
 const index: React.FC = () => {
@@ -15,17 +15,17 @@ const index: React.FC = () => {
           path="/"
           element={
             <AuthProvider isPublic={true}>
-              <Home />
+              <HomePublic />
             </AuthProvider>
           }
         />
         {authRoutesList.map(({ path, element }, key) => (
           <Route path={path} element={<AuthProvider isPublic={true}>{element}</AuthProvider>} key={key} />
         ))}
-        {tweetRoutesList.map(({ path, element }, key) => (
+        {privateRoutesList.map(({ path, element }, key) => (
           <Route path={path} element={<AuthProvider isPublic={false}>{element}</AuthProvider>} key={key} />
         ))}
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </BrowserRouter>
   );

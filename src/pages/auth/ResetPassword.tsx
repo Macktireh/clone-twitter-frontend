@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 import resetPasswordAction from "@/actions/auth/resetPassword.action";
-import ButtonCustom from "@/components/widgets/ButtonCustom";
-import InputCustom from "@/components/widgets/InputCoustom";
+import ButtonCustom from "@/widgets/ButtonCustom";
+import InputCustom from "@/widgets/InputCustom";
 import * as controlField from "@/validators/controlField";
-import * as ErrorMessage from "@/utils/function";
+import * as ErrorMessage from "@/utils/displayError";
 import { authRoutes } from "@/routes/auth.routes";
-import SpinnersLoding from "@/components/widgets/SpinnersLoding";
+import SpinnersLoding from "@/widgets/SpinnersLoding";
 
 const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
   const [formData, setFormData] = React.useState({

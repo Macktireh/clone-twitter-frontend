@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import { tweetRoutes } from "@/routes/tweet.routes";
-import IconSVG from "@/components/widgets/IconSVG";
+import { privateRoutes } from "@/routes/private.routes";
+import IconSVG from "@/widgets/IconSVG";
 import { IAuthUserProfile, IStateReduce } from "@/models";
 import { connect } from "react-redux";
 import { baseURL } from "@/config/axios";
@@ -21,13 +21,13 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
     <nav className="nav">
       <div className="nav-content">
         <div className="nav-logo">
-          <NavLink to={tweetRoutes.home.path}>
+          <NavLink to={privateRoutes.home.path}>
             <img src="/static/svg/twitter.svg" alt="logo" />
           </NavLink>
         </div>
         <div className="nav__list">
           <NavLink
-            to={tweetRoutes.home.path}
+            to={privateRoutes.home.path}
             className={(nav) => (nav.isActive ? handleActive("home") : "nav-link")}
           >
             {active === "home" ? <IconSVG iconName="homeActive" /> : <IconSVG iconName="home" />}
@@ -35,7 +35,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
           </NavLink>
 
           <NavLink
-            to={tweetRoutes.explore.path}
+            to={privateRoutes.explore.path}
             className={(nav) => (nav.isActive ? handleActive("explore") : "nav-link")}
           >
             {active === "explore" ? (
@@ -53,7 +53,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
           </NavLink>
 
           <NavLink
-            to={tweetRoutes.notifications.path}
+            to={privateRoutes.notifications.path}
             className={(nav) => (nav.isActive ? handleActive("notification") : "nav-link")}
           >
             {active === "notification" ? (
@@ -65,7 +65,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
           </NavLink>
 
           <NavLink
-            to={tweetRoutes.messages.path}
+            to={privateRoutes.messages.path}
             className={(nav) => (nav.isActive ? handleActive("message") : "nav-link")}
           >
             {active === "message" ? <IconSVG iconName="messageActive" /> : <IconSVG iconName="message" />}
@@ -73,7 +73,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
           </NavLink>
 
           <NavLink
-            to={tweetRoutes.bookmarks.path}
+            to={privateRoutes.bookmarks.path}
             className={(nav) => (nav.isActive ? handleActive("bookmark") : "nav-link")}
           >
             {active === "bookmark" ? <IconSVG iconName="bookmarkActive" /> : <IconSVG iconName="bookmark" />}
@@ -81,7 +81,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
           </NavLink>
 
           <NavLink
-            to={tweetRoutes.lists.path}
+            to={privateRoutes.lists.path}
             className={(nav) => (nav.isActive ? handleActive("list") : "nav-link")}
           >
             {active === "list" ? <IconSVG iconName="listActive" /> : <IconSVG iconName="list" />}
@@ -89,7 +89,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
           </NavLink>
 
           <NavLink
-            to={tweetRoutes.profile.path}
+            to={privateRoutes.profile.path}
             className={(nav) => (nav.isActive ? handleActive("profile") : "nav-link")}
           >
             {active === "profile" ? <IconSVG iconName="profileActive" /> : <IconSVG iconName="profile" />}

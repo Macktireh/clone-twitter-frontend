@@ -1,20 +1,3 @@
-// $font1: ui-sans-serif, system-ui, sans-serif;
-$font1: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-
-$color1: #15202b;
-$color2: #ebeeee;
-$color3: #1d9bf0;
-$color3-2: #1d9cf010;
-$color4: #1e2732;
-$color5: #919090;
-$color6: #273340;
-$color7: #75757562;
-$color8: #f91880;
-$color9: #2732408b;
-$red: #ff0000;
-$orange: orange;
-$green: #23ad5c;
-
 *,
 ::after,
 ::before {
@@ -31,6 +14,12 @@ html {
   font-family: $font1;
   width: 100%;
   height: 100%;
+  @include srolled
+}
+
+body {
+  overflow-y: scroll;
+  @include srolled
 }
 
 #root {

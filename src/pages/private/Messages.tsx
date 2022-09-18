@@ -1,17 +1,17 @@
 import React from "react";
 
 import Layout from "@/layout/Layout";
-import SectionHeaderTweet from "@/components/tweets/SectionHeaderTweet";
-import { tweetRoutes } from "@/routes/tweet.routes";
+import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
+import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
 import { IAuthUserProfile, IStateReduce } from "@/models";
-import ButtonCustom from "@/components/widgets/ButtonCustom";
+import ButtonCustom from "@/widgets/ButtonCustom";
 
 type Props = { currentUser: IAuthUserProfile | null };
 
 const Messages: React.FC<Props> = () => {
   React.useEffect(() => {
-    document.title = tweetRoutes.messages.title;
+    document.title = privateRoutes.messages.title;
 
     window.addEventListener("scroll", () => {
       const secHeaderBg: HTMLElement | null = document.querySelector(".sec-header");
@@ -23,8 +23,8 @@ const Messages: React.FC<Props> = () => {
     <>
       <main className="main main-messages">
         <div className="main-container message inbox">
-          <section className="sec-header">
-            <SectionHeaderTweet page={tweetRoutes.messages.name} title="Messages" />
+          <section className="sec-header sticky-2">
+            <SectionHeaderTweet page={privateRoutes.messages.name} title="Messages" />
           </section>
           <div className="inbox-container">
             <div className="not-msg">
