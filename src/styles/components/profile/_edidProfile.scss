@@ -13,10 +13,10 @@
           height: 100%;
           object-position: center;
           object-fit: cover;
-          filter: brightness(60%);
+          filter: brightness(70%);
         }
 
-    .cover-pic {
+    .cover-pic, .profile-pic {
       height: 100%;
       width: 100%;
       // @extend .flex-center;
@@ -25,17 +25,21 @@
       label {
         width: 50px;
         height: 50px;
-        @include position-abs(50%, 50%, -50%, -50%, null, null);
+        padding: 10px;
+        background-color: rgba($color1, 0.5);
+        border-radius: 50%;
+        cursor: pointer;
+        @include position-abs(50%, null, null, 50%, -50%, -50%);
         svg {
-          width: 40px;
+          width: 100%;
         }
       }
     }
 
     .profile-pic {
       // @extend .flex-center;
-      width: 8.5em;
-      height: 8.5em;
+      width: 8em;
+      height: 8em;
       border: 4px solid $color1;
       background-color: $color4;
       border-radius: 50%;
@@ -50,7 +54,7 @@
     padding: 1rem;
     width: 100%;
     @include flex(column, flex-start, flex-start);
-    gap: 1rem;
+    gap: 1.3rem;
 
     .entry-container {
       max-width: 100%;

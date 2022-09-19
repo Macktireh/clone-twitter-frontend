@@ -10,28 +10,36 @@ import { privateRoutes } from "@/routes/private.routes";
 import { IStateReduce, PropsStateType } from "@/models";
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
+import SpinnersLoding from "@/widgets/SpinnersLoding";
 
 interface PropsType extends PropsStateType {
   getAllPostAction?: any;
   getAllUsersAction?: any;
 }
 
-const HomePrivate: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAction, getAllPostAction }) => {
+const styleSpinnersLoding: React.CSSProperties = {
+  top: "20%"
+};
+
+const HomePrivate: React.FC<PropsType> = ({
+  currentUser,
+  users,
+  posts,
+  getAllUsersAction,
+  getAllPostAction,
+}) => {
+  const [loading, setLoading] = React.useState(true);
   const flag = React.useRef(false);
   React.useEffect(() => {
     document.title = privateRoutes.home.title;
-
     if (!flag.current) {
       getAllUsersAction();
       getAllPostAction();
       flag.current = true;
     }
 
-    // window.addEventListener("scroll", () => {
-    //   const secHeaderBg: HTMLElement | null = document.querySelector(".sec-header");
-    //   secHeaderBg?.classList.toggle("sticky-2", window.scrollY > 0);
-    // });
-  }, [flag, getAllPostAction, getAllUsersAction]);
+    if (currentUser && users && posts) setLoading(false);
+  }, [flag, currentUser, users, posts, getAllPostAction, getAllUsersAction]);
 
   return (
     <>
@@ -45,15 +53,15 @@ const HomePrivate: React.FC<PropsType> = ({ currentUser, users, posts, getAllUse
           </section>
           <div className="line"></div>
           <section className="sec-list-post">
-            {posts?.map((post) => (
-              <div className="list-post" key={post.publicId}>
-                <CardTweet currentUser={currentUser} post={post} users={users} />
-                {/* {users?.filter((user) => user.user.public_id === post.authorDetail.public_id)
-                 .map((user) => (
-              
-                 ))} */}
-              </div>
-            ))}
+            {loading ? (
+              <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
+            ) : (
+              posts?.map((post) => (
+                <div className="list-post" key={post.publicId}>
+                  <CardTweet currentUser={currentUser} post={post} users={users} />
+                </div>
+              ))
+            )}
           </section>
         </div>
       </main>

@@ -28,6 +28,7 @@ const authReducer = (state: IAuthUserState = initialState, action: IActionState)
         isAuthenticated: true,
       };
 
+    case Types.UPDATE_PROFILE_CURRENT_USER_LOADED_SUCCESS:
     case Types.GET_CURRENT_USER_LOADED_SUCCESS:
       return {
         ...state,
@@ -40,6 +41,7 @@ const authReducer = (state: IAuthUserState = initialState, action: IActionState)
         isAuthenticated: false,
       };
 
+    case Types.UPDATE_PROFILE_CURRENT_USER_LOADED_FAIL:
     case Types.GET_CURRENT_USER_LOADED_FAIL:
       return {
         ...state,

@@ -5,21 +5,20 @@ import { Link } from "react-router-dom";
 import Layout from "@/layout/Layout";
 import CardTweet from "@/components/homePrivate/CardTweet";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
+import EdidProfile from "@/components/profile/EdidProfile";
+import Aside from "@/components/aside/Aside";
 import NavTabs from "@/widgets/NavTabs";
 import IconSVG from "@/widgets/IconSVG";
 import ButtonCustom from "@/widgets/ButtonCustom";
-import Aside from "@/components/aside/Aside";
+import Modal from "@/widgets/Modal";
+import SpinnersLoding from "@/widgets/SpinnersLoding";
+import getAllPostAction from "@/actions/post/getAllPost.action";
+import getAllUsersAction from "@/actions/user/getAllUsers.action";
+import EditProfileProvider from "@/context/EditProfileProvider";
 import { privateRoutes } from "@/routes/private.routes";
 import { baseURL } from "@/config/axios";
 import { IStateReduce, PropsStateType, TTabState } from "@/models";
-// import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
-// import getCurrentUserAction from "@/actions/auth/loadUser.action";
-import getAllPostAction from "@/actions/post/getAllPost.action";
-import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import { dateParserJoined } from "@/utils/dateParser";
-import Modal from "@/widgets/Modal";
-import EdidProfile from "@/components/profile/EdidProfile";
-import EditProfileProvider from "@/context/EditProfileProvider";
 
 interface PropsType extends PropsStateType {
   checkAuthenticatedAction?: Function;
@@ -27,7 +26,12 @@ interface PropsType extends PropsStateType {
   getAllPostAction?: any;
 }
 
+const styleSpinnersLoding: React.CSSProperties = {
+  transform: `translate(-50%)`
+};
+
 const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAction, getAllPostAction }) => {
+  const [loading, setLoading] = React.useState(true);
   const flag = React.useRef(false);
   const tabState: TTabState[] = [
     { id: 1, title: "Tweets", grow: false },
@@ -52,12 +56,8 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
         flag.current = true;
       })();
     }
-
-    // window.addEventListener("scroll", () => {
-    //   const secHeaderBg: HTMLElement | null = document.querySelector(".sec-header");
-    //   secHeaderBg?.classList.toggle("sticky-2", window.scrollY > 0);
-    // });
-  });
+    if (currentUser && users && posts) setLoading(false);
+  }, [flag, currentUser, users, posts, getAllPostAction, getAllUsersAction]);
 
   return (
     <>
@@ -113,6 +113,9 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
                     </h3>
                     <p>@{currentUser?.pseudo}</p>
                   </div>
+                  <div className="box-bio">
+                    <p>{currentUser?.bio}</p>
+                  </div>
                   <div className="box-info-date-joined">
                     <IconSVG iconName="calendar" fill="#919090" />
                     <p>Joined {currentUser?.created && dateParserJoined(currentUser.created)}</p>
@@ -136,7 +139,8 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
             <div className="my-content-container">
               {(activeTab === 1 || activeTab === 2) && (
                 <div className="tabs-tweets">
-                  {posts
+                  {loading ? <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} /> :
+                  posts
                     ?.filter((post) => post.authorDetail.public_id === currentUser?.user.public_id)
                     .map((post) => (
                       <div className="list-post" key={post.publicId}>

@@ -4,73 +4,86 @@ import Axios from "@/config/axios";
 import * as Api from "@/config/api";
 import * as Types from "@/actions/types";
 import checkAuthenticatedAction from "../auth/checkAuthenticated.action";
-import { IAuthUserProfile } from "@/models";
 
 const updateCurrentUserAction =
-  (public_id: string, data: any) => async (dispatch: AnyAction | any) => {
+  (public_id: string, data: any, isPic: boolean = false) =>
+  async (dispatch: AnyAction | any) => {
     if (localStorage.getItem("access")) {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("access"),
-          Accept: "application/json",
-        },
-      };
+      let config;
+      let res;
+      if (isPic) {
+        config = {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access"),
+            // "Content-Type": "multipart/form-data; boundary=--------------------------249151600405636688314978",
+          },
+        };
+      } else {
+        config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("access"),
+            Accept: "application/json",
+          },
+        };
+      }
 
       const body = JSON.stringify(data);
 
       try {
-        const res = await Axios.patch(`${Api.currentUserEndpoint + public_id}/`, body, config);
-        dispatch({ type: Types.AUTHENTICATED_SUCCESS });
+        if (!isPic) {
+          res = await Axios.patch(`${Api.currentUserEndpoint + public_id}/`, body, config);
+        } else {
+          res = await Axios.patch(`${Api.currentUserEndpoint + public_id}/`, data, config);
+        }
+        // console.log("updateCurrentUserAction OK", res);
         dispatch({
-          type: Types.GET_CURRENT_USER_LOADED_SUCCESS,
+          type: Types.UPDATE_PROFILE_CURRENT_USER_LOADED_SUCCESS,
           payload: res.data,
         });
       } catch (error: any) {
+        // console.log("updateCurrentUserAction error", error);
         if (error.response.status === 401) {
-          console.log(error)
-          // dispatch(checkAuthenticatedAction(_updateCurrentUserAction, {public_id, data}));
+          dispatch(checkAuthenticatedAction(_updateCurrentUserAction, { public_id, data }));
         }
-        dispatch({ type: Types.AUTHENTICATED_FAIL });
-        dispatch({ type: Types.GET_CURRENT_USER_LOADED_FAIL });
+        dispatch({ type: Types.UPDATE_PROFILE_CURRENT_USER_LOADED_FAIL });
       }
     } else {
       dispatch({ type: Types.AUTHENTICATED_FAIL });
-      dispatch({ type: Types.GET_CURRENT_USER_LOADED_FAIL });
+      dispatch({ type: Types.UPDATE_PROFILE_CURRENT_USER_LOADED_FAIL });
     }
   };
 
-const _updateCurrentUserAction =
-  (param: any) => async (dispatch: Dispatch<AnyAction> | any) => {
-    if (localStorage.getItem("access")) {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("access"),
-          Accept: "application/json",
-        },
-      };
+const _updateCurrentUserAction = (param: any) => async (dispatch: Dispatch<AnyAction> | any) => {
+  if (localStorage.getItem("access")) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("access"),
+        Accept: "application/json",
+      },
+    };
 
-      const {public_id, data} = param;
+    const body = JSON.stringify(param.data);
 
-      const body = JSON.stringify(data);
-
-      try {
-        const res = await Axios.patch(`${Api.currentUserEndpoint + public_id}/`, body, config);
-        dispatch({
-          type: Types.GET_CURRENT_USER_LOADED_SUCCESS,
-          payload: res.data,
-        });
-      } catch (error) {
-        dispatch({
-          type: Types.GET_CURRENT_USER_LOADED_FAIL,
-        });
-      }
-    } else {
+    try {
+      const res = await Axios.patch(`${Api.currentUserEndpoint + param.public_id}/`, body, config);
+      // console.log("_updateCurrentUserAction OK", res);
       dispatch({
-        type: Types.GET_CURRENT_USER_LOADED_FAIL,
+        type: Types.UPDATE_PROFILE_CURRENT_USER_LOADED_SUCCESS,
+        payload: res.data,
+      });
+    } catch (error) {
+      // console.log("_updateCurrentUserAction error", error);
+      dispatch({
+        type: Types.UPDATE_PROFILE_CURRENT_USER_LOADED_FAIL,
       });
     }
-  };
+  } else {
+    dispatch({
+      type: Types.UPDATE_PROFILE_CURRENT_USER_LOADED_FAIL,
+    });
+  }
+};
 
 export default updateCurrentUserAction;

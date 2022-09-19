@@ -12,6 +12,11 @@ type PropsType = {
 
 const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
   const propsContext = useEditProfile();
+
+  const handleChangePic = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (propsContext) propsContext.handleChangePicture && propsContext.handleChangePicture(e);
+  };
+
   return (
     <div className="EdidProfile">
       <div className="img-container">
@@ -24,9 +29,15 @@ const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
             }
             alt="cover-pic"
           />
-          <input type="file" name="cover-pic" id="cover-pic" hidden />
-          <label htmlFor="cover-pic">
-            <IconSVG iconName="camImage" />
+          <input
+            type="file"
+            name="coverPicture"
+            id="coverPicture"
+            hidden
+            onChange={(e) => handleChangePic(e)}
+          />
+          <label htmlFor="coverPicture">
+            <IconSVG iconName="camImage" fill="#CCCCCC" />
           </label>
         </div>
         <div className="profile-pic">
@@ -39,8 +50,17 @@ const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
             }
             alt="profile-pic"
           />
-          <input type="file" name="profile-pic" id="profile-pic" hidden />
-          <label htmlFor="profile-pic"></label>
+          <input
+            type="file"
+            name="profilePicture"
+            id="profilePicture"
+            hidden
+            accept=".png, .jpg, .jpeg"
+            onChange={(e) => handleChangePic(e)}
+          />
+          <label htmlFor="profilePicture">
+            <IconSVG iconName="camImage" fill="#CCCCCC" />
+          </label>
         </div>
       </div>
       <div className="form-container">

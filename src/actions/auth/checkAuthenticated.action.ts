@@ -4,10 +4,8 @@ import Axios from "@/config/axios";
 import * as Api from "@/config/api";
 import * as Types from "@/actions/types";
 import getCurrentUserAction from "../user/getCurrentUser.action";
-// import getCurrentUserAction from "@/actions/user/getCurrentUser.action";
-// import getAllUsersAction from "../user/getAllUsers.action";
 
-const refreshToken = async (config: any, dispatch: Dispatch<AnyAction> | any, action: Function) => {
+const refreshToken = async (config: any, dispatch: Dispatch<AnyAction> | any, action: Function, param: any = null) => {
   try {
     const body = JSON.stringify({
       refresh: localStorage.getItem("refresh"),
@@ -18,7 +16,7 @@ const refreshToken = async (config: any, dispatch: Dispatch<AnyAction> | any, ac
       dispatch({ type: Types.REFRESH_TOKEN_SUCCESS });
       dispatch({ type: Types.AUTHENTICATED_SUCCESS });
       dispatch(getCurrentUserAction());
-      dispatch(action());
+      param ? dispatch(action(param)) : dispatch(action());
     } else {
       dispatch({ type: Types.REFRESH_TOKEN_FAIL });
       dispatch({ type: Types.AUTHENTICATED_FAIL });
@@ -50,11 +48,11 @@ const checkAuthenticatedAction = (action: Function, param: any = null) => async 
         param ? dispatch(action(param)) : dispatch(action());
       } else {
         dispatch({ type: Types.VERIFY_TOKEN_FAIL });
-        refreshToken(config, dispatch, action);
+        refreshToken(config, dispatch, action, param);
       }
     } catch (error) {
       dispatch({ type: Types.VERIFY_TOKEN_FAIL });
-      refreshToken(config, dispatch, action);
+      refreshToken(config, dispatch, action, param);
     }
   } else {
     dispatch({ type: Types.AUTHENTICATED_FAIL });

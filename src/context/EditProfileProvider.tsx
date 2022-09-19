@@ -4,7 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { IStateReduce } from "@/models";
 import updateCurrentUserAction from "@/actions/user/updateCurrentUser.action";
 
+type pictureType = {
+  profilePicture?: any;
+  coverPicture?: any;
+};
+
 type ContextPropsType = {
+  // modal?: {modalActive: boolean, setModalActive: () => void}
+  popup?: { popupActive: boolean; setPopupActive: () => void };
   userData: {
     public_id: string | undefined;
     first_name: string | undefined;
@@ -13,6 +20,9 @@ type ContextPropsType = {
     bio: string | undefined;
   };
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleReSetUserData?: (data: any, pictures: any) => void;
+  picture?: pictureType | undefined;
+  handleChangePicture?: (e: any) => void;
   handleSubmit: any;
 };
 
@@ -21,6 +31,7 @@ export const EditProfileContext = React.createContext<null | ContextPropsType>(n
 const EditProfileProvider = ({ children }: React.PropsWithChildren) => {
   const currentUser = useSelector((state: IStateReduce) => state.authReducer.currentUser);
   const dispatch = useDispatch();
+  const [popupActive, setPopupActive] = React.useState(false);
   const [userData, setUserData] = React.useState({
     public_id: currentUser?.user.public_id,
     first_name: currentUser?.user.first_name,
@@ -28,30 +39,79 @@ const EditProfileProvider = ({ children }: React.PropsWithChildren) => {
     pseudo: currentUser?.pseudo,
     bio: currentUser?.bio,
   });
+  const [picture, setPicture] = React.useState<pictureType>({
+    profilePicture: null,
+    coverPicture: null,
+  });
 
   const { public_id, first_name, last_name, pseudo, bio } = userData;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log([e.target.name], e.target.value);
+  const handleReSetUserData = (data: any, pictures: any) => {
+    setUserData(data);
+    setPicture(pictures)
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUserData({ ...userData, [e.target.name]: e.target.value });
+
+  const handleChangePicture = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) {
+    } else {
+      setPicture({ ...picture, [e.target.name]: e.target.files[0] });
+    }
+  };
+
+  const popup = {
+    popupActive,
+    setPopupActive: () => setPopupActive(!popupActive),
   };
 
   const handleSubmit = async (e: any) => {
-    // console.log("Context");
-    // console.log(public_id);
     if (
       public_id &&
       (first_name !== currentUser?.user.first_name ||
         last_name !== currentUser?.user.last_name ||
         pseudo !== currentUser?.pseudo ||
         bio !== currentUser?.bio)
+    )
+      dispatch(updateCurrentUserAction(public_id, { user: { first_name, last_name }, pseudo, bio }) as any);
+    if (
+      public_id &&
+      (picture.profilePicture !== null ||
+        picture.coverPicture !== null)
     ) {
-      dispatch(updateCurrentUserAction(public_id, { user: { first_name, last_name }, pseudo }) as any);
+      if (
+        picture.profilePicture !== null &&
+        picture.coverPicture !== null
+      ) {
+        const formData = new FormData();
+        formData.append("profilePicture", picture.profilePicture, picture.profilePicture.name);
+        formData.append("coverPicture", picture.coverPicture, picture.coverPicture.name);
+        dispatch(updateCurrentUserAction(public_id, formData, true) as any);
+      } else if (picture.profilePicture !== null) {
+        const formData = new FormData();
+        formData.append("profilePicture", picture.profilePicture);
+        dispatch(updateCurrentUserAction(public_id, formData, true) as any);
+      } else if (picture.coverPicture !== null) {
+        const formData = new FormData();
+        formData.append("coverPicture", picture.coverPicture, picture.coverPicture.name);
+        dispatch(updateCurrentUserAction(public_id, formData, true) as any);
+      }
     }
   };
 
   return (
-    <EditProfileContext.Provider value={{ userData, handleChange, handleSubmit }}>
+    <EditProfileContext.Provider
+      value={{
+        popup,
+        userData,
+        handleChange,
+        handleReSetUserData,
+        picture,
+        handleChangePicture,
+        handleSubmit,
+      }}
+    >
       {children}
     </EditProfileContext.Provider>
   );

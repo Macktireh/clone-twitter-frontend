@@ -72,4 +72,24 @@
       width: 100%;
     }
   }
+
+  .popup {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    .closed {
+      z-index: 203;
+    }
+    .popup-container {
+      width: 320px;
+      height: 270px;
+      padding: 2rem;
+      background-color: $color1;
+      border-radius: 10px;
+      z-index: 204;
+      @include position-abs(50%, null, null, 50%, -50%, -50%);
+      @include flex(column, flex-start, flex-start);
+      gap: 1rem;
+    }
+  }
 }

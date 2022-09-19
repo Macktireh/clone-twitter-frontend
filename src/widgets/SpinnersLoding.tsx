@@ -7,11 +7,11 @@ const override: React.CSSProperties = {
   margin: "0 auto",
 };
 
-type TSipinner = {isLoading: boolean, nameClass?: string}
+type TSipinner = {isLoading: boolean, nameClass?: string, styleSpinnersLoding?: any }
 
-const SpinnersLoding: React.FC<TSipinner> = ({ nameClass, isLoading }) => {
+const SpinnersLoding: React.FC<TSipinner> = ({ nameClass, isLoading, styleSpinnersLoding }) => {
   return (
-    <div className={nameClass ? "spinners-container" + nameClass : "spinners-container"}>
+    <div className={nameClass ? "spinners-container" + nameClass : "spinners-container"} style={styleSpinnersLoding}>
       <ScaleLoader color={"#1d9bf0"} loading={isLoading} cssOverride={override} />
     </div>
   );
