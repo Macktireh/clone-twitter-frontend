@@ -12,10 +12,33 @@ type PropsType = {
 
 const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
   const propsContext = useEditProfile();
+  const [profilePicturePreview, setProfilePicturePreview] = React.useState<string | null>();
+  const [coverPicturePreview, setCoverPicturePreview] = React.useState<string | null>();
 
   const handleChangePic = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (propsContext) propsContext.handleChangePicture && propsContext.handleChangePicture(e);
   };
+
+  React.useEffect(() => {
+    if (propsContext?.picture?.profilePicture) {
+      const profileReader = new FileReader();
+      profileReader.onloadend = () => {
+        setProfilePicturePreview(profileReader.result as string);
+      };
+      profileReader.readAsDataURL(propsContext.picture.profilePicture);
+    } else {
+      setProfilePicturePreview(null);
+    }
+    if (propsContext?.picture?.coverPicture) {
+      const coverReader = new FileReader();
+      coverReader.onloadend = () => {
+        setCoverPicturePreview(coverReader.result as string);
+      };
+      coverReader.readAsDataURL(propsContext.picture.coverPicture);
+    } else {
+      setCoverPicturePreview(null);
+    }
+  }, [propsContext?.picture?.profilePicture, propsContext?.picture?.coverPicture]);
 
   return (
     <div className="EdidProfile">
@@ -23,7 +46,9 @@ const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
         <div className="cover-pic">
           <img
             src={
-              currentUser?.coverPicture
+              coverPicturePreview
+                ? coverPicturePreview
+                : currentUser?.coverPicture
                 ? baseURL + currentUser.coverPicture
                 : baseURL + "/mediafiles/default/coverPic.jpg"
             }
@@ -44,7 +69,9 @@ const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
           <img
             className=""
             src={
-              currentUser?.profilePicture
+              profilePicturePreview
+                ? profilePicturePreview
+                : currentUser?.profilePicture
                 ? baseURL + currentUser.profilePicture
                 : baseURL + "/mediafiles/default/coverPic.jpg"
             }
@@ -70,6 +97,7 @@ const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
           name="first_name"
           type="text"
           label="Prénom"
+          maxLength="50"
           onChange={propsContext?.handleChange}
           value={propsContext?.userData.first_name ? propsContext.userData.first_name : ""}
         />
@@ -79,6 +107,7 @@ const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
           name="last_name"
           type="text"
           label="Nom"
+          maxLength="50"
           onChange={propsContext?.handleChange}
           value={propsContext?.userData.last_name ? propsContext.userData.last_name : ""}
         />
@@ -88,6 +117,7 @@ const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
           name="pseudo"
           type="text"
           label="Pseudo"
+          maxLength="50"
           onChange={propsContext?.handleChange}
           value={propsContext?.userData.pseudo ? propsContext.userData.pseudo : ""}
         />
@@ -96,6 +126,7 @@ const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
           id="bio"
           name="bio"
           label="bio"
+          maxLength="160"
           onChange={propsContext?.handleChange}
           value={propsContext?.userData.bio ? propsContext.userData.bio : ""}
           textarea={true}

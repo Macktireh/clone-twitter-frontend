@@ -20,7 +20,7 @@ type ContextPropsType = {
     bio: string | undefined;
   };
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleReSetUserData?: (data: any, pictures: any) => void;
+  handleReSetUserData?: () => void;
   picture?: pictureType | undefined;
   handleChangePicture?: (e: any) => void;
   handleSubmit: any;
@@ -46,10 +46,32 @@ const EditProfileProvider = ({ children }: React.PropsWithChildren) => {
 
   const { public_id, first_name, last_name, pseudo, bio } = userData;
 
-  const handleReSetUserData = (data: any, pictures: any) => {
-    setUserData(data);
-    setPicture(pictures)
-  }
+  const handleReSetUserData = () => {
+    const resetUserData = {
+      public_id: currentUser?.user.public_id,
+      first_name: currentUser?.user.first_name,
+      last_name: currentUser?.user.last_name,
+      pseudo: currentUser?.pseudo,
+      bio: currentUser?.bio,
+    };
+    const pictures = {
+      profilePicture: null,
+      coverPicture: null,
+    };
+    setUserData(resetUserData);
+    setPicture(pictures);
+  };
+
+  React.useEffect(() => {
+    const resetUserData = {
+      public_id: currentUser?.user.public_id,
+      first_name: currentUser?.user.first_name,
+      last_name: currentUser?.user.last_name,
+      pseudo: currentUser?.pseudo,
+      bio: currentUser?.bio,
+    };
+    setUserData(resetUserData);
+  }, [currentUser]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -75,15 +97,8 @@ const EditProfileProvider = ({ children }: React.PropsWithChildren) => {
         bio !== currentUser?.bio)
     )
       dispatch(updateCurrentUserAction(public_id, { user: { first_name, last_name }, pseudo, bio }) as any);
-    if (
-      public_id &&
-      (picture.profilePicture !== null ||
-        picture.coverPicture !== null)
-    ) {
-      if (
-        picture.profilePicture !== null &&
-        picture.coverPicture !== null
-      ) {
+    if (public_id && (picture.profilePicture !== null || picture.coverPicture !== null)) {
+      if (picture.profilePicture !== null && picture.coverPicture !== null) {
         const formData = new FormData();
         formData.append("profilePicture", picture.profilePicture, picture.profilePicture.name);
         formData.append("coverPicture", picture.coverPicture, picture.coverPicture.name);

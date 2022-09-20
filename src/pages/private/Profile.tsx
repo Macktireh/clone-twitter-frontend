@@ -10,7 +10,7 @@ import Aside from "@/components/aside/Aside";
 import NavTabs from "@/widgets/NavTabs";
 import IconSVG from "@/widgets/IconSVG";
 import ButtonCustom from "@/widgets/ButtonCustom";
-import Modal from "@/widgets/Modal";
+import ModalEditProfile from "@/components/profile/ModalEditProfile";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
@@ -62,7 +62,7 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
   return (
     <>
       <EditProfileProvider>
-        <Modal
+        <ModalEditProfile
           modalActive={modalActive}
           titleModal="Edit Profile"
           textBtnModal="Save"
@@ -70,7 +70,7 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
           currentUser={currentUser ? currentUser : null}
         >
           <EdidProfile currentUser={currentUser} />
-        </Modal>
+        </ModalEditProfile>
       </EditProfileProvider>
       <main className="main">
         <div className="Profile main-container">
@@ -99,7 +99,7 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
                   src={
                     currentUser?.profilePicture
                       ? baseURL + currentUser.profilePicture
-                      : baseURL + "/mediafiles/default/coverPic.jpg"
+                      : baseURL + "/mediafiles/default/profilePic.png"
                   }
                   alt=""
                 />

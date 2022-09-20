@@ -21,7 +21,7 @@
     border: 1px solid $color1;
     box-shadow: 0 0 5px $color4;
     border-radius: 8px;
-    z-index: 2;
+    z-index: 1;
     position: relative;
 
     @media screen and (max-width: 480px) {
@@ -97,7 +97,7 @@
     gap: 0.5rem;
 
     img {
-      width: 300px;
+      width: 220px;
     }
 
     img.icon-success {

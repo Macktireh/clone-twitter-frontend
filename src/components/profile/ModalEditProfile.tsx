@@ -1,9 +1,9 @@
 import React from "react";
 
-import ButtonCustom from "./ButtonCustom";
+import ButtonCustom from "../../widgets/ButtonCustom";
 import { useEditProfile } from "@/context/EditProfileProvider";
 import { IAuthUserProfile } from "@/models";
-import Popup from "./Popup";
+import Popup from "../../widgets/Popup";
 
 type PropsType = React.PropsWithChildren<{
   modalActive: boolean;
@@ -13,7 +13,7 @@ type PropsType = React.PropsWithChildren<{
   currentUser?: IAuthUserProfile | null;
 }>;
 
-const Modal: React.FC<PropsType> = ({
+const ModalEditProfile: React.FC<PropsType> = ({
   children,
   modalActive,
   titleModal,
@@ -37,10 +37,6 @@ const Modal: React.FC<PropsType> = ({
         propsContext.picture?.profilePicture !== null ||
         propsContext.picture?.coverPicture !== null
       ) {
-        console.log("propsContext.picture?.coverPicture : ", propsContext.picture?.coverPicture)
-        console.log(propsContext.picture?.coverPicture !== null)
-        console.log("propsContext.picture?.profilePicture : ", propsContext.picture?.profilePicture)
-        console.log(propsContext.picture?.profilePicture !== null)
         handleClosePopup();
       } else {
         if (handleClick) handleClick();
@@ -50,30 +46,22 @@ const Modal: React.FC<PropsType> = ({
     }
   };
 
-  const handleDiscard = () => {
-    const resetUserData = {
-      public_id: currentUser?.user.public_id,
-      first_name: currentUser?.user.first_name,
-      last_name: currentUser?.user.last_name,
-      pseudo: currentUser?.pseudo,
-      bio: currentUser?.bio,
-    };
-    const pictures = {
-      profilePicture: null,
-      coverPicture: null,
-    };
-    propsContext?.handleReSetUserData && propsContext.handleReSetUserData(resetUserData, pictures);
+  const handleDiscard = (closePopup: boolean = true) => {
+    propsContext?.handleReSetUserData && propsContext.handleReSetUserData();
     handleClosePopup();
     if (handleClick) handleClick();
   };
 
   const handleSubmit = async (e: any) => {
-    if (propsContext?.handleSubmit) propsContext.handleSubmit(e);
-    if (handleClick) handleClick();
+    if (propsContext?.handleSubmit) await propsContext.handleSubmit(e);
+    if (handleClick) {
+      await handleClick();
+    }
+    propsContext?.handleReSetUserData && propsContext.handleReSetUserData();
   };
 
   return (
-    <div className="modal-global" style={{ display: modalActive ? "flex" : "none" }}>
+    <div className="modal-global" style={{ display: modalActive ? "flex" : "none"}}>
       <div className="closed" onClick={() => handleClick && handleClick()}></div>
       <Popup
         popupActive={propsContext?.popup?.popupActive ? propsContext.popup?.popupActive : null}
@@ -105,4 +93,4 @@ const Modal: React.FC<PropsType> = ({
   );
 };
 
-export default Modal;
+export default ModalEditProfile;

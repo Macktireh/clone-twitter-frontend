@@ -12,7 +12,7 @@ const SignUpConfirm: React.FC = () => {
     <div className="container-auth">
       <div className="modal-auth">
         <div className="success">
-          <img src="/static/svg/envelope.svg" alt="" />
+          <img src="/static/svg/envelope.svg" alt="envelope" />
           <h3>Merci de vous être inscrit à un compte Clone Twitter</h3>
           <br />
           <p>Veuillez vérifier votre adresse e-mail afin d'accéder à votre compte Clone Twitter.</p>

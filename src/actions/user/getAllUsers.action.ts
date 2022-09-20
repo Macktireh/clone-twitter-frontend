@@ -6,22 +6,6 @@ import * as Types from "@/actions/types";
 import checkAuthenticatedAction from "../auth/checkAuthenticated.action";
 
 
-// const func = async (config: any, dispatch: Dispatch<AnyAction> | any) => {
-//   try {
-//     const res = await Axios.get(Api.allUserEndpoint, config);
-//     dispatch({
-//       type: Types.GET_ALL_USERS_LOADED_SUCCESS,
-//       payload: res.data,
-//     });
-//     return {res, error: null}
-//   } catch (error: any) {
-//     dispatch({
-//       type: Types.GET_ALL_USERS_LOADED_FAIL,
-//     });
-//     return {res: null, error}
-//   }
-// }
-
 const getAllUsersAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
   if (localStorage.getItem("access")) {
     const config = {

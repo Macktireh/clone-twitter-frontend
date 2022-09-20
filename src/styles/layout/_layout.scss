@@ -78,12 +78,12 @@
       @include flex(row, flex-start, center);
       position: sticky;
       top: 0px;
-      z-index: 5;
+      z-index: 3;
     }
     .search-container.sticky {
       background-color: $color1;
       padding: 4px 0;
-      z-index: 5;
+      z-index: 3;
     }
 
     .trends-container,

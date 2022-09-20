@@ -28,7 +28,7 @@
           background-color: $color4;
           border-radius: 50%;
           @include position-abs(null, null, -60px, 20px, null, null);
-          z-index: 5;
+          z-index: 1;
         }
       }
     }
@@ -40,7 +40,7 @@
         font-weight: 700;
         padding: 8px 0;
         @include position-abs(10px, 20px, null, null, null, null);
-        z-index: 5;
+        z-index: 2;
       }
       .info-profile {
         @include flex(column, flex-start, flex-start);

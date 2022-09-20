@@ -2,15 +2,13 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  // background-color: rgba($color10, 0.5);
-  z-index: 200;
+  z-index: 4;
   @include flex(row, center, flex-start);
 
   .closed {
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 201;
     background-color: rgba($color10, 0.5);
   }
 
@@ -23,7 +21,7 @@
     background-color: $color1;
     border-radius: 10px;
     margin-top: 50px;
-    z-index: 202;
+    z-index: 5;
     overflow-y: scroll;
     @include flex(column, flex-start, flex-start);
     gap: 0.5rem;
@@ -35,7 +33,7 @@
       position: sticky;
       top: -0.5px;
       left: -0.5px;
-      z-index: 300;
+      z-index: 8;
       background-color: rgba($color1, 0.7);
       backdrop-filter: blur(15px);
 
@@ -78,7 +76,7 @@
     height: 100%;
     position: absolute;
     .closed {
-      z-index: 203;
+      z-index: 6;
     }
     .popup-container {
       width: 320px;
@@ -86,10 +84,19 @@
       padding: 2rem;
       background-color: $color1;
       border-radius: 10px;
-      z-index: 204;
+      z-index: 7;
       @include position-abs(50%, null, null, 50%, -50%, -50%);
       @include flex(column, flex-start, flex-start);
       gap: 1rem;
+
+      button {
+        transition: all 0.2s ease-in-out;
+      }
+      button.btn-cancel {
+        &:hover {
+          background-color: rgba($color7, 0.3);
+        }
+      }
     }
   }
 }

@@ -1,0 +1,39 @@
+.UserCard {
+  width: 100%;
+  @include flex(row, space-between, center);
+  gap: 0.5rem;
+  padding: 8px;
+  transition: all 0.1s ease-out;
+  background-color: $color1;
+  cursor: pointer;
+
+  .img-and-name{
+    @include flex(row, flex-start, center);
+    gap: 8px;
+  }
+
+  img,
+  svg {
+    width: 45px;
+    height: 45px;
+    object-position: center;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+  strong,
+  p {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  p {
+    color: $color5;
+    font-size: 14px;
+  }
+}

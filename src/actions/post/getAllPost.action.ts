@@ -24,14 +24,10 @@ const getAllPostAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
       if (error.response.status === 401) {
         dispatch(checkAuthenticatedAction(_getAllPostAction));
       }
-      dispatch({
-        type: Types.GET_ALL_POST_FAIL,
-      });
+      dispatch({type: Types.GET_ALL_POST_FAIL,});
     }
   } else {
-    dispatch({
-      type: Types.GET_ALL_POST_FAIL,
-    });
+    dispatch({type: Types.GET_ALL_POST_FAIL,});
   }
 };
 

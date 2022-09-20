@@ -15,8 +15,8 @@ const Aside: React.FC<Props> = ({ page }) => {
         <div className="follow-container">
           <div className="content">
             <h3>Who to follow</h3>
-            {[1, 2, 3].map((n) => (
-              <Follow />
+            {[1, 2, 3].map((n, i) => (
+              <Follow key={i} />
             ))}
             <span className="show-more">Show more</span>
           </div>
@@ -27,8 +27,8 @@ const Aside: React.FC<Props> = ({ page }) => {
         <div className="trends-container">
           <div className="content">
             <h3>Trends for you</h3>
-            {[1, 2, 3, 4, 5, 6].map((n) => (
-              <Trending />
+            {[1, 2, 3, 4, 5, 6].map((n, i) => (
+              <Trending key={i} />
             ))}
           </div>
         </div>

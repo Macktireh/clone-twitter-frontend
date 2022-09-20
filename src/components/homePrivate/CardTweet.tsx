@@ -24,7 +24,7 @@ const CardTweet: React.FC<PropsType> = ({ currentUser, post, users }) => {
         {post?.authorDetail.public_id === currentUser?.user.public_id
           ?  <img src={`${baseURL}${currentUser?.profilePicture}`} alt="" />
           : users?.map(
-              (u) => u.user.public_id === post?.authorDetail.public_id && <img src={`${baseURL}${u.profilePicture}`} alt="" />
+              (u, i) => u.user.public_id === post?.authorDetail.public_id && <img key={i} src={`${baseURL}${u.profilePicture}`} alt="" />
             )}
         
       </div>
@@ -41,12 +41,12 @@ const CardTweet: React.FC<PropsType> = ({ currentUser, post, users }) => {
             {post?.authorDetail.public_id === currentUser?.user.public_id ? (
               <span>@{currentUser?.pseudo}</span>
             ) : (
-              users?.map((u) => u.user.public_id === post?.authorDetail.public_id && <span>@{u.pseudo}</span>)
+              users?.map((u, i) => u.user.public_id === post?.authorDetail.public_id && <span key={i}>@{u.pseudo}</span>)
             )}
             <span>·</span>
             <span>{post?.created && dateParserCreated(post.created)}</span>
           </p>
-          <IconSVG key="dot" iconName="3-dot" fill="#919090" />
+          <IconSVG iconName="3-dot" fill="#919090" />
         </div>
         <div className="post-content">
           <div className="post-text">
@@ -57,25 +57,25 @@ const CardTweet: React.FC<PropsType> = ({ currentUser, post, users }) => {
           </div>
           <div className="post-footer">
             <div className="reply post-icon">
-              <IconSVG key="reply" iconName="reply" fill="#919090" />
+              <IconSVG iconName="reply" fill="#919090" />
               <span>{post?.comments.length}</span>
             </div>
             <div className="retweet post-icon">
-              <IconSVG key="retweet" iconName="retweet" fill="#919090" />
+              <IconSVG iconName="retweet" fill="#919090" />
               <span>18</span>
             </div>
             <div className="like-unLike post-icon" onClick={() => handlLiked()}>
               {isLiked ? (
-                <IconSVG key="like" iconName="like" fill="#F91880" handleClick={() => handlLiked()} />
+                <IconSVG iconName="like" fill="#F91880" handleClick={() => handlLiked()} />
               ) : (
-                <IconSVG key="unlike" iconName="unLike" fill="#919090" handleClick={() => handlLiked()} />
+                <IconSVG iconName="unLike" fill="#919090" handleClick={() => handlLiked()} />
               )}
               <span className={isLiked ? "like" : ""} onClick={() => handlLiked()}>
                 {post?.liked.length}
               </span>
             </div>
             <div className="share post-icon">
-              <IconSVG key="share" iconName="share" fill="#919090" />
+              <IconSVG iconName="share" fill="#919090" />
             </div>
           </div>
         </div>
