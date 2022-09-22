@@ -17,13 +17,13 @@ import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import EditProfileProvider from "@/context/EditProfileProvider";
 import { privateRoutes } from "@/routes/private.routes";
 import { baseURL } from "@/config/axios";
-import { IStateReduce, PropsStateType, TTabState } from "@/models";
+import { IPost, IStateReduce, PropsStateType, TTabState } from "@/models";
 import { dateParserJoined } from "@/utils/dateParser";
 
 interface PropsType extends PropsStateType {
   checkAuthenticatedAction?: Function;
-  getAllUsersAction?: any;
-  getAllPostAction?: any;
+  getAllUsersAction?: () => void;
+  getAllPostAction?: () => void;
 }
 
 const styleSpinnersLoding: React.CSSProperties = {
@@ -51,13 +51,30 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
 
     if (!flag.current) {
       (async () => {
-        getAllUsersAction();
-        getAllPostAction();
+        getAllUsersAction && getAllUsersAction();
+        getAllPostAction && getAllPostAction();
         flag.current = true;
       })();
     }
     if (currentUser && users && posts) setLoading(false);
   }, [flag, currentUser, users, posts, getAllPostAction, getAllUsersAction]);
+
+  const allPostLiked = (): JSX.Element | null => {
+    if (posts && currentUser) {
+      for (const post of posts) {
+        for (const like of post.liked) {
+          if (like.public_id === currentUser?.user.public_id) {
+            return (
+              <div className="list-post" key={post.publicId}>
+                <CardTweet key={post.publicId} currentUser={currentUser} post={post} users={users} />
+              </div>
+            );
+          }
+        }
+      }
+    }
+    return null;
+  };
 
   return (
     <>
@@ -158,6 +175,36 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
                   )}
                 </div>
               )}
+              {(activeTab === 4) && (
+                <div className="tabs-tweets">
+                  {loading ? (
+                    <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
+                  ) : (
+                    posts
+                      ?.filter((post) => post.liked.filter(like => like.public_id === currentUser?.user.public_id ? true : false))
+                      .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
+                      .map((post) => (
+                        <div className="list-post" key={post.publicId}>
+                          <CardTweet
+                            key={post.publicId}
+                            currentUser={currentUser}
+                            post={post}
+                            users={users}
+                          />
+                        </div>
+                      ))
+                  )}
+                </div>
+              )}
+              {/* {activeTab === 4 && (
+                <div className="tabs-tweets">
+                  {loading ? (
+                    <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
+                  ) : (
+                    allPostLiked()
+                  )}
+                </div>
+              )} */}
             </div>
           </div>
         </div>

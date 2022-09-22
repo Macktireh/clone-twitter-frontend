@@ -30,7 +30,7 @@ const AddNewTweetProvider = ({ children }: React.PropsWithChildren) => {
   const currentUser = useSelector((state: IStateReduce) => state.authReducer.currentUser);
   const dispatch = useDispatch();
   const [popupActive, setPopupActive] = React.useState(false);
-  const [body, setBody] = React.useState<string>();
+  const [body, setBody] = React.useState<string>("");
   const [chosenEmoji, setChosenEmoji] = React.useState<boolean>(false);
   const [image, setImage] = React.useState<File | null>();
   const [imagePreview, setImagePreview] = React.useState<string | null>();

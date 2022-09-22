@@ -91,6 +91,7 @@
           user-select: none;
         }
         .post-icon {
+          min-width: 40px;
           @extend .flex-center;
           gap: 4px;
           cursor: pointer;

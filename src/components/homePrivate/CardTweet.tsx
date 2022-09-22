@@ -1,6 +1,7 @@
 import React from "react";
 
 import IconSVG from "@/widgets/IconSVG";
+import LikePostButton from "@/components/homePrivate/LikePostButton";
 import { IAuthUserProfile, IPost } from "@/models";
 import { baseURL } from "@/config/axios";
 import { dateParserCreated } from "@/utils/dateParser";
@@ -12,11 +13,7 @@ type PropsType = {
 };
 
 const CardTweet: React.FC<PropsType> = ({ currentUser, post, users }) => {
-  const [isLiked, setIsLked] = React.useState(false);
 
-  const handlLiked = async () => {
-    await setIsLked(!isLiked);
-  };
 
   return (
     <div className="CardTweet">
@@ -73,16 +70,7 @@ const CardTweet: React.FC<PropsType> = ({ currentUser, post, users }) => {
               <IconSVG iconName="retweet" fill="#919090" />
               <span>18</span>
             </div>
-            <div className="like-unLike post-icon" onClick={() => handlLiked()}>
-              {isLiked ? (
-                <IconSVG iconName="like" fill="#F91880" handleClick={() => handlLiked()} />
-              ) : (
-                <IconSVG iconName="unLike" fill="#919090" handleClick={() => handlLiked()} />
-              )}
-              <span className={isLiked ? "like" : ""} onClick={() => handlLiked()}>
-                {post?.liked.length}
-              </span>
-            </div>
+            <LikePostButton currentUser={currentUser} post={post} />
             <div className="share post-icon">
               <IconSVG iconName="share" fill="#919090" />
             </div>

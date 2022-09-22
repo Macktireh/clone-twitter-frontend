@@ -57,11 +57,9 @@ export const UPDATE_POST_FAIL: string = "UPDATE_POST_FAIL";
 export const DELETE_POST_SUCCESS: string = "DELETE_POST_SUCCESS";
 export const DELETE_POST_FAIL: string = "DELETE_POST_FAIL";
 
-export const LIKE_POST_SUCCESS: string = "LIKE_POST_SUCCESS";
-export const LIKE_POST_FAIL: string = "LIKE_POST_FAIL";
+export const LIKE_OR_UNLIKE_POST_SUCCESS: string = "LIKE_OR_UNLIKE_POST_SUCCESS";
+export const LIKE_OR_UNLIKE_POST_FAIL: string = "LIKE_OR_UNLIKE_POST_FAIL";
 
-export const UNLIKE_POST_SUCCESS: string = "UNLIKE_POST_SUCCESS";
-export const UNLIKE_POST_FAIL: string = "UNLIKE_POST_FAIL";
 
 /**********************************
  * Types Comment and LikeComment

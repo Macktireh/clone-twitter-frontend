@@ -15,15 +15,15 @@ const addNewPostAction = (data: FormData) => async (dispatch: Dispatch<AnyAction
     
     try {
       const res = await Axios.post(Api.postEndpoint, data, config);
-      dispatch({ type: Types.ADD_NEW_POST_SUCCESS, payload: res.data, });
+      dispatch({ type: Types.ADD_NEW_POST_SUCCESS, payload: res.data });
     } catch (error: any) {
       if (error.response.status === 401) {
         dispatch(checkAuthenticatedAction(_addNewPostAction, data));
       }
-      dispatch({type: Types.ADD_NEW_POST_FAIL,});
+      dispatch({ type: Types.ADD_NEW_POST_FAIL });
     }
   } else {
-    dispatch({type: Types.ADD_NEW_POST_FAIL,});
+    dispatch({ type: Types.ADD_NEW_POST_FAIL });
   }
 };
 
@@ -36,19 +36,12 @@ const _addNewPostAction = (data: FormData) => async (dispatch: Dispatch<AnyActio
     };
     try {
       const res = await Axios.post(Api.postEndpoint, data, config);
-      dispatch({
-        type: Types.ADD_NEW_POST_SUCCESS,
-        payload: res.data,
-      });
+      dispatch({ type: Types.ADD_NEW_POST_SUCCESS, payload: res.data });
     } catch (error: any) {
-      dispatch({
-        type: Types.ADD_NEW_POST_FAIL,
-      });
+      dispatch({ type: Types.ADD_NEW_POST_FAIL });
     }
   } else {
-    dispatch({
-      type: Types.ADD_NEW_POST_FAIL,
-    });
+    dispatch({ type: Types.ADD_NEW_POST_FAIL });
   }
 };
 
