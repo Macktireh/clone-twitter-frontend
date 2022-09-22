@@ -69,17 +69,15 @@ export interface IAuthUserState {
   currentUser: IAuthUserProfile | null;
 }
 
-export interface IPostState {
-  tweets: IPost[] | null;
+export interface IUsersState {
+  users: IAuthUserProfile[] | null;
 }
 
-export interface IUsersState {
-  users: IAuthUserProfile[] | null
-}
+export type PostReducerType = IPost[] | null;
 
 export interface IStateReduce {
   authReducer: IAuthUserState;
-  postReducer: IPostState;
+  postReducer: PostReducerType;
   userReducer: IUsersState;
 }
 
@@ -93,3 +91,15 @@ export interface PropsStateType {
   posts: IPost[] | null;
   users: IAuthUserProfile[] | null;
 }
+
+/**
+ * post add
+ */
+
+export type bodyStateType = { body: string; setBody: (value: string) => void };
+export type emojiStateType = { chosenEmoji: boolean; setChosenEmoji: (value: boolean) => void };
+export type imageStateType = {
+  image: File | null;
+  handleChangeImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+export type imagePreviewStateType = { imagePreview: string; setImagePreview: (value: string) => void };

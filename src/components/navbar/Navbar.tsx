@@ -1,13 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 import Tippy from "@tippyjs/react";
 
 import IconSVG from "@/widgets/IconSVG";
 import UserCard from "@/components/navbar/UserCard";
 import PopupLogout from "@/components/auth/PopupLogout";
+import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 import { privateRoutes } from "@/routes/private.routes";
 import { IAuthUserProfile, IStateReduce } from "@/models";
-import { connect } from "react-redux";
+import AddNewTweetProvider from "@/context/AddNewTweetProvider";
 
 type TcurrentUser = { currentUser: IAuthUserProfile | null };
 
@@ -98,23 +100,15 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
             <span className={active === "profile" ? "active" : ""}>Profile</span>
           </NavLink>
 
-          {/* <Tippy
-            content={<PopupLogout currentUser={currentUser} />}
-            interactive={true}
-            trigger="click"
-            delay={0}
-            placement="top-end"
-          > */}
           <div className="nav-link" onClick={() => console.log("Show More")}>
             <IconSVG iconName="more" />
             <span>More</span>
           </div>
-          {/* </Tippy> */}
         </div>
-        <div className="add-tweet">
-          <IconSVG iconName="add-tweet" />
-          <span>Tweet</span>
-        </div>
+
+        <AddNewTweetProvider>
+          <ButtonAddTweet />
+        </AddNewTweetProvider>
       </div>
 
       <Tippy
@@ -123,32 +117,13 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
         trigger="click"
         delay={0}
         placement="top-end"
-      ><div className="nav-user-container">
-
-        <UserCard currentUser={currentUser} nameClass="nav-user">
-          <IconSVG iconName="3-dot" />
-        </UserCard>
-      </div>
+      >
+        <div className="nav-user-container">
+          <UserCard currentUser={currentUser} nameClass="nav-user">
+            <IconSVG iconName="3-dot" />
+          </UserCard>
+        </div>
       </Tippy>
-      {/* <div className="nav-user" data-tip="custom show" data-event="click focus">
-          <div className="img-and-name">
-            <img
-              src={
-                currentUser?.profilePicture
-                  ? baseURL + currentUser.profilePicture
-                  : baseURL + "/mediafiles/default/profilePic.png"
-              }
-              alt="profilePicture"
-            />
-            <div className="username">
-              <strong>
-                {currentUser?.user.first_name} {currentUser?.user.last_name}
-              </strong>
-              <p>@{currentUser?.pseudo}</p>
-            </div>
-          </div>
-          <IconSVG iconName="3-dot" />
-        </div> */}
     </nav>
   );
 };

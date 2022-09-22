@@ -111,6 +111,7 @@
       border-radius: 36px;
       transition: all 0.2s ease-in-out;
       user-select: none;
+      cursor: pointer;
       &:hover {
         background-color: $color6;
       }

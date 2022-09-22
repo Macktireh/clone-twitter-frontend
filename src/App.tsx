@@ -6,7 +6,7 @@ import getCurrentUserAction from "@/actions/user/getCurrentUser.action";
 
 import "@/styles/index.scss";
 
-type PropsType = { getCurrentUserAction: Function}
+type PropsType = { getCurrentUserAction: () => void}
 
 const App: React.FC<PropsType> = ({ getCurrentUserAction }) => {
   const [loading, setLoading] = React.useState(true);

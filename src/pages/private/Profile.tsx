@@ -27,7 +27,7 @@ interface PropsType extends PropsStateType {
 }
 
 const styleSpinnersLoding: React.CSSProperties = {
-  transform: `translate(-50%)`
+  transform: `translate(-50%)`,
 };
 
 const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAction, getAllPostAction }) => {
@@ -139,14 +139,23 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
             <div className="my-content-container">
               {(activeTab === 1 || activeTab === 2) && (
                 <div className="tabs-tweets">
-                  {loading ? <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} /> :
-                  posts
-                    ?.filter((post) => post.authorDetail.public_id === currentUser?.user.public_id)
-                    .map((post) => (
-                      <div className="list-post" key={post.publicId}>
-                        <CardTweet key={post.publicId} currentUser={currentUser} post={post} users={users} />
-                      </div>
-                    ))}
+                  {loading ? (
+                    <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
+                  ) : (
+                    posts
+                      ?.filter((post) => post.authorDetail.public_id === currentUser?.user.public_id)
+                      .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
+                      .map((post) => (
+                        <div className="list-post" key={post.publicId}>
+                          <CardTweet
+                            key={post.publicId}
+                            currentUser={currentUser}
+                            post={post}
+                            users={users}
+                          />
+                        </div>
+                      ))
+                  )}
                 </div>
               )}
             </div>
@@ -181,7 +190,7 @@ const ProfileConnectWithStore: React.FC<PropsType> = ({
 const mapStateToProps = (state: IStateReduce) => ({
   currentUser: state.authReducer.currentUser,
   users: state.userReducer.users,
-  posts: state.postReducer.tweets,
+  posts: state.postReducer,
 });
 
 export default connect(mapStateToProps, { getAllUsersAction, getAllPostAction })(ProfileConnectWithStore);

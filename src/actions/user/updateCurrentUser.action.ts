@@ -15,7 +15,6 @@ const updateCurrentUserAction =
         config = {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("access"),
-            // "Content-Type": "multipart/form-data; boundary=--------------------------249151600405636688314978",
           },
         };
       } else {

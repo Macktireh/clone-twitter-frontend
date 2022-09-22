@@ -1,7 +1,7 @@
 .PopupLogout {
   .content {
     width: 270px;
-    padding: 0.5rem 0 1rem;
+    padding: 0.5rem 0;
     background-color: $color1;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba($color5, 0.5);
@@ -27,17 +27,13 @@
     .add-account,
     .logout-btn {
       width: 100%;
-      padding: 0.8rem 0.8rem;
+      padding: 1rem 0.8rem;
       font-weight: 300;
+      cursor: pointer;
       transition: all 0.2 ease-in-out;
       &:hover {
         background-color: $color9;
       }
-    }
-
-    .logout-btn {
-      width: 100%;
-      cursor: pointer;
     }
   }
 }

@@ -11,11 +11,11 @@ const Layout = (props: React.PropsWithChildren<any>) => {
   });
   return (
     <div className="layout">
-      <header className="header">
-        <div className="nav-container">
-          <Navbar />
-        </div>
-      </header>
+        <header className="header">
+          <div className="nav-container">
+            <Navbar />
+          </div>
+        </header>
       {props.children}
     </div>
   );

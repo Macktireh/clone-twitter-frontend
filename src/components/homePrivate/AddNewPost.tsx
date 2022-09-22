@@ -4,14 +4,41 @@ import Picker, { IEmojiData } from "emoji-picker-react";
 
 import IconSVG from "@/widgets/IconSVG";
 import ButtonCoustom from "@/widgets/ButtonCustom";
-import { IAuthUserProfile } from "@/models";
+import {
+  bodyStateType,
+  emojiStateType,
+  IAuthUserProfile,
+  imagePreviewStateType,
+  imageStateType,
+} from "@/models";
 import { baseURL } from "@/config/axios";
+import { useAddNewTweet } from "@/context/AddNewTweetProvider";
 
-type TcurrentUser = { currentUser: IAuthUserProfile | null };
+type PropsType = {
+  currentUser: IAuthUserProfile | null;
+  bodyState: bodyStateType;
+  emojiState: emojiStateType;
+  imageState: imageStateType;
+  imagePreviewState: imagePreviewStateType;
+  onEmojiClick: (e: React.MouseEvent<Element, MouseEvent>, emojiObject: IEmojiData) => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  resetImage: () => void;
+};
 
-const AddNewPost: React.FC<TcurrentUser> = ({ currentUser }) => {
-  const [textareaValue, setTextareaValue] = React.useState("");
-  const [chosenEmoji, setChosenEmoji] = React.useState(false);
+const AddNewPost: React.FC<PropsType> = ({
+  currentUser,
+  bodyState,
+  emojiState,
+  imageState,
+  imagePreviewState,
+  onEmojiClick,
+  handleSubmit,
+  resetImage,
+}) => {
+  const { body, setBody } = bodyState;
+  const { chosenEmoji, setChosenEmoji } = emojiState;
+  const { image, handleChangeImage } = imageState;
+  const imageInputRef = React.useRef<HTMLInputElement>(null)
 
   React.useEffect(() => {
     const textarea = document.querySelector("textarea");
@@ -21,15 +48,9 @@ const AddNewPost: React.FC<TcurrentUser> = ({ currentUser }) => {
     });
   });
 
-  const onEmojiClick = (e: React.MouseEvent<Element, MouseEvent>, emojiObject: IEmojiData) => {
-    setTextareaValue((value) => value + emojiObject.emoji);
-    setChosenEmoji(false);
-  };
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(textareaValue);
-  };
+  const resetInputFile = async () => {
+    if (imageInputRef.current) imageInputRef.current.value = "";
+  }
 
   return (
     <div className="AddNewPost">
@@ -43,18 +64,31 @@ const AddNewPost: React.FC<TcurrentUser> = ({ currentUser }) => {
           alt=""
         />
       </div>
-      <form onSubmit={(e) => onSubmit(e)}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div className="textarea">
-          <textarea
-            placeholder="What's happening?"
-            value={textareaValue}
-            onChange={(e) => setTextareaValue(e.target.value)}
-          />
+          <textarea placeholder="What's happening?" value={body} onChange={(e) => setBody(e.target.value)} />
+          {imagePreviewState.imagePreview && (
+            <div className="img-preview-container">
+              <img src={imagePreviewState.imagePreview} alt="imagePostPreview" />
+              <div className="close" onClick={() => resetImage()}>
+                <IconSVG iconName="close" />
+              </div>
+            </div>
+          )}
         </div>
         <div className="form-btn">
           <div className="input-icon">
             <label htmlFor="file" className="form-lable">
-              <input type="file" name="img" id="file" className="form-input-file" hidden />
+              <input
+                type="file"
+                name="img"
+                id="file"
+                className="form-input-file"
+                hidden
+                onChange={(e) => handleChangeImage(e)}
+                onClick={resetInputFile}
+                ref={imageInputRef}
+              />
               <IconSVG iconName="add-post-img" fill="#1d9bf0" />
             </label>
             <IconSVG iconName="gif" fill="#1d9bf0" />
@@ -67,8 +101,8 @@ const AddNewPost: React.FC<TcurrentUser> = ({ currentUser }) => {
             />
             <IconSVG iconName="schedule" fill="#1d9bf0" />
           </div>
-          <div className="box-btn" onClick={(e) => {}}>
-            <ButtonCoustom text="Tweet" isDisabled={textareaValue ? false : true} />
+          <div className="box-btn">
+            <ButtonCoustom text="Tweet" isDisabled={body || image ? false : true} />
           </div>
         </div>
         <div className="emojiPicker">
@@ -79,4 +113,32 @@ const AddNewPost: React.FC<TcurrentUser> = ({ currentUser }) => {
   );
 };
 
-export default AddNewPost;
+const AddNewPostLogical: React.FC = () => {
+  const propsContext = useAddNewTweet();
+  const currentUser = propsContext?.currentUser as IAuthUserProfile;
+  const bodyState = propsContext?.bodyState as bodyStateType;
+  const emojiState = propsContext?.emojiState as emojiStateType;
+  const imageState = propsContext?.imageState as imageStateType;
+  const imagePreviewState = propsContext?.imagePreviewState as imagePreviewStateType;
+  const onEmojiClick = propsContext?.onEmojiClick as (
+    e: React.MouseEvent<Element, MouseEvent>,
+    emojiObject: IEmojiData
+  ) => void;
+  const handleSubmit = propsContext?.handleSubmit as (e: React.FormEvent<HTMLFormElement>) => void;
+  const resetImage = propsContext?.resetImage as () => void;
+
+  return (
+    <AddNewPost
+      currentUser={currentUser}
+      bodyState={bodyState}
+      emojiState={emojiState}
+      imageState={imageState}
+      imagePreviewState={imagePreviewState}
+      onEmojiClick={onEmojiClick}
+      handleSubmit={handleSubmit}
+      resetImage={resetImage}
+    />
+  );
+};
+
+export default AddNewPostLogical;

@@ -14,6 +14,8 @@ const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
   const propsContext = useEditProfile();
   const [profilePicturePreview, setProfilePicturePreview] = React.useState<string | null>();
   const [coverPicturePreview, setCoverPicturePreview] = React.useState<string | null>();
+  const imageInputRefPofile = React.useRef<HTMLInputElement>(null)
+  const imageInputRefCover = React.useRef<HTMLInputElement>(null)
 
   const handleChangePic = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (propsContext) propsContext.handleChangePicture && propsContext.handleChangePicture(e);
@@ -40,6 +42,16 @@ const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
     }
   }, [propsContext?.picture?.profilePicture, propsContext?.picture?.coverPicture]);
 
+
+  
+  const resetInputFilePofile = async () => {
+    if (imageInputRefPofile.current) imageInputRefPofile.current.value = "" ;
+  }
+  
+  const resetInputFileCover = async () => {
+    if (imageInputRefCover.current) imageInputRefCover.current.value = "";
+  }
+
   return (
     <div className="EdidProfile">
       <div className="img-container">
@@ -60,6 +72,8 @@ const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
             id="coverPicture"
             hidden
             onChange={(e) => handleChangePic(e)}
+            onClick={resetInputFileCover}
+            ref={imageInputRefCover}
           />
           <label htmlFor="coverPicture">
             <IconSVG iconName="camImage" fill="#CCCCCC" />
@@ -84,6 +98,8 @@ const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
             hidden
             accept=".png, .jpg, .jpeg"
             onChange={(e) => handleChangePic(e)}
+            onClick={resetInputFilePofile}
+            ref={imageInputRefPofile}
           />
           <label htmlFor="profilePicture">
             <IconSVG iconName="camImage" fill="#CCCCCC" />

@@ -21,27 +21,32 @@ const CardTweet: React.FC<PropsType> = ({ currentUser, post, users }) => {
   return (
     <div className="CardTweet">
       <div className="box-img">
-        {post?.authorDetail.public_id === currentUser?.user.public_id
-          ?  <img src={`${baseURL}${currentUser?.profilePicture}`} alt="" />
-          : users?.map(
-              (u, i) => u.user.public_id === post?.authorDetail.public_id && <img key={i} src={`${baseURL}${u.profilePicture}`} alt="" />
-            )}
-        
+        {post?.authorDetail.public_id === currentUser?.user.public_id ? (
+          <img src={`${baseURL}${currentUser?.profilePicture}`} alt="" />
+        ) : (
+          users?.map(
+            (u, i) =>
+              u.user.public_id === post?.authorDetail.public_id && (
+                <img key={i} src={`${baseURL}${u.profilePicture}`} alt="" />
+              )
+          )
+        )}
       </div>
       <div className="post-main">
         <div className="post-header">
           <p>
-            <strong>{
-            post?.authorDetail.public_id === currentUser?.user.public_id ? (
-              `${currentUser?.user.first_name} ${currentUser?.user.last_name}`
-            ) : (
-              `${post?.authorDetail.first_name} ${post?.authorDetail.last_name}`
-            )
-            }</strong>
+            <strong>
+              {post?.authorDetail.public_id === currentUser?.user.public_id
+                ? `${currentUser?.user.first_name} ${currentUser?.user.last_name}`
+                : `${post?.authorDetail.first_name} ${post?.authorDetail.last_name}`}
+            </strong>
             {post?.authorDetail.public_id === currentUser?.user.public_id ? (
               <span>@{currentUser?.pseudo}</span>
             ) : (
-              users?.map((u, i) => u.user.public_id === post?.authorDetail.public_id && <span key={i}>@{u.pseudo}</span>)
+              users?.map(
+                (u, i) =>
+                  u.user.public_id === post?.authorDetail.public_id && <span key={i}>@{u.pseudo}</span>
+              )
             )}
             <span>·</span>
             <span>{post?.created && dateParserCreated(post.created)}</span>
@@ -49,12 +54,16 @@ const CardTweet: React.FC<PropsType> = ({ currentUser, post, users }) => {
           <IconSVG iconName="3-dot" fill="#919090" />
         </div>
         <div className="post-content">
-          <div className="post-text">
-            <p>{post?.body}</p>
-          </div>
-          <div className="post-img">
-            <img src={post?.image} alt="" />
-          </div>
+          {post?.body && (
+            <div className="post-text">
+              <p>{post?.body}</p>
+            </div>
+          )}
+          {post?.image && (
+            <div className="post-img">
+              <img src={post?.image} alt="" />
+            </div>
+          )}
           <div className="post-footer">
             <div className="reply post-icon">
               <IconSVG iconName="reply" fill="#919090" />

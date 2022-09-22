@@ -26,7 +26,7 @@ type ContextPropsType = {
   handleSubmit: any;
 };
 
-export const EditProfileContext = React.createContext<null | ContextPropsType>(null);
+const EditProfileContext = React.createContext<null | ContextPropsType>(null);
 
 const EditProfileProvider = ({ children }: React.PropsWithChildren) => {
   const currentUser = useSelector((state: IStateReduce) => state.authReducer.currentUser);
