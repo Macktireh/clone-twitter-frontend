@@ -16,18 +16,15 @@ const getAllPostAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
     };
     try {
       const res = await Axios.get(Api.postEndpoint, config);
-      dispatch({
-        type: Types.GET_ALL_POST_SUCCESS,
-        payload: res.data,
-      });
+      dispatch({ type: Types.GET_ALL_POST_SUCCESS, payload: res.data });
     } catch (error: any) {
       if (error.response.status === 401) {
         dispatch(checkAuthenticatedAction(_getAllPostAction));
       }
-      dispatch({type: Types.GET_ALL_POST_FAIL,});
+      dispatch({ type: Types.GET_ALL_POST_FAIL });
     }
   } else {
-    dispatch({type: Types.GET_ALL_POST_FAIL,});
+    dispatch({ type: Types.GET_ALL_POST_FAIL });
   }
 };
 
@@ -42,19 +39,12 @@ const _getAllPostAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
     };
     try {
       const res = await Axios.get(Api.postEndpoint, config);
-      dispatch({
-        type: Types.GET_ALL_POST_SUCCESS,
-        payload: res.data,
-      });
+      dispatch({ type: Types.GET_ALL_POST_SUCCESS,payload: res.data });
     } catch (error: any) {
-      dispatch({
-        type: Types.GET_ALL_POST_FAIL,
-      });
+      dispatch({ type: Types.GET_ALL_POST_FAIL });
     }
   } else {
-    dispatch({
-      type: Types.GET_ALL_POST_FAIL,
-    });
+    dispatch({ type: Types.GET_ALL_POST_FAIL });
   }
 };
 

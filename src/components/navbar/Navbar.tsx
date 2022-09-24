@@ -8,10 +8,11 @@ import UserCard from "@/components/navbar/UserCard";
 import PopupLogout from "@/components/auth/PopupLogout";
 import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 import { privateRoutes } from "@/routes/private.routes";
-import { IAuthUserProfile, IStateReduce } from "@/models";
+import { IUserProfile, IRootState } from "@/models";
 import AddNewTweetProvider from "@/context/AddNewTweetProvider";
+import { pathLinkProfile } from "@/utils/pathRoute";
 
-type TcurrentUser = { currentUser: IAuthUserProfile | null };
+type TcurrentUser = { currentUser: IUserProfile | null };
 
 const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
   const [active, setActive] = React.useState("");
@@ -93,7 +94,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
           </NavLink>
 
           <NavLink
-            to={privateRoutes.profile.path}
+            to={currentUser ? pathLinkProfile(currentUser.pseudo) : ""}
             className={(nav) => (nav.isActive ? handleActive("profile") : "nav-link")}
           >
             {active === "profile" ? <IconSVG iconName="profileActive" /> : <IconSVG iconName="profile" />}
@@ -136,7 +137,7 @@ const NavbarConnectWithStore: React.FC<any> = ({ currentUser }) => {
   );
 };
 
-const mapStateToProps = (state: IStateReduce) => ({
+const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
 });
 

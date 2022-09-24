@@ -41,7 +41,7 @@ const SectionHeaderTweet: React.FC<Props> = ({ page, title, subtitle }) => {
         )}
       </div>
       <div className="right">
-        {showIcon(page)?.map((icon, i) => icon && <div key={i} className="icon-container">{icon}</div>)}
+        {showIcon(page)?.map((icon, index) => icon && <div key={index} className="icon-container">{icon}</div>)}
       </div>
     </div>
   );

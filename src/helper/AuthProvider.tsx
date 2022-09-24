@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { IStateReduce } from "@/models";
+import { IRootState } from "@/models";
 import { Navigate } from "react-router-dom";
 import { privateRoutes } from "@/routes/private.routes";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
@@ -26,7 +26,7 @@ const AuthProvider: React.FC<TProps> = ({ isPublic, isAuthenticated, children })
   return loading ? <SpinnersLoding isLoading={loading} /> : <>{children}</>;
 };
 
-const mapStateToProps = (state: IStateReduce) => ({
+const mapStateToProps = (state: IRootState) => ({
   isAuthenticated: state.authReducer.isAuthenticated,
 });
 

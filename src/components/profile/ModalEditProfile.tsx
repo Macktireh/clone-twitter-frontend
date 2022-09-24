@@ -2,15 +2,15 @@ import React from "react";
 
 import ButtonCustom from "../../widgets/ButtonCustom";
 import { useEditProfile } from "@/context/EditProfileProvider";
-import { IAuthUserProfile } from "@/models";
+import { IUserProfile, IEditUserData, pictureType } from "@/models";
 import Popup from "../../widgets/Popup";
 
 type PropsType = React.PropsWithChildren<{
   modalActive: boolean;
   titleModal?: string;
   textBtnModal?: string;
-  handleClick?: () => void;
-  currentUser?: IAuthUserProfile | null;
+  handleCloseMmdal?: () => void;
+  currentUser?: IUserProfile | null;
 }>;
 
 const ModalEditProfile: React.FC<PropsType> = ({
@@ -18,10 +18,13 @@ const ModalEditProfile: React.FC<PropsType> = ({
   modalActive,
   titleModal,
   textBtnModal,
-  handleClick,
+  handleCloseMmdal,
   currentUser,
 }) => {
   const propsContext = useEditProfile();
+
+  const { first_name, last_name, pseudo, bio } = propsContext?.userData as IEditUserData;
+  const { profilePicture, coverPicture } = propsContext?.picture as pictureType;
 
   const handleClosePopup = () => {
     if (propsContext?.popup?.setPopupActive) propsContext.popup.setPopupActive();
@@ -30,39 +33,39 @@ const ModalEditProfile: React.FC<PropsType> = ({
   const handleCloseModal = () => {
     if (currentUser && propsContext?.userData) {
       if (
-        currentUser.user.first_name !== propsContext.userData.first_name ||
-        currentUser.user.last_name !== propsContext.userData.last_name ||
-        currentUser.pseudo !== propsContext.userData.pseudo ||
-        currentUser.bio !== propsContext.userData.bio ||
-        propsContext.picture?.profilePicture !== null ||
-        propsContext.picture?.coverPicture !== null
+        currentUser.user.first_name !== first_name ||
+        currentUser.user.last_name !== last_name ||
+        currentUser.pseudo !== pseudo ||
+        currentUser.bio !== bio ||
+        profilePicture !== null ||
+        coverPicture !== null
       ) {
         handleClosePopup();
       } else {
-        if (handleClick) handleClick();
+        if (handleCloseMmdal) handleCloseMmdal();
       }
     } else {
-      if (handleClick) handleClick();
+      if (handleCloseMmdal) handleCloseMmdal();
     }
   };
 
   const handleDiscard = (closePopup: boolean = true) => {
     propsContext?.handleReSetUserData && propsContext.handleReSetUserData();
     handleClosePopup();
-    if (handleClick) handleClick();
+    if (handleCloseMmdal) handleCloseMmdal();
   };
 
   const handleSubmit = async (e: any) => {
     if (propsContext?.handleSubmit) await propsContext.handleSubmit(e);
-    if (handleClick) {
-      await handleClick();
+    if (handleCloseMmdal) {
+      await handleCloseMmdal();
     }
     propsContext?.handleReSetUserData && propsContext.handleReSetUserData();
   };
 
   return (
-    <div className="modal-global" style={{ display: modalActive ? "flex" : "none"}}>
-      <div className="closed" onClick={() => handleClick && handleClick()}></div>
+    <div className="modal-global" style={{ display: modalActive ? "flex" : "none" }}>
+      <div className="closed" onClick={() => handleCloseMmdal && handleCloseMmdal()}></div>
       <Popup
         popupActive={propsContext?.popup?.popupActive ? propsContext.popup?.popupActive : null}
         popupTitle="Discard changes?"
@@ -84,7 +87,20 @@ const ModalEditProfile: React.FC<PropsType> = ({
             </div>
           </div>
           <div className="btn-modal">
-            <ButtonCustom text={textBtnModal} handleClick={handleSubmit} />
+            <ButtonCustom
+              text={textBtnModal}
+              handleClick={handleSubmit}
+              isDisabled={
+                currentUser?.user.first_name !== first_name ||
+                currentUser?.user.last_name !== last_name ||
+                currentUser?.pseudo !== pseudo ||
+                currentUser?.bio !== bio ||
+                profilePicture !== null ||
+                coverPicture !== null
+                  ? false
+                  : true
+              }
+            />
           </div>
         </div>
         <div className="modal-content">{children}</div>

@@ -6,10 +6,10 @@ import NavTabs from "@/widgets/NavTabs";
 import Aside from "@/components/aside/Aside";
 import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
-import { IAuthUserProfile, IStateReduce, TTabState } from "@/models";
+import { IUserProfile, IRootState, TTabState } from "@/models";
 import CardNotif from "@/components/notification/CardNotif";
 
-type Props = { currentUser: IAuthUserProfile | null };
+type Props = { currentUser: IUserProfile | null };
 
 const Notifications: React.FC<Props> = () => {
   const tabState: TTabState[] = [
@@ -43,8 +43,8 @@ const Notifications: React.FC<Props> = () => {
           </section>
           {activeTab === 1 ? (
             <div className="all-notif">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
-                <CardNotif />
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n, i) => (
+                <CardNotif key={i} />
               ))}
             </div>
           ) : (
@@ -68,7 +68,7 @@ const NotificationsConnectWithStore: React.FC<Props> = ({ currentUser }) => {
   );
 };
 
-const mapStateToProps = (state: IStateReduce) => ({
+const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
 });
 

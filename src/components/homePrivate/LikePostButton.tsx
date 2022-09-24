@@ -1,12 +1,12 @@
 import React from "react";
-import { connect, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import IconSVG from "@/widgets/IconSVG";
-import { IAuthUserProfile, IPost } from "@/models";
+import { IUserProfile, IPost } from "@/models";
 import likePostAction from "@/actions/post/likePost.action";
 
 type PropsType = {
-  currentUser: IAuthUserProfile | null;
+  currentUser: IUserProfile | null;
   post: IPost | null;
   likePostAction?: (public_id: string) => void;
 };
@@ -25,7 +25,7 @@ const LikePostButton: React.FC<PropsType> = ({ currentUser, post }) => {
   const handlLiked = async () => {
     if (currentUser && post) {
       await dispatch(likePostAction(post.publicId as string) as any);
-      setIsLked(!isLiked)
+      setIsLked(!isLiked);
     }
   };
 

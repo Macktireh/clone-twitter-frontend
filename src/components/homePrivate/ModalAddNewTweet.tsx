@@ -2,7 +2,7 @@ import React from "react";
 
 import ButtonCustom from "../../widgets/ButtonCustom";
 import { useEditProfile } from "@/context/EditProfileProvider";
-import { IAuthUserProfile } from "@/models";
+import { IUserProfile } from "@/models";
 import Popup from "../../widgets/Popup";
 
 type PropsType = React.PropsWithChildren<{
@@ -10,7 +10,7 @@ type PropsType = React.PropsWithChildren<{
   titleModal?: string;
   textBtnModal?: string;
   handleClick?: () => void;
-  currentUser?: IAuthUserProfile | null;
+  currentUser?: IUserProfile | null;
 }>;
 
 const ModalEditProfile: React.FC<PropsType> = ({
@@ -61,7 +61,7 @@ const ModalEditProfile: React.FC<PropsType> = ({
   };
 
   return (
-    <div className="modal-global" style={{ display: modalActive ? "flex" : "none"}}>
+    <div className="modal-global" style={{ display: modalActive ? "flex" : "none" }}>
       <div className="closed" onClick={() => handleClick && handleClick()}></div>
       <Popup
         popupActive={propsContext?.popup?.popupActive ? propsContext.popup?.popupActive : null}

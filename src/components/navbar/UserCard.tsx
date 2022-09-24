@@ -1,11 +1,11 @@
 import React from "react";
 
-import { IAuthUserProfile } from "@/models";
+import { IUserProfile } from "@/models";
 import { baseURL } from "@/config/axios";
 
 type PropsType = React.PropsWithChildren<{
   nameClass?: string;
-  currentUser?: IAuthUserProfile | null;
+  currentUser?: IUserProfile | null;
 }>;
 
 const UserCard: React.FC<PropsType> = ({ children, nameClass, currentUser }) => {

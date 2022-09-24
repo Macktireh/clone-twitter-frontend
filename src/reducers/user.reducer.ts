@@ -1,25 +1,17 @@
 import * as Types from "@/actions/types";
-import { IActionState, IUsersState } from "@/models";
+import { IActionReducer, IUsersReducerType } from "@/models";
 
-const initialState: IUsersState = {
-  users: null,
-};
+const initialState: IUsersReducerType = null;
 
-const userReducer = (state: IUsersState = initialState, action: IActionState): IUsersState => {
+const userReducer = (state: IUsersReducerType = initialState, action: IActionReducer): IUsersReducerType => {
   const { type, payload } = action;
 
   switch (type) {
     case Types.GET_ALL_USERS_LOADED_SUCCESS:
-      return {
-        ...state,
-        users: payload,
-      };
+      return payload;
 
-      case Types.GET_ALL_USERS_LOADED_FAIL:
-      return {
-        ...state,
-        users: null,
-      };
+    case Types.GET_ALL_USERS_LOADED_FAIL:
+      return null;
 
     default:
       return state;

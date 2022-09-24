@@ -1,21 +1,21 @@
 import React from "react";
 
-import { IAuthUserProfile } from "@/models";
+import { IUserProfile } from "@/models";
 import { baseURL } from "@/config/axios";
 import IconSVG from "@/widgets/IconSVG";
 import { useEditProfile } from "@/context/EditProfileProvider";
 import InputCustom from "@/widgets/InputCustom";
 
 type PropsType = {
-  currentUser: IAuthUserProfile | null;
+  currentUser: IUserProfile | null;
 };
 
 const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
   const propsContext = useEditProfile();
   const [profilePicturePreview, setProfilePicturePreview] = React.useState<string | null>();
   const [coverPicturePreview, setCoverPicturePreview] = React.useState<string | null>();
-  const imageInputRefPofile = React.useRef<HTMLInputElement>(null)
-  const imageInputRefCover = React.useRef<HTMLInputElement>(null)
+  const imageInputRefPofile = React.useRef<HTMLInputElement>(null);
+  const imageInputRefCover = React.useRef<HTMLInputElement>(null);
 
   const handleChangePic = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (propsContext) propsContext.handleChangePicture && propsContext.handleChangePicture(e);
@@ -42,15 +42,13 @@ const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
     }
   }, [propsContext?.picture?.profilePicture, propsContext?.picture?.coverPicture]);
 
-
-  
   const resetInputFilePofile = async () => {
-    if (imageInputRefPofile.current) imageInputRefPofile.current.value = "" ;
-  }
-  
+    if (imageInputRefPofile.current) imageInputRefPofile.current.value = "";
+  };
+
   const resetInputFileCover = async () => {
     if (imageInputRefCover.current) imageInputRefCover.current.value = "";
-  }
+  };
 
   return (
     <div className="EdidProfile">
@@ -71,6 +69,7 @@ const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
             name="coverPicture"
             id="coverPicture"
             hidden
+            accept=".png, .jpg, .jpeg"
             onChange={(e) => handleChangePic(e)}
             onClick={resetInputFileCover}
             ref={imageInputRefCover}

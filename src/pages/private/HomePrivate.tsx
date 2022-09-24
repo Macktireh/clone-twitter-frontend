@@ -7,13 +7,13 @@ import AddNewPost from "@/components/homePrivate/AddNewPost";
 import CardTweet from "@/components/homePrivate/CardTweet";
 import Aside from "@/components/aside/Aside";
 import { privateRoutes } from "@/routes/private.routes";
-import { IStateReduce, PropsStateType } from "@/models";
+import { IRootState, PropsRootStateType } from "@/models";
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import AddNewTweetProvider from "@/context/AddNewTweetProvider";
 
-interface PropsType extends PropsStateType {
+interface PropsType extends PropsRootStateType {
   getAllPostAction?: any;
   getAllUsersAction?: any;
 }
@@ -95,9 +95,9 @@ const HomePrivateConnectWithStore: React.FC<PropsType> = ({
   );
 };
 
-const mapStateToProps = (state: IStateReduce) => ({
+const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
-  users: state.userReducer.users,
+  users: state.userReducer,
   posts: state.postReducer,
 });
 

@@ -1,37 +1,37 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 import Layout from "@/layout/Layout";
-import CardTweet from "@/components/homePrivate/CardTweet";
-import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import EdidProfile from "@/components/profile/EdidProfile";
-import Aside from "@/components/aside/Aside";
-import NavTabs from "@/widgets/NavTabs";
-import IconSVG from "@/widgets/IconSVG";
-import ButtonCustom from "@/widgets/ButtonCustom";
 import ModalEditProfile from "@/components/profile/ModalEditProfile";
+import ContentProfile from "@/components/profile/ContentProfile";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import EditProfileProvider from "@/context/EditProfileProvider";
-import { privateRoutes } from "@/routes/private.routes";
-import { baseURL } from "@/config/axios";
-import { IPost, IStateReduce, PropsStateType, TTabState } from "@/models";
-import { dateParserJoined } from "@/utils/dateParser";
+import { IUserProfile, IPost, IRootState, PropsRootStateType, TTabState } from "@/models";
 
-interface PropsType extends PropsStateType {
-  checkAuthenticatedAction?: Function;
+interface PropsType extends PropsRootStateType {
+  currentUser: IUserProfile | null;
+  users: IUserProfile[] | null;
+  posts: IPost[] | null;
   getAllUsersAction?: () => void;
   getAllPostAction?: () => void;
 }
 
 const styleSpinnersLoding: React.CSSProperties = {
-  transform: `translate(-50%)`,
+  width: "auto",
 };
 
 const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAction, getAllPostAction }) => {
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [loadingPost, setLoadingPost] = React.useState<boolean>(true);
+  const [activeTab, setActiveTab] = React.useState<number>(1);
+  const [modalActive, setModalActive] = React.useState<boolean>(false);
+  const [isCurrentUser, setIsCurrentUser] = React.useState<string>();
+  const [anotherUser, setAnotherUser] = React.useState<IUserProfile>();
+  const { pseudo } = useParams();
   const flag = React.useRef(false);
   const tabState: TTabState[] = [
     { id: 1, title: "Tweets", grow: false },
@@ -39,12 +39,6 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
     { id: 3, title: "Media", grow: false },
     { id: 4, title: "Likes", grow: false },
   ];
-  const [activeTab, setActiveTab] = React.useState(1);
-  const [modalActive, setModalActive] = React.useState(false);
-
-  const toggleTab = (id: number) => {
-    setActiveTab(id);
-  };
 
   React.useEffect(() => {
     document.title = `${currentUser?.user.first_name} ${currentUser?.user.last_name} (@${currentUser?.pseudo}) | Clone Twitter`;
@@ -56,160 +50,52 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
         flag.current = true;
       })();
     }
-    if (currentUser && users && posts) setLoading(false);
-  }, [flag, currentUser, users, posts, getAllPostAction, getAllUsersAction]);
 
-  const allPostLiked = (): JSX.Element | null => {
-    if (posts && currentUser) {
-      for (const post of posts) {
-        for (const like of post.liked) {
-          if (like.public_id === currentUser?.user.public_id) {
-            return (
-              <div className="list-post" key={post.publicId}>
-                <CardTweet key={post.publicId} currentUser={currentUser} post={post} users={users} />
-              </div>
-            );
-          }
+    if (currentUser && users) {
+      if (pseudo === currentUser.pseudo) {
+        setIsCurrentUser("yes");
+        setLoading(false);
+      } else {
+        const searchUser = users.filter((user) => user.pseudo === pseudo);
+        if (searchUser.length === 0) {
+          setIsCurrentUser("error");
+        } else {
+          setIsCurrentUser("no");
+          setAnotherUser(searchUser[0]);
+          setLoading(false);
         }
       }
     }
-    return null;
-  };
+    if (currentUser && users && posts) setLoadingPost(false);
+  }, [flag, pseudo, isCurrentUser, currentUser, users, posts, getAllPostAction, getAllUsersAction]);
 
-  return (
+  if (isCurrentUser === "error") return <Navigate to="/error/404" />;
+
+  return loading ? (
+    <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
+  ) : (
     <>
       <EditProfileProvider>
         <ModalEditProfile
           modalActive={modalActive}
           titleModal="Edit Profile"
           textBtnModal="Save"
-          handleClick={() => setModalActive(!modalActive)}
+          handleCloseMmdal={() => setModalActive(!modalActive)}
           currentUser={currentUser ? currentUser : null}
         >
           <EdidProfile currentUser={currentUser} />
         </ModalEditProfile>
       </EditProfileProvider>
-      <main className="main">
-        <div className="Profile main-container">
-          <section className="sec-header sticky-2">
-            <SectionHeaderTweet
-              page={privateRoutes.profile.name}
-              title={`${currentUser?.user.first_name} ${currentUser?.user.last_name}`}
-              subtitle={`${
-                posts?.filter((post) => post.authorDetail.public_id === currentUser?.user.public_id).length
-              } Tweet`}
-            />
-          </section>
-          <div className="pro-container">
-            <div className="info-profile-container">
-              <div className="cover-profile-pic">
-                <img
-                  src={
-                    currentUser?.coverPicture
-                      ? baseURL + currentUser.coverPicture
-                      : baseURL + "/mediafiles/default/coverPic.jpg"
-                  }
-                  alt=""
-                />
-                <img
-                  className="profile-pic"
-                  src={
-                    currentUser?.profilePicture
-                      ? baseURL + currentUser.profilePicture
-                      : baseURL + "/mediafiles/default/profilePic.png"
-                  }
-                  alt=""
-                />
-              </div>
-              <div className="info-profile-container">
-                <ButtonCustom text="Edit profile" handleClick={() => setModalActive(!modalActive)} />
-                <div className="info-profile">
-                  <div className="box-info-name">
-                    <h3>
-                      {currentUser?.user.first_name} {currentUser?.user.last_name}
-                    </h3>
-                    <p>@{currentUser?.pseudo}</p>
-                  </div>
-                  <div className="box-bio">
-                    <p>{currentUser?.bio}</p>
-                  </div>
-                  <div className="box-info-date-joined">
-                    <IconSVG iconName="calendar" fill="#919090" />
-                    <p>Joined {currentUser?.created && dateParserJoined(currentUser.created)}</p>
-                  </div>
-                  <div className="box-info-follow">
-                    <Link to="">
-                      <span>20</span>
-                      <p>Following</p>
-                    </Link>
-                    <Link to="">
-                      <span>45</span>
-                      <p>Follower</p>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <nav>
-              <NavTabs listTabs={tabState} activeTab={activeTab} toggleTab={toggleTab} />
-            </nav>
-            <div className="my-content-container">
-              {(activeTab === 1 || activeTab === 2) && (
-                <div className="tabs-tweets">
-                  {loading ? (
-                    <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
-                  ) : (
-                    posts
-                      ?.filter((post) => post.authorDetail.public_id === currentUser?.user.public_id)
-                      .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
-                      .map((post) => (
-                        <div className="list-post" key={post.publicId}>
-                          <CardTweet
-                            key={post.publicId}
-                            currentUser={currentUser}
-                            post={post}
-                            users={users}
-                          />
-                        </div>
-                      ))
-                  )}
-                </div>
-              )}
-              {(activeTab === 4) && (
-                <div className="tabs-tweets">
-                  {loading ? (
-                    <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
-                  ) : (
-                    posts
-                      ?.filter((post) => post.liked.filter(like => like.public_id === currentUser?.user.public_id ? true : false))
-                      .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
-                      .map((post) => (
-                        <div className="list-post" key={post.publicId}>
-                          <CardTweet
-                            key={post.publicId}
-                            currentUser={currentUser}
-                            post={post}
-                            users={users}
-                          />
-                        </div>
-                      ))
-                  )}
-                </div>
-              )}
-              {/* {activeTab === 4 && (
-                <div className="tabs-tweets">
-                  {loading ? (
-                    <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
-                  ) : (
-                    allPostLiked()
-                  )}
-                </div>
-              )} */}
-            </div>
-          </div>
-        </div>
-      </main>
-      <Aside page={privateRoutes.profile.name} />
+      <ContentProfile
+        isCurrentUser={isCurrentUser === "yes" ? true : false}
+        userProfile={isCurrentUser === "yes" ? (currentUser as IUserProfile) : (anotherUser as IUserProfile)}
+        users={users}
+        posts={posts}
+        loadingPost={loadingPost}
+        modalActiveState={{ modalActive, setModalActive }}
+        tabState={tabState}
+        activeTabState={{ activeTab, setActiveTab }}
+      />
     </>
   );
 };
@@ -234,9 +120,9 @@ const ProfileConnectWithStore: React.FC<PropsType> = ({
   );
 };
 
-const mapStateToProps = (state: IStateReduce) => ({
+const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
-  users: state.userReducer.users,
+  users: state.userReducer,
   posts: state.postReducer,
 });
 

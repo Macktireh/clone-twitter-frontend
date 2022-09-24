@@ -2,20 +2,20 @@ import React from "react";
 
 import UserCard from "@/components/navbar/UserCard";
 import IconSVG from "@/widgets/IconSVG";
-import { IAuthUserProfile } from "@/models";
+import { IUserProfile } from "@/models";
 import { useDispatch } from "react-redux";
 import logoutAction from "@/actions/auth/logout.action";
 
 type PropsType = React.PropsWithChildren<{
-  currentUser?: IAuthUserProfile | null;
+  currentUser?: IUserProfile | null;
   handleClose?: () => void;
   dispatch?: any;
 }>;
 
 const PopupLogout: React.FC<PropsType> = ({ currentUser, handleClose, dispatch }) => {
   const handleLogout = () => {
-    dispatch && dispatch(logoutAction(currentUser?.user.public_id as string))
-  }
+    dispatch && dispatch(logoutAction(currentUser?.user.public_id as string));
+  };
   return (
     <div className="PopupLogout">
       <div className="content">
@@ -35,12 +35,9 @@ const PopupLogout: React.FC<PropsType> = ({ currentUser, handleClose, dispatch }
   );
 };
 
-
-const PopupLogoutConnectWithStore: React.FC<PropsType>  = ({ currentUser }) => {
+const PopupLogoutConnectWithStore: React.FC<PropsType> = ({ currentUser }) => {
   const dispatch = useDispatch();
-  return (
-    <PopupLogout currentUser={currentUser} dispatch={dispatch as any} />
-  );
+  return <PopupLogout currentUser={currentUser} dispatch={dispatch as any} />;
 };
 
 export default PopupLogoutConnectWithStore;

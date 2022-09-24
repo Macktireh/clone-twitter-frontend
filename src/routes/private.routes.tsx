@@ -6,6 +6,7 @@ import Lists from "@/pages/private/Lists";
 import Messages from "@/pages/private/Messages";
 import Notifications from "@/pages/private/Notifications";
 import Profile from "@/pages/private/Profile";
+import { pathLinkProfile } from "@/utils/pathRoute";
 
 export const privateRoutes = {
   home: {
@@ -39,7 +40,8 @@ export const privateRoutes = {
     name: "lists",
   },
   profile: {
-    path: "/profile",
+    path: pathLinkProfile(":pseudo"),
+    pathStatic: "/",
     title: "profile | Clone Twitter",
     name: "profile",
   },

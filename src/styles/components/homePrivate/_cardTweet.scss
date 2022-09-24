@@ -11,8 +11,8 @@
     height: 100%;
     @include flex(row, center, flex-start);
     user-select: none;
-    img,
-    svg {
+    img {
+      cursor: pointer;
       width: 55px;
       height: 55px;
       border-radius: 50%;
@@ -29,6 +29,7 @@
     .post-header {
       width: 100%;
       @include flex(row, space-between, flex-start);
+      // position: relative;
 
       p {
         width: 100%;
@@ -91,10 +92,17 @@
           user-select: none;
         }
         .post-icon {
-          min-width: 40px;
+          min-width: 35px;
+          min-height: 35px;
+          border-radius: 50%;
+          transition: all 0.1s ease-in-out;
           @extend .flex-center;
           gap: 4px;
           cursor: pointer;
+          &:hover {
+            background-color: rgba($color7, 0.3);
+            box-shadow: 0 0 5px rgba($color7, 0.3), 0 0 15px rgba($color7, 0.3), 0 0 25px rgba($color7, 0.3);
+          }
           svg {
             width: 20px;
             cursor: pointer;
@@ -105,6 +113,12 @@
           }
           span.like {
             color: $color8;
+          }
+        }
+        .like-unLike {
+          &:hover {
+            background-color: rgba(#f91880, 0.3);
+            box-shadow: 0 0 5px rgba(#f91880, 0.3), 0 0 15px rgba(#f91880, 0.3), 0 0 25px rgba(#f91880, 0.4);
           }
         }
       }

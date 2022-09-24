@@ -5,16 +5,16 @@ import { IEmojiData } from "emoji-picker-react";
 import {
   bodyStateType,
   emojiStateType,
-  IAuthUserProfile,
+  IUserProfile,
   imagePreviewStateType,
   imageStateType,
-  IStateReduce,
+  IRootState,
 } from "@/models";
 import addNewPostAction from "@/actions/post/addNewPost.action";
 
 type ContextPropsType = {
   popup: { popupActive: boolean; setPopupActive: () => void };
-  currentUser: IAuthUserProfile | null;
+  currentUser: IUserProfile | null;
   bodyState: bodyStateType;
   emojiState: emojiStateType;
   imageState: imageStateType;
@@ -27,7 +27,7 @@ type ContextPropsType = {
 const AddNewTweetContext = React.createContext<ContextPropsType | null>(null);
 
 const AddNewTweetProvider = ({ children }: React.PropsWithChildren) => {
-  const currentUser = useSelector((state: IStateReduce) => state.authReducer.currentUser);
+  const currentUser = useSelector((state: IRootState) => state.authReducer.currentUser);
   const dispatch = useDispatch();
   const [popupActive, setPopupActive] = React.useState(false);
   const [body, setBody] = React.useState<string>("");

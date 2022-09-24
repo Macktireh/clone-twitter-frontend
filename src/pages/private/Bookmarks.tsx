@@ -4,10 +4,10 @@ import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
-import { IAuthUserProfile, IStateReduce } from "@/models";
+import { IUserProfile, IRootState } from "@/models";
 import Aside from "@/components/aside/Aside";
 
-type Props = { currentUser: IAuthUserProfile | null };
+type Props = { currentUser: IUserProfile | null };
 
 const Bookmarks: React.FC<Props> = ({ currentUser }) => {
   React.useEffect(() => {
@@ -55,7 +55,7 @@ const BookmarksConnectWithStore: React.FC<Props> = ({ currentUser }) => {
   );
 };
 
-const mapStateToProps = (state: IStateReduce) => ({
+const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
 });
 

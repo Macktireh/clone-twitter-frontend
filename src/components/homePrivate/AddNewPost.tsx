@@ -4,18 +4,12 @@ import Picker, { IEmojiData } from "emoji-picker-react";
 
 import IconSVG from "@/widgets/IconSVG";
 import ButtonCoustom from "@/widgets/ButtonCustom";
-import {
-  bodyStateType,
-  emojiStateType,
-  IAuthUserProfile,
-  imagePreviewStateType,
-  imageStateType,
-} from "@/models";
+import { bodyStateType, emojiStateType, IUserProfile, imagePreviewStateType, imageStateType } from "@/models";
 import { baseURL } from "@/config/axios";
 import { useAddNewTweet } from "@/context/AddNewTweetProvider";
 
 type PropsType = {
-  currentUser: IAuthUserProfile | null;
+  currentUser: IUserProfile | null;
   bodyState: bodyStateType;
   emojiState: emojiStateType;
   imageState: imageStateType;
@@ -38,7 +32,7 @@ const AddNewPost: React.FC<PropsType> = ({
   const { body, setBody } = bodyState;
   const { chosenEmoji, setChosenEmoji } = emojiState;
   const { image, handleChangeImage } = imageState;
-  const imageInputRef = React.useRef<HTMLInputElement>(null)
+  const imageInputRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
     const textarea = document.querySelector("textarea");
@@ -50,7 +44,7 @@ const AddNewPost: React.FC<PropsType> = ({
 
   const resetInputFile = async () => {
     if (imageInputRef.current) imageInputRef.current.value = "";
-  }
+  };
 
   return (
     <div className="AddNewPost">
@@ -115,7 +109,7 @@ const AddNewPost: React.FC<PropsType> = ({
 
 const AddNewPostLogical: React.FC = () => {
   const propsContext = useAddNewTweet();
-  const currentUser = propsContext?.currentUser as IAuthUserProfile;
+  const currentUser = propsContext?.currentUser as IUserProfile;
   const bodyState = propsContext?.bodyState as bodyStateType;
   const emojiState = propsContext?.emojiState as emojiStateType;
   const imageState = propsContext?.imageState as imageStateType;

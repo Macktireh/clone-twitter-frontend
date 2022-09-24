@@ -5,9 +5,9 @@ import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import Aside from "@/components/aside/Aside";
 import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
-import { IAuthUserProfile, IStateReduce } from "@/models";
+import { IUserProfile, IRootState } from "@/models";
 
-type Props = { currentUser: IAuthUserProfile | null };
+type Props = { currentUser: IUserProfile | null };
 
 const Explore: React.FC<Props> = () => {
   return (
@@ -33,7 +33,7 @@ const ExploreConnectWithStore: React.FC<Props> = ({ currentUser }) => {
   );
 };
 
-const mapStateToProps = (state: IStateReduce) => ({
+const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
 });
 

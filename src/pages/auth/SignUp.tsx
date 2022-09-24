@@ -7,12 +7,12 @@ import ButtonCustom from "@/widgets/ButtonCustom";
 import signupAction from "@/actions/auth/signup.action";
 import * as controlField from "@/validators/controlField";
 import * as ErrorMessage from "@/utils/displayError";
-import { IAuthUserSignUp } from "@/models";
+import { IAuthSignUp } from "@/models";
 import { authRoutes } from "@/routes/auth.routes";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 
 const SignUp: React.FC<any> = ({ signupAction }) => {
-  const [formData, setFormData] = React.useState<IAuthUserSignUp>({
+  const [formData, setFormData] = React.useState<IAuthSignUp>({
     firstName: "Mack",
     lastName: "AS",
     email: "abdimack97@gmail.com",

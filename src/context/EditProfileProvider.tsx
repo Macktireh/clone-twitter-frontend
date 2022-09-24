@@ -1,24 +1,14 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { IStateReduce } from "@/models";
+import { IRootState, IEditUserData, pictureType } from "@/models";
 import updateCurrentUserAction from "@/actions/user/updateCurrentUser.action";
 
-type pictureType = {
-  profilePicture?: any;
-  coverPicture?: any;
-};
 
 type ContextPropsType = {
   // modal?: {modalActive: boolean, setModalActive: () => void}
   popup?: { popupActive: boolean; setPopupActive: () => void };
-  userData: {
-    public_id: string | undefined;
-    first_name: string | undefined;
-    last_name: string | undefined;
-    pseudo: string | undefined;
-    bio: string | undefined;
-  };
+  userData: IEditUserData;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleReSetUserData?: () => void;
   picture?: pictureType | undefined;
@@ -29,7 +19,7 @@ type ContextPropsType = {
 const EditProfileContext = React.createContext<null | ContextPropsType>(null);
 
 const EditProfileProvider = ({ children }: React.PropsWithChildren) => {
-  const currentUser = useSelector((state: IStateReduce) => state.authReducer.currentUser);
+  const currentUser = useSelector((state: IRootState) => state.authReducer.currentUser);
   const dispatch = useDispatch();
   const [popupActive, setPopupActive] = React.useState(false);
   const [userData, setUserData] = React.useState({
@@ -119,7 +109,7 @@ const EditProfileProvider = ({ children }: React.PropsWithChildren) => {
     <EditProfileContext.Provider
       value={{
         popup,
-        userData,
+        userData : userData as IEditUserData,
         handleChange,
         handleReSetUserData,
         picture,
