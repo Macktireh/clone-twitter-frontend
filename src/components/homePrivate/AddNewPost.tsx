@@ -9,6 +9,7 @@ import { baseURL } from "@/config/axios";
 import { useAddNewTweet } from "@/context/AddNewTweetProvider";
 
 type PropsType = {
+  nameClass: string;
   currentUser: IUserProfile | null;
   bodyState: bodyStateType;
   emojiState: emojiStateType;
@@ -20,6 +21,7 @@ type PropsType = {
 };
 
 const AddNewPost: React.FC<PropsType> = ({
+  nameClass,
   currentUser,
   bodyState,
   emojiState,
@@ -35,11 +37,13 @@ const AddNewPost: React.FC<PropsType> = ({
   const imageInputRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
-    const textarea = document.querySelector("textarea");
-    textarea?.addEventListener("input", (e) => {
-      textarea.style.height = "auto";
-      textarea.style.height = textarea.scrollHeight + "px";
-    });
+    const textarea = document.getElementById(nameClass);
+    if (textarea) {
+      textarea.addEventListener("input", (e: any) => {
+        textarea.style.height = "auto";
+        textarea.style.height = textarea.scrollHeight + "px";
+      });
+    }
   });
 
   const resetInputFile = async () => {
@@ -59,8 +63,8 @@ const AddNewPost: React.FC<PropsType> = ({
         />
       </div>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <div className="textarea">
-          <textarea placeholder="What's happening?" value={body} onChange={(e) => setBody(e.target.value)} />
+        <div className="textarea-image">
+          <textarea id={nameClass} placeholder="What's happening?" value={body} onChange={(e) => setBody(e.target.value)} />
           {imagePreviewState.imagePreview && (
             <div className="img-preview-container">
               <img src={imagePreviewState.imagePreview} alt="imagePostPreview" />
@@ -107,7 +111,10 @@ const AddNewPost: React.FC<PropsType> = ({
   );
 };
 
-const AddNewPostLogical: React.FC = () => {
+
+type PropsLogicalType = { nameClass: string}
+
+const AddNewPostLogical: React.FC<PropsLogicalType> = ({ nameClass }) => {
   const propsContext = useAddNewTweet();
   const currentUser = propsContext?.currentUser as IUserProfile;
   const bodyState = propsContext?.bodyState as bodyStateType;
@@ -123,6 +130,7 @@ const AddNewPostLogical: React.FC = () => {
 
   return (
     <AddNewPost
+    nameClass={nameClass}
       currentUser={currentUser}
       bodyState={bodyState}
       emojiState={emojiState}

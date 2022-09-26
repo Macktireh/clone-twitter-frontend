@@ -15,7 +15,7 @@ const PopupPostOrCommentOptionCard: React.FC<PropsType> = ({ type, currentUser, 
   const dispatch = useDispatch();
 
   const handleDelete = async (public_id: string) => {
-    if (type === "post") dispatch(deletePostAction(public_id) as any);
+    if (type === "post") if (window.confirm("Are you sure you want to delete?")) dispatch(deletePostAction(public_id) as any);
   };
 
   const rederElement = (): JSX.Element | null => {
@@ -27,6 +27,10 @@ const PopupPostOrCommentOptionCard: React.FC<PropsType> = ({ type, currentUser, 
               <div className="items delete" onClick={() => handleDelete(post.publicId)}>
                 <IconSVG iconName="delete" fill="#F4212E" />
                 <span>Delete</span>
+              </div>
+              <div className="items" onClick={() => handleDelete(post.publicId)}>
+                <IconSVG iconName="edit" fill="#919090" />
+                <span>Edit</span>
               </div>
               <div className="items pin">
                 <IconSVG iconName="pin" fill="#919090" />

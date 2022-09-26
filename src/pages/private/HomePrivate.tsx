@@ -50,9 +50,9 @@ const HomePrivate: React.FC<PropsType> = ({
             <SectionHeaderTweet page={privateRoutes.home.name} title="Latest Tweets" />
           </section>
           <section className="sec-add-new-post">
-            <AddNewTweetProvider>
-              <AddNewPost />
-            </AddNewTweetProvider>
+            {/* <AddNewTweetProvider> */}
+              <AddNewPost nameClass="textarea-1" />
+            {/* </AddNewTweetProvider> */}
           </section>
           <div className="line"></div>
           <section className="sec-list-post">

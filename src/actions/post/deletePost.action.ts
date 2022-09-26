@@ -16,7 +16,7 @@ const deletePostAction = (public_id: string) => async (dispatch: Dispatch<AnyAct
       },
     };
     try {
-      await Axios.delete(`${Api.postEndpoint}${public_id}/`, config);
+      await Axios.delete(`${Api.postEndpoint + public_id}/`, config);
       dispatch({ type: Types.DELETE_POST_SUCCESS, payload: public_id });
     } catch (error: unknown) {
       if (error instanceof AxiosError && error.response) {

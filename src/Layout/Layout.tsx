@@ -1,6 +1,8 @@
 import React from "react";
 
 import Navbar from "@/components/navbar/Navbar";
+import AddNewTweetProvider from "@/context/AddNewTweetProvider";
+import ModalAddNewTweet from "@/components/homePrivate/ModalAddNewTweet";
 
 const Layout = (props: React.PropsWithChildren<any>) => {
   React.useEffect(() => {
@@ -11,12 +13,15 @@ const Layout = (props: React.PropsWithChildren<any>) => {
   });
   return (
     <div className="layout">
+      <AddNewTweetProvider>
+        <ModalAddNewTweet />
         <header className="header">
           <div className="nav-container">
             <Navbar />
           </div>
         </header>
-      {props.children}
+        {props.children}
+      </AddNewTweetProvider>
     </div>
   );
 };

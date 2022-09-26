@@ -43,7 +43,12 @@ const updateCurrentUserAction =
       } catch (error: any) {
         // console.log("updateCurrentUserAction error", error);
         if (error.response.status === 401) {
-          dispatch(checkAuthenticatedAction(_updateCurrentUserAction, { public_id, data }));
+          if (!isPic) {
+            dispatch(checkAuthenticatedAction(_updateCurrentUserAction, { public_id, data: body }));
+          } else {
+            dispatch(checkAuthenticatedAction(_updateCurrentUserAction, { public_id, data }));
+          }
+          
         }
         dispatch({ type: Types.UPDATE_PROFILE_CURRENT_USER_LOADED_FAIL });
       }
@@ -63,10 +68,8 @@ const _updateCurrentUserAction = (param: any) => async (dispatch: Dispatch<AnyAc
       },
     };
 
-    const body = JSON.stringify(param.data);
-
     try {
-      const res = await Axios.patch(`${Api.currentUserEndpoint + param.public_id}/`, body, config);
+      const res = await Axios.patch(`${Api.currentUserEndpoint + param.public_id}/`, param.data, config);
       // console.log("_updateCurrentUserAction OK", res);
       dispatch({
         type: Types.UPDATE_PROFILE_CURRENT_USER_LOADED_SUCCESS,

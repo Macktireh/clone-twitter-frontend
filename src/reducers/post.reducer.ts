@@ -13,9 +13,22 @@ const postReducer = (state: PostReducerType = initialState, action: any): PostRe
     case Types.ADD_NEW_POST_SUCCESS:
       return [...(state as IPost[]), payload];
 
+    case Types.UPDATE_POST_SUCCESS:
+      const updatePost = state?.slice()
+      updatePost?.filter(post => {
+        if (post.publicId === payload.publicId) {
+          return payload
+        }
+        return post
+      })
+      return updatePost as IPost[];
+
+    case Types.DELETE_POST_SUCCESS:
+      return state?.filter((post) => post.publicId !== payload) as IPost[];
+
     case Types.LIKE_OR_UNLIKE_POST_SUCCESS:
-      const postCopyLike = state?.slice();
-      postCopyLike?.map((post) => {
+      const likePost = state?.slice();
+      likePost?.map((post) => {
         if (post.publicId === payload.PublicId) {
           if (payload.value === "Like") {
             post.liked.push(payload.authorDetail);
@@ -27,10 +40,7 @@ const postReducer = (state: PostReducerType = initialState, action: any): PostRe
         }
         return post;
       });
-      return postCopyLike as IPost[];
-
-    case Types.DELETE_POST_SUCCESS:
-      return state?.filter((post) => post.publicId !== payload) as IPost[];
+      return likePost as IPost[];
 
     case Types.ADD_NEW_POST_FAIL:
     case Types.DELETE_POST_FAIL:

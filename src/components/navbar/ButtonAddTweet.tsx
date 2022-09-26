@@ -7,8 +7,12 @@ const ButtonAddTweet: React.FC = () => {
 
   const propsContext = useAddNewTweet();
 
+  const handleCloseModal = () => {
+    propsContext?.modal && propsContext.modal.setModalActive()
+  }
+
   return (
-    <div className="add-tweet" onClick={propsContext?.popup?.setPopupActive}>
+    <div className="add-tweet" onClick={handleCloseModal}>
       <IconSVG iconName="add-tweet" />
       <span>Tweet</span>
     </div>

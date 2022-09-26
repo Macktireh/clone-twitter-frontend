@@ -78,31 +78,48 @@
     }
   }
 
-  .popup {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    .closed {
-      z-index: 6;
-    }
-    .popup-container {
-      width: 320px;
-      height: 270px;
-      padding: 2rem;
-      background-color: $color1;
-      border-radius: 10px;
-      z-index: 7;
-      @include position-abs(50%, null, null, 50%, -50%, -50%);
-      @include flex(column, flex-start, flex-start);
-      gap: 1rem;
+  .modal-container.addTweet {
+    height: auto !important;
+    min-height: 230px;
 
-      button {
-        transition: all 0.2s ease-in-out;
-      }
-      button.btn-cancel {
-        &:hover {
-          background-color: rgba($color7, 0.3);
-        }
+    .modal-content {
+      width: 100%;
+      display: flex;
+      padding: 0 0.5rem;
+    }
+  }
+
+}
+.closed {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color10, 0.5);
+}
+.popup {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  .closed {
+    z-index: 6;
+  }
+  .popup-container {
+    width: 320px;
+    height: 270px;
+    padding: 2rem;
+    background-color: $color1;
+    border-radius: 10px;
+    z-index: 7;
+    @include position-abs(50%, null, null, 50%, -50%, -50%);
+    @include flex(column, flex-start, flex-start);
+    gap: 1rem;
+
+    button {
+      transition: all 0.2s ease-in-out;
+    }
+    button.btn-cancel {
+      &:hover {
+        background-color: rgba($color7, 0.3);
       }
     }
   }

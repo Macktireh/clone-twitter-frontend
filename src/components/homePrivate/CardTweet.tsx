@@ -9,6 +9,8 @@ import { baseURL } from "@/config/axios";
 import { dateParserCreated } from "@/utils/dateParser";
 import { useNavigate } from "react-router-dom";
 import { pathLinkProfile } from "@/utils/pathRoute";
+import Popup from "@/widgets/Popup";
+import { useAddNewTweet } from "@/context/AddNewTweetProvider";
 
 type PropsType = {
   currentUser: IUserProfile | null;
@@ -18,6 +20,15 @@ type PropsType = {
 
 const CardTweet: React.FC<PropsType> = ({ currentUser, post, users }) => {
   const navigate = useNavigate();
+  const propsContext = useAddNewTweet();
+
+  const handleClosePopup = () => {
+    propsContext?.popup.setPopupActive && propsContext.popup.setPopupActive();
+  };
+
+  const handleDiscard = () => {
+    propsContext && propsContext.handleDiscard();
+  };
 
   return (
     <div className="CardTweet">
@@ -84,6 +95,16 @@ const CardTweet: React.FC<PropsType> = ({ currentUser, post, users }) => {
             <span>·</span>
             <span>{post?.created && dateParserCreated(post.created)}</span>
           </p>
+          <div className="popup-delete-container">
+            <Popup
+              popupActive={propsContext?.popup.popupActive ? propsContext.popup.popupActive : true}
+              popupTitle="Discard changes?"
+              popupDetail="This can’t be undone and you’ll lose your changes."
+              popupBtnText="Discard"
+              handleDiscard={handleDiscard}
+              handleClose={handleClosePopup}
+            />
+          </div>
           <Tippy
             content={<PopupPostOrCommentOptionCard type="post" post={post} currentUser={currentUser} />}
             interactive={true}

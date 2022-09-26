@@ -9,7 +9,6 @@ import PopupLogout from "@/components/auth/PopupLogout";
 import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 import { privateRoutes } from "@/routes/private.routes";
 import { IUserProfile, IRootState } from "@/models";
-import AddNewTweetProvider from "@/context/AddNewTweetProvider";
 import { pathLinkProfile } from "@/utils/pathRoute";
 
 type TcurrentUser = { currentUser: IUserProfile | null };
@@ -107,9 +106,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
           </div>
         </div>
 
-        <AddNewTweetProvider>
-          <ButtonAddTweet />
-        </AddNewTweetProvider>
+        <ButtonAddTweet />
       </div>
 
       <Tippy

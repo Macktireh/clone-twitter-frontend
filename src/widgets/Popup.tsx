@@ -7,8 +7,8 @@ type PropsType = React.PropsWithChildren<{
   popupTitle?: string;
   popupDetail?: string;
   popupBtnText?: string;
-  handleDiscard?: () => void | null;
-  handleClose?: () => void | null;
+  handleDiscard: () => void | null;
+  handleClose: () => void | null;
 }>;
 
 const Popup: React.FC<PropsType> = ({
@@ -26,8 +26,8 @@ const Popup: React.FC<PropsType> = ({
       <div className="popup-container">
         <h2>{popupTitle}</h2>
         <p>{popupDetail}</p>
-        <ButtonCustom text={popupBtnText} nameClass="btn-danger" handleClick={() => handleDiscard && handleDiscard()} />
-        <ButtonCustom text="Annuler" nameClass="btn-cancel" handleClick={() => handleClose && handleClose()} />
+        <ButtonCustom text={popupBtnText} nameClass="btn-danger" handleClick={handleDiscard} />
+        <ButtonCustom text="Annuler" nameClass="btn-cancel" handleClick={handleClose} />
       </div>
     </div>
   );
