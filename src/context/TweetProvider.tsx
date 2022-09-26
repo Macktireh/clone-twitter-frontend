@@ -16,6 +16,8 @@ import deletePostAction from "@/actions/post/deletePost.action";
 type ContextPropsType = {
   modal: { modalActive: boolean; setModalActive: () => void };
   popup: { popupActive: boolean; setPopupActive: () => void };
+  publicIdState: { publicId: string; setPublicId: (value: string) => void };
+  popupDelete: { popupActiveDelete: boolean; setPopupActiveDelete: () => void };
   currentUser: IUserProfile | null;
   bodyState: bodyStateType;
   emojiState: emojiStateType;
@@ -25,15 +27,18 @@ type ContextPropsType = {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   resetImage: () => void;
   handleDiscard: () => void;
+  handleDeletePost: () => Promise<void>;
 };
 
-const AddNewTweetContext = React.createContext<ContextPropsType | null>(null);
+const TweetContext = React.createContext<ContextPropsType | null>(null);
 
-const AddNewTweetProvider = ({ children }: React.PropsWithChildren) => {
+const TweetProvider = ({ children }: React.PropsWithChildren) => {
   const currentUser = useSelector((state: IRootState) => state.authReducer.currentUser);
   const dispatch = useDispatch();
   const [modalActive, setModalActive] = React.useState(false);
   const [popupActive, setPopupActive] = React.useState(false);
+  const [publicId, setPublicId] = React.useState("");
+  const [popupActiveDelete, setPopupActiveDelete] = React.useState(false);
   const [body, setBody] = React.useState<string>("");
   const [chosenEmoji, setChosenEmoji] = React.useState<boolean>(false);
   const [image, setImage] = React.useState<File | null>(null);
@@ -75,12 +80,22 @@ const AddNewTweetProvider = ({ children }: React.PropsWithChildren) => {
     setPopupActive: () => setPopupActive(!popupActive),
   };
 
+  const popupDelete = {
+    popupActiveDelete,
+    setPopupActiveDelete: () => setPopupActiveDelete(!popupActiveDelete),
+  };
+
+  const publicIdState = {
+    publicId,
+    setPublicId: (value: string) => setPublicId(value),
+  };
+
   const handleDiscard = () => {
-      setBody("")
-      resetImage()
-      popupActive && setPopupActive(!popupActive)
-      modalActive && setModalActive(!modalActive)
-    }
+    setBody("");
+    resetImage();
+    popupActive && setPopupActive(!popupActive);
+    modalActive && setModalActive(!modalActive);
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -98,24 +113,25 @@ const AddNewTweetProvider = ({ children }: React.PropsWithChildren) => {
       formData.append("image", image as any);
       dispatch(addNewPostAction(formData) as any);
     }
-    handleDiscard()
+    handleDiscard();
   };
 
-  const handleConfirmDelete = () => {
-    popupActive && setPopupActive(!popupActive)
-  };
-
-  const handleDelete = async (public_id: string) => {
-    dispatch(deletePostAction(public_id) as any);
-    popupActive && setPopupActive(!popupActive)
+  const handleDeletePost = async () => {
+    if (publicId) {
+      dispatch(deletePostAction(publicId) as any);
+      popupActiveDelete && setPopupActiveDelete(!popupActiveDelete);
+      setPublicId("");
+    }
   };
 
   return (
-    <AddNewTweetContext.Provider
+    <TweetContext.Provider
       value={
         {
           modal,
           popup,
+          publicIdState,
+          popupDelete,
           currentUser,
           bodyState: { body, setBody },
           emojiState: { chosenEmoji, setChosenEmoji },
@@ -124,17 +140,18 @@ const AddNewTweetProvider = ({ children }: React.PropsWithChildren) => {
           onEmojiClick,
           handleSubmit,
           resetImage,
-          handleDiscard
+          handleDiscard,
+          handleDeletePost,
         } as ContextPropsType
       }
     >
       {children}
-    </AddNewTweetContext.Provider>
+    </TweetContext.Provider>
   );
 };
 
-export const useAddNewTweet = (): ContextPropsType | null => {
-  return React.useContext(AddNewTweetContext);
+export const useTweet = (): ContextPropsType | null => {
+  return React.useContext(TweetContext);
 };
 
-export default AddNewTweetProvider;
+export default TweetProvider;

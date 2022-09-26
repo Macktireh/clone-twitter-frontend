@@ -6,7 +6,7 @@ import IconSVG from "@/widgets/IconSVG";
 import ButtonCoustom from "@/widgets/ButtonCustom";
 import { bodyStateType, emojiStateType, IUserProfile, imagePreviewStateType, imageStateType } from "@/models";
 import { baseURL } from "@/config/axios";
-import { useAddNewTweet } from "@/context/AddNewTweetProvider";
+import { useTweet } from "@/context/TweetProvider";
 
 type PropsType = {
   nameClass: string;
@@ -64,7 +64,12 @@ const AddNewPost: React.FC<PropsType> = ({
       </div>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="textarea-image">
-          <textarea id={nameClass} placeholder="What's happening?" value={body} onChange={(e) => setBody(e.target.value)} />
+          <textarea
+            id={nameClass}
+            placeholder="What's happening?"
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+          />
           {imagePreviewState.imagePreview && (
             <div className="img-preview-container">
               <img src={imagePreviewState.imagePreview} alt="imagePostPreview" />
@@ -111,11 +116,10 @@ const AddNewPost: React.FC<PropsType> = ({
   );
 };
 
-
-type PropsLogicalType = { nameClass: string}
+type PropsLogicalType = { nameClass: string };
 
 const AddNewPostLogical: React.FC<PropsLogicalType> = ({ nameClass }) => {
-  const propsContext = useAddNewTweet();
+  const propsContext = useTweet();
   const currentUser = propsContext?.currentUser as IUserProfile;
   const bodyState = propsContext?.bodyState as bodyStateType;
   const emojiState = propsContext?.emojiState as emojiStateType;
@@ -130,7 +134,7 @@ const AddNewPostLogical: React.FC<PropsLogicalType> = ({ nameClass }) => {
 
   return (
     <AddNewPost
-    nameClass={nameClass}
+      nameClass={nameClass}
       currentUser={currentUser}
       bodyState={bodyState}
       emojiState={emojiState}

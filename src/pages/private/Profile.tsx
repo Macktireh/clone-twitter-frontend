@@ -6,11 +6,13 @@ import Layout from "@/layout/Layout";
 import EdidProfile from "@/components/profile/EdidProfile";
 import ModalEditProfile from "@/components/profile/ModalEditProfile";
 import ContentProfile from "@/components/profile/ContentProfile";
+import Aside from "@/components/aside/Aside";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import EditProfileProvider from "@/context/EditProfileProvider";
 import { IUserProfile, IPost, IRootState, PropsRootStateType, TTabState } from "@/models";
+import { privateRoutes } from "@/routes/private.routes";
 
 interface PropsType extends PropsRootStateType {
   currentUser: IUserProfile | null;
@@ -72,7 +74,12 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
   if (isCurrentUser === "error") return <Navigate to="/error/404" />;
 
   return loading ? (
-    <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
+    <>
+      <main className="main">
+        <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
+      </main>
+      <aside className="aside"></aside>
+    </>
   ) : (
     <>
       <EditProfileProvider>
@@ -86,16 +93,23 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
           <EdidProfile currentUser={currentUser} />
         </ModalEditProfile>
       </EditProfileProvider>
-      <ContentProfile
-        isCurrentUser={isCurrentUser === "yes" ? true : false}
-        userProfile={isCurrentUser === "yes" ? (currentUser as IUserProfile) : (anotherUser as IUserProfile)}
-        users={users}
-        posts={posts}
-        loadingPost={loadingPost}
-        modalActiveState={{ modalActive, setModalActive }}
-        tabState={tabState}
-        activeTabState={{ activeTab, setActiveTab }}
-      />
+      <>
+        <main className="main">
+          <ContentProfile
+            isCurrentUser={isCurrentUser === "yes" ? true : false}
+            userProfile={
+              isCurrentUser === "yes" ? (currentUser as IUserProfile) : (anotherUser as IUserProfile)
+            }
+            users={users}
+            posts={posts}
+            loadingPost={loadingPost}
+            modalActiveState={{ modalActive, setModalActive }}
+            tabState={tabState}
+            activeTabState={{ activeTab, setActiveTab }}
+          />
+        </main>
+        <Aside page={privateRoutes.profile.name} />
+      </>
     </>
   );
 };

@@ -2,28 +2,27 @@ import React from "react";
 
 import Popup from "@/widgets/Popup";
 import AddNewPost from "@/components/homePrivate/AddNewPost";
-import { useAddNewTweet } from "@/context/AddNewTweetProvider";
-
+import { useTweet } from "@/context/TweetProvider";
 
 const ModalAddNewTweet: React.FC = () => {
-  const propsContext = useAddNewTweet();
+  const propsContext = useTweet();
 
   const handleCloseModal = () => {
     if (propsContext) {
       if (propsContext.bodyState.body || propsContext.imageState.image) {
-        propsContext.popup.setPopupActive()
+        propsContext.popup.setPopupActive();
       } else {
-        propsContext?.modal && propsContext.modal.setModalActive()
+        propsContext?.modal && propsContext.modal.setModalActive();
       }
     }
-  }
+  };
 
   const handleClosePopup = () => {
     propsContext?.popup.setPopupActive && propsContext.popup.setPopupActive();
   };
 
   const handleDiscard = () => {
-    propsContext && propsContext.handleDiscard()
+    propsContext && propsContext.handleDiscard();
   };
 
   return (

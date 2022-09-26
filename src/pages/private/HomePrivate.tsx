@@ -11,7 +11,8 @@ import { IRootState, PropsRootStateType } from "@/models";
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
-import AddNewTweetProvider from "@/context/AddNewTweetProvider";
+import { useTweet } from "@/context/TweetProvider";
+import Popup from "@/widgets/Popup";
 
 interface PropsType extends PropsRootStateType {
   getAllPostAction?: any;
@@ -29,6 +30,8 @@ const HomePrivate: React.FC<PropsType> = ({
   getAllUsersAction,
   getAllPostAction,
 }) => {
+  const propsContext = useTweet();
+
   const [loading, setLoading] = React.useState(true);
   const flag = React.useRef(false);
   React.useEffect(() => {
@@ -42,17 +45,32 @@ const HomePrivate: React.FC<PropsType> = ({
     if (currentUser && users && posts) setLoading(false);
   }, [flag, currentUser, users, posts, getAllPostAction, getAllUsersAction]);
 
+  const handleClosePopup = () => {
+    propsContext?.popupDelete.setPopupActiveDelete && propsContext.popupDelete.setPopupActiveDelete();
+  };
+
+  const handleDelete = () => {
+    propsContext && propsContext.handleDeletePost();
+  };
+
   return (
     <>
+      <Popup
+        popupActive={
+          propsContext?.popupDelete.popupActiveDelete ? propsContext.popupDelete.popupActiveDelete : false
+        }
+        popupTitle="Vous êtes sûr de vouloir supprimer ?"
+        popupBtnText="Supprimer"
+        handleDiscard={handleDelete}
+        handleClose={handleClosePopup}
+      />
       <main className="main">
         <div className="HomePrivate main-container">
           <section className="sec-header sticky-2">
             <SectionHeaderTweet page={privateRoutes.home.name} title="Latest Tweets" />
           </section>
           <section className="sec-add-new-post">
-            {/* <AddNewTweetProvider> */}
-              <AddNewPost nameClass="textarea-1" />
-            {/* </AddNewTweetProvider> */}
+            <AddNewPost nameClass="textarea-1" />
           </section>
           <div className="line"></div>
           <section className="sec-list-post">

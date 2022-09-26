@@ -1,15 +1,14 @@
 import React from "react";
 
 import IconSVG from "@/widgets/IconSVG";
-import { useAddNewTweet } from '@/context/AddNewTweetProvider';
+import { useTweet } from "@/context/TweetProvider";
 
 const ButtonAddTweet: React.FC = () => {
-
-  const propsContext = useAddNewTweet();
+  const propsContext = useTweet();
 
   const handleCloseModal = () => {
-    propsContext?.modal && propsContext.modal.setModalActive()
-  }
+    propsContext?.modal && propsContext.modal.setModalActive();
+  };
 
   return (
     <div className="add-tweet" onClick={handleCloseModal}>

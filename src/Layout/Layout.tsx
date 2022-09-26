@@ -1,7 +1,7 @@
 import React from "react";
 
 import Navbar from "@/components/navbar/Navbar";
-import AddNewTweetProvider from "@/context/AddNewTweetProvider";
+import TweetProvider from "@/context/TweetProvider";
 import ModalAddNewTweet from "@/components/homePrivate/ModalAddNewTweet";
 
 const Layout = (props: React.PropsWithChildren<any>) => {
@@ -13,7 +13,7 @@ const Layout = (props: React.PropsWithChildren<any>) => {
   });
   return (
     <div className="layout">
-      <AddNewTweetProvider>
+      <TweetProvider>
         <ModalAddNewTweet />
         <header className="header">
           <div className="nav-container">
@@ -21,7 +21,7 @@ const Layout = (props: React.PropsWithChildren<any>) => {
           </div>
         </header>
         {props.children}
-      </AddNewTweetProvider>
+      </TweetProvider>
     </div>
   );
 };
