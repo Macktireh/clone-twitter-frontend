@@ -9,9 +9,11 @@ import {
   imagePreviewStateType,
   imageStateType,
   IRootState,
+  editBodyStateType,
 } from "@/models";
 import addNewPostAction from "@/actions/post/addNewPost.action";
 import deletePostAction from "@/actions/post/deletePost.action";
+import updatePostAction from "@/actions/post/updatePost.action";
 
 type ContextPropsType = {
   modal: { modalActive: boolean; setModalActive: () => void };
@@ -23,51 +25,93 @@ type ContextPropsType = {
   emojiState: emojiStateType;
   imageState: imageStateType;
   imagePreviewState: imagePreviewStateType;
+  isEditState: { isEditing: boolean; setIsEditing: () => void };
+  editBodyState: editBodyStateType;
+  editImage: File | null;
   onEmojiClick: (e: React.MouseEvent<Element, MouseEvent>, emojiObject: IEmojiData) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   resetImage: () => void;
   handleDiscard: () => void;
   handleDeletePost: () => Promise<void>;
+  handleCloseModal: () => void;
 };
 
 const TweetContext = React.createContext<ContextPropsType | null>(null);
 
 const TweetProvider = ({ children }: React.PropsWithChildren) => {
   const currentUser = useSelector((state: IRootState) => state.authReducer.currentUser);
+  const posts = useSelector((state: IRootState) => state.postReducer);
+
   const dispatch = useDispatch();
-  const [modalActive, setModalActive] = React.useState(false);
-  const [popupActive, setPopupActive] = React.useState(false);
-  const [publicId, setPublicId] = React.useState("");
-  const [popupActiveDelete, setPopupActiveDelete] = React.useState(false);
+  const [modalActive, setModalActive] = React.useState<boolean>(false);
+  const [popupActive, setPopupActive] = React.useState<boolean>(false);
+  const [publicId, setPublicId] = React.useState<string>("");
+  const [popupActiveDelete, setPopupActiveDelete] = React.useState<boolean>(false);
   const [body, setBody] = React.useState<string>("");
   const [chosenEmoji, setChosenEmoji] = React.useState<boolean>(false);
   const [image, setImage] = React.useState<File | null>(null);
   const [imagePreview, setImagePreview] = React.useState<string | null>(null);
+  const [isEditing, setIsEditing] = React.useState<boolean>(false);
+  const [editBody, setEditBody] = React.useState<string>("");
+  const [editImage, setEditImage] = React.useState<File | null>(null);
+  // const [editimagePreview, setEditImagePreview] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    if (image) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(image);
+    if (isEditing) {
+      if (editImage) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setImagePreview(reader.result as string);
+        };
+        reader.readAsDataURL(editImage);
+      } else {
+        setImagePreview(null);
+      }
     } else {
-      setImagePreview(null);
+      if (image) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setImagePreview(reader.result as string);
+        };
+        reader.readAsDataURL(image);
+      } else {
+        setImagePreview(null);
+      }
     }
-  }, [image]);
 
-  const resetImage = () => setImage(null);
+    if (posts) {
+      posts.filter((post) => {
+        if (post.publicId === publicId) {
+          setEditBody(post.body);
+          setImagePreview(post.image);
+        }
+        return post;
+      });
+    }
+  }, [isEditing, image, editImage, posts, publicId]);
+
+  const resetImage = () => {
+    setImage(null);
+    setEditImage(null);
+  };
 
   const onEmojiClick = (e: React.MouseEvent<Element, MouseEvent>, emojiObject: IEmojiData) => {
-    setBody((value) => value + emojiObject.emoji);
+    isEditing
+      ? setEditBody((value) => value + emojiObject.emoji)
+      : setBody((value) => value + emojiObject.emoji);
     setChosenEmoji(false);
   };
 
   const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) {
     } else {
-      setImage(e.target.files[0]);
+      isEditing ? setEditImage(e.target.files[0]) : setImage(e.target.files[0]);
     }
+  };
+
+  const isEditState = {
+    isEditing,
+    setIsEditing: () => setIsEditing(!isEditing),
   };
 
   const modal = {
@@ -91,27 +135,47 @@ const TweetProvider = ({ children }: React.PropsWithChildren) => {
   };
 
   const handleDiscard = () => {
+    setPublicId("");
     setBody("");
+    setEditBody("");
     resetImage();
+    setIsEditing(false);
     popupActive && setPopupActive(!popupActive);
     modalActive && setModalActive(!modalActive);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (body && image) {
-      const formData = new FormData();
-      formData.append("body", body as string);
-      formData.append("image", image as any);
-      dispatch(addNewPostAction(formData) as any);
-    } else if (body) {
-      const formData = new FormData();
-      formData.append("body", body as string);
-      dispatch(addNewPostAction(formData) as any);
-    } else if (image) {
-      const formData = new FormData();
-      formData.append("image", image as any);
-      dispatch(addNewPostAction(formData) as any);
+    if (isEditing) {
+      if (editBody && editImage) {
+        const formData = new FormData();
+        formData.append("body", editBody as string);
+        formData.append("image", editImage as any);
+        dispatch(updatePostAction(publicId, formData) as any);
+      } else if (editBody) {
+        const formData = new FormData();
+        formData.append("body", editBody as string);
+        dispatch(updatePostAction(publicId, formData) as any);
+      } else if (editImage) {
+        const formData = new FormData();
+        formData.append("image", editImage as any);
+        dispatch(updatePostAction(publicId, formData) as any);
+      }
+    } else {
+      if (body && image) {
+        const formData = new FormData();
+        formData.append("body", body as string);
+        formData.append("image", image as any);
+        dispatch(addNewPostAction(formData) as any);
+      } else if (body) {
+        const formData = new FormData();
+        formData.append("body", body as string);
+        dispatch(addNewPostAction(formData) as any);
+      } else if (image) {
+        const formData = new FormData();
+        formData.append("image", image as any);
+        dispatch(addNewPostAction(formData) as any);
+      }
     }
     handleDiscard();
   };
@@ -121,6 +185,26 @@ const TweetProvider = ({ children }: React.PropsWithChildren) => {
       dispatch(deletePostAction(publicId) as any);
       popupActiveDelete && setPopupActiveDelete(!popupActiveDelete);
       setPublicId("");
+    }
+  };
+
+  const handleCloseModal = () => {
+    if (isEditing) {
+      if (posts) {
+        const post = posts.find((post) => post.publicId === publicId);
+        if (editBody !== post?.body || editImage) {
+          setPopupActive(!popupActive);
+        } else {
+          setModalActive(!modalActive);
+          handleDiscard();
+        }
+      }
+    } else {
+      if (body || image) {
+        setPopupActive(!popupActive);
+      } else {
+        setModalActive(!modalActive);
+      }
     }
   };
 
@@ -137,11 +221,15 @@ const TweetProvider = ({ children }: React.PropsWithChildren) => {
           emojiState: { chosenEmoji, setChosenEmoji },
           imageState: { image, handleChangeImage },
           imagePreviewState: { imagePreview, setImagePreview },
+          isEditState,
+          editBodyState: { editBody, setEditBody },
+          editImage,
           onEmojiClick,
           handleSubmit,
           resetImage,
           handleDiscard,
           handleDeletePost,
+          handleCloseModal
         } as ContextPropsType
       }
     >

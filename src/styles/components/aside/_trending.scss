@@ -47,6 +47,7 @@
       padding: 4px;
       border-radius: 50%;
       transition: all 0.2s ease-in-out;
+      border: 1px solid transparent;
       &:hover {
         background-color: $color3-2;
         border: 1px solid $color3;

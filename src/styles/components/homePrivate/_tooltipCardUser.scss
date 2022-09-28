@@ -1,0 +1,50 @@
+.TooltipCardUser {
+  .content {
+    width: 270px;
+    padding: 0.8rem;
+    background-color: $color1;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba($color5, 0.5);
+    @include flex(column, flex-start, flex-start);
+    gap: 0.5rem;
+
+    .tooltip-header,
+    .username,
+    .bio,
+    .follow {
+      width: 100%;
+      span {
+        color: $color5;
+      }
+    }
+    .tooltip-header {
+      @include flex(row, space-between, flex-start);
+      img {
+        cursor: pointer;
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+      }
+      button {
+        width: 100px;
+        padding: 4px 8px;
+        @extend .flex-center;
+      }
+    }
+
+    .username {
+      @include flex(column, flex-start, flex-start);
+      
+    }
+
+    .follow {
+      margin-top: 5px;
+      font-size: 0.9em;
+      strong {
+        color: $color2;
+      }
+      @include flex(row, flex-start, flex-start);
+      gap: 0.5rem;
+    }
+  }
+}

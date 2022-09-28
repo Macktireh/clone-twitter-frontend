@@ -34,7 +34,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
             to={privateRoutes.home.path}
             className={(nav) => (nav.isActive ? handleActive("home") : "nav-link")}
           >
-            {active === "home" ? <IconSVG iconName="homeActive" /> : <IconSVG iconName="home" />}
+            <IconSVG iconName={active === "home" ? "homeActive" : "home"} />
             <span className={active === "home" ? "active" : ""}>Home</span>
           </NavLink>
 
@@ -42,17 +42,8 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
             to={privateRoutes.explore.path}
             className={(nav) => (nav.isActive ? handleActive("explore") : "nav-link")}
           >
-            {active === "explore" ? (
-              <>
-                <IconSVG iconName="exploreActive" nameClass="explore" />
-                <IconSVG iconName="#Active" nameClass="htag" />
-              </>
-            ) : (
-              <>
-                <IconSVG iconName="explore" nameClass="explore" />
-                <IconSVG iconName="#" nameClass="htag" />
-              </>
-            )}
+            <IconSVG iconName={active === "explore" ? "exploreActive" : "explore"} nameClass="explore" />
+            <IconSVG iconName={active === "explore" ? "#Active" : "#"} nameClass="htag" />
             <span className={active === "explore" ? "active" : ""}>Explore</span>
           </NavLink>
 
@@ -60,11 +51,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
             to={privateRoutes.notifications.path}
             className={(nav) => (nav.isActive ? handleActive("notification") : "nav-link")}
           >
-            {active === "notification" ? (
-              <IconSVG iconName="notificationActive" />
-            ) : (
-              <IconSVG iconName="notification" />
-            )}
+            <IconSVG iconName={active === "notification" ? "notificationActive" : "notification"} />
             <span className={active === "notification" ? "active" : ""}>Notifications</span>
           </NavLink>
 
@@ -72,7 +59,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
             to={privateRoutes.messages.path}
             className={(nav) => (nav.isActive ? handleActive("message") : "nav-link")}
           >
-            {active === "message" ? <IconSVG iconName="messageActive" /> : <IconSVG iconName="message" />}
+            <IconSVG iconName={active === "message" ? "messageActive" : "message"} />
             <span className={active === "message" ? "active" : ""}>Messages</span>
           </NavLink>
 
@@ -80,7 +67,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
             to={privateRoutes.bookmarks.path}
             className={(nav) => (nav.isActive ? handleActive("bookmark") : "nav-link")}
           >
-            {active === "bookmark" ? <IconSVG iconName="bookmarkActive" /> : <IconSVG iconName="bookmark" />}
+            <IconSVG iconName={active === "bookmark" ? "bookmarkActive" : "bookmark"} />
             <span className={active === "bookmark" ? "active" : ""}>Bookmarks</span>
           </NavLink>
 
@@ -88,7 +75,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
             to={privateRoutes.lists.path}
             className={(nav) => (nav.isActive ? handleActive("list") : "nav-link")}
           >
-            {active === "list" ? <IconSVG iconName="listActive" /> : <IconSVG iconName="list" />}
+            <IconSVG iconName={active === "list" ? "listActive" : "list"} />
             <span className={active === "list" ? "active" : ""}>Lists</span>
           </NavLink>
 
@@ -96,7 +83,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
             to={currentUser ? pathLinkProfile(currentUser.pseudo) : ""}
             className={(nav) => (nav.isActive ? handleActive("profile") : "nav-link")}
           >
-            {active === "profile" ? <IconSVG iconName="profileActive" /> : <IconSVG iconName="profile" />}
+            <IconSVG iconName={active === "profile" ? "profileActive" : "profile"} />
             <span className={active === "profile" ? "active" : ""}>Profile</span>
           </NavLink>
 

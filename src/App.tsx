@@ -15,7 +15,7 @@ const App: React.FC<PropsType> = ({ getCurrentUserAction }) => {
   React.useEffect(() => {
     if (!flag.current) {
       getCurrentUserAction();
-      setTimeout(() => setLoading(false), 1000);
+      setTimeout(() => setLoading(false), 800);
       flag.current = true;
     }
   }, [flag, getCurrentUserAction]);

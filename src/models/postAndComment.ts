@@ -29,4 +29,9 @@ export type imageStateType = {
   image: File | null;
   handleChangeImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
+export type editBodyStateType = { editBody: string; setEditBody: (value: string) => void };
+// export type editImageStateType = {
+//   editImage: File | null;
+//   handleChangeEditImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
+// };
 export type imagePreviewStateType = { imagePreview: string; setImagePreview: (value: string) => void };

@@ -8,13 +8,7 @@ const ModalAddNewTweet: React.FC = () => {
   const propsContext = useTweet();
 
   const handleCloseModal = () => {
-    if (propsContext) {
-      if (propsContext.bodyState.body || propsContext.imageState.image) {
-        propsContext.popup.setPopupActive();
-      } else {
-        propsContext?.modal && propsContext.modal.setModalActive();
-      }
-    }
+    propsContext?.handleCloseModal && propsContext.handleCloseModal()
   };
 
   const handleClosePopup = () => {
@@ -26,17 +20,17 @@ const ModalAddNewTweet: React.FC = () => {
   };
 
   return (
-    <div className="modal-global" style={{ display: propsContext?.modal.modalActive ? "flex" : "none" }}>
+    <div className="modal-global" style={{ display: propsContext?.modal.modalActive ? "flex" : "none"}}>
       <div className="closed" onClick={handleCloseModal}></div>
       <Popup
-        popupActive={propsContext?.popup.popupActive ? false : false}
+        popupActive={propsContext?.popup.popupActive ? propsContext?.popup.popupActive : false}
         popupTitle="Discard changes?"
         popupDetail="This can’t be undone and you’ll lose your changes."
         popupBtnText="Discard"
         handleDiscard={handleDiscard}
         handleClose={handleClosePopup}
       />
-      <div className="modal-container addTweet">
+      <div className="modal-container addTweet" style={{height: propsContext?.emojiState.chosenEmoji ? "600px" : ""}}>
         <div className="modal-header">
           <div className="icon-and-title">
             <div className="icon-closed">

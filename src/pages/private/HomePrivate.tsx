@@ -5,14 +5,13 @@ import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import AddNewPost from "@/components/homePrivate/AddNewPost";
 import CardTweet from "@/components/homePrivate/CardTweet";
+import PopupDeletePost from "@/components/homePrivate/PopupDeletePost";
 import Aside from "@/components/aside/Aside";
-import { privateRoutes } from "@/routes/private.routes";
-import { IRootState, PropsRootStateType } from "@/models";
+import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
-import SpinnersLoding from "@/widgets/SpinnersLoding";
-import { useTweet } from "@/context/TweetProvider";
-import Popup from "@/widgets/Popup";
+import { privateRoutes } from "@/routes/private.routes";
+import { IRootState, PropsRootStateType } from "@/models";
 
 interface PropsType extends PropsRootStateType {
   getAllPostAction?: any;
@@ -30,8 +29,6 @@ const HomePrivate: React.FC<PropsType> = ({
   getAllUsersAction,
   getAllPostAction,
 }) => {
-  const propsContext = useTweet();
-
   const [loading, setLoading] = React.useState(true);
   const flag = React.useRef(false);
   React.useEffect(() => {
@@ -45,25 +42,8 @@ const HomePrivate: React.FC<PropsType> = ({
     if (currentUser && users && posts) setLoading(false);
   }, [flag, currentUser, users, posts, getAllPostAction, getAllUsersAction]);
 
-  const handleClosePopup = () => {
-    propsContext?.popupDelete.setPopupActiveDelete && propsContext.popupDelete.setPopupActiveDelete();
-  };
-
-  const handleDelete = () => {
-    propsContext && propsContext.handleDeletePost();
-  };
-
   return (
     <>
-      <Popup
-        popupActive={
-          propsContext?.popupDelete.popupActiveDelete ? propsContext.popupDelete.popupActiveDelete : false
-        }
-        popupTitle="Vous êtes sûr de vouloir supprimer ?"
-        popupBtnText="Supprimer"
-        handleDiscard={handleDelete}
-        handleClose={handleClosePopup}
-      />
       <main className="main">
         <div className="HomePrivate main-container">
           <section className="sec-header sticky-2">
@@ -89,6 +69,7 @@ const HomePrivate: React.FC<PropsType> = ({
         </div>
       </main>
       <Aside page={privateRoutes.home.name} />
+      <PopupDeletePost />
     </>
   );
 };

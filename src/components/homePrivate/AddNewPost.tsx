@@ -4,9 +4,18 @@ import Picker, { IEmojiData } from "emoji-picker-react";
 
 import IconSVG from "@/widgets/IconSVG";
 import ButtonCoustom from "@/widgets/ButtonCustom";
-import { bodyStateType, emojiStateType, IUserProfile, imagePreviewStateType, imageStateType } from "@/models";
+import {
+  bodyStateType,
+  emojiStateType,
+  IUserProfile,
+  imagePreviewStateType,
+  imageStateType,
+  editBodyStateType,
+} from "@/models";
 import { baseURL } from "@/config/axios";
 import { useTweet } from "@/context/TweetProvider";
+import { Link } from "react-router-dom";
+import { pathLinkProfile } from "@/utils/pathRoute";
 
 type PropsType = {
   nameClass: string;
@@ -15,6 +24,9 @@ type PropsType = {
   emojiState: emojiStateType;
   imageState: imageStateType;
   imagePreviewState: imagePreviewStateType;
+  isEditState: { isEditing: boolean; setIsEditing: () => void };
+  editBodyState: editBodyStateType;
+  editImage: File | null;
   onEmojiClick: (e: React.MouseEvent<Element, MouseEvent>, emojiObject: IEmojiData) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   resetImage: () => void;
@@ -27,6 +39,9 @@ const AddNewPost: React.FC<PropsType> = ({
   emojiState,
   imageState,
   imagePreviewState,
+  isEditState,
+  editBodyState,
+  editImage,
   onEmojiClick,
   handleSubmit,
   resetImage,
@@ -34,6 +49,7 @@ const AddNewPost: React.FC<PropsType> = ({
   const { body, setBody } = bodyState;
   const { chosenEmoji, setChosenEmoji } = emojiState;
   const { image, handleChangeImage } = imageState;
+  const { editBody, setEditBody } = editBodyState;
   const imageInputRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
@@ -53,22 +69,24 @@ const AddNewPost: React.FC<PropsType> = ({
   return (
     <div className="AddNewPost">
       <div className="box-img">
-        <img
-          src={
-            currentUser?.profilePicture
-              ? baseURL + currentUser.profilePicture
-              : baseURL + "/mediafiles/default/profilePic.png"
-          }
-          alt=""
-        />
+        <Link to={pathLinkProfile(currentUser?.pseudo as string)}>
+          <img
+            src={
+              currentUser?.profilePicture
+                ? baseURL + currentUser.profilePicture
+                : baseURL + "/mediafiles/default/profilePic.png"
+            }
+            alt=""
+          />
+        </Link>
       </div>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="textarea-image">
           <textarea
             id={nameClass}
             placeholder="What's happening?"
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
+            value={isEditState.isEditing ? editBody : body}
+            onChange={(e) => (isEditState.isEditing ? setEditBody(e.target.value) : setBody(e.target.value))}
           />
           {imagePreviewState.imagePreview && (
             <div className="img-preview-container">
@@ -105,7 +123,12 @@ const AddNewPost: React.FC<PropsType> = ({
             <IconSVG iconName="schedule" fill="#1d9bf0" />
           </div>
           <div className="box-btn">
-            <ButtonCoustom text="Tweet" isDisabled={body || image ? false : true} />
+            <ButtonCoustom
+              text="Tweet"
+              isDisabled={
+                isEditState.isEditing ? (editBody || editImage ? false : true) : body || image ? false : true
+              }
+            />
           </div>
         </div>
         <div className="emojiPicker">
@@ -125,6 +148,9 @@ const AddNewPostLogical: React.FC<PropsLogicalType> = ({ nameClass }) => {
   const emojiState = propsContext?.emojiState as emojiStateType;
   const imageState = propsContext?.imageState as imageStateType;
   const imagePreviewState = propsContext?.imagePreviewState as imagePreviewStateType;
+  const isEditState = propsContext?.isEditState as { isEditing: boolean; setIsEditing: () => void };
+  const editBodyState = propsContext?.editBodyState as editBodyStateType;
+  const editImage = propsContext?.editImage as File | null;
   const onEmojiClick = propsContext?.onEmojiClick as (
     e: React.MouseEvent<Element, MouseEvent>,
     emojiObject: IEmojiData
@@ -140,6 +166,9 @@ const AddNewPostLogical: React.FC<PropsLogicalType> = ({ nameClass }) => {
       emojiState={emojiState}
       imageState={imageState}
       imagePreviewState={imagePreviewState}
+      isEditState={isEditState}
+      editBodyState={editBodyState}
+      editImage={editImage}
       onEmojiClick={onEmojiClick}
       handleSubmit={handleSubmit}
       resetImage={resetImage}

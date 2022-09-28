@@ -1,7 +1,6 @@
 .HomePrivate {
   .sec-add-new-post {
     width: 100%;
-    // height: 120px;
     display: flex;
     padding: 4px 8px;
   }
@@ -16,12 +15,15 @@
 
     .list-post {
       width: 100%;
-      // height: 300px;
       border: 0px solid transparent;
       border-bottom-width: 1px;
       border-color: $color7;
       padding: 0.5em;
       position: relative;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        background-color: $color9;
+      }
     }
   }
 }

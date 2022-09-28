@@ -6,6 +6,7 @@ import Layout from "@/layout/Layout";
 import EdidProfile from "@/components/profile/EdidProfile";
 import ModalEditProfile from "@/components/profile/ModalEditProfile";
 import ContentProfile from "@/components/profile/ContentProfile";
+import PopupDeletePost from "@/components/homePrivate/PopupDeletePost";
 import Aside from "@/components/aside/Aside";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllPostAction from "@/actions/post/getAllPost.action";
@@ -110,6 +111,7 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
         </main>
         <Aside page={privateRoutes.profile.name} />
       </>
+      <PopupDeletePost />
     </>
   );
 };

@@ -14,13 +14,14 @@ const Layout = (props: React.PropsWithChildren<any>) => {
   return (
     <div className="layout">
       <TweetProvider>
-        <ModalAddNewTweet />
+        
         <header className="header">
           <div className="nav-container">
             <Navbar />
           </div>
         </header>
         {props.children}
+        <ModalAddNewTweet />
       </TweetProvider>
     </div>
   );

@@ -16,7 +16,7 @@ const updatePostAction =
       };
 
       try {
-        const res = await Axios.post(`${Api.postEndpoint + public_id}/`, data, config);
+        const res = await Axios.patch(`${Api.postEndpoint + public_id}/`, data, config);
         dispatch({ type: Types.UPDATE_POST_SUCCESS, payload: res.data });
       } catch (error: unknown) {
         if (error instanceof AxiosError && error.response) {
@@ -41,7 +41,7 @@ const _updatePostAction =
       };
 
       try {
-        const res = await Axios.post(`${Api.postEndpoint + param.public_id}/`, param.data, config);
+        const res = await Axios.patch(`${Api.postEndpoint + param.public_id}/`, param.data, config);
         dispatch({ type: Types.UPDATE_POST_SUCCESS, payload: res.data });
       } catch (error) {
         dispatch({ type: Types.UPDATE_POST_FAIL });

@@ -1,13 +1,14 @@
 import React from "react";
 import Tippy from "@tippyjs/react";
+import { Link, useNavigate } from "react-router-dom";
 
 import IconSVG from "@/widgets/IconSVG";
 import LikePostButton from "@/components/homePrivate/LikePostButton";
 import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard";
+import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
 import { IUserProfile, IPost } from "@/models";
 import { baseURL } from "@/config/axios";
 import { dateParserCreated } from "@/utils/dateParser";
-import { useNavigate } from "react-router-dom";
 import { pathLinkProfile } from "@/utils/pathRoute";
 
 type PropsType = {
@@ -17,70 +18,46 @@ type PropsType = {
 };
 
 const CardTweet: React.FC<PropsType> = ({ currentUser, post, users }) => {
+  const [authorPost, setAuthorPost] = React.useState<IUserProfile | null>();
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (currentUser && post && users) {
+      if (post.authorDetail.public_id === currentUser.user.public_id) {
+        setAuthorPost(currentUser);
+      } else {
+        setAuthorPost(users.find((u) => u.user.public_id === post.authorDetail.public_id));
+      }
+    }
+  }, [currentUser, post, users]);
 
   return (
     <div className="CardTweet">
+      <div className="click" onClick={() => navigate(`/${authorPost?.pseudo}/status/${post?.publicId}`)}></div>
       <div className="box-img">
-        {currentUser &&
-          users &&
-          post &&
-          (post.authorDetail.public_id === currentUser.user.public_id ? (
-            <img
-              src={`${baseURL}${currentUser?.profilePicture}`}
-              alt=""
-              onClick={() => (currentUser ? navigate(pathLinkProfile(currentUser.pseudo)) : "")}
-            />
-          ) : (
-            users.map(
-              (u, i) =>
-                u.user.public_id === post.authorDetail.public_id && (
-                  <img
-                    key={i}
-                    src={`${baseURL}${u.profilePicture}`}
-                    alt=""
-                    onClick={() => navigate(pathLinkProfile(u.pseudo))}
-                  />
-                )
-            )
-          ))}
+        <Tippy
+          content={<TooltipCardUser currentUser={authorPost} />}
+          interactive={true}
+          delay={0}
+          hideOnClick={false}
+          placement="top-end"
+        >
+          <div>
+            <Link to={pathLinkProfile(authorPost?.pseudo as string)}>
+              <img src={`${baseURL}${authorPost?.profilePicture}`} alt="" />
+            </Link>
+          </div>
+        </Tippy>
       </div>
       <div className="post-main">
         <div className="post-header">
           <p>
-            {post &&
-              currentUser &&
-              (post.authorDetail.public_id === currentUser.user.public_id ? (
-                <strong
-                  onClick={() => navigate(pathLinkProfile(currentUser.pseudo))}
-                >{`${currentUser.user.first_name} ${currentUser.user.last_name}`}</strong>
-              ) : (
-                users?.map(
-                  (u, i) =>
-                    u.user.public_id === post?.authorDetail.public_id && (
-                      <strong
-                        key={i}
-                        onClick={() => navigate(pathLinkProfile(u.pseudo))}
-                      >{`${post.authorDetail.first_name} ${post.authorDetail.last_name}`}</strong>
-                    )
-                )
-              ))}
-            {post &&
-              currentUser &&
-              (post?.authorDetail.public_id === currentUser?.user.public_id ? (
-                <span onClick={() => navigate(pathLinkProfile(currentUser.pseudo))}>
-                  @{currentUser?.pseudo}
-                </span>
-              ) : (
-                users?.map(
-                  (u, i) =>
-                    u.user.public_id === post?.authorDetail.public_id && (
-                      <span key={i} onClick={() => navigate(pathLinkProfile(u.pseudo))}>
-                        @{u.pseudo}
-                      </span>
-                    )
-                )
-              ))}
+            <Link to={pathLinkProfile(authorPost?.pseudo as string)}>
+              <strong>{`${authorPost?.user.first_name} ${authorPost?.user.last_name}`}</strong>
+            </Link>
+            <Link to={pathLinkProfile(authorPost?.pseudo as string)}>
+              <span>@{authorPost?.pseudo}</span>
+            </Link>
             <span>·</span>
             <span>{post?.created && dateParserCreated(post.created)}</span>
           </p>

@@ -1,4 +1,5 @@
 import * as Types from "@/actions/types";
+import { baseURL } from "@/config/axios";
 import { IPost, PostReducerType } from "@/models";
 
 const initialState: PostReducerType = null;
@@ -17,7 +18,8 @@ const postReducer = (state: PostReducerType = initialState, action: any): PostRe
       const updatePost = state?.slice()
       updatePost?.filter(post => {
         if (post.publicId === payload.publicId) {
-          return payload
+          post.body = payload.body
+          post.image = payload.image ? baseURL + payload.image : payload.image
         }
         return post
       })
