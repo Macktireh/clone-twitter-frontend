@@ -1,4 +1,5 @@
 /**********************************
+import { LIKE_OR_UNLIKE_POST_FAIL } from './types';
  * Types Action Authentication
  **/
 export const SIGNUP_SUCCESS: string = "SIGNUP_SUCCESS";
@@ -59,6 +60,9 @@ export const DELETE_POST_FAIL: string = "DELETE_POST_FAIL";
 
 export const LIKE_OR_UNLIKE_POST_SUCCESS: string = "LIKE_OR_UNLIKE_POST_SUCCESS";
 export const LIKE_OR_UNLIKE_POST_FAIL: string = "LIKE_OR_UNLIKE_POST_FAIL";
+
+export const GET_LIST_POSTS_LIKES_SUCCESS: string = "GET_LIST_POSTS_LIKES_SUCCESS";
+export const GET_LIST_POSTS_LIKES_FAIL: string = "GET_LIST_POSTS_LIKES_FAIL";
 
 
 /**********************************

@@ -9,7 +9,7 @@ import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
 import { IUserProfile, IPost } from "@/models";
 import { baseURL } from "@/config/axios";
 import { dateParserCreated } from "@/utils/dateParser";
-import { pathLinkProfile } from "@/utils/pathRoute";
+import { pathLinkPostDetail, pathLinkProfile } from "@/utils/pathRoute";
 
 type PropsType = {
   currentUser: IUserProfile | null;
@@ -33,34 +33,45 @@ const CardTweet: React.FC<PropsType> = ({ currentUser, post, users }) => {
 
   return (
     <div className="CardTweet">
-      <div className="click" onClick={() => navigate(`/${authorPost?.pseudo}/status/${post?.publicId}`)}></div>
+      <div
+        className="click"
+        onClick={() => navigate(pathLinkPostDetail(currentUser?.pseudo as string, post?.publicId as string))}
+      ></div>
       <div className="box-img">
-        <Tippy
-          content={<TooltipCardUser currentUser={authorPost} />}
-          interactive={true}
-          delay={0}
-          hideOnClick={false}
-          placement="top-end"
-        >
-          <div>
-            <Link to={pathLinkProfile(authorPost?.pseudo as string)}>
-              <img src={`${baseURL}${authorPost?.profilePicture}`} alt="" />
-            </Link>
-          </div>
-        </Tippy>
+        {!authorPost ? (
+          <div className="skeleton-anim"></div>
+        ) : (
+          <Tippy
+            content={<TooltipCardUser authorPost={authorPost} post={post} currentUser={currentUser} />}
+            interactive={true}
+            delay={0}
+            hideOnClick={false}
+            placement="top"
+          >
+            <div className="tooltip">
+              <Link to={pathLinkProfile(authorPost.pseudo)}>
+                <img src={`${baseURL}${authorPost.profilePicture}`} alt="" />
+              </Link>
+            </div>
+          </Tippy>
+        )}
       </div>
       <div className="post-main">
         <div className="post-header">
-          <p>
-            <Link to={pathLinkProfile(authorPost?.pseudo as string)}>
-              <strong>{`${authorPost?.user.first_name} ${authorPost?.user.last_name}`}</strong>
-            </Link>
-            <Link to={pathLinkProfile(authorPost?.pseudo as string)}>
-              <span>@{authorPost?.pseudo}</span>
-            </Link>
-            <span>·</span>
-            <span>{post?.created && dateParserCreated(post.created)}</span>
-          </p>
+          {!authorPost ? (
+            <div className="skeleton-anim"></div>
+          ) : (
+            <p>
+              <Link to={pathLinkProfile(authorPost.pseudo)}>
+                <strong>{`${authorPost.user.first_name} ${authorPost.user.last_name}`}</strong>
+              </Link>
+              <Link to={pathLinkProfile(authorPost.pseudo)}>
+                <span>@{authorPost.pseudo}</span>
+              </Link>
+              <span>·</span>
+              <span>{post?.created && dateParserCreated(post.created)}</span>
+            </p>
+          )}
           <Tippy
             content={<PopupPostOrCommentOptionCard type="post" post={post} currentUser={currentUser} />}
             interactive={true}
@@ -74,15 +85,30 @@ const CardTweet: React.FC<PropsType> = ({ currentUser, post, users }) => {
           </Tippy>
         </div>
         <div className="post-content">
-          {post?.body && (
-            <div className="post-text">
-              <p>{post?.body}</p>
-            </div>
-          )}
-          {post?.image && (
-            <div className="post-img">
-              <img src={post?.image} alt="" />
-            </div>
+          {post ? (
+            <>
+              {post.body && (
+                <div className="post-text">
+                  <p>{post.body}</p>
+                </div>
+              )}
+
+              {post.image && (
+                <div className="post-img">
+                  <img
+                    src={post.image.includes(baseURL as string) ? post.image : baseURL + post.image}
+                    alt=""
+                  />
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              <div className="skeleton-anim body"></div>
+              <div className="skeleton-anim body"></div>
+              <div className="skeleton-anim body"></div>
+              <div className="skeleton-anim image"></div>
+            </>
           )}
           <div className="post-footer">
             <div className="reply post-icon">

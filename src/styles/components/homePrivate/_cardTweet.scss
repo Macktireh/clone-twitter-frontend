@@ -12,7 +12,8 @@
     height: 100%;
     @include flex(row, center, flex-start);
     user-select: none;
-    img {
+    img,
+    .skeleton-anim {
       position: relative;
       z-index: 1;
       cursor: pointer;
@@ -31,6 +32,12 @@
     .post-header {
       width: 100%;
       @include flex(row, space-between, flex-start);
+
+      .skeleton-anim {
+        width: 75%;
+        height: 15px;
+        margin-top: 5px;
+      }
 
       p {
         width: 100%;
@@ -103,6 +110,26 @@
         }
       }
 
+      .body.skeleton-anim {
+        width: 60%;
+        height: 10px;
+        &:first-child {
+          margin-top: 2px;
+          width: 70%;
+        }
+        &:nth-child(2) {
+          width: 80%;
+        }
+      }
+
+      .image.skeleton-anim {
+        margin-top: 0.5rem;
+        width: 100%;
+        height: 300px;
+        border-radius: 15px;
+        border: 1px solid rgba($color: $color7, $alpha: 0.3);
+      }
+
       .post-footer {
         @include flex(row, flex-start, center);
         gap: 4em;
@@ -152,5 +179,16 @@
     height: 100%;
     z-index: 1;
     cursor: pointer;
+  }
+}
+
+.skeleton-anim {
+  background-color: rgba($color5, 0.6);
+  animation: skeleton 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes skeleton {
+  to {
+    opacity: 0.6;
   }
 }

@@ -14,20 +14,28 @@ import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import EditProfileProvider from "@/context/EditProfileProvider";
 import { IUserProfile, IPost, IRootState, IPropsRootStateType, TTabState } from "@/models";
 import { privateRoutes } from "@/routes/private.routes";
+import getListPostsLikesAction from "@/actions/post/getListPostsLikes.action";
 
 interface PropsType extends IPropsRootStateType {
-  currentUser: IUserProfile | null;
-  users: IUserProfile[] | null;
-  posts: IPost[] | null;
+  postsLikes: IPost[] | null;
   getAllUsersAction?: () => void;
   getAllPostAction?: () => void;
+  getListPostsLikesAction?: () => void;
 }
 
 const styleSpinnersLoding: React.CSSProperties = {
   width: "auto",
 };
 
-const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAction, getAllPostAction }) => {
+const Profile: React.FC<PropsType> = ({
+  currentUser,
+  users,
+  posts,
+  postsLikes,
+  getAllUsersAction,
+  getAllPostAction,
+  getListPostsLikesAction,
+}) => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [loadingPost, setLoadingPost] = React.useState<boolean>(true);
   const [activeTab, setActiveTab] = React.useState<number>(1);
@@ -50,6 +58,7 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
       (async () => {
         getAllUsersAction && getAllUsersAction();
         getAllPostAction && getAllPostAction();
+        getListPostsLikesAction && getListPostsLikesAction();
         flag.current = true;
       })();
     }
@@ -69,8 +78,19 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
         }
       }
     }
-    if (currentUser && users && posts) setLoadingPost(false);
-  }, [flag, pseudo, isCurrentUser, currentUser, users, posts, getAllPostAction, getAllUsersAction]);
+    if (currentUser && users && posts && postsLikes) setLoadingPost(false);
+  }, [
+    flag,
+    pseudo,
+    isCurrentUser,
+    currentUser,
+    users,
+    posts,
+    postsLikes,
+    getAllPostAction,
+    getAllUsersAction,
+    getListPostsLikesAction,
+  ]);
 
   if (isCurrentUser === "error") return <Navigate to="/error/404" />;
 
@@ -103,6 +123,7 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
             }
             users={users}
             posts={posts}
+            postsLikes={postsLikes}
             loadingPost={loadingPost}
             modalActiveState={{ modalActive, setModalActive }}
             tabState={tabState}
@@ -116,12 +137,14 @@ const Profile: React.FC<PropsType> = ({ currentUser, users, posts, getAllUsersAc
   );
 };
 
-const ProfileConnectWithStore: React.FC<PropsType> = ({
+const ProfileConnectWithStore: React.FC<any> = ({
   currentUser,
   users,
   posts,
+  postsLikes,
   getAllUsersAction,
   getAllPostAction,
+  getListPostsLikesAction,
 }) => {
   return (
     <Layout>
@@ -129,8 +152,10 @@ const ProfileConnectWithStore: React.FC<PropsType> = ({
         currentUser={currentUser}
         users={users}
         posts={posts}
+        postsLikes={postsLikes}
         getAllUsersAction={getAllUsersAction}
         getAllPostAction={getAllPostAction}
+        getListPostsLikesAction={getListPostsLikesAction}
       />
     </Layout>
   );
@@ -140,6 +165,9 @@ const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
   users: state.userReducer,
   posts: state.postReducer,
+  postsLikes: state.postLikesReducer,
 });
 
-export default connect(mapStateToProps, { getAllUsersAction, getAllPostAction })(ProfileConnectWithStore);
+export default connect(mapStateToProps, { getAllUsersAction, getAllPostAction, getListPostsLikesAction })(
+  ProfileConnectWithStore
+);

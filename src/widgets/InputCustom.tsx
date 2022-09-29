@@ -36,6 +36,7 @@ const InputCustom: React.FC<Props> = (props) => {
             }}
             required
             autoComplete="off"
+            maxLength={props.maxLength ? props.maxLength : ""}
             value={props.value}
           />
         ) : (

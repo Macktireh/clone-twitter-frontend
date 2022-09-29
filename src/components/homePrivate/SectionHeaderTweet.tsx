@@ -21,7 +21,7 @@ const SectionHeaderTweet: React.FC<Props> = ({ page, title, subtitle }) => {
 
   return (
     <div className="SectionHeaderTweet">
-      {(page === privateRoutes.lists.name || page === privateRoutes.profile.name) && (
+      {(page === privateRoutes.lists.name || page === privateRoutes.profile.name || page === privateRoutes.postDetails.name) && (
         <div className="left">
           <Link to={privateRoutes.home.path}>
             <IconSVG iconName="back" />

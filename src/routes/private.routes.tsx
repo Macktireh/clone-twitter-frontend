@@ -6,7 +6,8 @@ import Lists from "@/pages/private/Lists";
 import Messages from "@/pages/private/Messages";
 import Notifications from "@/pages/private/Notifications";
 import Profile from "@/pages/private/Profile";
-import { pathLinkProfile } from "@/utils/pathRoute";
+import { pathLinkPostDetail, pathLinkProfile } from "@/utils/pathRoute";
+import PostDetails from "@/pages/private/PostDetails";
 
 export const privateRoutes = {
   home: {
@@ -45,6 +46,12 @@ export const privateRoutes = {
     title: "profile | Clone Twitter",
     name: "profile",
   },
+  postDetails: {
+    path: pathLinkPostDetail(":pseudo", ":postPublicId"),
+    pathStatic: "/",
+    title: "post details | Clone Twitter",
+    name: "postDetails",
+  },
 };
 
 export const privateRoutesList: TRoutesList[] = [
@@ -55,4 +62,5 @@ export const privateRoutesList: TRoutesList[] = [
   { path: privateRoutes.bookmarks.path, element: <Bookmarks /> },
   { path: privateRoutes.lists.path, element: <Lists /> },
   { path: privateRoutes.profile.path, element: <Profile /> },
+  { path: privateRoutes.postDetails.path, element: <PostDetails /> },
 ];

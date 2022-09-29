@@ -3,7 +3,7 @@ import { AnyAction, Dispatch } from "redux";
 import Axios from "@/config/axios";
 import * as Api from "@/config/api";
 import * as Types from "@/actions/types";
-import checkAuthenticatedAction from "../auth/checkAuthenticated.action";
+import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
 import { AxiosError } from "axios";
 
 const deletePostAction = (public_id: string) => async (dispatch: Dispatch<AnyAction> | any) => {

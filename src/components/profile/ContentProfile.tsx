@@ -17,6 +17,7 @@ type PropsType = {
   userProfile: IUserProfile | null;
   users: IUserProfile[] | null;
   posts: IPost[] | null;
+  postsLikes: IPost[] | null;
   loadingPost: boolean;
   modalActiveState: { modalActive: boolean; setModalActive(value: boolean): void };
   tabState: TTabState[];
@@ -32,6 +33,7 @@ const ContentProfile: React.FC<PropsType> = ({
   userProfile,
   users,
   posts,
+  postsLikes,
   loadingPost,
   modalActiveState,
   tabState,
@@ -125,13 +127,8 @@ const ContentProfile: React.FC<PropsType> = ({
               {loadingPost ? (
                 <SpinnersLoding isLoading={loadingPost} styleSpinnersLoding={styleSpinnersLoding} />
               ) : (
-                posts
-                  ?.filter((post) =>
-                    post.liked.filter((like) =>
-                      like.public_id === userProfile?.user.public_id ? true : false
-                    )
-                  )
-                  .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
+                postsLikes
+                  ?.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
                   .map((post) => (
                     <div className="list-post" key={post.publicId}>
                       <CardTweet key={post.publicId} currentUser={userProfile} post={post} users={users} />

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import IconSVG from "@/widgets/IconSVG";
 import { IUserProfile, IPost } from "@/models";
 import likePostAction from "@/actions/post/likePost.action";
+import getListPostsLikesAction from "@/actions/post/getListPostsLikes.action";
 
 type PropsType = {
   currentUser: IUserProfile | null;
@@ -12,27 +13,30 @@ type PropsType = {
 };
 
 const LikePostButton: React.FC<PropsType> = ({ currentUser, post }) => {
-  const [isLiked, setIsLked] = React.useState(false);
   const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    if (currentUser && post)
-      post.liked.map((like) =>
-        like.public_id === currentUser.user.public_id ? setIsLked(true) : setIsLked(false)
-      );
-  }, [currentUser, post]);
 
   const handlLiked = async () => {
     if (currentUser && post) {
-      await dispatch(likePostAction(post.publicId as string) as any);
-      setIsLked(!isLiked);
+      await dispatch(likePostAction(post.publicId) as any);
+      await dispatch(getListPostsLikesAction() as any);
     }
+  };
+
+  const defIsLked = (): number => {
+    if (currentUser && post) {
+      return post.liked.filter((like) => like.public_id === currentUser.user.public_id).length;
+    }
+    return 0;
   };
 
   return (
     <div className="like-unLike post-icon" onClick={() => handlLiked()}>
-      {isLiked ? <IconSVG iconName="like" fill="#F91880" /> : <IconSVG iconName="unLike" fill="#919090" />}
-      <span className={isLiked ? "like" : ""}>{post?.liked.length}</span>
+      {defIsLked() > 0 ? (
+        <IconSVG iconName="like" fill="#F91880" />
+      ) : (
+        <IconSVG iconName="unLike" fill="#919090" />
+      )}
+      <span className={defIsLked() > 0 ? "like" : ""}>{post?.liked.length}</span>
     </div>
   );
 };

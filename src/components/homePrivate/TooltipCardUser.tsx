@@ -1,42 +1,48 @@
 import React from "react";
 
-import { IUserProfile } from "@/models";
 import ButtonCustom from "@/widgets/ButtonCustom";
+import { IPost, IUserProfile } from "@/models";
 import { baseURL } from "@/config/axios";
 import { Link } from "react-router-dom";
 import { pathLinkProfile } from "@/utils/pathRoute";
 // import { useDispatch } from "react-redux";
 
 type PropsType = React.PropsWithChildren<{
-  currentUser?: IUserProfile | null;
+  currentUser: IUserProfile | null;
+  authorPost: IUserProfile | null;
+  post: IPost | null;
   dispatch?: any;
 }>;
 
-const TooltipCardUser: React.FC<PropsType> = ({ currentUser, dispatch }) => {
-  const handleFollowing = () => {};
+const TooltipCardUser: React.FC<PropsType> = ({ authorPost, post, currentUser, dispatch }) => {
+  const handleFollowing = () => {
+    console.log(authorPost?.user.public_id !== currentUser?.user.public_id)
+  };
   return (
     <div className="TooltipCardUser">
       <div className="content">
         <div className="tooltip-header">
-          <Link to={pathLinkProfile(currentUser?.pseudo as string)}>
+          <Link to={pathLinkProfile(authorPost?.pseudo as string)}>
             <img
-              src={baseURL + (currentUser?.profilePicture as string)}
-              alt={`profile of ${currentUser?.pseudo}`}
+              src={baseURL + (authorPost?.profilePicture as string)}
+              alt={`profile of ${authorPost?.pseudo}`}
             />
           </Link>
-          <ButtonCustom text="Following" handleClick={handleFollowing} />
+          {authorPost?.user.public_id !== currentUser?.user.public_id && (
+            <ButtonCustom text="Following" handleClick={handleFollowing} />
+          )}
         </div>
         <div className="username">
-          <Link to={pathLinkProfile(currentUser?.pseudo as string)}>
+          <Link to={pathLinkProfile(authorPost?.pseudo as string)}>
             <strong>
-              {currentUser?.user.first_name} {currentUser?.user.last_name}
+              {authorPost?.user.first_name} {authorPost?.user.last_name}
             </strong>
           </Link>
-          <Link to={pathLinkProfile(currentUser?.pseudo as string)}>
-            <span>@{currentUser?.pseudo}</span>
+          <Link to={pathLinkProfile(authorPost?.pseudo as string)}>
+            <span>@{authorPost?.pseudo}</span>
           </Link>
         </div>
-        <p className="bio">{currentUser?.bio}</p>
+        <p className="bio">{authorPost?.bio}</p>
         <div className="follow">
           <span>
             <strong>834</strong> Following
