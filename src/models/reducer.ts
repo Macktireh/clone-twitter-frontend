@@ -6,14 +6,14 @@ export interface IAuthReducer {
   currentUser: IUserProfile | null;
 }
 
-export type IUsersReducerType = IUserProfile[] | null;
+export type TUsersReducerType = IUserProfile[] | null;
 
-export type PostReducerType = IPost[] | null;
+export type TPostReducerType = IPost[] | null;
 
 export interface IRootState {
   authReducer: IAuthReducer;
-  postReducer: PostReducerType;
-  userReducer: IUsersReducerType;
+  postReducer: TPostReducerType;
+  userReducer: TUsersReducerType;
 }
 
 export interface IActionReducer {
@@ -21,7 +21,7 @@ export interface IActionReducer {
   payload?: any;
 }
 
-export interface PropsRootStateType {
+export interface IPropsRootStateType {
   currentUser: IUserProfile | null;
   posts: IPost[] | null;
   users: IUserProfile[] | null;

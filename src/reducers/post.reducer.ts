@@ -1,10 +1,10 @@
 import * as Types from "@/actions/types";
 import { baseURL } from "@/config/axios";
-import { IPost, PostReducerType } from "@/models";
+import { IPost, TPostReducerType } from "@/models";
 
-const initialState: PostReducerType = null;
+const initialState: TPostReducerType = null;
 
-const postReducer = (state: PostReducerType = initialState, action: any): PostReducerType => {
+const postReducer = (state: TPostReducerType = initialState, action: any): TPostReducerType => {
   const { type, payload } = action;
 
   switch (type) {
@@ -15,14 +15,14 @@ const postReducer = (state: PostReducerType = initialState, action: any): PostRe
       return [...(state as IPost[]), payload];
 
     case Types.UPDATE_POST_SUCCESS:
-      const updatePost = state?.slice()
-      updatePost?.filter(post => {
+      const updatePost = state?.slice();
+      updatePost?.filter((post) => {
         if (post.publicId === payload.publicId) {
-          post.body = payload.body
-          post.image = payload.image ? baseURL + payload.image : payload.image
+          post.body = payload.body;
+          post.image = payload.image ? baseURL + payload.image : payload.image;
         }
-        return post
-      })
+        return post;
+      });
       return updatePost as IPost[];
 
     case Types.DELETE_POST_SUCCESS:

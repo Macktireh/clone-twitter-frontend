@@ -1,9 +1,9 @@
 import * as Types from "@/actions/types";
-import { IActionReducer, IUsersReducerType } from "@/models";
+import { IActionReducer, TUsersReducerType } from "@/models";
 
-const initialState: IUsersReducerType = null;
+const initialState: TUsersReducerType = null;
 
-const userReducer = (state: IUsersReducerType = initialState, action: IActionReducer): IUsersReducerType => {
+const userReducer = (state: TUsersReducerType = initialState, action: IActionReducer): TUsersReducerType => {
   const { type, payload } = action;
 
   switch (type) {

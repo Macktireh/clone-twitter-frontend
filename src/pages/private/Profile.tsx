@@ -12,10 +12,10 @@ import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import EditProfileProvider from "@/context/EditProfileProvider";
-import { IUserProfile, IPost, IRootState, PropsRootStateType, TTabState } from "@/models";
+import { IUserProfile, IPost, IRootState, IPropsRootStateType, TTabState } from "@/models";
 import { privateRoutes } from "@/routes/private.routes";
 
-interface PropsType extends PropsRootStateType {
+interface PropsType extends IPropsRootStateType {
   currentUser: IUserProfile | null;
   users: IUserProfile[] | null;
   posts: IPost[] | null;

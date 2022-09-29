@@ -11,9 +11,9 @@ import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import { privateRoutes } from "@/routes/private.routes";
-import { IRootState, PropsRootStateType } from "@/models";
+import { IRootState, IPropsRootStateType } from "@/models";
 
-interface PropsType extends PropsRootStateType {
+interface PropsType extends IPropsRootStateType {
   getAllPostAction?: any;
   getAllUsersAction?: any;
 }

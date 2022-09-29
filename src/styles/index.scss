@@ -3,48 +3,48 @@
 @import "./settings/mixin";
 @import "./settings/settings";
 
-// Style Component Auth
+// Component Auth
 @import "./components/auth/popupLogout";
 
-// Style Component navbar
+// Component navbar
 @import "./components/navbar/userCard";
 @import "./components/navbar/navbar";
 
-// Style Component HomePrivate
+// Component HomePrivate
 @import "./components/homePrivate/sectionHeaderTweet";
 @import "./components/homePrivate/addNewPost";
 @import "./components/homePrivate/cardTweet";
 @import "./components/homePrivate/popupPostOrCommentOptionCard";
 @import "./components/homePrivate/tooltipCardUser";
 
-// Style Component Profile
+// Component Profile
 @import "./components/profile/edidProfile";
 
-// Style Component aside
+// Component aside
 @import "./components/aside/trending";
 @import "./components/aside/follow";
 
-// Style Widgets
+// Widgets
 @import "./widgets/buttonCustom";
 @import "./widgets/inputCustom";
 @import "./widgets/inputSearch";
 @import "./widgets/navTabs";
 @import "./widgets/modalOrPopup";
 
-// Style Page Public Component
+// Page Public Component
 @import "./pages/public/homePublic";
 @import "./pages/auth/auth";
+@import "./pages/error/error404";
 
-// Style Layaout Private Component
+// Layaout Private Component
 @import "./layout/layout";
 
-// Style Page Private Component
+// Page Private Component
 @import "./pages/private/homePrivate";
 @import "./pages/private/Notifications";
 @import "./pages/private/messages";
 @import "./pages/private/bookmarks";
 @import "./pages/private/profile";
-@import "./pages/error/error404";
 
 // Class utils
 @import "./settings/utils";
