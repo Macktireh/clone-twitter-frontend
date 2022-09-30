@@ -11,9 +11,9 @@ import { privateRoutes } from "@/routes/private.routes";
 import { IUserProfile, IRootState } from "@/models";
 import { pathLinkProfile } from "@/utils/pathRoute";
 
-type TcurrentUser = { currentUser: IUserProfile | null };
+type propsTypes = { currentUser: IUserProfile | null };
 
-const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
+const Navbar: React.FC<propsTypes> = ({ currentUser }) => {
   const [active, setActive] = React.useState("");
 
   const handleActive = (active: string): string => {
@@ -25,12 +25,13 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
     <nav className="nav">
       <div className="nav-content">
         <div className="nav-logo">
-          <NavLink to={privateRoutes.home.path}>
+          <NavLink end to={privateRoutes.home.path}>
             <img src="/static/svg/twitter.svg" alt="logo" />
           </NavLink>
         </div>
         <div className="nav__list">
           <NavLink
+            end
             to={privateRoutes.home.path}
             className={(nav) => (nav.isActive ? handleActive("home") : "nav-link")}
           >
@@ -39,6 +40,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
           </NavLink>
 
           <NavLink
+            end
             to={privateRoutes.explore.path}
             className={(nav) => (nav.isActive ? handleActive("explore") : "nav-link")}
           >
@@ -48,6 +50,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
           </NavLink>
 
           <NavLink
+            end
             to={privateRoutes.notifications.path}
             className={(nav) => (nav.isActive ? handleActive("notification") : "nav-link")}
           >
@@ -56,6 +59,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
           </NavLink>
 
           <NavLink
+            end
             to={privateRoutes.messages.path}
             className={(nav) => (nav.isActive ? handleActive("message") : "nav-link")}
           >
@@ -64,6 +68,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
           </NavLink>
 
           <NavLink
+            end
             to={privateRoutes.bookmarks.path}
             className={(nav) => (nav.isActive ? handleActive("bookmark") : "nav-link")}
           >
@@ -72,6 +77,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
           </NavLink>
 
           <NavLink
+            end
             to={privateRoutes.lists.path}
             className={(nav) => (nav.isActive ? handleActive("list") : "nav-link")}
           >
@@ -80,6 +86,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
           </NavLink>
 
           <NavLink
+            end
             to={currentUser ? pathLinkProfile(currentUser.pseudo) : ""}
             className={(nav) => (nav.isActive ? handleActive("profile") : "nav-link")}
           >
@@ -113,7 +120,7 @@ const Navbar: React.FC<TcurrentUser> = ({ currentUser }) => {
   );
 };
 
-const NavbarConnectWithStore: React.FC<any> = ({ currentUser }) => {
+const NavbarConnectWithStore: React.FC<propsTypes> = ({ currentUser }) => {
   return (
     <>
       <Navbar currentUser={currentUser} />

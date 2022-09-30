@@ -7,9 +7,9 @@ import { connect } from "react-redux";
 import { IUserProfile, IRootState } from "@/models";
 import Aside from "@/components/aside/Aside";
 
-type Props = { currentUser: IUserProfile | null };
+type propsTypes = { currentUser: IUserProfile | null };
 
-const Lists: React.FC<Props> = () => {
+const Lists: React.FC<propsTypes> = () => {
   return (
     <>
       <main className="main">
@@ -25,7 +25,7 @@ const Lists: React.FC<Props> = () => {
   );
 };
 
-const ListsConnectWithStore: React.FC<Props> = ({ currentUser }) => {
+const ListsConnectWithStore: React.FC<propsTypes> = ({ currentUser }) => {
   return (
     <Layout>
       <Lists currentUser={currentUser} />

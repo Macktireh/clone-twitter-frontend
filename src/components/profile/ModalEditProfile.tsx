@@ -5,7 +5,7 @@ import { useEditProfile } from "@/context/EditProfileProvider";
 import { IUserProfile, IEditUserData, pictureType } from "@/models";
 import Popup from "../../widgets/Popup";
 
-type PropsType = React.PropsWithChildren<{
+type propsTypes = React.PropsWithChildren<{
   modalActive: boolean;
   titleModal?: string;
   textBtnModal?: string;
@@ -13,7 +13,7 @@ type PropsType = React.PropsWithChildren<{
   currentUser?: IUserProfile | null;
 }>;
 
-const ModalEditProfile: React.FC<PropsType> = ({
+const ModalEditProfile: React.FC<propsTypes> = ({
   children,
   modalActive,
   titleModal,

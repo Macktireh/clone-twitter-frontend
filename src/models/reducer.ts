@@ -15,6 +15,7 @@ export interface IRootState {
   postReducer: TPostReducerType;
   userReducer: TUsersReducerType;
   postLikesReducer: TPostReducerType;
+  postDetailsReducer: IPost;
 }
 
 export interface IActionReducer {

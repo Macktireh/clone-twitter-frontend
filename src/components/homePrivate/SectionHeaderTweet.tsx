@@ -5,9 +5,9 @@ import { privateRoutes } from "@/routes/private.routes";
 import { Link } from "react-router-dom";
 import InputSearch from "@/widgets/InputSearch";
 
-type Props = { page: string; title: string; subtitle?: string };
+type propsTypes = { page: string; title: string; subtitle?: string };
 
-const SectionHeaderTweet: React.FC<Props> = ({ page, title, subtitle }) => {
+const SectionHeaderTweet: React.FC<propsTypes> = ({ page, title, subtitle }) => {
   const showIcon = (page: string): JSX.Element[] | undefined => {
     if (page === privateRoutes.home.name) return [<IconSVG iconName="etoil" />];
     else if (page === privateRoutes.explore.name) return [<IconSVG iconName="settings" />];
@@ -21,7 +21,9 @@ const SectionHeaderTweet: React.FC<Props> = ({ page, title, subtitle }) => {
 
   return (
     <div className="SectionHeaderTweet">
-      {(page === privateRoutes.lists.name || page === privateRoutes.profile.name || page === privateRoutes.postDetails.name) && (
+      {(page === privateRoutes.lists.name ||
+        page === privateRoutes.profile.name ||
+        page === privateRoutes.postDetails.name) && (
         <div className="left">
           <Link to={privateRoutes.home.path}>
             <IconSVG iconName="back" />
@@ -41,7 +43,14 @@ const SectionHeaderTweet: React.FC<Props> = ({ page, title, subtitle }) => {
         )}
       </div>
       <div className="right">
-        {showIcon(page)?.map((icon, index) => icon && <div key={index} className="icon-container">{icon}</div>)}
+        {showIcon(page)?.map(
+          (icon, index) =>
+            icon && (
+              <div key={index} className="icon-container">
+                {icon}
+              </div>
+            )
+        )}
       </div>
     </div>
   );

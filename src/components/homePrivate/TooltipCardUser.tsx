@@ -1,22 +1,21 @@
 import React from "react";
 
 import ButtonCustom from "@/widgets/ButtonCustom";
-import { IPost, IUserProfile } from "@/models";
+import { IUserProfile } from "@/models";
 import { baseURL } from "@/config/axios";
 import { Link } from "react-router-dom";
 import { pathLinkProfile } from "@/utils/pathRoute";
 // import { useDispatch } from "react-redux";
 
-type PropsType = React.PropsWithChildren<{
+type propsTypes = React.PropsWithChildren<{
   currentUser: IUserProfile | null;
   authorPost: IUserProfile | null;
-  post: IPost | null;
   dispatch?: any;
 }>;
 
-const TooltipCardUser: React.FC<PropsType> = ({ authorPost, post, currentUser, dispatch }) => {
+const TooltipCardUser: React.FC<propsTypes> = ({ authorPost, currentUser, dispatch }) => {
   const handleFollowing = () => {
-    console.log(authorPost?.user.public_id !== currentUser?.user.public_id)
+    console.log(authorPost?.user.public_id !== currentUser?.user.public_id);
   };
   return (
     <div className="TooltipCardUser">

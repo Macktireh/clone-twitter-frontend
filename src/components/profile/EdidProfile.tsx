@@ -6,11 +6,11 @@ import IconSVG from "@/widgets/IconSVG";
 import { useEditProfile } from "@/context/EditProfileProvider";
 import InputCustom from "@/widgets/InputCustom";
 
-type PropsType = {
+type propsTypes = {
   currentUser: IUserProfile | null;
 };
 
-const EdidProfile: React.FC<PropsType> = ({ currentUser }) => {
+const EdidProfile: React.FC<propsTypes> = ({ currentUser }) => {
   const propsContext = useEditProfile();
   const [profilePicturePreview, setProfilePicturePreview] = React.useState<string | null>();
   const [coverPicturePreview, setCoverPicturePreview] = React.useState<string | null>();

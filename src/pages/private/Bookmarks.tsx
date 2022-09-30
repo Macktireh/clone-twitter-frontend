@@ -7,9 +7,9 @@ import { connect } from "react-redux";
 import { IUserProfile, IRootState } from "@/models";
 import Aside from "@/components/aside/Aside";
 
-type Props = { currentUser: IUserProfile | null };
+type propsTypes = { currentUser: IUserProfile | null };
 
-const Bookmarks: React.FC<Props> = ({ currentUser }) => {
+const Bookmarks: React.FC<propsTypes> = ({ currentUser }) => {
   React.useEffect(() => {
     document.title = privateRoutes.bookmarks.title;
 
@@ -47,7 +47,7 @@ const Bookmarks: React.FC<Props> = ({ currentUser }) => {
   );
 };
 
-const BookmarksConnectWithStore: React.FC<Props> = ({ currentUser }) => {
+const BookmarksConnectWithStore: React.FC<propsTypes> = ({ currentUser }) => {
   return (
     <Layout>
       <Bookmarks currentUser={currentUser} />

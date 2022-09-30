@@ -1,6 +1,6 @@
 import React from "react";
 
-interface Props {
+interface propsTypes {
   id?: string;
   name?: string;
   nameClass?: string;
@@ -14,7 +14,7 @@ interface Props {
   textarea?: boolean;
 }
 
-const InputCustom: React.FC<Props> = (props) => {
+const InputCustom: React.FC<propsTypes> = (props) => {
   const [len, setLen] = React.useState(0);
   const [showValue, setShowValue] = React.useState(props.type || "text");
 

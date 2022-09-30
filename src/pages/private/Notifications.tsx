@@ -9,9 +9,9 @@ import { connect } from "react-redux";
 import { IUserProfile, IRootState, TTabState } from "@/models";
 import CardNotif from "@/components/notification/CardNotif";
 
-type PropsType = { currentUser: IUserProfile | null };
+type propsTypes = { currentUser: IUserProfile | null };
 
-const Notifications: React.FC<PropsType> = () => {
+const Notifications: React.FC<propsTypes> = () => {
   const tabState: TTabState[] = [
     { id: 1, title: "All", grow: false },
     { id: 2, title: "Montions", grow: false },
@@ -60,7 +60,7 @@ const Notifications: React.FC<PropsType> = () => {
   );
 };
 
-const NotificationsConnectWithStore: React.FC<PropsType> = ({ currentUser }) => {
+const NotificationsConnectWithStore: React.FC<propsTypes> = ({ currentUser }) => {
   return (
     <Layout>
       <Notifications currentUser={currentUser} />

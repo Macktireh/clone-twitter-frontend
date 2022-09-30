@@ -1,3 +1,8 @@
+export const dateParserCustom = (date: Date, dict: any) => {
+  return new Date(date).toLocaleDateString("en-US", dict);
+  // return newDate.replace(',', '');
+};
+
 export const dateParserCreated = (date: Date) => {
   let newDate = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",

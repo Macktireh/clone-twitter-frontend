@@ -13,7 +13,7 @@ import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import { privateRoutes } from "@/routes/private.routes";
 import { IRootState, IPropsRootStateType } from "@/models";
 
-interface PropsType extends IPropsRootStateType {
+interface propsTypes extends IPropsRootStateType {
   getAllPostAction?: any;
   getAllUsersAction?: any;
 }
@@ -22,7 +22,7 @@ const styleSpinnersLoding: React.CSSProperties = {
   top: "20%",
 };
 
-const HomePrivate: React.FC<PropsType> = ({
+const HomePrivate: React.FC<propsTypes> = ({
   currentUser,
   users,
   posts,
@@ -74,7 +74,7 @@ const HomePrivate: React.FC<PropsType> = ({
   );
 };
 
-const HomePrivateConnectWithStore: React.FC<PropsType> = ({
+const HomePrivateConnectWithStore: React.FC<propsTypes> = ({
   currentUser,
   users,
   posts,

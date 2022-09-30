@@ -3,12 +3,12 @@ import React from "react";
 import { IUserProfile } from "@/models";
 import { baseURL } from "@/config/axios";
 
-type PropsType = React.PropsWithChildren<{
+type propsTypes = React.PropsWithChildren<{
   nameClass?: string;
   currentUser?: IUserProfile | null;
 }>;
 
-const UserCard: React.FC<PropsType> = ({ children, nameClass, currentUser }) => {
+const UserCard: React.FC<propsTypes> = ({ children, nameClass, currentUser }) => {
   return (
     <div className={nameClass ? `UserCard ${nameClass}` : "UserCard"}>
       <div className="img-and-name">

@@ -12,7 +12,7 @@ import { baseURL } from "@/config/axios";
 import { IUserProfile, IPost, TTabState } from "@/models";
 import { dateParserJoined } from "@/utils/dateParser";
 
-type PropsType = {
+type propsTypes = {
   isCurrentUser: boolean;
   userProfile: IUserProfile | null;
   users: IUserProfile[] | null;
@@ -28,7 +28,7 @@ const styleSpinnersLoding: React.CSSProperties = {
   transform: `translate(-50%)`,
 };
 
-const ContentProfile: React.FC<PropsType> = ({
+const ContentProfile: React.FC<propsTypes> = ({
   isCurrentUser,
   userProfile,
   users,

@@ -16,7 +16,7 @@ import { IUserProfile, IPost, IRootState, IPropsRootStateType, TTabState } from 
 import { privateRoutes } from "@/routes/private.routes";
 import getListPostsLikesAction from "@/actions/post/getListPostsLikes.action";
 
-interface PropsType extends IPropsRootStateType {
+interface propsTypes extends IPropsRootStateType {
   postsLikes: IPost[] | null;
   getAllUsersAction?: () => void;
   getAllPostAction?: () => void;
@@ -27,7 +27,7 @@ const styleSpinnersLoding: React.CSSProperties = {
   width: "auto",
 };
 
-const Profile: React.FC<PropsType> = ({
+const Profile: React.FC<propsTypes> = ({
   currentUser,
   users,
   posts,
@@ -122,7 +122,7 @@ const Profile: React.FC<PropsType> = ({
               isCurrentUser === "yes" ? (currentUser as IUserProfile) : (anotherUser as IUserProfile)
             }
             users={users}
-            posts={posts}
+            posts={posts as IPost[]}
             postsLikes={postsLikes}
             loadingPost={loadingPost}
             modalActiveState={{ modalActive, setModalActive }}

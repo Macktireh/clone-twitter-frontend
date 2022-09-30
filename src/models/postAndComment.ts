@@ -13,7 +13,7 @@ export interface IPost {
 }
 
 export interface IComment {
-  commentPublicId: string;
+  publicId: string;
   authorDetail: IUser;
   message: string;
   image: string;

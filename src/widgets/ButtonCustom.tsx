@@ -1,6 +1,6 @@
 import React from "react";
 
-interface Props {
+interface propsTypes {
   nameClass?: string;
   handleClick?: any;
   pic?: string;
@@ -8,7 +8,7 @@ interface Props {
   isDisabled?: boolean;
 }
 
-const ButtonCustom: React.FC<Props> = (props) => {
+const ButtonCustom: React.FC<propsTypes> = (props) => {
   return (
     <button
       className={props.nameClass ? `button ${props.nameClass}` : "button"}

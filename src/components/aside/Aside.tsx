@@ -6,9 +6,9 @@ import Follow from "./Follow";
 import FooterPrivate from "./FooterPrivate";
 import { privateRoutes } from "@/routes/private.routes";
 
-type Props = { page: string };
+type propsTypes = { page: string };
 
-const Aside: React.FC<Props> = ({ page }) => {
+const Aside: React.FC<propsTypes> = ({ page }) => {
   const renderTrendOrFollowing = (render: string): JSX.Element | undefined => {
     if (render === "Follow") {
       return (

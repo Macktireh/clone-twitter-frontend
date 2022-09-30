@@ -7,9 +7,9 @@ import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
 import { IUserProfile, IRootState } from "@/models";
 
-type Props = { currentUser: IUserProfile | null };
+type propsTypes = { currentUser: IUserProfile | null };
 
-const Explore: React.FC<Props> = () => {
+const Explore: React.FC<propsTypes> = () => {
   return (
     <>
       <main className="main">
@@ -25,7 +25,7 @@ const Explore: React.FC<Props> = () => {
   );
 };
 
-const ExploreConnectWithStore: React.FC<Props> = ({ currentUser }) => {
+const ExploreConnectWithStore: React.FC<propsTypes> = ({ currentUser }) => {
   return (
     <Layout>
       <Explore currentUser={currentUser} />

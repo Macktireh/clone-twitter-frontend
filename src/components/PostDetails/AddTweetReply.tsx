@@ -32,7 +32,7 @@ type propsTypes = {
   resetImage: () => void;
 };
 
-const AddNewPost: React.FC<propsTypes> = ({
+const AddTweetReply: React.FC<propsTypes> = ({
   nameClass,
   currentUser,
   bodyState,
@@ -84,7 +84,7 @@ const AddNewPost: React.FC<propsTypes> = ({
         <div className="textarea-image">
           <textarea
             id={nameClass}
-            placeholder="What's happening?"
+            placeholder="Tweet your reply"
             value={isEditState.isEditing ? editBody : body}
             onChange={(e) => (isEditState.isEditing ? setEditBody(e.target.value) : setBody(e.target.value))}
           />
@@ -124,7 +124,7 @@ const AddNewPost: React.FC<propsTypes> = ({
           </div>
           <div className="box-btn">
             <ButtonCoustom
-              text="Tweet"
+              text="Reply"
               isDisabled={
                 isEditState.isEditing ? (editBody || editImage ? false : true) : body || image ? false : true
               }
@@ -141,7 +141,7 @@ const AddNewPost: React.FC<propsTypes> = ({
 
 type PropsLogicalType = { nameClass: string };
 
-const AddNewPostLogical: React.FC<PropsLogicalType> = ({ nameClass }) => {
+const AddTweetReplyLogical: React.FC<PropsLogicalType> = ({ nameClass }) => {
   const propsContext = useTweet();
   const currentUser = propsContext?.currentUser as IUserProfile;
   const bodyState = propsContext?.bodyState as bodyStateType;
@@ -159,7 +159,7 @@ const AddNewPostLogical: React.FC<PropsLogicalType> = ({ nameClass }) => {
   const resetImage = propsContext?.resetImage as () => void;
 
   return (
-    <AddNewPost
+    <AddTweetReply
       nameClass={nameClass}
       currentUser={currentUser}
       bodyState={bodyState}
@@ -176,4 +176,4 @@ const AddNewPostLogical: React.FC<PropsLogicalType> = ({ nameClass }) => {
   );
 };
 
-export default AddNewPostLogical;
+export default AddTweetReplyLogical;

@@ -1,36 +1,35 @@
 import React from "react";
 
 import IconSVG from "@/widgets/IconSVG";
-import { IUserProfile, IPost } from "@/models";
+import { IUserProfile, IPost, IComment } from "@/models";
 import { useTweet } from "@/context/TweetProvider";
 
-type PropsType = {
+type propsTypes = {
   type: string;
   currentUser: IUserProfile | null;
-  post: IPost | null;
+  post: IPost | IComment | null;
 };
 
-const PopupPostOrCommentOptionCard: React.FC<PropsType> = ({ type, currentUser, post }) => {
+const PopupPostOrCommentOptionCard: React.FC<propsTypes> = ({ type, currentUser, post }) => {
   const propsContext = useTweet();
 
   const handleEditing = async (public_id: string) => {
     if (propsContext) {
-      propsContext.publicIdState.setPublicId(public_id)
-      propsContext.isEditState.setIsEditing()
-      propsContext.modal.setModalActive()
+      propsContext.publicIdState.setPublicId(public_id);
+      propsContext.isEditState.setIsEditing();
+      propsContext.modal.setModalActive();
     }
   };
 
   const handleConfirmDelete = async (public_id: string) => {
     if (propsContext) {
-      propsContext.publicIdState.setPublicId(public_id)
-      propsContext.popupDelete.setPopupActiveDelete()
+      propsContext.publicIdState.setPublicId(public_id);
+      propsContext.popupDelete.setPopupActiveDelete();
     }
   };
 
   const rederElement = (): JSX.Element | null => {
     if (currentUser && post) {
-      if (type === "post") {
         if (post.authorDetail.public_id === currentUser.user.public_id) {
           return (
             <>
@@ -98,7 +97,6 @@ const PopupPostOrCommentOptionCard: React.FC<PropsType> = ({ type, currentUser, 
             </>
           );
         }
-      }
     }
     return null;
   };

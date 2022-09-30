@@ -2,7 +2,7 @@ import React from "react";
 
 import ButtonCustom from "@/widgets/ButtonCustom";
 
-type PropsType = React.PropsWithChildren<{
+type propsTypes = React.PropsWithChildren<{
   popupActive: boolean | null;
   popupTitle?: string;
   popupDetail?: string;
@@ -11,7 +11,7 @@ type PropsType = React.PropsWithChildren<{
   handleClose: () => void | null;
 }>;
 
-const Popup: React.FC<PropsType> = ({
+const Popup: React.FC<propsTypes> = ({
   // children,
   popupActive,
   popupTitle,
@@ -21,7 +21,7 @@ const Popup: React.FC<PropsType> = ({
   handleClose,
 }) => {
   return (
-    <div className="popup"  style={{ display: popupActive ? "block" : "none" }}>
+    <div className="popup" style={{ display: popupActive ? "block" : "none" }}>
       <div className="closed" onClick={() => handleClose && handleClose()}></div>
       <div className="popup-container">
         <h2>{popupTitle}</h2>

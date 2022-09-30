@@ -2,13 +2,13 @@ import React from "react";
 
 import { TTabState } from "@/models";
 
-type Props = {
+type propsTypes = {
   listTabs: TTabState[];
   activeTab: number;
   toggleTab: (id: number) => void;
 };
 
-const NavTabs: React.FC<Props> = ({ listTabs, activeTab, toggleTab }) => {
+const NavTabs: React.FC<propsTypes> = ({ listTabs, activeTab, toggleTab }) => {
   return (
     <div className="NavTabs">
       {listTabs.map((tab) => (

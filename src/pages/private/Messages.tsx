@@ -7,9 +7,9 @@ import { connect } from "react-redux";
 import { IUserProfile, IRootState } from "@/models";
 import ButtonCustom from "@/widgets/ButtonCustom";
 
-type Props = { currentUser: IUserProfile | null };
+type propsTypes = { currentUser: IUserProfile | null };
 
-const Messages: React.FC<Props> = () => {
+const Messages: React.FC<propsTypes> = () => {
   React.useEffect(() => {
     document.title = privateRoutes.messages.title;
 
@@ -51,7 +51,7 @@ const Messages: React.FC<Props> = () => {
   );
 };
 
-const MessagesConnectWithStore: React.FC<Props> = ({ currentUser }) => {
+const MessagesConnectWithStore: React.FC<propsTypes> = ({ currentUser }) => {
   return (
     <Layout>
       <Messages currentUser={currentUser} />

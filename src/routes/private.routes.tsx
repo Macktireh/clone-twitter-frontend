@@ -42,13 +42,11 @@ export const privateRoutes = {
   },
   profile: {
     path: pathLinkProfile(":pseudo"),
-    pathStatic: "/",
     title: "profile | Clone Twitter",
     name: "profile",
   },
   postDetails: {
     path: pathLinkPostDetail(":pseudo", ":postPublicId"),
-    pathStatic: "/",
     title: "post details | Clone Twitter",
     name: "postDetails",
   },

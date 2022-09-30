@@ -1,42 +1,48 @@
 import React from "react";
 import Tippy from "@tippyjs/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import IconSVG from "@/widgets/IconSVG";
 import LikePostButton from "@/components/homePrivate/LikePostButton";
 import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard";
 import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
-import { IUserProfile, IPost } from "@/models";
+import { IUserProfile, IComment } from "@/models";
 import { baseURL } from "@/config/axios";
 import { dateParserCreated } from "@/utils/dateParser";
-import { pathLinkPostDetail, pathLinkProfile } from "@/utils/pathRoute";
+import { pathLinkProfile } from "@/utils/pathRoute";
 
 type propsTypes = {
   currentUser: IUserProfile | null;
-  post: IPost | null;
+  comment: IComment | null;
   users: IUserProfile[] | null;
 };
 
-const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
+const CardReTweet: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
   const [authorPost, setAuthorPost] = React.useState<IUserProfile | null>();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (currentUser && post && users) {
-      if (post.authorDetail.public_id === currentUser.user.public_id) {
+    if (currentUser && comment && users) {
+      if (comment.authorDetail.public_id === currentUser.user.public_id) {
         setAuthorPost(currentUser);
       } else {
-        setAuthorPost(users.find((u) => u.user.public_id === post.authorDetail.public_id));
+        setAuthorPost(users.find((u) => u.user.public_id === comment.authorDetail.public_id));
       }
     }
-  }, [currentUser, post, users]);
+  }, [currentUser, comment, users]);
 
   return (
     <div className="CardTweet">
-      <div
+      {/* <div
         className="click"
-        onClick={() => post && authorPost && navigate(pathLinkPostDetail(authorPost.pseudo, post.publicId))}
-      ></div>
+        onClick={() =>
+          authorPost &&
+          comment &&
+          navigate(
+            pathLinkPostDetail(authorPost.pseudo, comment as IComment ? comment.publicId : "")
+          )
+        }
+      ></div> */}
       <div className="box-img">
         {!authorPost ? (
           <div className="skeleton-anim"></div>
@@ -69,11 +75,11 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
                 <span>@{authorPost.pseudo}</span>
               </Link>
               <span>·</span>
-              <span>{post?.created && dateParserCreated(post.created)}</span>
+              <span>{comment?.created && dateParserCreated(comment.created)}</span>
             </p>
           )}
           <Tippy
-            content={<PopupPostOrCommentOptionCard type="post" post={post} currentUser={currentUser} />}
+            content={<PopupPostOrCommentOptionCard type="comment" post={comment} currentUser={currentUser} />}
             interactive={true}
             trigger="click"
             delay={0}
@@ -85,18 +91,18 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
           </Tippy>
         </div>
         <div className="post-content">
-          {post ? (
+          {comment ? (
             <>
-              {post.body && (
+              {comment.message && (
                 <div className="post-text">
-                  <p>{post.body}</p>
+                  <p>{comment.message}</p>
                 </div>
               )}
 
-              {post.image && (
+              {comment.image && (
                 <div className="post-img">
                   <img
-                    src={post.image.includes(baseURL as string) ? post.image : baseURL + post.image}
+                    src={comment.image.includes(baseURL as string) ? comment.image : baseURL + comment.image}
                     alt=""
                   />
                 </div>
@@ -111,15 +117,11 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
             </>
           )}
           <div className="post-footer">
-            <div className="reply post-icon">
-              <IconSVG iconName="reply" fill="#919090" />
-              <span>{post?.comments.length}</span>
-            </div>
             <div className="retweet post-icon">
               <IconSVG iconName="retweet" fill="#919090" />
               <span>18</span>
             </div>
-            <LikePostButton currentUser={currentUser} post={post} isDisplayNumLike={true} />
+            <LikePostButton currentUser={currentUser} post={comment} isDisplayNumLike={true} />
             <div className="share post-icon">
               <IconSVG iconName="share" fill="#919090" />
             </div>
@@ -130,4 +132,4 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
   );
 };
 
-export default CardTweet;
+export default CardReTweet;
