@@ -32,7 +32,7 @@ const PostDetails: React.FC<propsTypes> = ({
   posts,
   getOnePostAction,
   getAllUsersAction,
-  getAllPostAction
+  getAllPostAction,
 }) => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [postDetails, setPostDetails] = React.useState<IPost | null>();
@@ -44,17 +44,17 @@ const PostDetails: React.FC<propsTypes> = ({
     if (!flag.current && postPublicId) {
       getOnePostAction(postPublicId);
       getAllUsersAction();
-      getAllPostAction()
+      getAllPostAction();
       // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       flag.current = true;
     }
     if (currentUser && users && posts) {
       if (currentUser.pseudo === pseudo) {
-        setTimeout(() => setAuthorPost(currentUser), 15000)
+        setTimeout(() => setAuthorPost(currentUser), 100);
       } else {
-        setTimeout(() => setAuthorPost(users.find((u) => u.pseudo === pseudo)), 15000)
+        setTimeout(() => setAuthorPost(users.find((u) => u.pseudo === pseudo)), 100);
       }
-      setTimeout(() => setPostDetails(posts.find((u) => u.publicId === postPublicId)), 15000);
+      setTimeout(() => setPostDetails(posts.find((u) => u.publicId === postPublicId)), 100);
     }
 
     document.title = `${pseudo} on Twitter : ${postDetails?.body.slice(0, 50)}...`;
@@ -71,7 +71,7 @@ const PostDetails: React.FC<propsTypes> = ({
     postPublicId,
     getOnePostAction,
     getAllUsersAction,
-    getAllPostAction
+    getAllPostAction,
   ]);
 
   return (
@@ -141,4 +141,6 @@ const mapStateToProps = (state: IRootState) => ({
   postDetails: state.postDetailsReducer,
 });
 
-export default connect(mapStateToProps, { getOnePostAction, getAllPostAction, getAllUsersAction })(PostDetailsConnectWithStore);
+export default connect(mapStateToProps, { getOnePostAction, getAllPostAction, getAllUsersAction })(
+  PostDetailsConnectWithStore
+);

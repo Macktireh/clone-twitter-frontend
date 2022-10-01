@@ -19,15 +19,17 @@ type propsTypes = {
 
 const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
   const [authorPost, setAuthorPost] = React.useState<IUserProfile | null>();
+  const [tweet, setTweet] = React.useState<IPost | null>();
   const navigate = useNavigate();
 
   React.useEffect(() => {
     if (currentUser && post && users) {
       if (post.authorDetail.public_id === currentUser.user.public_id) {
-        setAuthorPost(currentUser);
+        setTimeout(() => setAuthorPost(currentUser), 100);
       } else {
-        setAuthorPost(users.find((u) => u.user.public_id === post.authorDetail.public_id));
+        setTimeout(() => setAuthorPost(users.find((u) => u.user.public_id === post.authorDetail.public_id)), 100);
       }
+      setTimeout(() => setTweet(post), 100);
     }
   }, [currentUser, post, users]);
 
@@ -35,7 +37,7 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
     <div className="CardTweet">
       <div
         className="click"
-        onClick={() => post && authorPost && navigate(pathLinkPostDetail(authorPost.pseudo, post.publicId))}
+        onClick={() => tweet && authorPost && navigate(pathLinkPostDetail(authorPost.pseudo, tweet.publicId))}
       ></div>
       <div className="box-img">
         {!authorPost ? (
@@ -48,7 +50,7 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
             hideOnClick={false}
             placement="top"
           >
-            <div className="tooltip">
+            <div className="tooltip" tabIndex={0}>
               <Link to={pathLinkProfile(authorPost.pseudo)}>
                 <img src={`${baseURL}${authorPost.profilePicture}`} alt="" />
               </Link>
@@ -69,34 +71,34 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
                 <span>@{authorPost.pseudo}</span>
               </Link>
               <span>·</span>
-              <span>{post?.created && dateParserCreated(post.created)}</span>
+              <span>{tweet?.created && dateParserCreated(tweet.created)}</span>
             </p>
           )}
           <Tippy
-            content={<PopupPostOrCommentOptionCard type="post" post={post} currentUser={currentUser} />}
+            content={<PopupPostOrCommentOptionCard type="post" post={tweet as IPost} currentUser={currentUser} />}
             interactive={true}
             trigger="click"
             delay={0}
             placement="top-end"
           >
-            <div className="option">
+            <div className="option"  tabIndex={0}>
               <IconSVG iconName="3-dot" fill="#919090" />
             </div>
           </Tippy>
         </div>
         <div className="post-content">
-          {post ? (
+          {tweet ? (
             <>
-              {post.body && (
+              {tweet.body && (
                 <div className="post-text">
-                  <p>{post.body}</p>
+                  <p>{tweet.body}</p>
                 </div>
               )}
 
-              {post.image && (
+              {tweet.image && (
                 <div className="post-img">
                   <img
-                    src={post.image.includes(baseURL as string) ? post.image : baseURL + post.image}
+                    src={tweet.image.includes(baseURL as string) ? tweet.image : baseURL + tweet.image}
                     alt=""
                   />
                 </div>
@@ -113,13 +115,13 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
           <div className="post-footer">
             <div className="reply post-icon">
               <IconSVG iconName="reply" fill="#919090" />
-              <span>{post?.comments.length}</span>
+              <span>{tweet?.comments.length}</span>
             </div>
             <div className="retweet post-icon">
               <IconSVG iconName="retweet" fill="#919090" />
               <span>18</span>
             </div>
-            <LikePostButton currentUser={currentUser} post={post} isDisplayNumLike={true} />
+            <LikePostButton currentUser={currentUser} post={tweet as IPost} isDisplayNumLike={true} />
             <div className="share post-icon">
               <IconSVG iconName="share" fill="#919090" />
             </div>

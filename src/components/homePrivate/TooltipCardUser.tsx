@@ -15,7 +15,7 @@ type propsTypes = React.PropsWithChildren<{
 
 const TooltipCardUser: React.FC<propsTypes> = ({ authorPost, currentUser, dispatch }) => {
   const handleFollowing = () => {
-    console.log(authorPost?.user.public_id !== currentUser?.user.public_id);
+    console.log("Following : ", authorPost?.user.public_id !== currentUser?.user.public_id);
   };
   return (
     <div className="TooltipCardUser">

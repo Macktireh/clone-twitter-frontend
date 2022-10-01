@@ -11,9 +11,9 @@ import {
   IRootState,
   editBodyStateType,
 } from "@/models";
-import addNewPostAction from "@/actions/post/addNewPost.action";
 import deletePostAction from "@/actions/post/deletePost.action";
 import updatePostAction from "@/actions/post/updatePost.action";
+import addNewCommentAction from "@/actions/comment/addNewComment.action";
 
 type ContextPropsType = {
   modal: { modalActive: boolean; setModalActive: () => void };
@@ -36,9 +36,9 @@ type ContextPropsType = {
   handleCloseModal: () => void;
 };
 
-const TweetContext = React.createContext<ContextPropsType | null>(null);
+const CommentContext = React.createContext<ContextPropsType | null>(null);
 
-const TweetProvider = ({ children }: React.PropsWithChildren) => {
+const CommentProvider = ({ children }: React.PropsWithChildren) => {
   const currentUser = useSelector((state: IRootState) => state.authReducer.currentUser);
   const posts = useSelector((state: IRootState) => state.postReducer);
 
@@ -168,17 +168,18 @@ const TweetProvider = ({ children }: React.PropsWithChildren) => {
     } else {
       if (body && image) {
         const formData = new FormData();
-        formData.append("body", body as string);
+        formData.append("message", body as string);
+        formData.append("message", body as string);
         formData.append("image", image as any);
-        dispatch(addNewPostAction(formData) as any);
+        dispatch(addNewCommentAction(formData) as any);
       } else if (body) {
         const formData = new FormData();
-        formData.append("body", body as string);
-        dispatch(addNewPostAction(formData) as any);
+        formData.append("message", body as string);
+        dispatch(addNewCommentAction(formData) as any);
       } else if (image) {
         const formData = new FormData();
         formData.append("image", image as any);
-        dispatch(addNewPostAction(formData) as any);
+        dispatch(addNewCommentAction(formData) as any);
       }
     }
     handleDiscard();
@@ -213,7 +214,7 @@ const TweetProvider = ({ children }: React.PropsWithChildren) => {
   };
 
   return (
-    <TweetContext.Provider
+    <CommentContext.Provider
       value={
         {
           modal,
@@ -238,12 +239,12 @@ const TweetProvider = ({ children }: React.PropsWithChildren) => {
       }
     >
       {children}
-    </TweetContext.Provider>
+    </CommentContext.Provider>
   );
 };
 
-export const useTweet = (): ContextPropsType | null => {
-  return React.useContext(TweetContext);
+export const useComment = (): ContextPropsType | null => {
+  return React.useContext(CommentContext);
 };
 
-export default TweetProvider;
+export default CommentProvider;

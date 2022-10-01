@@ -19,15 +19,17 @@ type propsTypes = {
 
 const CardReTweet: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
   const [authorPost, setAuthorPost] = React.useState<IUserProfile | null>();
+  const [ReTweet, setReTweet] = React.useState<IComment | null>();
   // const navigate = useNavigate();
 
   React.useEffect(() => {
     if (currentUser && comment && users) {
       if (comment.authorDetail.public_id === currentUser.user.public_id) {
-        setAuthorPost(currentUser);
+        setTimeout(() => setAuthorPost(currentUser), 100);
       } else {
-        setAuthorPost(users.find((u) => u.user.public_id === comment.authorDetail.public_id));
+        setTimeout(() => setAuthorPost(users.find((u) => u.user.public_id === comment.authorDetail.public_id)), 100);
       }
+      setTimeout(() => setReTweet(comment), 100);
     }
   }, [currentUser, comment, users]);
 
@@ -54,7 +56,7 @@ const CardReTweet: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
             hideOnClick={false}
             placement="top"
           >
-            <div className="tooltip">
+            <div className="tooltip"  tabIndex={0}>
               <Link to={pathLinkProfile(authorPost.pseudo)}>
                 <img src={`${baseURL}${authorPost.profilePicture}`} alt="" />
               </Link>
@@ -75,34 +77,34 @@ const CardReTweet: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
                 <span>@{authorPost.pseudo}</span>
               </Link>
               <span>·</span>
-              <span>{comment?.created && dateParserCreated(comment.created)}</span>
+              <span>{ReTweet?.created && dateParserCreated(ReTweet.created)}</span>
             </p>
           )}
           <Tippy
-            content={<PopupPostOrCommentOptionCard type="comment" post={comment} currentUser={currentUser} />}
+            content={<PopupPostOrCommentOptionCard type="comment" post={ReTweet as IComment} currentUser={currentUser} />}
             interactive={true}
             trigger="click"
             delay={0}
             placement="top-end"
           >
-            <div className="option">
+            <div className="option"  tabIndex={0}>
               <IconSVG iconName="3-dot" fill="#919090" />
             </div>
           </Tippy>
         </div>
         <div className="post-content">
-          {comment ? (
+          {ReTweet ? (
             <>
-              {comment.message && (
+              {ReTweet.message && (
                 <div className="post-text">
-                  <p>{comment.message}</p>
+                  <p>{ReTweet.message}</p>
                 </div>
               )}
 
-              {comment.image && (
+              {ReTweet.image && (
                 <div className="post-img">
                   <img
-                    src={comment.image.includes(baseURL as string) ? comment.image : baseURL + comment.image}
+                    src={ReTweet.image.includes(baseURL as string) ? ReTweet.image : baseURL + ReTweet.image}
                     alt=""
                   />
                 </div>
@@ -121,7 +123,7 @@ const CardReTweet: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
               <IconSVG iconName="retweet" fill="#919090" />
               <span>18</span>
             </div>
-            <LikePostButton currentUser={currentUser} post={comment} isDisplayNumLike={true} />
+            <LikePostButton currentUser={currentUser} post={ReTweet as IComment} isDisplayNumLike={true} />
             <div className="share post-icon">
               <IconSVG iconName="share" fill="#919090" />
             </div>

@@ -33,7 +33,7 @@ const CardTweetDetails: React.FC<propsTypes> = ({ currentUser, postDetails, auth
               hideOnClick={false}
               placement="top"
             >
-              <div className="tooltip">
+              <div className="tooltip"  tabIndex={0}>
                 <Link to={pathLinkProfile(authorPost.pseudo)}>
                   <img src={`${baseURL}${authorPost.profilePicture}`} alt="" />
                 </Link>
@@ -69,7 +69,7 @@ const CardTweetDetails: React.FC<propsTypes> = ({ currentUser, postDetails, auth
           delay={0}
           placement="top-end"
         >
-          <div className="option">
+          <div className="option"  tabIndex={0}>
             <IconSVG iconName="3-dot" fill="#919090" />
           </div>
         </Tippy>
@@ -124,15 +124,21 @@ const CardTweetDetails: React.FC<propsTypes> = ({ currentUser, postDetails, auth
       </div>
       <div className="line"></div>
       <div className="stats">
-        <p>
-          <strong>{postDetails?.comments.length}</strong> Retweets
-        </p>
-        <p>
-          <strong>527</strong> Quote Tweets
-        </p>
-        <p>
-          <strong>{postDetails?.liked.length}</strong> Likes
-        </p>
+        {!postDetails ? (
+          <div className="skeleton-anim"></div>
+        ) : (
+          <>
+            <p>
+              <strong>{postDetails?.comments.length}</strong> Retweets
+            </p>
+            <p>
+              <strong>527</strong> Quote Tweets
+            </p>
+            <p>
+              <strong>{postDetails?.liked.length}</strong> Likes
+            </p>
+          </>
+        )}
       </div>
       <div className="line"></div>
       <div className="icons">

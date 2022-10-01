@@ -110,7 +110,7 @@ const Navbar: React.FC<propsTypes> = ({ currentUser }) => {
         delay={0}
         placement="top-end"
       >
-        <div className="nav-user-container">
+        <div className="nav-user-container"  tabIndex={0}>
           <UserCard currentUser={currentUser} nameClass="nav-user">
             <IconSVG iconName="3-dot" />
           </UserCard>

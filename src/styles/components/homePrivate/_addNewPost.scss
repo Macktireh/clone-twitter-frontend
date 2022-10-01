@@ -109,12 +109,19 @@
         }
       }
     }
-
-    .emojiPicker {
-      width: 55px;
-      position: absolute;
-      top: 95%;
-      z-index: 1;
-    }
   }
 }
+.emojiPicker {
+  width: 55px;
+  position: absolute;
+  top: 95%;
+  z-index: 2;
+}
+
+// .close-emoji {
+//   width: 100%;
+//   height: 100%;
+//   position: fixed;
+//   z-index: 8888;
+//   background-color: rgba(burlywood, 0.4);
+// }
