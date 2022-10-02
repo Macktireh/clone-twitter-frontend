@@ -4,12 +4,12 @@ import { connect } from "react-redux";
 
 import InputCustom from "@/widgets/InputCustom";
 import ButtonCustom from "@/widgets/ButtonCustom";
+import SpinnersLoding from "@/widgets/SpinnersLoding";
 import signupAction from "@/actions/auth/signup.action";
 import * as controlField from "@/validators/controlField";
 import * as ErrorMessage from "@/utils/displayError";
 import { IAuthSignUp } from "@/models";
 import { authRoutes } from "@/routes/auth.routes";
-import SpinnersLoding from "@/widgets/SpinnersLoding";
 
 const SignUp: React.FC<any> = ({ signupAction }) => {
   const [formData, setFormData] = React.useState<IAuthSignUp>({

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import LikePostButton from "@/components/homePrivate/LikePostButton";
 import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard";
 import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
-import AddTweetReply from "@/components/PostDetails/AddTweetReply";
+import AddNewComment from "@/components/PostDetails/AddNewComment";
 import IconSVG from "@/widgets/IconSVG";
 import { IUserProfile, IPost } from "@/models";
 import { baseURL } from "@/config/axios";
@@ -62,7 +62,7 @@ const CardTweetDetails: React.FC<propsTypes> = ({ currentUser, postDetails, auth
         </div>
         <Tippy
           content={
-            <PopupPostOrCommentOptionCard type="comment" post={postDetails} currentUser={currentUser} />
+            <PopupPostOrCommentOptionCard type="post" post={postDetails} currentUser={currentUser} />
           }
           interactive={true}
           trigger="click"
@@ -155,7 +155,7 @@ const CardTweetDetails: React.FC<propsTypes> = ({ currentUser, postDetails, auth
       </div>
       <div className="line"></div>
       <div className="add-new-comment">
-        <AddTweetReply nameClass="textarea-3" />
+        <AddNewComment nameClass="textarea-3" />
       </div>
     </div>
   );

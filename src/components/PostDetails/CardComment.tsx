@@ -17,7 +17,7 @@ type propsTypes = {
   users: IUserProfile[] | null;
 };
 
-const CardReTweet: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
+const CardComment: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
   const [authorPost, setAuthorPost] = React.useState<IUserProfile | null>();
   const [ReTweet, setReTweet] = React.useState<IComment | null>();
   // const navigate = useNavigate();
@@ -27,7 +27,10 @@ const CardReTweet: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
       if (comment.authorDetail.public_id === currentUser.user.public_id) {
         setTimeout(() => setAuthorPost(currentUser), 100);
       } else {
-        setTimeout(() => setAuthorPost(users.find((u) => u.user.public_id === comment.authorDetail.public_id)), 100);
+        setTimeout(
+          () => setAuthorPost(users.find((u) => u.user.public_id === comment.authorDetail.public_id)),
+          100
+        );
       }
       setTimeout(() => setReTweet(comment), 100);
     }
@@ -56,7 +59,7 @@ const CardReTweet: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
             hideOnClick={false}
             placement="top"
           >
-            <div className="tooltip"  tabIndex={0}>
+            <div className="tooltip" tabIndex={0}>
               <Link to={pathLinkProfile(authorPost.pseudo)}>
                 <img src={`${baseURL}${authorPost.profilePicture}`} alt="" />
               </Link>
@@ -81,13 +84,19 @@ const CardReTweet: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
             </p>
           )}
           <Tippy
-            content={<PopupPostOrCommentOptionCard type="comment" post={ReTweet as IComment} currentUser={currentUser} />}
+            content={
+              <PopupPostOrCommentOptionCard
+                type="comment"
+                post={ReTweet as IComment}
+                currentUser={currentUser}
+              />
+            }
             interactive={true}
             trigger="click"
             delay={0}
             placement="top-end"
           >
-            <div className="option"  tabIndex={0}>
+            <div className="option" tabIndex={0}>
               <IconSVG iconName="3-dot" fill="#919090" />
             </div>
           </Tippy>
@@ -134,4 +143,4 @@ const CardReTweet: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
   );
 };
 
-export default CardReTweet;
+export default CardComment;

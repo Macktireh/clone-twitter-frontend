@@ -13,12 +13,13 @@ import {
   editBodyStateType,
 } from "@/models";
 import { baseURL } from "@/config/axios";
-import { useTweet } from "@/context/TweetProvider";
 import { Link } from "react-router-dom";
 import { pathLinkProfile } from "@/utils/pathRoute";
+import { useComment } from "@/context/CommentProvider";
 
 type propsTypes = {
   nameClass: string;
+  postPublicId?: string;
   currentUser: IUserProfile | null;
   bodyState: bodyStateType;
   emojiState: emojiStateType;
@@ -32,8 +33,9 @@ type propsTypes = {
   resetImage: () => void;
 };
 
-const AddTweetReply: React.FC<propsTypes> = ({
+const AddNewComment: React.FC<propsTypes> = ({
   nameClass,
+  postPublicId,
   currentUser,
   bodyState,
   emojiState,
@@ -52,13 +54,16 @@ const AddTweetReply: React.FC<propsTypes> = ({
   const { editBody, setEditBody } = editBodyState;
   const imageInputRef = React.useRef<HTMLInputElement>(null);
 
+  const textareaAutoSize = (el: HTMLElement) => {
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+  };
+
   React.useEffect(() => {
     const textarea = document.getElementById(nameClass);
     if (textarea) {
-      textarea.addEventListener("input", (e: any) => {
-        textarea.style.height = "auto";
-        textarea.style.height = textarea.scrollHeight + "px";
-      });
+      textarea.addEventListener("input", () => textareaAutoSize(textarea));
+      textarea.addEventListener("focus", () => textareaAutoSize(textarea));
     }
   });
 
@@ -141,8 +146,8 @@ const AddTweetReply: React.FC<propsTypes> = ({
 
 type PropsLogicalType = { nameClass: string };
 
-const AddTweetReplyLogical: React.FC<PropsLogicalType> = ({ nameClass }) => {
-  const propsContext = useTweet();
+const AddNewCommentLogical: React.FC<PropsLogicalType> = ({ nameClass }) => {
+  const propsContext = useComment();
   const currentUser = propsContext?.currentUser as IUserProfile;
   const bodyState = propsContext?.bodyState as bodyStateType;
   const emojiState = propsContext?.emojiState as emojiStateType;
@@ -159,7 +164,7 @@ const AddTweetReplyLogical: React.FC<PropsLogicalType> = ({ nameClass }) => {
   const resetImage = propsContext?.resetImage as () => void;
 
   return (
-    <AddTweetReply
+    <AddNewComment
       nameClass={nameClass}
       currentUser={currentUser}
       bodyState={bodyState}
@@ -176,4 +181,4 @@ const AddTweetReplyLogical: React.FC<PropsLogicalType> = ({ nameClass }) => {
   );
 };
 
-export default AddTweetReplyLogical;
+export default AddNewCommentLogical;

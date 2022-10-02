@@ -53,13 +53,16 @@ const AddNewPost: React.FC<propsTypes> = ({
   const { editBody, setEditBody } = editBodyState;
   const imageInputRef = React.useRef<HTMLInputElement>(null);
 
+  const textareaAutoSize = (el: HTMLElement) => {
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+  };
+
   React.useEffect(() => {
     const textarea = document.getElementById(nameClass);
     if (textarea) {
-      textarea.addEventListener("input", (e: any) => {
-        textarea.style.height = "auto";
-        textarea.style.height = textarea.scrollHeight + "px";
-      });
+      textarea.addEventListener("input", () => textareaAutoSize(textarea));
+      textarea.addEventListener("focus", () => textareaAutoSize(textarea));
     }
   });
 
@@ -131,13 +134,13 @@ const AddNewPost: React.FC<propsTypes> = ({
                 // hideOnClick={false}:
               >
                 <div style={{ position: "relative" }}> */}
-                  <IconSVG
-                    iconName="emoji"
-                    nameClass="emoji"
-                    fill="#1d9bf0"
-                    handleClick={() => setChosenEmoji(!chosenEmoji)}
-                  />
-                {/* </div>
+              <IconSVG
+                iconName="emoji"
+                nameClass="emoji"
+                fill="#1d9bf0"
+                handleClick={() => setChosenEmoji(!chosenEmoji)}
+              />
+              {/* </div>
               </Tippy> */}
               <IconSVG iconName="schedule" fill="#1d9bf0" />
             </div>

@@ -16,7 +16,7 @@ const deleteCommentAction = (public_id: string) => async (dispatch: Dispatch<Any
       },
     };
     try {
-      await Axios.delete(`${Api.postEndpoint + public_id}/`, config);
+      await Axios.delete(`${Api.commentEndpoint + public_id}/`, config);
       dispatch({ type: Types.DELETE_COMMENT_SUCCESS, payload: public_id });
     } catch (error: unknown) {
       if (error instanceof AxiosError && error.response) {
@@ -41,7 +41,7 @@ const _deleteCommentAction = (public_id: string) => async (dispatch: Dispatch<An
       },
     };
     try {
-      await Axios.delete(`${Api.postEndpoint}/${public_id}/`, config);
+      await Axios.delete(`${Api.commentEndpoint}/${public_id}/`, config);
       dispatch({ type: Types.DELETE_COMMENT_SUCCESS, payload: public_id });
     } catch (error: any) {
       dispatch({ type: Types.DELETE_COMMENT_FAIL });

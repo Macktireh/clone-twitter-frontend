@@ -1,24 +1,25 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
-import SpinnersLoding from "@/widgets/SpinnersLoding";
-import Aside from "@/components/aside/Aside";
+import CardTweetDetails from "@/components/PostDetails/CardTweetDetails";
+import CardComment from "@/components/PostDetails/CardComment";
 import PopupDeletePost from "@/components/homePrivate/PopupDeletePost";
-import { IPost, IPropsRootStateType, IRootState, IUserProfile } from "@/models";
-import { privateRoutes } from "@/routes/private.routes";
-import { useParams } from "react-router-dom";
-import CardReTweet from "@/components/PostDetails/CardReTweet";
+import PopupDeleteComment from "@/components/PostDetails/PopupDeleteComment";
+import Aside from "@/components/aside/Aside";
+import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import getOnePostAction from "@/actions/post/getOnePost.action";
-import CardTweetDetails from "@/components/PostDetails/CardTweetDetails";
 import getAllPostAction from "@/actions/post/getAllPost.action";
+import { IPost, IPropsRootStateType, IRootState, IUserProfile } from "@/models";
+import { privateRoutes } from "@/routes/private.routes";
+import { useComment } from "@/context/CommentProvider";
 
 interface propsTypes extends IPropsRootStateType {
-  postDetails?: IPost | null;
   getAllUsersAction: () => void;
-  getOnePostAction: (publicId: string) => void;
+  // getOnePostAction: (publicId: string) => void;
   getAllPostAction: () => void;
 }
 
@@ -30,10 +31,16 @@ const PostDetails: React.FC<propsTypes> = ({
   currentUser,
   users,
   posts,
-  getOnePostAction,
+  // getOnePostAction,
   getAllUsersAction,
   getAllPostAction,
 }) => {
+  const propsContext = useComment();
+  const postPublicIdState = propsContext?.postPublicIdState as {
+    postPublicId: string;
+    setPostPublicId: (value: string) => void;
+  };
+
   const [loading, setLoading] = React.useState<boolean>(true);
   const [postDetails, setPostDetails] = React.useState<IPost | null>();
   const [authorPost, setAuthorPost] = React.useState<IUserProfile | null>();
@@ -42,10 +49,9 @@ const PostDetails: React.FC<propsTypes> = ({
 
   React.useEffect(() => {
     if (!flag.current && postPublicId) {
-      getOnePostAction(postPublicId);
+      // getOnePostAction(postPublicId);
       getAllUsersAction();
       getAllPostAction();
-      // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       flag.current = true;
     }
     if (currentUser && users && posts) {
@@ -60,6 +66,8 @@ const PostDetails: React.FC<propsTypes> = ({
     document.title = `${pseudo} on Twitter : ${postDetails?.body.slice(0, 50)}...`;
 
     if (currentUser && users && postDetails && authorPost) setLoading(false);
+
+    if (postDetails) postPublicIdState.setPostPublicId(postDetails.publicId);
   }, [
     flag,
     currentUser,
@@ -69,7 +77,7 @@ const PostDetails: React.FC<propsTypes> = ({
     authorPost,
     pseudo,
     postPublicId,
-    getOnePostAction,
+    postPublicIdState,
     getAllUsersAction,
     getAllPostAction,
   ]);
@@ -97,7 +105,7 @@ const PostDetails: React.FC<propsTypes> = ({
                 ?.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
                 .map((comment) => (
                   <div className="list-post" key={comment.publicId}>
-                    <CardReTweet currentUser={currentUser} comment={comment} users={users} />
+                    <CardComment currentUser={currentUser} comment={comment} users={users} />
                   </div>
                 ))
             )}
@@ -106,6 +114,7 @@ const PostDetails: React.FC<propsTypes> = ({
       </main>
       <Aside page={privateRoutes.home.name} />
       <PopupDeletePost />
+      <PopupDeleteComment />
     </>
   );
 };
@@ -114,8 +123,7 @@ const PostDetailsConnectWithStore: React.FC<propsTypes> = ({
   currentUser,
   users,
   posts,
-  postDetails,
-  getOnePostAction,
+  // getOnePostAction,
   getAllUsersAction,
   getAllPostAction,
 }) => {
@@ -125,8 +133,7 @@ const PostDetailsConnectWithStore: React.FC<propsTypes> = ({
         currentUser={currentUser}
         users={users}
         posts={posts}
-        postDetails={postDetails}
-        getOnePostAction={getOnePostAction}
+        // getOnePostAction={getOnePostAction}
         getAllUsersAction={getAllUsersAction}
         getAllPostAction={getAllPostAction}
       />
@@ -138,7 +145,6 @@ const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
   users: state.userReducer,
   posts: state.postReducer,
-  postDetails: state.postDetailsReducer,
 });
 
 export default connect(mapStateToProps, { getOnePostAction, getAllPostAction, getAllUsersAction })(

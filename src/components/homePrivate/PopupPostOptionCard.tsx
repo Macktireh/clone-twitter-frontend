@@ -3,6 +3,7 @@ import React from "react";
 import IconSVG from "@/widgets/IconSVG";
 import { IUserProfile, IPost, IComment } from "@/models";
 import { useTweet } from "@/context/TweetProvider";
+import { useComment } from "@/context/CommentProvider";
 
 type propsTypes = {
   type: string;
@@ -11,33 +12,50 @@ type propsTypes = {
 };
 
 const PopupPostOrCommentOptionCard: React.FC<propsTypes> = ({ type, currentUser, post }) => {
-  const propsContext = useTweet();
+  const hookTweet = useTweet();
+  const hookComment = useComment();
 
-  const handleEditing = async (public_id: string) => {
-    if (propsContext) {
-      propsContext.publicIdState.setPublicId(public_id);
-      propsContext.isEditState.setIsEditing();
-      propsContext.modal.setModalActive();
+  const handleEditingPost = async (public_id: string) => {
+    if (hookTweet) {
+      hookTweet.publicIdState.setPublicId(public_id);
+      hookTweet.isEditState.setIsEditing();
+      hookTweet.modal.setModalActive();
     }
   };
 
-  const handleConfirmDelete = async (public_id: string) => {
-    if (propsContext) {
-      propsContext.publicIdState.setPublicId(public_id);
-      propsContext.popupDelete.setPopupActiveDelete();
+  const handleConfirmDeletePost = async (public_id: string) => {
+    if (hookTweet) {
+      hookTweet.publicIdState.setPublicId(public_id);
+      hookTweet.popupDelete.setPopupActiveDelete();
+    }
+  };
+
+  const handleEditingComment = async (public_id: string) => {
+    if (hookComment) {
+      hookComment.publicIdState.setPublicId(public_id);
+      hookComment.isEditState.setIsEditing();
+      hookComment.modal.setModalActive();
+    }
+  };
+
+  const handleConfirmDeleteComment = async (public_id: string) => {
+    if (hookComment) {
+      hookComment.publicIdState.setPublicId(public_id);
+      hookComment.popupDelete.setPopupActiveDelete();
     }
   };
 
   const rederElement = (): JSX.Element | null => {
     if (currentUser && post) {
+      if (type === "post") {
         if (post.authorDetail.public_id === currentUser.user.public_id) {
           return (
             <>
-              <div className="items delete" onClick={() => handleConfirmDelete(post.publicId)}>
+              <div className="items delete" onClick={() => handleConfirmDeletePost(post.publicId)}>
                 <IconSVG iconName="delete" fill="#F4212E" />
                 <span>Delete</span>
               </div>
-              <div className="items" onClick={() => handleEditing(post.publicId)}>
+              <div className="items" onClick={() => handleEditingPost(post.publicId)}>
                 <IconSVG iconName="edit" fill="#919090" />
                 <span>Edit</span>
               </div>
@@ -66,14 +84,6 @@ const PopupPostOrCommentOptionCard: React.FC<propsTypes> = ({ type, currentUser,
         } else {
           return (
             <>
-              {/* <div className="items delete" onClick={() => handleConfirmDelete(post.publicId)}>
-                <IconSVG iconName="delete" fill="#F4212E" />
-                <span>Delete</span>
-              </div>
-              <div className="items" onClick={() => handleEditing(post.publicId)}>
-                <IconSVG iconName="edit" fill="#919090" />
-                <span>Edit</span>
-              </div> */}
               <div className="items pin">
                 <IconSVG iconName="pin" fill="#919090" />
                 <span>Pin to your profile</span>
@@ -97,6 +107,43 @@ const PopupPostOrCommentOptionCard: React.FC<propsTypes> = ({ type, currentUser,
             </>
           );
         }
+      } else {
+        if (post.authorDetail.public_id === currentUser.user.public_id) {
+          return (
+            <>
+              <div className="items delete" onClick={() => handleConfirmDeleteComment(post.publicId)}>
+                <IconSVG iconName="delete" fill="#F4212E" />
+                <span>Delete</span>
+              </div>
+              <div className="items" onClick={() => handleEditingComment(post.publicId)}>
+                <IconSVG iconName="edit" fill="#919090" />
+                <span>Edit</span>
+              </div>
+              <div className="items pin">
+                <IconSVG iconName="pin" fill="#919090" />
+                <span>Pin to your profile</span>
+              </div>
+              <div className="items add-remove">
+                <IconSVG iconName="lists-plus" fill="#919090" />
+                <span>Add/Remove @{currentUser?.pseudo} from Lists</span>
+              </div>
+            </>
+          );
+        } else {
+          return (
+            <>
+              <div className="items pin">
+                <IconSVG iconName="pin" fill="#919090" />
+                <span>Pin to your profile</span>
+              </div>
+              <div className="items add-remove">
+                <IconSVG iconName="lists-plus" fill="#919090" />
+                <span>Add/Remove @{currentUser?.pseudo} from Lists</span>
+              </div>
+            </>
+          );
+        }
+      }
     }
     return null;
   };

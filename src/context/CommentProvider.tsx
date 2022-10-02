@@ -11,13 +11,15 @@ import {
   IRootState,
   editBodyStateType,
 } from "@/models";
-import deletePostAction from "@/actions/post/deletePost.action";
 import updatePostAction from "@/actions/post/updatePost.action";
 import addNewCommentAction from "@/actions/comment/addNewComment.action";
+import getAllPostAction from "@/actions/post/getAllPost.action";
+import deleteCommentAction from "@/actions/comment/deleteComment.action";
 
 type ContextPropsType = {
   modal: { modalActive: boolean; setModalActive: () => void };
   popup: { popupActive: boolean; setPopupActive: () => void };
+  postPublicIdState: { postPublicId: string; setPostPublicId: (value: string) => void };
   publicIdState: { publicId: string; setPublicId: (value: string) => void };
   popupDelete: { popupActiveDelete: boolean; setPopupActiveDelete: () => void };
   currentUser: IUserProfile | null;
@@ -45,6 +47,7 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
   const dispatch = useDispatch();
   const [modalActive, setModalActive] = React.useState<boolean>(false);
   const [popupActive, setPopupActive] = React.useState<boolean>(false);
+  const [postPublicId, setPostPublicId] = React.useState<string>("");
   const [publicId, setPublicId] = React.useState<string>("");
   const [popupActiveDelete, setPopupActiveDelete] = React.useState<boolean>(false);
   const [body, setBody] = React.useState<string>("");
@@ -138,6 +141,11 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
     setPublicId: (value: string) => setPublicId(value),
   };
 
+  const postPublicIdState = {
+    postPublicId,
+    setPostPublicId: (value: string) => setPostPublicId(value)
+  };
+
   const handleDiscard = () => {
     setPublicId("");
     setBody("");
@@ -150,44 +158,53 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isEditing) {
-      if (editBody && editImage) {
-        const formData = new FormData();
-        formData.append("body", editBody as string);
-        formData.append("image", editImage as any);
-        dispatch(updatePostAction(publicId, formData) as any);
-      } else if (editBody) {
-        const formData = new FormData();
-        formData.append("body", editBody as string);
-        dispatch(updatePostAction(publicId, formData) as any);
-      } else if (editImage) {
-        const formData = new FormData();
-        formData.append("image", editImage as any);
-        dispatch(updatePostAction(publicId, formData) as any);
+    if (postPublicId) {
+      if (isEditing) {
+        if (editBody && editImage) {
+          const formData = await new FormData();
+          await formData.append("postPublicId", postPublicId as string);
+          await formData.append("body", editBody as string);
+          await formData.append("image", editImage as any);
+          await dispatch(updatePostAction(publicId, formData) as any);
+        } else if (editBody) {
+          const formData = await new FormData();
+          await formData.append("postPublicId", postPublicId as string);
+          await formData.append("body", editBody as string);
+          await dispatch(updatePostAction(publicId, formData) as any);
+        } else if (editImage) {
+          const formData = await new FormData();
+          await formData.append("postPublicId", postPublicId as any);
+          await formData.append("image", editImage as any);
+          await dispatch(updatePostAction(publicId, formData) as any);
+        }
+      } else {
+        if (body && image) {
+          const formData = await new FormData();
+          await formData.append("postPublicId", postPublicId as string);
+          await formData.append("message", body as string);
+          await formData.append("image", image as any);
+          await dispatch(addNewCommentAction(formData) as any);
+        } else if (body) {
+          const formData = await new FormData();
+          await formData.append("postPublicId", postPublicId as string);
+          await formData.append("message", body as string);
+          await dispatch(addNewCommentAction(formData) as any);
+        } else if (image) {
+          const formData = await new FormData();
+          await formData.append("postPublicId", postPublicId as any);
+          await formData.append("image", image as any);
+          await dispatch(addNewCommentAction(formData) as any);
+        }
       }
-    } else {
-      if (body && image) {
-        const formData = new FormData();
-        formData.append("message", body as string);
-        formData.append("message", body as string);
-        formData.append("image", image as any);
-        dispatch(addNewCommentAction(formData) as any);
-      } else if (body) {
-        const formData = new FormData();
-        formData.append("message", body as string);
-        dispatch(addNewCommentAction(formData) as any);
-      } else if (image) {
-        const formData = new FormData();
-        formData.append("image", image as any);
-        dispatch(addNewCommentAction(formData) as any);
-      }
-    }
-    handleDiscard();
+      handleDiscard();
+      dispatch(getAllPostAction() as any);
+    } else alert("postPublicId est vide !");
   };
 
   const handleDeletePost = async () => {
     if (publicId) {
-      dispatch(deletePostAction(publicId) as any);
+      await dispatch(deleteCommentAction(publicId) as any);
+      dispatch(getAllPostAction() as any);
       popupActiveDelete && setPopupActiveDelete(!popupActiveDelete);
       setPublicId("");
     }
@@ -219,6 +236,7 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
         {
           modal,
           popup,
+          postPublicIdState,
           publicIdState,
           popupDelete,
           currentUser,
