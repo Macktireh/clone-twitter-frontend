@@ -3,7 +3,7 @@ import React from "react";
 import Button from "../../components/Buttons/buttonSubmit";
 import { Link } from "react-router-dom";
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <div className="home-page">
       <div className="container-content">
@@ -35,7 +35,7 @@ const Home = () => {
               <span>ou</span>
             </div>
             <div className="frame-signup-int">
-              <Link to="/account/signup">
+              <Link to="/auth/signup">
                 <Button
                   nameClass={"btn-signup-int"}
                   text={"S'inscrire avec un email et password"}
@@ -43,7 +43,7 @@ const Home = () => {
               </Link>
               <p>
                 En vous inscrivant, vous acceptez les{" "}
-                <Link to="https://twitter.com/fr/tos">
+                <Link to="/">
                   <span>Conditions d'Utilisation</span>
                 </Link>{" "}
                 et la <span>Politique de Confidentialité</span>, incluant l'
@@ -53,7 +53,7 @@ const Home = () => {
           </div>
           <div className="frame-signin">
             <h4>Vous avez déjà un compte ?</h4>
-            <Link to="/account/signin">
+            <Link to="/auth/login">
               <Button nameClass={"btn-signin"} text={"Se connecter"} />
             </Link>
           </div>
