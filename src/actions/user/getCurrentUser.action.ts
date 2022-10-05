@@ -18,20 +18,15 @@ const getCurrentUserAction = () => async (dispatch: Dispatch<AnyAction> | any) =
     try {
       const res = await Axios.get(Api.currentUserEndpoint, config);
       dispatch({ type: Types.AUTHENTICATED_SUCCESS });
-      dispatch({
-        type: Types.GET_CURRENT_USER_LOADED_SUCCESS,
-        payload: res.data,
-      });
+      dispatch({ type: Types.GET_CURRENT_USER_LOADED_SUCCESS, payload: res.data });
     } catch (error: any) {
-      if (error.response.status === 401) {
-        dispatch(checkAuthenticatedAction(_getCurrentUserAction));
-      }
-      dispatch({ type: Types.AUTHENTICATED_FAIL });
-      dispatch({type: Types.GET_CURRENT_USER_LOADED_FAIL,});
+      if (error.response.status === 401) dispatch(checkAuthenticatedAction(_getCurrentUserAction));
+      else dispatch({ type: Types.AUTHENTICATED_FAIL });
+      dispatch({ type: Types.GET_CURRENT_USER_LOADED_FAIL });
     }
   } else {
     dispatch({ type: Types.AUTHENTICATED_FAIL });
-    dispatch({type: Types.GET_CURRENT_USER_LOADED_FAIL,});
+    dispatch({ type: Types.GET_CURRENT_USER_LOADED_FAIL });
   }
 };
 
@@ -47,19 +42,14 @@ const _getCurrentUserAction = () => async (dispatch: Dispatch<AnyAction> | any) 
 
     try {
       const res = await Axios.get(Api.currentUserEndpoint, config);
-      dispatch({
-        type: Types.GET_CURRENT_USER_LOADED_SUCCESS,
-        payload: res.data,
-      });
+      dispatch({ type: Types.GET_CURRENT_USER_LOADED_SUCCESS, payload: res.data });
     } catch (error) {
-      dispatch({
-        type: Types.GET_CURRENT_USER_LOADED_FAIL,
-      });
+      dispatch({ type: Types.AUTHENTICATED_FAIL });
+      dispatch({ type: Types.GET_CURRENT_USER_LOADED_FAIL });
     }
   } else {
-    dispatch({
-      type: Types.GET_CURRENT_USER_LOADED_FAIL,
-    });
+    dispatch({ type: Types.AUTHENTICATED_FAIL });
+    dispatch({ type: Types.GET_CURRENT_USER_LOADED_FAIL });
   }
 };
 

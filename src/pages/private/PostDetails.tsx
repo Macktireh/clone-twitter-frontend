@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Layout from "@/layout/Layout";
@@ -11,16 +11,17 @@ import PopupDeleteComment from "@/components/PostDetails/PopupDeleteComment";
 import Aside from "@/components/aside/Aside";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
-import getOnePostAction from "@/actions/post/getOnePost.action";
 import getAllPostAction from "@/actions/post/getAllPost.action";
-import { IPost, IPropsRootStateType, IRootState, IUserProfile } from "@/models";
+import getAllCommentAction from "@/actions/comment/getAllComment.action";
+import { IComment, IPost, IPropsRootStateType, IRootState, IUserProfile } from "@/models";
 import { privateRoutes } from "@/routes/private.routes";
 import { useComment } from "@/context/CommentProvider";
 
 interface propsTypes extends IPropsRootStateType {
+  comments: IComment[] | null;
   getAllUsersAction: () => void;
-  // getOnePostAction: (publicId: string) => void;
   getAllPostAction: () => void;
+  getAllCommentAction: (postPublicId: string) => void;
 }
 
 const styleSpinnersLoding: React.CSSProperties = {
@@ -31,9 +32,10 @@ const PostDetails: React.FC<propsTypes> = ({
   currentUser,
   users,
   posts,
-  // getOnePostAction,
+  comments,
   getAllUsersAction,
   getAllPostAction,
+  getAllCommentAction,
 }) => {
   const propsContext = useComment();
   const postPublicIdState = propsContext?.postPublicIdState as {
@@ -42,6 +44,7 @@ const PostDetails: React.FC<propsTypes> = ({
   };
 
   const [loading, setLoading] = React.useState<boolean>(true);
+  const [IsPostExist, setIsPostExist] = React.useState<boolean>();
   const [postDetails, setPostDetails] = React.useState<IPost | null>();
   const [authorPost, setAuthorPost] = React.useState<IUserProfile | null>();
   const flag = React.useRef(false);
@@ -49,9 +52,9 @@ const PostDetails: React.FC<propsTypes> = ({
 
   React.useEffect(() => {
     if (!flag.current && postPublicId) {
-      // getOnePostAction(postPublicId);
       getAllUsersAction();
       getAllPostAction();
+      getAllCommentAction(postPublicId);
       flag.current = true;
     }
     if (currentUser && users && posts) {
@@ -60,19 +63,27 @@ const PostDetails: React.FC<propsTypes> = ({
       } else {
         setTimeout(() => setAuthorPost(users.find((u) => u.pseudo === pseudo)), 100);
       }
-      setTimeout(() => setPostDetails(posts.find((u) => u.publicId === postPublicId)), 100);
+      const searchPost = posts.filter((p) => p.publicId === postPublicId)
+        if (searchPost.length === 0) {
+          setIsPostExist(false);
+        } else {
+          setIsPostExist(true);
+          setPostDetails(searchPost[0]);
+        }
+      // setTimeout(() => setPostDetails(posts.find((u) => u.publicId === postPublicId)), 100);
     }
 
     document.title = `${pseudo} on Twitter : ${postDetails?.body.slice(0, 50)}...`;
 
-    if (currentUser && users && postDetails && authorPost) setLoading(false);
+    if (currentUser && users && postDetails && authorPost && comments) setLoading(false);
 
-    if (postDetails) postPublicIdState.setPostPublicId(postDetails.publicId);
+    if (postPublicId) postPublicIdState.setPostPublicId(postPublicId);
   }, [
     flag,
     currentUser,
     users,
     posts,
+    comments,
     postDetails,
     authorPost,
     pseudo,
@@ -80,7 +91,10 @@ const PostDetails: React.FC<propsTypes> = ({
     postPublicIdState,
     getAllUsersAction,
     getAllPostAction,
+    getAllCommentAction,
   ]);
+
+  if (IsPostExist === false) return <Navigate to="/error/404" />;
 
   return (
     <>
@@ -101,7 +115,7 @@ const PostDetails: React.FC<propsTypes> = ({
             {loading ? (
               <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
             ) : (
-              postDetails?.comments
+              comments
                 ?.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
                 .map((comment) => (
                   <div className="list-post" key={comment.publicId}>
@@ -123,9 +137,10 @@ const PostDetailsConnectWithStore: React.FC<propsTypes> = ({
   currentUser,
   users,
   posts,
-  // getOnePostAction,
+  comments,
   getAllUsersAction,
   getAllPostAction,
+  getAllCommentAction
 }) => {
   return (
     <Layout>
@@ -133,9 +148,10 @@ const PostDetailsConnectWithStore: React.FC<propsTypes> = ({
         currentUser={currentUser}
         users={users}
         posts={posts}
-        // getOnePostAction={getOnePostAction}
+        comments={comments}
         getAllUsersAction={getAllUsersAction}
         getAllPostAction={getAllPostAction}
+        getAllCommentAction={getAllCommentAction}
       />
     </Layout>
   );
@@ -145,8 +161,9 @@ const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
   users: state.userReducer,
   posts: state.postReducer,
+  comments: state.commentReducer,
 });
 
-export default connect(mapStateToProps, { getOnePostAction, getAllPostAction, getAllUsersAction })(
+export default connect(mapStateToProps, { getAllPostAction, getAllUsersAction, getAllCommentAction })(
   PostDetailsConnectWithStore
 );

@@ -10,10 +10,12 @@ export interface IPost {
   updated: Date;
   liked: IUser[];
   comments: IComment[];
+  numberComments: number;
 }
 
 export interface IComment {
   publicId: string;
+  postPublicIdRead: string;
   authorDetail: IUser;
   message: string;
   image: string;

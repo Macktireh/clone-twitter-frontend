@@ -10,6 +10,7 @@ import { IUserProfile, IPost } from "@/models";
 import { baseURL } from "@/config/axios";
 import { dateParserCreated } from "@/utils/dateParser";
 import { pathLinkPostDetail, pathLinkProfile } from "@/utils/pathRoute";
+import ButtonAddComment from "../PostDetails/ButtonAddComment";
 
 type propsTypes = {
   currentUser: IUserProfile | null;
@@ -113,15 +114,16 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
             </>
           )}
           <div className="post-footer">
-            <div className="reply post-icon">
+            <ButtonAddComment post={tweet as IPost} />
+            {/* <div className="reply post-icon">
               <IconSVG iconName="reply" fill="#919090" />
-              <span>{tweet?.comments.length}</span>
-            </div>
+              <span>{tweet?.numberComments}</span>
+            </div> */}
             <div className="retweet post-icon">
               <IconSVG iconName="retweet" fill="#919090" />
               <span>18</span>
             </div>
-            <LikePostButton currentUser={currentUser} post={tweet as IPost} isDisplayNumLike={true} />
+            <LikePostButton type="post" currentUser={currentUser} post={tweet as IPost} isDisplayNumLike={true} />
             <div className="share post-icon">
               <IconSVG iconName="share" fill="#919090" />
             </div>

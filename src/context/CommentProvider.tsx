@@ -2,6 +2,11 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IEmojiData } from "emoji-picker-react";
 
+import addNewCommentAction from "@/actions/comment/addNewComment.action";
+import getAllPostAction from "@/actions/post/getAllPost.action";
+import deleteCommentAction from "@/actions/comment/deleteComment.action";
+import updateCommentAction from "@/actions/comment/updateComment.action";
+import { baseURL } from "@/config/axios";
 import {
   bodyStateType,
   emojiStateType,
@@ -11,10 +16,6 @@ import {
   IRootState,
   editBodyStateType,
 } from "@/models";
-import updatePostAction from "@/actions/post/updatePost.action";
-import addNewCommentAction from "@/actions/comment/addNewComment.action";
-import getAllPostAction from "@/actions/post/getAllPost.action";
-import deleteCommentAction from "@/actions/comment/deleteComment.action";
 
 type ContextPropsType = {
   modal: { modalActive: boolean; setModalActive: () => void };
@@ -42,7 +43,7 @@ const CommentContext = React.createContext<ContextPropsType | null>(null);
 
 const CommentProvider = ({ children }: React.PropsWithChildren) => {
   const currentUser = useSelector((state: IRootState) => state.authReducer.currentUser);
-  const posts = useSelector((state: IRootState) => state.postReducer);
+  const comments = useSelector((state: IRootState) => state.commentReducer);
 
   const dispatch = useDispatch();
   const [modalActive, setModalActive] = React.useState<boolean>(false);
@@ -57,13 +58,9 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const [editBody, setEditBody] = React.useState<string>("");
   const [editImage, setEditImage] = React.useState<File | null>(null);
-  const flag = React.useRef(false);
+  // const flag = React.useRef(false);
 
   React.useEffect(() => {
-    if (!flag.current) {
-      flag.current = true;
-    }
-
     if (isEditing) {
       if (editImage) {
         const reader = new FileReader();
@@ -86,20 +83,23 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
       }
     }
 
-    if (posts && isEditing) {
-      posts.filter((post) => {
-        if (post.publicId === publicId) {
-          setEditBody(post.body);
-          setImagePreview(post.image);
+    if (comments && isEditing && !image && !editImage) {
+      comments.filter((comment) => {
+        if (comment.publicId === publicId) {
+          setEditBody(comment.message);
+          setImagePreview(
+            comment.image.includes(baseURL as string) ? comment.image : baseURL + comment.image
+          );
         }
-        return post;
+        return comment;
       });
     }
-  }, [isEditing, image, editImage, posts, publicId, chosenEmoji]);
+  }, [isEditing, image, editImage, comments, publicId, chosenEmoji, imagePreview]);
 
-  const resetImage = () => {
-    setImage(null);
-    setEditImage(null);
+  const resetImage = async () => {
+    await setImage(null);
+    await setEditImage(null);
+    await setImagePreview("");
   };
 
   const onEmojiClick = (e: React.MouseEvent<Element, MouseEvent>, emojiObject: IEmojiData) => {
@@ -143,15 +143,15 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
 
   const postPublicIdState = {
     postPublicId,
-    setPostPublicId: (value: string) => setPostPublicId(value)
+    setPostPublicId: (value: string) => setPostPublicId(value),
   };
 
-  const handleDiscard = () => {
-    setPublicId("");
-    setBody("");
-    setEditBody("");
-    resetImage();
-    setIsEditing(false);
+  const handleDiscard = async () => {
+    await setPublicId("");
+    await setBody("");
+    await setEditBody("");
+    await resetImage();
+    await setIsEditing(false);
     popupActive && setPopupActive(!popupActive);
     modalActive && setModalActive(!modalActive);
   };
@@ -163,19 +163,19 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
         if (editBody && editImage) {
           const formData = await new FormData();
           await formData.append("postPublicId", postPublicId as string);
-          await formData.append("body", editBody as string);
+          await formData.append("message", editBody as string);
           await formData.append("image", editImage as any);
-          await dispatch(updatePostAction(publicId, formData) as any);
+          await dispatch(updateCommentAction(postPublicId, publicId, formData) as any);
         } else if (editBody) {
           const formData = await new FormData();
           await formData.append("postPublicId", postPublicId as string);
-          await formData.append("body", editBody as string);
-          await dispatch(updatePostAction(publicId, formData) as any);
+          await formData.append("message", editBody as string);
+          await dispatch(updateCommentAction(postPublicId, publicId, formData) as any);
         } else if (editImage) {
           const formData = await new FormData();
           await formData.append("postPublicId", postPublicId as any);
           await formData.append("image", editImage as any);
-          await dispatch(updatePostAction(publicId, formData) as any);
+          await dispatch(updateCommentAction(postPublicId, publicId, formData) as any);
         }
       } else {
         if (body && image) {
@@ -183,17 +183,17 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
           await formData.append("postPublicId", postPublicId as string);
           await formData.append("message", body as string);
           await formData.append("image", image as any);
-          await dispatch(addNewCommentAction(formData) as any);
+          await dispatch(addNewCommentAction(postPublicId, formData) as any);
         } else if (body) {
           const formData = await new FormData();
           await formData.append("postPublicId", postPublicId as string);
           await formData.append("message", body as string);
-          await dispatch(addNewCommentAction(formData) as any);
+          await dispatch(addNewCommentAction(postPublicId, formData) as any);
         } else if (image) {
           const formData = await new FormData();
           await formData.append("postPublicId", postPublicId as any);
           await formData.append("image", image as any);
-          await dispatch(addNewCommentAction(formData) as any);
+          await dispatch(addNewCommentAction(postPublicId, formData) as any);
         }
       }
       handleDiscard();
@@ -203,7 +203,7 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
 
   const handleDeletePost = async () => {
     if (publicId) {
-      await dispatch(deleteCommentAction(publicId) as any);
+      await dispatch(deleteCommentAction(postPublicId, publicId) as any);
       dispatch(getAllPostAction() as any);
       popupActiveDelete && setPopupActiveDelete(!popupActiveDelete);
       setPublicId("");
@@ -212,9 +212,9 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
 
   const handleCloseModal = () => {
     if (isEditing) {
-      if (posts) {
-        const post = posts.find((post) => post.publicId === publicId);
-        if (editBody !== post?.body || editImage) {
+      if (comments) {
+        const comment = comments.find((comment) => comment.publicId === publicId);
+        if (editBody !== comment?.message || editImage) {
           setPopupActive(!popupActive);
         } else {
           setModalActive(!modalActive);

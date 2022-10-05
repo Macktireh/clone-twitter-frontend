@@ -132,7 +132,7 @@ const CardComment: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
               <IconSVG iconName="retweet" fill="#919090" />
               <span>18</span>
             </div>
-            <LikePostButton currentUser={currentUser} post={ReTweet as IComment} isDisplayNumLike={true} />
+            <LikePostButton type="comment" currentUser={currentUser} post={ReTweet as IComment} isDisplayNumLike={true} />
             <div className="share post-icon">
               <IconSVG iconName="share" fill="#919090" />
             </div>

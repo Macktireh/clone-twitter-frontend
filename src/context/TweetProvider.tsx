@@ -2,6 +2,10 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IEmojiData } from "emoji-picker-react";
 
+import addNewPostAction from "@/actions/post/addNewPost.action";
+import deletePostAction from "@/actions/post/deletePost.action";
+import updatePostAction from "@/actions/post/updatePost.action";
+import { baseURL } from "@/config/axios";
 import {
   bodyStateType,
   emojiStateType,
@@ -11,9 +15,6 @@ import {
   IRootState,
   editBodyStateType,
 } from "@/models";
-import addNewPostAction from "@/actions/post/addNewPost.action";
-import deletePostAction from "@/actions/post/deletePost.action";
-import updatePostAction from "@/actions/post/updatePost.action";
 
 type ContextPropsType = {
   modal: { modalActive: boolean; setModalActive: () => void };
@@ -87,7 +88,7 @@ const TweetProvider = ({ children }: React.PropsWithChildren) => {
       posts.filter((post) => {
         if (post.publicId === publicId) {
           setEditBody(post.body);
-          setImagePreview(post.image);
+          setImagePreview(post.image && post.image.includes(baseURL as string) ? post.image : baseURL + post.image);
         }
         return post;
       });

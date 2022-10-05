@@ -1,4 +1,4 @@
-import { IPost } from "@/models/postAndComment";
+import { IComment, IPost } from "@/models/postAndComment";
 import { IUserProfile } from "@/models/userProfile";
 
 export interface IAuthReducer {
@@ -10,12 +10,15 @@ export type TUsersReducerType = IUserProfile[] | null;
 
 export type TPostReducerType = IPost[] | null;
 
+export type TCommentReducerType = IComment[] | null;
+
 export interface IRootState {
   authReducer: IAuthReducer;
   postReducer: TPostReducerType;
   userReducer: TUsersReducerType;
   postLikesReducer: TPostReducerType;
   postDetailsReducer: IPost;
+  commentReducer: TCommentReducerType;
 }
 
 export interface IActionReducer {

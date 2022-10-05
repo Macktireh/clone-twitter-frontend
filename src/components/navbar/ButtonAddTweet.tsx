@@ -6,12 +6,12 @@ import { useTweet } from "@/context/TweetProvider";
 const ButtonAddTweet: React.FC = () => {
   const propsContext = useTweet();
 
-  const handleCloseModal = () => {
+  const toggleModal = () => {
     propsContext?.modal && propsContext.modal.setModalActive();
   };
 
   return (
-    <div className="add-tweet" onClick={handleCloseModal}>
+    <div className="add-tweet" onClick={toggleModal}>
       <IconSVG iconName="add-tweet" />
       <span>Tweet</span>
     </div>

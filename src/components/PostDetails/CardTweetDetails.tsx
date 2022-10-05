@@ -148,7 +148,7 @@ const CardTweetDetails: React.FC<propsTypes> = ({ currentUser, postDetails, auth
         <div className="retweet post-icon">
           <IconSVG iconName="retweet" fill="#919090" />
         </div>
-        <LikePostButton currentUser={currentUser} post={postDetails} isDisplayNumLike={false} />
+        <LikePostButton type="post" currentUser={currentUser} post={postDetails} isDisplayNumLike={false} />
         <div className="share post-icon">
           <IconSVG iconName="share" fill="#919090" />
         </div>

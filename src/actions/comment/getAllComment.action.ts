@@ -1,12 +1,12 @@
 import { AnyAction, Dispatch } from "redux";
+import { AxiosError } from "axios";
 
 import Axios from "@/config/axios";
 import * as Api from "@/config/api";
 import * as Types from "@/actions/types";
 import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
-import { AxiosError } from "axios";
 
-const likePostAction = (postPublicId: string) => async (dispatch: Dispatch<AnyAction> | any) => {
+const getAllCommentAction = (postPublicId: string) => async (dispatch: Dispatch<AnyAction> | any) => {
   if (localStorage.getItem("access")) {
     const config = {
       headers: {
@@ -15,24 +15,23 @@ const likePostAction = (postPublicId: string) => async (dispatch: Dispatch<AnyAc
         Accept: "application/json",
       },
     };
-    const body = JSON.stringify({ postPublicId })
     try {
-      const res = await Axios.post(Api.likePostEndpoint, body, config);
-      dispatch({ type: Types.LIKE_OR_UNLIKE_POST_SUCCESS, payload: res.data });
+      const res = await Axios.get(`${Api.commentEndpoint + postPublicId}/`, config);
+      dispatch({ type: Types.GET_ALL_COMMENT_SUCCESS, payload: res.data });
     } catch (error: unknown) {
       if (error instanceof AxiosError && error.response) {
         if (error.response.status === 401) {
-          dispatch(checkAuthenticatedAction(_likePostAction, body));
+          dispatch(checkAuthenticatedAction(_getAllCommentAction, postPublicId));
         }
       }
-      dispatch({ type: Types.LIKE_OR_UNLIKE_POST_FAIL });
+      dispatch({ type: Types.GET_ALL_COMMENT_FAIL });
     }
   } else {
-    dispatch({ type: Types.LIKE_OR_UNLIKE_POST_FAIL });
+    dispatch({ type: Types.GET_ALL_COMMENT_FAIL });
   }
 };
 
-const _likePostAction = (body: string) => async (dispatch: Dispatch<AnyAction> | any) => {
+const _getAllCommentAction = (postPublicId: string) => async (dispatch: Dispatch<AnyAction> | any) => {
   if (localStorage.getItem("access")) {
     const config = {
       headers: {
@@ -42,14 +41,14 @@ const _likePostAction = (body: string) => async (dispatch: Dispatch<AnyAction> |
       },
     };
     try {
-      const res = await Axios.post(Api.likePostEndpoint, body, config);
-      dispatch({ type: Types.LIKE_OR_UNLIKE_POST_SUCCESS, payload: res.data });
+      const res = await Axios.get(`${Api.commentEndpoint + postPublicId}/`, config);
+      dispatch({ type: Types.GET_ALL_COMMENT_SUCCESS, payload: res.data });
     } catch (error) {
-      dispatch({ type: Types.LIKE_OR_UNLIKE_POST_FAIL });
+      dispatch({ type: Types.GET_ALL_COMMENT_FAIL });
     }
   } else {
-    dispatch({ type: Types.LIKE_OR_UNLIKE_POST_FAIL });
+    dispatch({ type: Types.GET_ALL_COMMENT_FAIL });
   }
 };
 
-export default likePostAction;
+export default getAllCommentAction;

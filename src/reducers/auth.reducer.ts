@@ -2,7 +2,7 @@ import * as Types from "@/actions/types";
 import { IActionReducer, IAuthReducer } from "@/models";
 
 const initialState: IAuthReducer = {
-  isAuthenticated: false,
+  isAuthenticated: null,
   currentUser: null,
 };
 

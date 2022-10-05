@@ -7,7 +7,8 @@ import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
 import { AxiosError } from "axios";
 
 const updateCommentAction =
-  (public_id: string, data: FormData) => async (dispatch: Dispatch<AnyAction> | any) => {
+  (postPublicId: string, public_id: string, data: FormData) =>
+  async (dispatch: Dispatch<AnyAction> | any) => {
     if (localStorage.getItem("access")) {
       const config = {
         headers: {
@@ -16,12 +17,12 @@ const updateCommentAction =
       };
 
       try {
-        const res = await Axios.patch(`${Api.commentEndpoint + public_id}/`, data, config);
+        const res = await Axios.patch(`${Api.commentEndpoint + postPublicId}/${public_id}/`, data, config);
         dispatch({ type: Types.UPDATE_COMMENT_SUCCESS, payload: res.data });
       } catch (error: unknown) {
         if (error instanceof AxiosError && error.response) {
           if (error.response.status === 401) {
-            dispatch(checkAuthenticatedAction(_updateCommentAction, { public_id, data }));
+            dispatch(checkAuthenticatedAction(_updateCommentAction, { postPublicId, public_id, data }));
           }
         }
         dispatch({ type: Types.UPDATE_COMMENT_FAIL });
@@ -32,7 +33,9 @@ const updateCommentAction =
   };
 
 const _updateCommentAction =
-  (param: {public_id: string, data: FormData}) => async (dispatch: Dispatch<AnyAction> | any) => {
+  (param: { postPublicId: string; public_id: string; data: FormData }) =>
+  async (dispatch: Dispatch<AnyAction> | any) => {
+    const { postPublicId, public_id, data } = param;
     if (localStorage.getItem("access")) {
       const config = {
         headers: {
@@ -41,7 +44,7 @@ const _updateCommentAction =
       };
 
       try {
-        const res = await Axios.patch(`${Api.commentEndpoint + param.public_id}/`, param.data, config);
+        const res = await Axios.patch(`${Api.commentEndpoint + postPublicId}/${public_id}/`, data, config);
         dispatch({ type: Types.UPDATE_COMMENT_SUCCESS, payload: res.data });
       } catch (error) {
         dispatch({ type: Types.UPDATE_COMMENT_FAIL });

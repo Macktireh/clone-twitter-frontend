@@ -20,7 +20,7 @@ const AuthProvider: React.FC<TProps> = ({ isPublic, isAuthenticated, children })
   }, [loading, isAuthenticated]);
 
   if (!isPublic) {
-    if (!isAuthenticated) return <Navigate to="/" />;
+    if (isAuthenticated === false) return <Navigate to="/" />;
   } else if (isAuthenticated) return <Navigate to={privateRoutes.home.path} />;
 
   return loading ? <SpinnersLoding isLoading={loading} /> : <>{children}</>;
