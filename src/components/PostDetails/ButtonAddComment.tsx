@@ -7,9 +7,10 @@ import { useTweetComment } from "@/context/TweetCommentProvider";
 
 type propsTypes = {
   post: IPost | null;
+  isDisplayNumComments: boolean;
 };
 
-const ButtonAddComment: React.FC<propsTypes> = ({ post }) => {
+const ButtonAddComment: React.FC<propsTypes> = ({ post, isDisplayNumComments }) => {
   const propsContext = useTweetComment();
   const postPublicIdState = propsContext?.postPublicIdState as {
     postPublicId: string;
@@ -24,7 +25,7 @@ const ButtonAddComment: React.FC<propsTypes> = ({ post }) => {
   return (
     <div className="reply post-icon" onClick={toggleModal}>
       <IconSVG iconName="reply" fill="#919090" />
-      <span>{post?.numberComments}</span>
+      {isDisplayNumComments && <span>{post?.numberComments}</span>}
     </div>
   );
 };

@@ -11,6 +11,7 @@ import { IUserProfile, IPost } from "@/models";
 import { baseURL } from "@/config/axios";
 import { dateParserCustom } from "@/utils/dateParser";
 import { pathLinkProfile } from "@/utils/pathRoute";
+import ButtonAddComment from "./ButtonAddComment";
 
 type propsTypes = {
   currentUser: IUserProfile | null;
@@ -129,22 +130,23 @@ const CardTweetDetails: React.FC<propsTypes> = ({ currentUser, postDetails, auth
         ) : (
           <>
             <p>
-              <strong>{postDetails?.comments.length}</strong> Retweets
+              <strong>{postDetails?.numberComments}</strong> {postDetails?.numberComments > 1 ? "Retweets" : "Retweet"}
             </p>
             <p>
               <strong>527</strong> Quote Tweets
             </p>
             <p>
-              <strong>{postDetails?.liked.length}</strong> Likes
+              <strong>{postDetails?.liked.length}</strong> {postDetails?.liked.length > 1 ? "Likes" : "Like"}
             </p>
           </>
         )}
       </div>
       <div className="line"></div>
       <div className="icons">
-        <div className="reply post-icon">
+      <ButtonAddComment post={postDetails as IPost} isDisplayNumComments={false} />
+        {/* <div className="reply post-icon">
           <IconSVG iconName="reply" fill="#919090" />
-        </div>
+        </div> */}
         <div className="retweet post-icon">
           <IconSVG iconName="retweet" fill="#919090" />
         </div>

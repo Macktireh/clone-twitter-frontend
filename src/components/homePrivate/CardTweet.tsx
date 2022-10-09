@@ -118,7 +118,7 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
             </>
           )}
           <div className="post-footer">
-            <ButtonAddComment post={tweet as IPost} />
+            <ButtonAddComment post={tweet as IPost} isDisplayNumComments={true} />
             {/* <div className="reply post-icon">
               <IconSVG iconName="reply" fill="#919090" />
               <span>{tweet?.numberComments}</span>

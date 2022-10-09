@@ -37,7 +37,6 @@ const postReducer = (state: TPostReducerType = initialState, action: any): TPost
             return { ...post, liked: [...post.liked, payload.authorDetail] };
           } else if (payload.value === "Unlike") {
             post.liked = post.liked.filter((like) => like.public_id !== payload.authorDetail.public_id);
-            console.log(post.liked);
             return post;
           }
         }

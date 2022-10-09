@@ -33,12 +33,18 @@ export type imagePreviewPostStateType = {
 };
 
 export type bodyCommentStateType = { bodyComment: string; setBodyComment: (value: string) => void };
-export type emojiCommentStateType = { chosenEmojiComment: boolean; setChosenEmojiComment: (value: boolean) => void };
+export type emojiCommentStateType = {
+  chosenEmojiComment: boolean;
+  setChosenEmojiComment: (value: boolean) => void;
+};
 export type imageCommentStateType = {
   imageComment: File | null;
   handleChangeImageComment: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
-export type editBodyCommentStateType = { editBodyComment: string; setEditBodyComment: (value: string) => void };
+export type editBodyCommentStateType = {
+  editBodyComment: string;
+  setEditBodyComment: (value: string) => void;
+};
 export type imagePreviewCommentStateType = {
   imagePreviewComment: string;
   setImagePreviewComment: (value: string) => void;
@@ -149,7 +155,7 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
             setEditBodyPost(post.body);
           }
           setImagePreviewPost(
-            post.image && post.image.includes(baseURL as string) ? post.image : baseURL + post.image
+            post.image ? (post.image.includes(baseURL as string) ? post.image : baseURL + post.image) : ""
           );
         }
         return post;
@@ -185,10 +191,12 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
             setEditBodyComment(comment.message);
           }
           setImagePreviewComment(
-            comment.image ? comment.image.includes(baseURL as string)
-              ? comment.image
-              : baseURL + comment.image
-          : "");
+            comment.image
+              ? comment.image.includes(baseURL as string)
+                ? comment.image
+                : baseURL + comment.image
+              : ""
+          );
         }
         return comment;
       });
@@ -329,131 +337,131 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
   /*****************************************************************************************
     Comment
   ******************************************************************************************/
-    const resetImageComment = () => {
-      setImageComment(null);
-      setEditImageComment(null);
-    };
-  
-    const onEmojiClickComment = (e: React.MouseEvent<Element, MouseEvent>, emojiObject: IEmojiData) => {
-      isEditingComment
-        ? setEditBodyComment((value) => value + emojiObject.emoji)
-        : setBodyComment((value) => value + emojiObject.emoji);
-      setChosenEmojiComment(false);
-    };
-  
-    const handleChangeImageComment = (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (!e.target.files || e.target.files.length === 0) {
-      } else {
-        isEditingComment ? setEditImageComment(e.target.files[0]) : setImageComment(e.target.files[0]);
-      }
-    };
+  const resetImageComment = () => {
+    setImageComment(null);
+    setEditImageComment(null);
+  };
 
-    const isEditCommentState = {
-      isEditingComment,
-      setIsEditingComment: () => setIsEditingComment(!isEditingComment),
-    };
-  
-    const modalComment = {
-      modalActiveComment,
-      setModalActiveComment: () => setModalActiveComment(!modalActiveComment),
-    };
-  
-    const popupComment = {
-      popupActiveComment,
-      setPopupActiveComment: () => setPopupActiveComment(!popupActiveComment),
-    };
-  
-    const popupDeleteComment = {
-      popupActiveDeleteComment,
-      setPopupActiveDeleteComment: () => setPopupActiveDeleteComment(!popupActiveDeleteComment),
-    };
-  
-    const commentPublicIdState = {
-      commentPublicId,
-      setCommentPublicId: (value: string) => setCommentPublicId(value),
-    };
-  
-    const handleDiscardComment = () => {
+  const onEmojiClickComment = (e: React.MouseEvent<Element, MouseEvent>, emojiObject: IEmojiData) => {
+    isEditingComment
+      ? setEditBodyComment((value) => value + emojiObject.emoji)
+      : setBodyComment((value) => value + emojiObject.emoji);
+    setChosenEmojiComment(false);
+  };
+
+  const handleChangeImageComment = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) {
+    } else {
+      isEditingComment ? setEditImageComment(e.target.files[0]) : setImageComment(e.target.files[0]);
+    }
+  };
+
+  const isEditCommentState = {
+    isEditingComment,
+    setIsEditingComment: () => setIsEditingComment(!isEditingComment),
+  };
+
+  const modalComment = {
+    modalActiveComment,
+    setModalActiveComment: () => setModalActiveComment(!modalActiveComment),
+  };
+
+  const popupComment = {
+    popupActiveComment,
+    setPopupActiveComment: () => setPopupActiveComment(!popupActiveComment),
+  };
+
+  const popupDeleteComment = {
+    popupActiveDeleteComment,
+    setPopupActiveDeleteComment: () => setPopupActiveDeleteComment(!popupActiveDeleteComment),
+  };
+
+  const commentPublicIdState = {
+    commentPublicId,
+    setCommentPublicId: (value: string) => setCommentPublicId(value),
+  };
+
+  const handleDiscardComment = () => {
+    setCommentPublicId("");
+    setBodyComment("");
+    setEditBodyComment("");
+    resetImageComment();
+    setIsEditingComment(false);
+    popupActiveComment && setPopupActiveComment(!popupActiveComment);
+    modalActiveComment && setModalActiveComment(!modalActiveComment);
+  };
+
+  const handleSubmitComment = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (isEditingComment) {
+      if (editBodyComment && editImageComment) {
+        const formData = new FormData();
+        await formData.append("postPublicId", postPublicId as string);
+        formData.append("message", editBodyComment as string);
+        formData.append("image", editImageComment as any);
+        dispatch(updateCommentAction(postPublicId, commentPublicId, formData) as any);
+      } else if (editBodyComment) {
+        const formData = new FormData();
+        await formData.append("postPublicId", postPublicId as string);
+        formData.append("message", editBodyComment as string);
+        dispatch(updateCommentAction(postPublicId, commentPublicId, formData) as any);
+      } else if (editImageComment) {
+        const formData = new FormData();
+        await formData.append("postPublicId", postPublicId as string);
+        formData.append("image", editImageComment as any);
+        dispatch(updateCommentAction(postPublicId, commentPublicId, formData) as any);
+      }
+    } else {
+      if (bodyComment && imageComment) {
+        const formData = new FormData();
+        await formData.append("postPublicId", postPublicId as string);
+        formData.append("message", bodyComment as string);
+        formData.append("image", imageComment as any);
+        await dispatch(addNewCommentAction(postPublicId, formData) as any);
+      } else if (bodyComment) {
+        const formData = new FormData();
+        await formData.append("postPublicId", postPublicId as string);
+        formData.append("message", bodyComment as string);
+        await dispatch(addNewCommentAction(postPublicId, formData) as any);
+      } else if (imageComment) {
+        const formData = new FormData();
+        await formData.append("postPublicId", postPublicId as string);
+        formData.append("image", imageComment as any);
+        await dispatch(addNewCommentAction(postPublicId, formData) as any);
+      }
+      dispatch(getAllPostAction() as any);
+    }
+    handleDiscardComment();
+  };
+
+  const handleDeleteComment = async () => {
+    if (commentPublicId) {
+      await dispatch(deleteCommentAction(postPublicId, commentPublicId) as any);
+      dispatch(getAllPostAction() as any);
+      popupActiveDeleteComment && setPopupActiveDeleteComment(!popupActiveDeleteComment);
       setCommentPublicId("");
-      setBodyComment("");
-      setEditBodyComment("");
-      resetImageComment();
-      setIsEditingComment(false);
-      popupActiveComment && setPopupActiveComment(!popupActiveComment);
-      modalActiveComment && setModalActiveComment(!modalActiveComment);
-    };
-  
-    const handleSubmitComment = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      if (isEditingComment) {
-        if (editBodyComment && editImageComment) {
-          const formData = new FormData();
-          await formData.append("postPublicId", postPublicId as string);
-          formData.append("message", editBodyComment as string);
-          formData.append("image", editImageComment as any);
-          dispatch(updateCommentAction(postPublicId, commentPublicId, formData) as any);
-        } else if (editBodyComment) {
-          const formData = new FormData();
-          await formData.append("postPublicId", postPublicId as string);
-          formData.append("message", editBodyComment as string);
-          dispatch(updateCommentAction(postPublicId, commentPublicId, formData) as any);
-        } else if (editImageComment) {
-          const formData = new FormData();
-          await formData.append("postPublicId", postPublicId as string);
-          formData.append("image", editImageComment as any);
-          dispatch(updateCommentAction(postPublicId, commentPublicId, formData) as any);
-        }
-      } else {
-        if (bodyComment && imageComment) {
-          const formData = new FormData();
-          await formData.append("postPublicId", postPublicId as string);
-          formData.append("message", bodyComment as string);
-          formData.append("image", imageComment as any);
-          await dispatch(addNewCommentAction(postPublicId, formData) as any);
-        } else if (bodyComment) {
-          const formData = new FormData();
-          await formData.append("postPublicId", postPublicId as string);
-          formData.append("message", bodyComment as string);
-          await dispatch(addNewCommentAction(postPublicId, formData) as any);
-        } else if (imageComment) {
-          const formData = new FormData();
-          await formData.append("postPublicId", postPublicId as string);
-          formData.append("image", imageComment as any);
-          await dispatch(addNewCommentAction(postPublicId, formData) as any);
-        }
-        dispatch(getAllPostAction() as any)
-      }
-      handleDiscardComment();
-    };
-  
-    const handleDeleteComment = async () => {
-      if (commentPublicId) {
-        await dispatch(deleteCommentAction(postPublicId, commentPublicId) as any);
-        dispatch(getAllPostAction() as any)
-        popupActiveDeleteComment && setPopupActiveDeleteComment(!popupActiveDeleteComment);
-        setCommentPublicId("");
-      }
-    };
-  
-    const handleCloseModalComment = () => {
-      if (isEditingComment) {
-        if (posts) {
-          const post = posts.find((post) => post.publicId === postPublicId);
-          if (editBodyComment !== post?.body || editImageComment) {
-            setPopupActiveComment(!popupActiveComment);
-          } else {
-            setModalActiveComment(!modalActiveComment);
-            handleDiscardComment();
-          }
-        }
-      } else {
-        if (bodyComment || imageComment) {
+    }
+  };
+
+  const handleCloseModalComment = () => {
+    if (isEditingComment) {
+      if (posts) {
+        const post = posts.find((post) => post.publicId === postPublicId);
+        if (editBodyComment !== post?.body || editImageComment) {
           setPopupActiveComment(!popupActiveComment);
         } else {
           setModalActiveComment(!modalActiveComment);
+          handleDiscardComment();
         }
       }
-    };
+    } else {
+      if (bodyComment || imageComment) {
+        setPopupActiveComment(!popupActiveComment);
+      } else {
+        setModalActiveComment(!modalActiveComment);
+      }
+    }
+  };
 
   return (
     <TweetCommentContext.Provider
