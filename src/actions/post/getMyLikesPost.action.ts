@@ -6,7 +6,7 @@ import * as Types from "@/actions/types";
 import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
 import { AxiosError } from "axios";
 
-const getListPostsLikesAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
+const getMyLikesPostAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
   if (localStorage.getItem("access")) {
     const config = {
       headers: {
@@ -21,7 +21,7 @@ const getListPostsLikesAction = () => async (dispatch: Dispatch<AnyAction> | any
     } catch (error: unknown) {
       if (error instanceof AxiosError && error.response) {
         if (error.response.status === 401) {
-          dispatch(checkAuthenticatedAction(_getListPostsLikesAction));
+          dispatch(checkAuthenticatedAction(_getMyLikesPostAction));
         }
       }
       dispatch({ type: Types.GET_LIST_POSTS_LIKES_FAIL });
@@ -31,7 +31,7 @@ const getListPostsLikesAction = () => async (dispatch: Dispatch<AnyAction> | any
   }
 };
 
-const _getListPostsLikesAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
+const _getMyLikesPostAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
   if (localStorage.getItem("access")) {
     const config = {
       headers: {
@@ -51,4 +51,4 @@ const _getListPostsLikesAction = () => async (dispatch: Dispatch<AnyAction> | an
   }
 };
 
-export default getListPostsLikesAction;
+export default getMyLikesPostAction;

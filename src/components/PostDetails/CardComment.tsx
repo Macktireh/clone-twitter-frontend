@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import IconSVG from "@/widgets/IconSVG";
 import LikePostButton from "@/components/homePrivate/LikePostButton";
-import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard";
+import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard1";
 import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
 import { IUserProfile, IComment } from "@/models";
 import { baseURL } from "@/config/axios";
@@ -132,7 +132,13 @@ const CardComment: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
               <IconSVG iconName="retweet" fill="#919090" />
               <span>18</span>
             </div>
-            <LikePostButton type="comment" currentUser={currentUser} post={ReTweet as IComment} isDisplayNumLike={true} />
+            <LikePostButton
+              type="comment"
+              currentUser={currentUser}
+              post={ReTweet as IComment}
+              isDisplayNumLike={true}
+              postPublicIdRead={ReTweet?.postPublicIdRead}
+            />
             <div className="share post-icon">
               <IconSVG iconName="share" fill="#919090" />
             </div>

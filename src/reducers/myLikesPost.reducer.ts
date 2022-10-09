@@ -3,7 +3,7 @@ import { TPostReducerType } from "@/models";
 
 const initialState: TPostReducerType = null;
 
-const postLikesReducer = (state: TPostReducerType = initialState, action: any): TPostReducerType => {
+const mylLikesPostReducer = (state: TPostReducerType = initialState, action: any): TPostReducerType => {
   const { type, payload } = action;
 
   switch (type) {
@@ -18,4 +18,4 @@ const postLikesReducer = (state: TPostReducerType = initialState, action: any): 
   }
 };
 
-export default postLikesReducer;
+export default mylLikesPostReducer;

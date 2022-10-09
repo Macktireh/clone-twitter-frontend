@@ -3,9 +3,9 @@ import Tippy from "@tippyjs/react";
 import { Link } from "react-router-dom";
 
 import LikePostButton from "@/components/homePrivate/LikePostButton";
-import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard";
+import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard1";
 import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
-import AddNewComment from "@/components/PostDetails/AddNewComment";
+import AddNewComment from "@/components/PostDetails/AddNewComment1";
 import IconSVG from "@/widgets/IconSVG";
 import { IUserProfile, IPost } from "@/models";
 import { baseURL } from "@/config/axios";

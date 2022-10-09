@@ -11,10 +11,10 @@ import {
   bodyStateType,
   emojiStateType,
   IUserProfile,
-  imagePreviewStateType,
-  imageStateType,
   IRootState,
   editBodyStateType,
+  commentImagePreviewStateType,
+  commentImageStateType,
 } from "@/models";
 
 type ContextPropsType = {
@@ -26,11 +26,11 @@ type ContextPropsType = {
   currentUser: IUserProfile | null;
   bodyState: bodyStateType;
   emojiState: emojiStateType;
-  imageState: imageStateType;
-  imagePreviewState: imagePreviewStateType;
+  commentImageState: commentImageStateType;
+  CommentimagePreviewState: commentImagePreviewStateType;
   isEditState: { isEditing: boolean; setIsEditing: () => void };
   editBodyState: editBodyStateType;
-  editImage: File | null;
+  commentEditImage: File | null;
   onEmojiClick: (e: React.MouseEvent<Element, MouseEvent>, emojiObject: IEmojiData) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   resetImage: () => void;
@@ -53,53 +53,53 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
   const [popupActiveDelete, setPopupActiveDelete] = React.useState<boolean>(false);
   const [body, setBody] = React.useState<string>("");
   const [chosenEmoji, setChosenEmoji] = React.useState<boolean>(false);
-  const [image, setImage] = React.useState<File | null>(null);
-  const [imagePreview, setImagePreview] = React.useState<string | null>(null);
+  const [commentImage, setImage] = React.useState<File | null>(null);
+  const [commentImagePreview, setcommentImagePreview] = React.useState<string | null>(null);
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const [editBody, setEditBody] = React.useState<string>("");
-  const [editImage, setEditImage] = React.useState<File | null>(null);
+  const [commentEditImage, setCommentEditImage] = React.useState<File | null>(null);
   // const flag = React.useRef(false);
 
   React.useEffect(() => {
     if (isEditing) {
-      if (editImage) {
+      if (commentEditImage) {
         const reader = new FileReader();
         reader.onloadend = () => {
-          setImagePreview(reader.result as string);
+          setcommentImagePreview(reader.result as string);
         };
-        reader.readAsDataURL(editImage);
+        reader.readAsDataURL(commentEditImage);
       } else {
-        setImagePreview(null);
+        setcommentImagePreview(null);
       }
     } else {
-      if (image) {
+      if (commentImage) {
         const reader = new FileReader();
         reader.onloadend = () => {
-          setImagePreview(reader.result as string);
+          setcommentImagePreview(reader.result as string);
         };
-        reader.readAsDataURL(image);
+        reader.readAsDataURL(commentImage);
       } else {
-        setImagePreview(null);
+        setcommentImagePreview(null);
       }
     }
 
-    if (comments && isEditing && !image && !editImage) {
+    if (comments && isEditing && !commentImage && !commentEditImage) {
       comments.filter((comment) => {
         if (comment.publicId === publicId) {
           setEditBody(comment.message);
-          setImagePreview(
+          setcommentImagePreview(
             comment.image.includes(baseURL as string) ? comment.image : baseURL + comment.image
           );
         }
         return comment;
       });
     }
-  }, [isEditing, image, editImage, comments, publicId, chosenEmoji, imagePreview]);
+  }, [isEditing, commentImage, commentEditImage, comments, publicId, chosenEmoji, commentImagePreview]);
 
   const resetImage = async () => {
     await setImage(null);
-    await setEditImage(null);
-    await setImagePreview("");
+    await setCommentEditImage(null);
+    await setcommentImagePreview("");
   };
 
   const onEmojiClick = (e: React.MouseEvent<Element, MouseEvent>, emojiObject: IEmojiData) => {
@@ -112,7 +112,7 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
   const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) {
     } else {
-      isEditing ? setEditImage(e.target.files[0]) : setImage(e.target.files[0]);
+      isEditing ? setCommentEditImage(e.target.files[0]) : setImage(e.target.files[0]);
     }
   };
 
@@ -160,39 +160,39 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
     e.preventDefault();
     if (postPublicId) {
       if (isEditing) {
-        if (editBody && editImage) {
+        if (editBody && commentEditImage) {
           const formData = await new FormData();
           await formData.append("postPublicId", postPublicId as string);
           await formData.append("message", editBody as string);
-          await formData.append("image", editImage as any);
+          await formData.append("commentImage", commentEditImage as any);
           await dispatch(updateCommentAction(postPublicId, publicId, formData) as any);
         } else if (editBody) {
           const formData = await new FormData();
           await formData.append("postPublicId", postPublicId as string);
           await formData.append("message", editBody as string);
           await dispatch(updateCommentAction(postPublicId, publicId, formData) as any);
-        } else if (editImage) {
+        } else if (commentEditImage) {
           const formData = await new FormData();
-          await formData.append("postPublicId", postPublicId as any);
-          await formData.append("image", editImage as any);
+          await formData.append("postPublicId", postPublicId as string);
+          await formData.append("commentImage", commentEditImage as any);
           await dispatch(updateCommentAction(postPublicId, publicId, formData) as any);
         }
       } else {
-        if (body && image) {
+        if (body && commentImage) {
           const formData = await new FormData();
           await formData.append("postPublicId", postPublicId as string);
           await formData.append("message", body as string);
-          await formData.append("image", image as any);
+          await formData.append("commentImage", commentImage as any);
           await dispatch(addNewCommentAction(postPublicId, formData) as any);
         } else if (body) {
           const formData = await new FormData();
           await formData.append("postPublicId", postPublicId as string);
           await formData.append("message", body as string);
           await dispatch(addNewCommentAction(postPublicId, formData) as any);
-        } else if (image) {
+        } else if (commentImage) {
           const formData = await new FormData();
-          await formData.append("postPublicId", postPublicId as any);
-          await formData.append("image", image as any);
+          await formData.append("postPublicId", postPublicId as string);
+          await formData.append("commentImage", commentImage as any);
           await dispatch(addNewCommentAction(postPublicId, formData) as any);
         }
       }
@@ -214,7 +214,7 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
     if (isEditing) {
       if (comments) {
         const comment = comments.find((comment) => comment.publicId === publicId);
-        if (editBody !== comment?.message || editImage) {
+        if (editBody !== comment?.message || commentEditImage) {
           setPopupActive(!popupActive);
         } else {
           setModalActive(!modalActive);
@@ -222,7 +222,7 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
         }
       }
     } else {
-      if (body || image) {
+      if (body || commentImage) {
         setPopupActive(!popupActive);
       } else {
         setModalActive(!modalActive);
@@ -242,11 +242,11 @@ const CommentProvider = ({ children }: React.PropsWithChildren) => {
           currentUser,
           bodyState: { body, setBody },
           emojiState: { chosenEmoji, setChosenEmoji },
-          imageState: { image, handleChangeImage },
-          imagePreviewState: { imagePreview, setImagePreview },
+          commentImageState: { commentImage, handleChangeImage },
+          CommentimagePreviewState: { commentImagePreview, setcommentImagePreview },
           isEditState,
           editBodyState: { editBody, setEditBody },
-          editImage,
+          commentEditImage,
           onEmojiClick,
           handleSubmit,
           resetImage,

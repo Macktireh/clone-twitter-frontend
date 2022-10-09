@@ -18,17 +18,17 @@ const likeCommenttAction = (commentPublicId: string) => async (dispatch: Dispatc
     const body = JSON.stringify({ commentPublicId })
     try {
       const res = await Axios.post(Api.likeCommentEndpoint, body, config);
-      dispatch({ type: Types.LIKE_OR_UNLIKE_POST_SUCCESS, payload: res.data });
+      dispatch({ type: Types.LIKE_OR_UNLIKE_COMMENT_SUCCESS, payload: res.data });
     } catch (error: unknown) {
       if (error instanceof AxiosError && error.response) {
         if (error.response.status === 401) {
           dispatch(checkAuthenticatedAction(_likeCommenttAction, body));
         }
       }
-      dispatch({ type: Types.LIKE_OR_UNLIKE_POST_FAIL });
+      dispatch({ type: Types.LIKE_OR_UNLIKE_COMMENT_FAIL });
     }
   } else {
-    dispatch({ type: Types.LIKE_OR_UNLIKE_POST_FAIL });
+    dispatch({ type: Types.LIKE_OR_UNLIKE_COMMENT_FAIL });
   }
 };
 
@@ -43,12 +43,12 @@ const _likeCommenttAction = (body: string) => async (dispatch: Dispatch<AnyActio
     };
     try {
       const res = await Axios.post(Api.likeCommentEndpoint, body, config);
-      dispatch({ type: Types.LIKE_OR_UNLIKE_POST_SUCCESS, payload: res.data });
+      dispatch({ type: Types.LIKE_OR_UNLIKE_COMMENT_SUCCESS, payload: res.data });
     } catch (error) {
-      dispatch({ type: Types.LIKE_OR_UNLIKE_POST_FAIL });
+      dispatch({ type: Types.LIKE_OR_UNLIKE_COMMENT_FAIL });
     }
   } else {
-    dispatch({ type: Types.LIKE_OR_UNLIKE_POST_FAIL });
+    dispatch({ type: Types.LIKE_OR_UNLIKE_COMMENT_FAIL });
   }
 };
 

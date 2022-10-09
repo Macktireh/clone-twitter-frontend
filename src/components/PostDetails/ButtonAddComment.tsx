@@ -1,15 +1,16 @@
 import React from "react";
 
 import IconSVG from "@/widgets/IconSVG";
-import { useComment } from "@/context/CommentProvider";
+// import { useComment } from "@/context/CommentProvider";
 import { IPost } from "@/models";
+import { useTweetComment } from "@/context/TweetCommentProvider";
 
 type propsTypes = {
   post: IPost | null;
 };
 
 const ButtonAddComment: React.FC<propsTypes> = ({ post }) => {
-  const propsContext = useComment();
+  const propsContext = useTweetComment();
   const postPublicIdState = propsContext?.postPublicIdState as {
     postPublicId: string;
     setPostPublicId: (value: string) => void;
@@ -17,7 +18,7 @@ const ButtonAddComment: React.FC<propsTypes> = ({ post }) => {
 
   const toggleModal = () => {
     if (post?.publicId) postPublicIdState.setPostPublicId(post.publicId);
-    propsContext?.modal && propsContext.modal.setModalActive();
+    propsContext?.modalComment && propsContext.modalComment.setModalActiveComment();
   };
 
   return (

@@ -12,6 +12,8 @@ import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import { privateRoutes } from "@/routes/private.routes";
 import { IRootState, IPropsRootStateType } from "@/models";
+import AddNewPost1 from "@/components/homePrivate/AddNewPost1";
+import PopupDeletePost1 from "@/components/homePrivate/PopupDeletePost1";
 
 interface propsTypes extends IPropsRootStateType {
   getAllPostAction?: any;
@@ -31,6 +33,7 @@ const HomePrivate: React.FC<propsTypes> = ({
 }) => {
   const [loading, setLoading] = React.useState(true);
   const flag = React.useRef(false);
+
   React.useEffect(() => {
     document.title = privateRoutes.home.title;
     if (!flag.current) {
@@ -40,7 +43,7 @@ const HomePrivate: React.FC<propsTypes> = ({
     }
 
     if (currentUser && users && posts) setLoading(false);
-  }, [flag, currentUser, users, posts, getAllPostAction, getAllUsersAction]);
+  }, [flag, currentUser, users, posts, getAllUsersAction, getAllPostAction]);
 
   return (
     <>
@@ -50,7 +53,7 @@ const HomePrivate: React.FC<propsTypes> = ({
             <SectionHeaderTweet page={privateRoutes.home.name} title="Latest Tweets" />
           </section>
           <section className="sec-add-new-post">
-            <AddNewPost nameClass="textarea-1" />
+            <AddNewPost1 nameClass="textarea-1" />
           </section>
           <div className="line"></div>
           <section className="sec-list-post">
@@ -69,7 +72,7 @@ const HomePrivate: React.FC<propsTypes> = ({
         </div>
       </main>
       <Aside page={privateRoutes.home.name} />
-      <PopupDeletePost />
+      <PopupDeletePost1 />
     </>
   );
 };
@@ -81,6 +84,10 @@ const HomePrivateConnectWithStore: React.FC<propsTypes> = ({
   getAllUsersAction,
   getAllPostAction,
 }) => {
+  // const currentUser = useSelector((state: IRootState) => state.authReducer.currentUser, shallowEqual);
+  // const users = useSelector((state: IRootState) => state.userReducer, shallowEqual);
+  // const posts = useSelector((state: IRootState) => state.postReducer, shallowEqual );
+
   return (
     <Layout>
       <HomePrivate
@@ -100,4 +107,5 @@ const mapStateToProps = (state: IRootState) => ({
   posts: state.postReducer,
 });
 
+// export default HomePrivateConnectWithStore;
 export default connect(mapStateToProps, { getAllUsersAction, getAllPostAction })(HomePrivateConnectWithStore);

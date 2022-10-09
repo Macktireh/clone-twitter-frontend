@@ -4,13 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 
 import IconSVG from "@/widgets/IconSVG";
 import LikePostButton from "@/components/homePrivate/LikePostButton";
-import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard";
+import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard1";
 import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
+import ButtonAddComment from "@/components/PostDetails/ButtonAddComment";
 import { IUserProfile, IPost } from "@/models";
 import { baseURL } from "@/config/axios";
 import { dateParserCreated } from "@/utils/dateParser";
 import { pathLinkPostDetail, pathLinkProfile } from "@/utils/pathRoute";
-import ButtonAddComment from "../PostDetails/ButtonAddComment";
 
 type propsTypes = {
   currentUser: IUserProfile | null;
@@ -28,11 +28,14 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
       if (post.authorDetail.public_id === currentUser.user.public_id) {
         setTimeout(() => setAuthorPost(currentUser), 100);
       } else {
-        setTimeout(() => setAuthorPost(users.find((u) => u.user.public_id === post.authorDetail.public_id)), 100);
+        setTimeout(
+          () => setAuthorPost(users.find((u) => u.user.public_id === post.authorDetail.public_id)),
+          100
+        );
       }
       setTimeout(() => setTweet(post), 100);
     }
-  }, [currentUser, post, users]);
+  }, [currentUser, post, tweet, users]);
 
   return (
     <div className="CardTweet">
@@ -76,13 +79,15 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
             </p>
           )}
           <Tippy
-            content={<PopupPostOrCommentOptionCard type="post" post={tweet as IPost} currentUser={currentUser} />}
+            content={
+              <PopupPostOrCommentOptionCard type="post" post={tweet as IPost} currentUser={currentUser} />
+            }
             interactive={true}
             trigger="click"
             delay={0}
             placement="top-end"
           >
-            <div className="option"  tabIndex={0}>
+            <div className="option" tabIndex={0}>
               <IconSVG iconName="3-dot" fill="#919090" />
             </div>
           </Tippy>
@@ -95,7 +100,6 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
                   <p>{tweet.body}</p>
                 </div>
               )}
-
               {tweet.image && (
                 <div className="post-img">
                   <img

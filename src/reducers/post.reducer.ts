@@ -34,15 +34,16 @@ const postReducer = (state: TPostReducerType = initialState, action: any): TPost
         if (post.publicId === payload.PublicId) {
           if (payload.value === "Like") {
             post.liked.push(payload.authorDetail);
-            return post;
+            return { ...post, liked: [...post.liked, payload.authorDetail] };
           } else if (payload.value === "Unlike") {
             post.liked = post.liked.filter((like) => like.public_id !== payload.authorDetail.public_id);
+            console.log(post.liked);
             return post;
           }
         }
         return post;
       });
-      return likePost as IPost[];
+      return [...likePost as IPost[]];
 
     case Types.ADD_NEW_POST_FAIL:
     case Types.DELETE_POST_FAIL:

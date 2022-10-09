@@ -42,8 +42,8 @@ const TweetContext = React.createContext<ContextPropsType | null>(null);
 const TweetProvider = ({ children }: React.PropsWithChildren) => {
   const currentUser = useSelector((state: IRootState) => state.authReducer.currentUser);
   const posts = useSelector((state: IRootState) => state.postReducer);
-
   const dispatch = useDispatch();
+
   const [modalActive, setModalActive] = React.useState<boolean>(false);
   const [popupActive, setPopupActive] = React.useState<boolean>(false);
   const [publicId, setPublicId] = React.useState<string>("");
@@ -55,13 +55,9 @@ const TweetProvider = ({ children }: React.PropsWithChildren) => {
   const [isEditing, setIsEditing] = React.useState<boolean>(false);
   const [editBody, setEditBody] = React.useState<string>("");
   const [editImage, setEditImage] = React.useState<File | null>(null);
-  const flag = React.useRef(false);
+  // const flag = React.useRef(false);
 
   React.useEffect(() => {
-    if (!flag.current) {
-      flag.current = true;
-    }
-
     if (isEditing) {
       if (editImage) {
         const reader = new FileReader();
@@ -88,7 +84,9 @@ const TweetProvider = ({ children }: React.PropsWithChildren) => {
       posts.filter((post) => {
         if (post.publicId === publicId) {
           setEditBody(post.body);
-          setImagePreview(post.image && post.image.includes(baseURL as string) ? post.image : baseURL + post.image);
+          setImagePreview(
+            post.image && post.image.includes(baseURL as string) ? post.image : baseURL + post.image
+          );
         }
         return post;
       });

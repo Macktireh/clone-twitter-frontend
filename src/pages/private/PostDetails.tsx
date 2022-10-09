@@ -6,8 +6,8 @@ import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import CardTweetDetails from "@/components/PostDetails/CardTweetDetails";
 import CardComment from "@/components/PostDetails/CardComment";
-import PopupDeletePost from "@/components/homePrivate/PopupDeletePost";
-import PopupDeleteComment from "@/components/PostDetails/PopupDeleteComment";
+import PopupDeletePost from "@/components/homePrivate/PopupDeletePost1";
+import PopupDeleteComment from "@/components/PostDetails/PopupDeleteComment1";
 import Aside from "@/components/aside/Aside";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
@@ -16,6 +16,7 @@ import getAllCommentAction from "@/actions/comment/getAllComment.action";
 import { IComment, IPost, IPropsRootStateType, IRootState, IUserProfile } from "@/models";
 import { privateRoutes } from "@/routes/private.routes";
 import { useComment } from "@/context/CommentProvider";
+import { useTweetComment } from "@/context/TweetCommentProvider";
 
 interface propsTypes extends IPropsRootStateType {
   comments: IComment[] | null;
@@ -37,7 +38,7 @@ const PostDetails: React.FC<propsTypes> = ({
   getAllPostAction,
   getAllCommentAction,
 }) => {
-  const propsContext = useComment();
+  const propsContext = useTweetComment();
   const postPublicIdState = propsContext?.postPublicIdState as {
     postPublicId: string;
     setPostPublicId: (value: string) => void;

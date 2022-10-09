@@ -1,10 +1,11 @@
 import React from "react";
 
 import Navbar from "@/components/navbar/Navbar";
-import TweetProvider from "@/context/TweetProvider";
-import CommentProvider from "@/context/CommentProvider";
-import ModalAddNewTweet from "@/components/homePrivate/ModalAddNewTweet";
-import ModalAddComment from "@/components/PostDetails/ModalAddComment";
+// import TweetProvider from "@/context/TweetProvider";
+// import CommentProvider from "@/context/CommentProvider";
+import ModalAddNewTweet from "@/components/homePrivate/ModalAddNewTweet1";
+import ModalAddComment from "@/components/PostDetails/ModalAddComment1";
+import TweetCommentProvider from "@/context/TweetCommentProvider";
 
 const Layout = (props: React.PropsWithChildren<any>) => {
   const flag = React.useRef(false);
@@ -20,8 +21,8 @@ const Layout = (props: React.PropsWithChildren<any>) => {
   });
   return (
     <div className="layout">
-      <TweetProvider>
-        <CommentProvider>
+      <TweetCommentProvider>
+        {/* <CommentProvider> */}
           <header className="header">
             <div className="nav-container">
               <Navbar />
@@ -29,9 +30,9 @@ const Layout = (props: React.PropsWithChildren<any>) => {
           </header>
           {props.children}
           <ModalAddComment />
-        </CommentProvider>
+        {/* </CommentProvider> */}
         <ModalAddNewTweet />
-      </TweetProvider>
+      </TweetCommentProvider>
     </div>
   );
 };

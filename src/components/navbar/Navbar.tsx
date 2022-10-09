@@ -6,7 +6,7 @@ import Tippy from "@tippyjs/react";
 import IconSVG from "@/widgets/IconSVG";
 import UserCard from "@/components/navbar/UserCard";
 import PopupLogout from "@/components/auth/PopupLogout";
-import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
+import ButtonAddTweet from "@/components/navbar/ButtonAddTweet1";
 import { privateRoutes } from "@/routes/private.routes";
 import { IUserProfile, IRootState } from "@/models";
 import { pathLinkProfile } from "@/utils/pathRoute";

@@ -1,5 +1,5 @@
 import { IComment, IPost } from "@/models/postAndComment";
-import { IUserProfile } from "@/models/userProfile";
+import { IUser, IUserProfile } from "@/models/userProfile";
 
 export interface IAuthReducer {
   isAuthenticated: boolean | null;
@@ -10,13 +10,15 @@ export type TUsersReducerType = IUserProfile[] | null;
 
 export type TPostReducerType = IPost[] | null;
 
+export type TLikesPostReducerType = IUser[] | null;
+
 export type TCommentReducerType = IComment[] | null;
 
 export interface IRootState {
   authReducer: IAuthReducer;
   postReducer: TPostReducerType;
   userReducer: TUsersReducerType;
-  postLikesReducer: TPostReducerType;
+  mylLikesPostReducer: TPostReducerType;
   postDetailsReducer: IPost;
   commentReducer: TCommentReducerType;
 }

@@ -33,3 +33,8 @@ export type imageStateType = {
 };
 export type editBodyStateType = { editBody: string; setEditBody: (value: string) => void };
 export type imagePreviewStateType = { imagePreview: string; setImagePreview: (value: string) => void };
+export type commentImageStateType = {
+  commentImage: File | null;
+  handleChangeImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+export type commentImagePreviewStateType = { commentImagePreview: string; setcommentImagePreview: (value: string) => void };

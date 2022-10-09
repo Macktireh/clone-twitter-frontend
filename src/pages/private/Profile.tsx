@@ -14,7 +14,7 @@ import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import EditProfileProvider from "@/context/EditProfileProvider";
 import { IUserProfile, IPost, IRootState, IPropsRootStateType, TTabState } from "@/models";
 import { privateRoutes } from "@/routes/private.routes";
-import getListPostsLikesAction from "@/actions/post/getListPostsLikes.action";
+import getListPostsLikesAction from "@/actions/post/getMyLikesPost.action";
 
 interface propsTypes extends IPropsRootStateType {
   postsLikes: IPost[] | null;
@@ -165,7 +165,7 @@ const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
   users: state.userReducer,
   posts: state.postReducer,
-  postsLikes: state.postLikesReducer,
+  postsLikes: state.mylLikesPostReducer,
 });
 
 export default connect(mapStateToProps, { getAllUsersAction, getAllPostAction, getListPostsLikesAction })(
