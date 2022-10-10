@@ -25,14 +25,17 @@ const CardComment: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
   React.useEffect(() => {
     if (currentUser && comment && users) {
       if (comment.authorDetail.public_id === currentUser.user.public_id) {
-        setTimeout(() => setAuthorPost(currentUser), 100);
+        setAuthorPost(currentUser)
+        // setTimeout(() => setAuthorPost(currentUser), 100);
       } else {
-        setTimeout(
-          () => setAuthorPost(users.find((u) => u.user.public_id === comment.authorDetail.public_id)),
-          100
-        );
+        setAuthorPost(users.find((u) => u.user.public_id === comment.authorDetail.public_id))
+        // setTimeout(
+        //   () => setAuthorPost(users.find((u) => u.user.public_id === comment.authorDetail.public_id)),
+        //   100
+        // );
       }
-      setTimeout(() => setReTweet(comment), 100);
+      setReTweet(comment)
+      // setTimeout(() => setReTweet(comment), 100);
     }
   }, [currentUser, comment, users]);
 

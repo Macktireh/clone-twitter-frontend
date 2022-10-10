@@ -26,14 +26,17 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
   React.useEffect(() => {
     if (currentUser && post && users) {
       if (post.authorDetail.public_id === currentUser.user.public_id) {
-        setTimeout(() => setAuthorPost(currentUser), 100);
+        setAuthorPost(currentUser)
+        // setTimeout(() => setAuthorPost(currentUser), 100);
       } else {
-        setTimeout(
-          () => setAuthorPost(users.find((u) => u.user.public_id === post.authorDetail.public_id)),
-          100
-        );
+        setAuthorPost(users.find((u) => u.user.public_id === post.authorDetail.public_id))
+        // setTimeout(
+        //   () => setAuthorPost(users.find((u) => u.user.public_id === post.authorDetail.public_id)),
+        //   100
+        // );
       }
-      setTimeout(() => setTweet(post), 100);
+      setTweet(post)
+      // setTimeout(() => setTweet(post), 100);
     }
   }, [currentUser, post, tweet, users]);
 

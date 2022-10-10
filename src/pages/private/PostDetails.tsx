@@ -15,7 +15,6 @@ import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllCommentAction from "@/actions/comment/getAllComment.action";
 import { IComment, IPost, IPropsRootStateType, IRootState, IUserProfile } from "@/models";
 import { privateRoutes } from "@/routes/private.routes";
-import { useComment } from "@/context/CommentProvider";
 import { useTweetComment } from "@/context/TweetCommentProvider";
 
 interface propsTypes extends IPropsRootStateType {
@@ -60,9 +59,11 @@ const PostDetails: React.FC<propsTypes> = ({
     }
     if (currentUser && users && posts) {
       if (currentUser.pseudo === pseudo) {
-        setTimeout(() => setAuthorPost(currentUser), 100);
+        setAuthorPost(currentUser)
+        // setTimeout(() => setAuthorPost(currentUser), 100);
       } else {
-        setTimeout(() => setAuthorPost(users.find((u) => u.pseudo === pseudo)), 100);
+        setAuthorPost(users.find((u) => u.pseudo === pseudo))
+        // setTimeout(() => setAuthorPost(users.find((u) => u.pseudo === pseudo)), 100);
       }
       const searchPost = posts.filter((p) => p.publicId === postPublicId)
         if (searchPost.length === 0) {
