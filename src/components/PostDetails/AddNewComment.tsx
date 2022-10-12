@@ -9,7 +9,7 @@ import { baseURL } from "@/config/axios";
 import { Link } from "react-router-dom";
 import { pathLinkProfile } from "@/utils/pathRoute";
 import { useComment } from "@/context/CommentProvider";
-import { commentImagePreviewStateType } from '../../models/postAndComment';
+import { commentImagePreviewStateType } from '@/models';
 
 type propsTypes = {
   nameClass: string;

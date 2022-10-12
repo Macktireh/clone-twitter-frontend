@@ -15,7 +15,7 @@ export const logoutEndpoint : string = "/api/auth/user/logout/"
  * Endpoint User
  */
 export const currentUserEndpoint : string = "/api/users/me/"
-export const allUserEndpoint : string = "/api/users/all/"
+export const allUserEndpoint : string = "/api/users/"
 
 
 /***

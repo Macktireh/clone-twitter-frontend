@@ -62,6 +62,14 @@
           span {
             display: none;
           }
+          // svg.explore {
+          //   display: block;
+          // }
+          // svg.htag {
+          //   display: none;
+          // }
+        }
+        @media (max-width: 950px) {
           svg.explore {
             display: block;
           }
