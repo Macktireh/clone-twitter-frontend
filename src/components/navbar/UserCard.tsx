@@ -1,7 +1,7 @@
 import React from "react";
 
 import { IUserProfile } from "@/models";
-import { baseURL } from "@/config/axios";
+// import { baseURL } from "@/config/axios";
 
 type propsTypes = React.PropsWithChildren<{
   nameClass?: string;
@@ -12,14 +12,7 @@ const UserCard: React.FC<propsTypes> = ({ children, nameClass, currentUser }) =>
   return (
     <div className={nameClass ? `UserCard ${nameClass}` : "UserCard"}>
       <div className="img-and-name">
-        <img
-          src={
-            currentUser?.profilePicture
-              ? baseURL + currentUser.profilePicture
-              : baseURL + "/mediafiles/default/profilePic.png"
-          }
-          alt=""
-        />
+        <img src={currentUser?.profilePicture as string} alt="" />
         <div className="username">
           <strong>
             {currentUser?.user.first_name} {currentUser?.user.last_name}

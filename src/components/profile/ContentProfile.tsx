@@ -58,7 +58,7 @@ const ContentProfile: React.FC<propsTypes> = ({
             <img
               src={
                 userProfile?.coverPicture
-                  ? baseURL + userProfile.coverPicture
+                  ? userProfile.coverPicture
                   : baseURL + "/mediafiles/default/coverPic.jpg"
               }
               alt="coverPicture"
@@ -67,7 +67,7 @@ const ContentProfile: React.FC<propsTypes> = ({
               className="profile-pic"
               src={
                 userProfile?.profilePicture
-                  ? baseURL + userProfile.profilePicture
+                  ? userProfile.profilePicture
                   : baseURL + "/mediafiles/default/profilePic.png"
               }
               alt="profilePicture"

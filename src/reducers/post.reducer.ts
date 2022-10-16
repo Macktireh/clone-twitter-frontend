@@ -1,5 +1,5 @@
 import * as Types from "@/actions/types";
-import { baseURL } from "@/config/axios";
+// import { baseURL } from "@/config/axios";
 import { IPost, TPostReducerType } from "@/models";
 
 const initialState: TPostReducerType = null;
@@ -19,7 +19,7 @@ const postReducer = (state: TPostReducerType = initialState, action: any): TPost
       updatePost?.filter((post) => {
         if (post.publicId === payload.publicId) {
           post.body = payload.body;
-          post.image = payload.image ? baseURL + payload.image : payload.image;
+          post.image = payload.image;
         }
         return post;
       });

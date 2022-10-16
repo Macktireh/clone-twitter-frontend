@@ -87,15 +87,19 @@
       .input-icon {
         @include flex(row, center, flex-start);
         gap: 1em;
+        @media (max-width: 360px) {
+          gap: 0.5em;
+        }
       }
 
       .box-btn {
         width: 60%;
-        max-width: 100px;
+        max-width: 80px;
         user-select: none;
         button {
           background-color: $color3;
           border: none;
+          padding: 6px;
           span {
             font-weight: bold;
           }

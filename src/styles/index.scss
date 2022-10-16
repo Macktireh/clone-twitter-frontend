@@ -9,6 +9,8 @@
 // Component navbar
 @import "./components/navbar/userCard";
 @import "./components/navbar/navbar";
+@import "./components/navbar/navbarMobile";
+@import "./components/navbar/navbarMobileLeft";
 
 // Component HomePrivate
 @import "./components/homePrivate/sectionHeaderTweet";
@@ -33,6 +35,7 @@
 @import "./widgets/inputSearch";
 @import "./widgets/navTabs";
 @import "./widgets/modalOrPopup";
+@import "./widgets/simpleCardUser";
 
 // Page Public Component
 @import "./pages/public/homePublic";

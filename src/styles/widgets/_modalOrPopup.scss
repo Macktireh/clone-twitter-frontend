@@ -22,6 +22,10 @@
     overflow-y: scroll;
     @include flex(column, flex-start, flex-start);
     gap: 0.5rem;
+    @media (max-width: 600px) {
+      max-height: none;
+      margin-top: 0;
+    }
 
     .modal-header {
       width: 100%;
@@ -78,12 +82,18 @@
   .modal-container.addTweet {
     height: auto;
     min-height: 230px;
+    @media (max-width: 600px) {
+      height: 100%;
+    }
 
     .modal-content {
       width: 100%;
       display: flex;
       padding: 0 0.5rem;
     }
+  }
+  .modal-container.addTweet.addTweetHeight {
+    height: 600px;
   }
 
 }

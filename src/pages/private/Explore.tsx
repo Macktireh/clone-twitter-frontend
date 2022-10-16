@@ -6,21 +6,23 @@ import Aside from "@/components/aside/Aside";
 import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
 import { IUserProfile, IRootState } from "@/models";
+import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 
 type propsTypes = { currentUser: IUserProfile | null };
 
-const Explore: React.FC<propsTypes> = () => {
+const Explore: React.FC<propsTypes> = ({ currentUser }) => {
   return (
     <>
       <main className="main">
         <div className="main-container">
           <section className="sec-header sticky-2">
-            <SectionHeaderTweet page={privateRoutes.explore.name} title="Latest Tweets" />
+            <SectionHeaderTweet page={privateRoutes.explore.name} title="Latest Tweets" currentUser={currentUser} />
           </section>
           <div>Explore</div>
         </div>
+        <Aside page={privateRoutes.explore.name} />
       </main>
-      <Aside page={privateRoutes.explore.name} />
+      <ButtonAddTweet nameClass="add-tweet-global" />
     </>
   );
 };

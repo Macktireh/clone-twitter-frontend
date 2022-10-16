@@ -7,14 +7,15 @@ import EdidProfile from "@/components/profile/EdidProfile";
 import ModalEditProfile from "@/components/profile/ModalEditProfile";
 import ContentProfile from "@/components/profile/ContentProfile";
 import PopupDeletePost from "@/components/homePrivate/PopupDeletePost";
+import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 import Aside from "@/components/aside/Aside";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
+import getListPostsLikesAction from "@/actions/post/getMyLikesPost.action";
 import EditProfileProvider from "@/context/EditProfileProvider";
 import { IUserProfile, IPost, IRootState, IPropsRootStateType, TTabState } from "@/models";
 import { privateRoutes } from "@/routes/private.routes";
-import getListPostsLikesAction from "@/actions/post/getMyLikesPost.action";
 
 interface propsTypes extends IPropsRootStateType {
   postsLikes: IPost[] | null;
@@ -98,8 +99,8 @@ const Profile: React.FC<propsTypes> = ({
     <>
       <main className="main">
         <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
+        <aside className="aside"></aside>
       </main>
-      <aside className="aside"></aside>
     </>
   ) : (
     <>
@@ -129,9 +130,10 @@ const Profile: React.FC<propsTypes> = ({
             tabState={tabState}
             activeTabState={{ activeTab, setActiveTab }}
           />
+          <Aside page={privateRoutes.profile.name} />
         </main>
-        <Aside page={privateRoutes.profile.name} />
       </>
+      <ButtonAddTweet nameClass="add-tweet-global" />
       <PopupDeletePost />
     </>
   );

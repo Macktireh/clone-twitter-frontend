@@ -2,29 +2,37 @@ import React from "react";
 
 import Popup from "@/widgets/Popup";
 import AddNewComment from "@/components/PostDetails/AddNewComment";
-import { useComment } from "@/context/CommentProvider";
+// import { useComment } from "@/context/CommentProvider";
+import { useTweetComment } from "@/context/TweetCommentProvider";
 
 const ModalAddComment: React.FC = () => {
-  const propsContext = useComment();
+  const propsContext = useTweetComment();
 
   const handleCloseModal = () => {
-    propsContext?.handleCloseModal && propsContext.handleCloseModal();
+    propsContext?.handleCloseModalComment && propsContext.handleCloseModalComment();
   };
 
   const handleClosePopup = () => {
-    propsContext?.popup.setPopupActive && propsContext.popup.setPopupActive();
+    propsContext?.popupComment.setPopupActiveComment && propsContext.popupComment.setPopupActiveComment();
   };
 
   const handleDiscard = () => {
-    propsContext && propsContext.handleDiscard();
+    propsContext && propsContext.handleDiscardComment();
   };
 
   return (
     <>
-      <div className="modal-global" style={{ display: propsContext?.modal.modalActive ? "flex" : "none" }}>
+      <div
+        className="modal-global"
+        style={{ display: propsContext?.modalComment.modalActiveComment ? "flex" : "none" }}
+      >
         <div className="closed" onClick={handleCloseModal}></div>
         <Popup
-          popupActive={propsContext?.popup.popupActive ? propsContext?.popup.popupActive : false}
+          popupActive={
+            propsContext?.popupComment.popupActiveComment
+              ? propsContext?.popupComment.popupActiveComment
+              : false
+          }
           popupTitle="Discard changes?"
           popupDetail="This can’t be undone and you’ll lose your changes."
           popupBtnText="Discard"
@@ -33,7 +41,7 @@ const ModalAddComment: React.FC = () => {
         />
         <div
           className="modal-container addTweet"
-          style={{ height: propsContext?.emojiState.chosenEmoji ? "600px" : "" }}
+          style={{ height: propsContext?.emojiCommentState.chosenEmojiComment ? "600px" : "" }}
         >
           <div className="modal-header">
             <div className="icon-and-title">

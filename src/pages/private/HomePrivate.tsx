@@ -3,17 +3,18 @@ import { connect } from "react-redux";
 
 import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
-import AddNewPost from "@/components/homePrivate/AddNewPost";
+// import AddNewPost from "@/components/homePrivate/AddNewPost";
 import CardTweet from "@/components/homePrivate/CardTweet";
-import PopupDeletePost from "@/components/homePrivate/PopupDeletePost";
+// import PopupDeletePost from "@/components/homePrivate/PopupDeletePost";
 import Aside from "@/components/aside/Aside";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import { privateRoutes } from "@/routes/private.routes";
 import { IRootState, IPropsRootStateType } from "@/models";
-import AddNewPost1 from "@/components/homePrivate/AddNewPost1";
-import PopupDeletePost1 from "@/components/homePrivate/PopupDeletePost1";
+import AddNewPost1 from "@/components/homePrivate/AddNewPost";
+import PopupDeletePost1 from "@/components/homePrivate/PopupDeletePost";
+import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 
 interface propsTypes extends IPropsRootStateType {
   getAllPostAction?: any;
@@ -50,12 +51,16 @@ const HomePrivate: React.FC<propsTypes> = ({
       <main className="main">
         <div className="HomePrivate main-container">
           <section className="sec-header sticky-2">
-            <SectionHeaderTweet page={privateRoutes.home.name} title="Latest Tweets" />
+            <SectionHeaderTweet
+              page={privateRoutes.home.name}
+              title="Latest Tweets"
+              currentUser={currentUser}
+            />
           </section>
           <section className="sec-add-new-post">
             <AddNewPost1 nameClass="textarea-1" />
           </section>
-          <div className="line"></div>
+          {/* <div className="line"></div> */}
           <section className="sec-list-post">
             {loading ? (
               <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
@@ -70,8 +75,9 @@ const HomePrivate: React.FC<propsTypes> = ({
             )}
           </section>
         </div>
+        <Aside page={privateRoutes.home.name} />
       </main>
-      <Aside page={privateRoutes.home.name} />
+      <ButtonAddTweet nameClass="add-tweet-global" />
       <PopupDeletePost1 />
     </>
   );

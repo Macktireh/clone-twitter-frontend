@@ -28,6 +28,8 @@ const deletePostAction = (public_id: string) => async (dispatch: Dispatch<AnyAct
     }
   } else {
     dispatch({ type: Types.DELETE_POST_FAIL });
+    dispatch({ type: Types.AUTHENTICATED_FAIL });
+    dispatch({ type: Types.LOGOUT });
   }
 };
 

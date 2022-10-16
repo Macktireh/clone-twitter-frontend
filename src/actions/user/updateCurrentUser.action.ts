@@ -48,13 +48,13 @@ const updateCurrentUserAction =
           } else {
             dispatch(checkAuthenticatedAction(_updateCurrentUserAction, { public_id, data }));
           }
-          
         }
         dispatch({ type: Types.UPDATE_PROFILE_CURRENT_USER_LOADED_FAIL });
       }
     } else {
-      dispatch({ type: Types.AUTHENTICATED_FAIL });
       dispatch({ type: Types.UPDATE_PROFILE_CURRENT_USER_LOADED_FAIL });
+      dispatch({ type: Types.AUTHENTICATED_FAIL });
+      dispatch({ type: Types.LOGOUT });
     }
   };
 

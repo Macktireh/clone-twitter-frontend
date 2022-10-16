@@ -30,6 +30,11 @@
           cursor: pointer;
         }
         strong {
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
           &:hover {
             text-decoration: underline;
           }
@@ -130,6 +135,9 @@
       a {
         color: $color5;
         font-weight: 400;
+        @media (max-width: 340px) {
+          font-size: 0.9em;
+        }
       }
       span {
         margin-top: 3px;

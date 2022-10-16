@@ -141,6 +141,12 @@
         @media (max-width: 580px) {
           gap: 3em;
         }
+        @media (max-width: 400px) {
+          gap: 2em;
+        }
+        @media (max-width: 345px) {
+          gap: 1.5em;
+        }
         * {
           user-select: none;
         }

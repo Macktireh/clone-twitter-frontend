@@ -6,27 +6,27 @@ import Picker, { IEmojiData } from "emoji-picker-react";
 import IconSVG from "@/widgets/IconSVG";
 import ButtonCoustom from "@/widgets/ButtonCustom";
 import {
-  bodyStateType,
-  emojiStateType,
+  // bodyStateType,
+  // emojiStateType,
   IUserProfile,
-  imagePreviewStateType,
-  imageStateType,
-  editBodyStateType,
+  // imagePreviewStateType,
+  // imageStateType,
+  // editBodyStateType,
 } from "@/models";
-import { baseURL } from "@/config/axios";
-import { useTweet } from "@/context/TweetProvider";
+// import { useTweet } from "@/context/TweetProvider";
 import { Link } from "react-router-dom";
 import { pathLinkProfile } from "@/utils/pathRoute";
+import { bodyPostStateType, editBodyPostStateType, emojiPostStateType, imagePostStateType, imagePreviewPostStateType, useTweetComment } from "@/context/TweetCommentProvider";
 
 type propsTypes = {
   nameClass: string;
   currentUser: IUserProfile | null;
-  bodyState: bodyStateType;
-  emojiState: emojiStateType;
-  imageState: imageStateType;
-  imagePreviewState: imagePreviewStateType;
-  isEditState: { isEditing: boolean; setIsEditing: () => void };
-  editBodyState: editBodyStateType;
+  bodyState: bodyPostStateType;
+  emojiState: emojiPostStateType;
+  imageState: imagePostStateType;
+  imagePreviewState: imagePreviewPostStateType;
+  isEditState: { isEditingPost: boolean; setIsEditingPost: () => void };
+  editBodyState: editBodyPostStateType;
   editImage: File | null;
   onEmojiClick: (e: React.MouseEvent<Element, MouseEvent>, emojiObject: IEmojiData) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -47,10 +47,10 @@ const AddNewPost: React.FC<propsTypes> = ({
   handleSubmit,
   resetImage,
 }) => {
-  const { body, setBody } = bodyState;
-  const { chosenEmoji, setChosenEmoji } = emojiState;
-  const { image, handleChangeImage } = imageState;
-  const { editBody, setEditBody } = editBodyState;
+  // const { body, setBody } = bodyState;
+  // const { chosenEmoji, setChosenEmoji } = emojiState;
+  // const { image, handleChangeImage } = imageState;
+  // const { editBody, setEditBody } = editBodyState;
   const imageInputRef = React.useRef<HTMLInputElement>(null);
 
   const textareaAutoSize = (el: HTMLElement) => {
@@ -75,14 +75,7 @@ const AddNewPost: React.FC<propsTypes> = ({
       <div className="AddNewPost">
         <div className="box-img">
           <Link to={pathLinkProfile(currentUser?.pseudo as string)}>
-            <img
-              src={
-                currentUser?.profilePicture
-                  ? baseURL + currentUser.profilePicture
-                  : baseURL + "/mediafiles/default/profilePic.png"
-              }
-              alt=""
-            />
+            <img src={currentUser?.profilePicture as string} alt="" />
           </Link>
         </div>
         <form onSubmit={(e) => handleSubmit(e)}>
@@ -90,14 +83,14 @@ const AddNewPost: React.FC<propsTypes> = ({
             <textarea
               id={nameClass}
               placeholder="What's happening?"
-              value={isEditState.isEditing ? editBody : body}
+              value={isEditState.isEditingPost ? editBodyState.editBodyPost : bodyState.bodyPost}
               onChange={(e) =>
-                isEditState.isEditing ? setEditBody(e.target.value) : setBody(e.target.value)
+                isEditState.isEditingPost ? editBodyState.setEditBodyPost(e.target.value) : bodyState.setBodyPost(e.target.value)
               }
             />
-            {imagePreviewState.imagePreview && (
+            {imagePreviewState.imagePreviewPost && (
               <div className="img-preview-container">
-                <img src={imagePreviewState.imagePreview} alt="imagePostPreview" />
+                <img src={imagePreviewState.imagePreviewPost} alt="imagePostPreview" />
                 <div className="close" onClick={() => resetImage()}>
                   <IconSVG iconName="close" />
                 </div>
@@ -113,7 +106,7 @@ const AddNewPost: React.FC<propsTypes> = ({
                   id="file"
                   className="form-input-file"
                   hidden
-                  onChange={(e) => handleChangeImage(e)}
+                  onChange={(e) => imageState.handleChangeImagePost(e)}
                   onClick={resetInputFile}
                   ref={imageInputRef}
                 />
@@ -138,7 +131,7 @@ const AddNewPost: React.FC<propsTypes> = ({
                 iconName="emoji"
                 nameClass="emoji"
                 fill="#1d9bf0"
-                handleClick={() => setChosenEmoji(!chosenEmoji)}
+                handleClick={() => emojiState.setChosenEmojiPost(!emojiState.chosenEmojiPost)}
               />
               {/* </div>
               </Tippy> */}
@@ -148,11 +141,11 @@ const AddNewPost: React.FC<propsTypes> = ({
               <ButtonCoustom
                 text="Tweet"
                 isDisabled={
-                  isEditState.isEditing
-                    ? editBody || editImage
+                  isEditState.isEditingPost
+                    ? editBodyState.editBodyPost || editImage
                       ? false
                       : true
-                    : body || image
+                    : bodyState.bodyPost || imageState.imagePost
                     ? false
                     : true
                 }
@@ -161,7 +154,7 @@ const AddNewPost: React.FC<propsTypes> = ({
           </div>
 
           <div className="emojiPicker">
-            {chosenEmoji && <Picker onEmojiClick={onEmojiClick} searchPlaceholder="Search Emoji" />}
+            {emojiState.chosenEmojiPost && <Picker onEmojiClick={onEmojiClick} searchPlaceholder="Search Emoji" />}
           </div>
         </form>
       </div>
@@ -172,21 +165,21 @@ const AddNewPost: React.FC<propsTypes> = ({
 type PropsLogicalType = { nameClass: string };
 
 const AddNewPostLogical: React.FC<PropsLogicalType> = ({ nameClass }) => {
-  const propsContext = useTweet();
+  const propsContext = useTweetComment();
   const currentUser = propsContext?.currentUser as IUserProfile;
-  const bodyState = propsContext?.bodyState as bodyStateType;
-  const emojiState = propsContext?.emojiState as emojiStateType;
-  const imageState = propsContext?.imageState as imageStateType;
-  const imagePreviewState = propsContext?.imagePreviewState as imagePreviewStateType;
-  const isEditState = propsContext?.isEditState as { isEditing: boolean; setIsEditing: () => void };
-  const editBodyState = propsContext?.editBodyState as editBodyStateType;
-  const editImage = propsContext?.editImage as File | null;
-  const onEmojiClick = propsContext?.onEmojiClick as (
+  const bodyState = propsContext?.bodyPostState as bodyPostStateType;
+  const emojiState = propsContext?.emojiPostState as emojiPostStateType;
+  const imageState = propsContext?.imagePostState as imagePostStateType;
+  const imagePreviewState = propsContext?.imagePreviewPostState as imagePreviewPostStateType;
+  const isEditState = propsContext?.isEditPostState as { isEditingPost: boolean; setIsEditingPost: () => void };
+  const editBodyState = propsContext?.editBodyPostState as editBodyPostStateType;
+  const editImage = propsContext?.editImagePost as File | null;
+  const onEmojiClick = propsContext?.onEmojiClickPost as (
     e: React.MouseEvent<Element, MouseEvent>,
     emojiObject: IEmojiData
   ) => void;
-  const handleSubmit = propsContext?.handleSubmit as (e: React.FormEvent<HTMLFormElement>) => void;
-  const resetImage = propsContext?.resetImage as () => void;
+  const handleSubmit = propsContext?.handleSubmitPost as (e: React.FormEvent<HTMLFormElement>) => void;
+  const resetImage = propsContext?.resetImagePost as () => void;
 
   return (
     <AddNewPost

@@ -27,6 +27,8 @@ const addNewPostAction = (data: FormData) => async (dispatch: Dispatch<AnyAction
     }
   } else {
     dispatch({ type: Types.ADD_NEW_POST_FAIL });
+    dispatch({ type: Types.AUTHENTICATED_FAIL });
+    dispatch({ type: Types.LOGOUT });
   }
 };
 

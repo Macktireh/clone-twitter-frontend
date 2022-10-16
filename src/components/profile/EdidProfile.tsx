@@ -59,7 +59,7 @@ const EdidProfile: React.FC<propsTypes> = ({ currentUser }) => {
               coverPicturePreview
                 ? coverPicturePreview
                 : currentUser?.coverPicture
-                ? baseURL + currentUser.coverPicture
+                ? currentUser.coverPicture
                 : baseURL + "/mediafiles/default/coverPic.jpg"
             }
             alt="cover-pic"
@@ -85,7 +85,7 @@ const EdidProfile: React.FC<propsTypes> = ({ currentUser }) => {
               profilePicturePreview
                 ? profilePicturePreview
                 : currentUser?.profilePicture
-                ? baseURL + currentUser.profilePicture
+                ? currentUser.profilePicture
                 : baseURL + "/mediafiles/default/coverPic.jpg"
             }
             alt="profile-pic"

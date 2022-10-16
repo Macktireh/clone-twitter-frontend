@@ -1,17 +1,19 @@
 import React from "react";
 
 import IconSVG from "@/widgets/IconSVG";
-import { useTweet } from "@/context/TweetProvider";
+import { useTweetComment } from "@/context/TweetCommentProvider";
 
-const ButtonAddTweet: React.FC = () => {
-  const propsContext = useTweet();
+type PropsTypes = { nameClass: string }
+
+const ButtonAddTweet: React.FC<PropsTypes> = ({ nameClass }) => {
+  const propsContext = useTweetComment();
 
   const toggleModal = () => {
-    propsContext?.modal && propsContext.modal.setModalActive();
+    propsContext?.modalPost && propsContext.modalPost.setModalActivePost();
   };
 
   return (
-    <div className="add-tweet" onClick={toggleModal}>
+    <div className={nameClass} onClick={toggleModal}>
       <IconSVG iconName="add-tweet" />
       <span>Tweet</span>
     </div>

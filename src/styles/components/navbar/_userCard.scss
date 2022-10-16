@@ -9,6 +9,8 @@
   .img-and-name{
     @include flex(row, flex-start, center);
     gap: 8px;
+    width: 100%;
+    height: 100%;
   }
 
   img,

@@ -29,6 +29,8 @@ const likeCommenttAction = (commentPublicId: string) => async (dispatch: Dispatc
     }
   } else {
     dispatch({ type: Types.LIKE_OR_UNLIKE_COMMENT_FAIL });
+    dispatch({ type: Types.AUTHENTICATED_FAIL });
+    dispatch({ type: Types.LOGOUT });
   }
 };
 

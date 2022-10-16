@@ -2,8 +2,7 @@ import React from "react";
 
 import IconSVG from "@/widgets/IconSVG";
 import { IUserProfile, IPost, IComment } from "@/models";
-import { useTweet } from "@/context/TweetProvider";
-import { useComment } from "@/context/CommentProvider";
+import { useTweetComment } from "@/context/TweetCommentProvider";
 
 type propsTypes = {
   type: string;
@@ -12,36 +11,35 @@ type propsTypes = {
 };
 
 const PopupPostOrCommentOptionCard: React.FC<propsTypes> = ({ type, currentUser, post }) => {
-  const hookTweet = useTweet();
-  const hookComment = useComment();
+  const propsContext = useTweetComment();
 
   const handleEditingPost = async (public_id: string) => {
-    if (hookTweet) {
-      hookTweet.publicIdState.setPublicId(public_id);
-      hookTweet.isEditState.setIsEditing();
-      hookTweet.modal.setModalActive();
+    if (propsContext) {
+      propsContext.postPublicIdState.setPostPublicId(public_id);
+      propsContext.isEditPostState.setIsEditingPost();
+      propsContext.modalPost.setModalActivePost();
     }
   };
 
   const handleConfirmDeletePost = async (public_id: string) => {
-    if (hookTweet) {
-      hookTweet.publicIdState.setPublicId(public_id);
-      hookTweet.popupDelete.setPopupActiveDelete();
+    if (propsContext) {
+      propsContext.postPublicIdState.setPostPublicId(public_id);
+      propsContext.popupDeletePost.setPopupActiveDeletePost();
     }
   };
 
   const handleEditingComment = async (public_id: string) => {
-    if (hookComment) {
-      hookComment.publicIdState.setPublicId(public_id);
-      hookComment.isEditState.setIsEditing();
-      hookComment.modal.setModalActive();
+    if (propsContext) {
+      propsContext.commentPublicIdState.setCommentPublicId(public_id);
+      propsContext.isEditCommentState.setIsEditingComment();
+      propsContext.modalComment.setModalActiveComment();
     }
   };
 
   const handleConfirmDeleteComment = async (public_id: string) => {
-    if (hookComment) {
-      hookComment.publicIdState.setPublicId(public_id);
-      hookComment.popupDelete.setPopupActiveDelete();
+    if (propsContext) {
+      propsContext.commentPublicIdState.setCommentPublicId(public_id);
+      propsContext.popupDeleteComment.setPopupActiveDeleteComment();
     }
   };
 

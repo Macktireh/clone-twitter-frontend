@@ -3,12 +3,12 @@ import Tippy from "@tippyjs/react";
 import { Link } from "react-router-dom";
 
 import LikePostButton from "@/components/homePrivate/LikePostButton";
-import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard1";
+import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard";
 import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
-import AddNewComment from "@/components/PostDetails/AddNewComment1";
+import AddNewComment from "@/components/PostDetails/AddNewComment";
 import IconSVG from "@/widgets/IconSVG";
 import { IUserProfile, IPost } from "@/models";
-import { baseURL } from "@/config/axios";
+// import { baseURL } from "@/config/axios";
 import { dateParserCustom } from "@/utils/dateParser";
 import { pathLinkProfile } from "@/utils/pathRoute";
 import ButtonAddComment from "./ButtonAddComment";
@@ -34,9 +34,9 @@ const CardTweetDetails: React.FC<propsTypes> = ({ currentUser, postDetails, auth
               hideOnClick={false}
               placement="top"
             >
-              <div className="tooltip"  tabIndex={0}>
+              <div className="tooltip" tabIndex={0}>
                 <Link to={pathLinkProfile(authorPost.pseudo)}>
-                  <img src={`${baseURL}${authorPost.profilePicture}`} alt="" />
+                  <img src={`${authorPost.profilePicture}`} alt="" />
                 </Link>
               </div>
             </Tippy>
@@ -62,15 +62,13 @@ const CardTweetDetails: React.FC<propsTypes> = ({ currentUser, postDetails, auth
           </div>
         </div>
         <Tippy
-          content={
-            <PopupPostOrCommentOptionCard type="post" post={postDetails} currentUser={currentUser} />
-          }
+          content={<PopupPostOrCommentOptionCard type="post" post={postDetails} currentUser={currentUser} />}
           interactive={true}
           trigger="click"
           delay={0}
           placement="top-end"
         >
-          <div className="option"  tabIndex={0}>
+          <div className="option" tabIndex={0}>
             <IconSVG iconName="3-dot" fill="#919090" />
           </div>
         </Tippy>
@@ -86,14 +84,7 @@ const CardTweetDetails: React.FC<propsTypes> = ({ currentUser, postDetails, auth
 
             {postDetails.image && (
               <div className="post-img">
-                <img
-                  src={
-                    postDetails.image.includes(baseURL as string)
-                      ? postDetails.image
-                      : baseURL + postDetails.image
-                  }
-                  alt=""
-                />
+                <img src={postDetails.image} alt="" />
               </div>
             )}
           </>
@@ -130,7 +121,8 @@ const CardTweetDetails: React.FC<propsTypes> = ({ currentUser, postDetails, auth
         ) : (
           <>
             <p>
-              <strong>{postDetails?.numberComments}</strong> {postDetails?.numberComments > 1 ? "Retweets" : "Retweet"}
+              <strong>{postDetails?.numberComments}</strong>{" "}
+              {postDetails?.numberComments > 1 ? "Retweets" : "Retweet"}
             </p>
             <p>
               <strong>527</strong> Quote Tweets
@@ -143,7 +135,7 @@ const CardTweetDetails: React.FC<propsTypes> = ({ currentUser, postDetails, auth
       </div>
       <div className="line"></div>
       <div className="icons">
-      <ButtonAddComment post={postDetails as IPost} isDisplayNumComments={false} />
+        <ButtonAddComment post={postDetails as IPost} isDisplayNumComments={false} />
         {/* <div className="reply post-icon">
           <IconSVG iconName="reply" fill="#919090" />
         </div> */}

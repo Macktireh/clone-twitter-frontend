@@ -6,7 +6,7 @@ import Tippy from "@tippyjs/react";
 import IconSVG from "@/widgets/IconSVG";
 import UserCard from "@/components/navbar/UserCard";
 import PopupLogout from "@/components/auth/PopupLogout";
-import ButtonAddTweet from "@/components/navbar/ButtonAddTweet1";
+import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 import { privateRoutes } from "@/routes/private.routes";
 import { IUserProfile, IRootState } from "@/models";
 import { pathLinkProfile } from "@/utils/pathRoute";
@@ -45,7 +45,7 @@ const Navbar: React.FC<propsTypes> = ({ currentUser }) => {
             className={(nav) => (nav.isActive ? handleActive("explore") : "nav-link")}
           >
             <IconSVG iconName={active === "explore" ? "exploreActive" : "explore"} nameClass="explore" />
-            <IconSVG iconName={active === "explore" ? "#Active" : "#"} nameClass="htag" />
+            <IconSVG iconName={active === "explore" ? "htagActive" : "htag"} nameClass="htag" />
             <span className={active === "explore" ? "active" : ""}>Explore</span>
           </NavLink>
 
@@ -100,7 +100,7 @@ const Navbar: React.FC<propsTypes> = ({ currentUser }) => {
           </div>
         </div>
 
-        <ButtonAddTweet />
+        <ButtonAddTweet nameClass="add-tweet-nav" />
       </div>
 
       <Tippy

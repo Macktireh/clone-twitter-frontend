@@ -9,7 +9,7 @@ import ButtonCustom from "@/widgets/ButtonCustom";
 
 type propsTypes = { currentUser: IUserProfile | null };
 
-const Messages: React.FC<propsTypes> = () => {
+const Messages: React.FC<propsTypes> = ({ currentUser }) => {
   React.useEffect(() => {
     document.title = privateRoutes.messages.title;
 
@@ -20,34 +20,31 @@ const Messages: React.FC<propsTypes> = () => {
   });
 
   return (
-    <>
-      <main className="main main-messages">
-        <div className="main-container message inbox">
-          <section className="sec-header sticky-2">
-            <SectionHeaderTweet page={privateRoutes.messages.name} title="Messages" />
-          </section>
-          <div className="inbox-container">
-            <div className="not-msg">
-              <h2>Welcome to your inbox!</h2>
-              <p>
-                Drop a line, share Tweets and more with private conversations between you and others on
-                Twitter.
-              </p>
-              <ButtonCustom text="Write a message" />
-            </div>
-          </div>
-        </div>
-        <div className="chatrom">
+    <main className="main main-messages">
+      <div className="main-container message inbox">
+        <section className="sec-header sticky-2">
+          <SectionHeaderTweet page={privateRoutes.messages.name} title="Messages" currentUser={currentUser} />
+        </section>
+        <div className="inbox-container">
           <div className="not-msg">
-            <h2>Select a message</h2>
+            <h2>Welcome to your inbox!</h2>
             <p>
-              Choose from your existing conversations, start a <br /> new one, or just keep swimming.
+              Drop a line, share Tweets and more with private conversations between you and others on Twitter.
             </p>
-            <ButtonCustom text="New message" />
+            <ButtonCustom text="Write a message" />
           </div>
         </div>
-      </main>
-    </>
+      </div>
+      <div className="chatrom">
+        <div className="not-msg">
+          <h2>Select a message</h2>
+          <p>
+            Choose from your existing conversations, start a <br /> new one, or just keep swimming.
+          </p>
+          <ButtonCustom text="New message" />
+        </div>
+      </div>
+    </main>
   );
 };
 

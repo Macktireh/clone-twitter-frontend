@@ -3,6 +3,10 @@
     width: 100%;
     display: flex;
     padding: 4px 8px;
+    border-bottom: 1px solid $color7;
+    @media (max-width: 500px) {
+      display: none;
+    }
   }
   .line {
     width: 100%;

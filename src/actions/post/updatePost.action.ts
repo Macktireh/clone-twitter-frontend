@@ -28,11 +28,13 @@ const updatePostAction =
       }
     } else {
       dispatch({ type: Types.UPDATE_POST_FAIL });
+      dispatch({ type: Types.AUTHENTICATED_FAIL });
+      dispatch({ type: Types.LOGOUT });
     }
   };
 
 const _updatePostAction =
-  (param: {public_id: string, data: FormData}) => async (dispatch: Dispatch<AnyAction> | any) => {
+  (param: { public_id: string; data: FormData }) => async (dispatch: Dispatch<AnyAction> | any) => {
     if (localStorage.getItem("access")) {
       const config = {
         headers: {

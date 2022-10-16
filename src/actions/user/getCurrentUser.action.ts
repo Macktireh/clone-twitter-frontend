@@ -25,8 +25,9 @@ const getCurrentUserAction = () => async (dispatch: Dispatch<AnyAction> | any) =
       dispatch({ type: Types.GET_CURRENT_USER_LOADED_FAIL });
     }
   } else {
-    dispatch({ type: Types.AUTHENTICATED_FAIL });
     dispatch({ type: Types.GET_CURRENT_USER_LOADED_FAIL });
+    dispatch({ type: Types.AUTHENTICATED_FAIL });
+    dispatch({ type: Types.LOGOUT });
   }
 };
 

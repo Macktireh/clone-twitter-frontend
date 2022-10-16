@@ -54,6 +54,7 @@ const Login: React.FC<any> = ({ loginAction }) => {
             type="password"
             label="Mot de passe"
             onChange={handleChange}
+            isPasswords={true}
             value={password}
           />
           <ButtonCoustom nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />

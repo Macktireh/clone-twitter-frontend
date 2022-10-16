@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 
 import IconSVG from "@/widgets/IconSVG";
 import LikePostButton from "@/components/homePrivate/LikePostButton";
-import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard1";
+import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard";
 import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
 import { IUserProfile, IComment } from "@/models";
-import { baseURL } from "@/config/axios";
+// import { baseURL } from "@/config/axios";
 import { dateParserCreated } from "@/utils/dateParser";
 import { pathLinkProfile } from "@/utils/pathRoute";
 
@@ -25,16 +25,16 @@ const CardComment: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
   React.useEffect(() => {
     if (currentUser && comment && users) {
       if (comment.authorDetail.public_id === currentUser.user.public_id) {
-        setAuthorPost(currentUser)
+        setAuthorPost(currentUser);
         // setTimeout(() => setAuthorPost(currentUser), 100);
       } else {
-        setAuthorPost(users.find((u) => u.user.public_id === comment.authorDetail.public_id))
+        setAuthorPost(users.find((u) => u.user.public_id === comment.authorDetail.public_id));
         // setTimeout(
         //   () => setAuthorPost(users.find((u) => u.user.public_id === comment.authorDetail.public_id)),
         //   100
         // );
       }
-      setReTweet(comment)
+      setReTweet(comment);
       // setTimeout(() => setReTweet(comment), 100);
     }
   }, [currentUser, comment, users]);
@@ -64,7 +64,7 @@ const CardComment: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
           >
             <div className="tooltip" tabIndex={0}>
               <Link to={pathLinkProfile(authorPost.pseudo)}>
-                <img src={`${baseURL}${authorPost.profilePicture}`} alt="" />
+                <img src={`${authorPost.profilePicture}`} alt="" />
               </Link>
             </div>
           </Tippy>
@@ -115,10 +115,7 @@ const CardComment: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
 
               {ReTweet.image && (
                 <div className="post-img">
-                  <img
-                    src={ReTweet.image.includes(baseURL as string) ? ReTweet.image : baseURL + ReTweet.image}
-                    alt=""
-                  />
+                  <img src={ReTweet.image} alt="" />
                 </div>
               )}
             </>

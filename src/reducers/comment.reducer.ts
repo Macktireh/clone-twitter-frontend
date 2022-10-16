@@ -1,5 +1,5 @@
 import * as Types from "@/actions/types";
-import { baseURL } from "@/config/axios";
+// import { baseURL } from "@/config/axios";
 import { IComment, TCommentReducerType } from "@/models";
 
 const initialState: TCommentReducerType = null;
@@ -19,7 +19,8 @@ const commentReducer = (state: TCommentReducerType = initialState, action: any):
       updatePost?.filter((post) => {
         if (post.publicId === payload.publicId) {
           post.message = payload.message;
-          post.image = payload.image ? baseURL + payload.image : payload.image;
+          post.image = payload.image;
+          // post.image = payload.image ? baseURL + payload.image : payload.image;
         }
         return post;
       });

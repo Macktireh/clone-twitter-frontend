@@ -2,21 +2,21 @@ import React from "react";
 
 import Popup from "@/widgets/Popup";
 import AddNewPost from "@/components/homePrivate/AddNewPost";
-import { useTweet } from "@/context/TweetProvider";
+import { useTweetComment } from "@/context/TweetCommentProvider";
 
 const ModalAddNewTweet: React.FC = () => {
-  const propsContext = useTweet();
+  const propsContext = useTweetComment();
 
   const handleCloseModal = () => {
-    propsContext?.handleCloseModal && propsContext.handleCloseModal();
+    propsContext?.handleCloseModalPost && propsContext.handleCloseModalPost();
   };
 
   const handleClosePopup = () => {
-    propsContext?.popup.setPopupActive && propsContext.popup.setPopupActive();
+    propsContext?.popupPost.setPopupActivePost && propsContext.popupPost.setPopupActivePost();
   };
 
   const handleDiscard = () => {
-    propsContext && propsContext.handleDiscard();
+    propsContext && propsContext.handleDiscardPost();
   };
 
   // const handleEmoji = () => {
@@ -32,10 +32,15 @@ const ModalAddNewTweet: React.FC = () => {
         style={{ display: propsContext?.emojiState.chosenEmoji ? "flex" : "none" }}
         onClick={handleEmoji}
       ></div> */}
-      <div className="modal-global" style={{ display: propsContext?.modal.modalActive ? "flex" : "none" }}>
+      <div
+        className="modal-global"
+        style={{ display: propsContext?.modalPost.modalActivePost ? "flex" : "none" }}
+      >
         <div className="closed" onClick={handleCloseModal}></div>
         <Popup
-          popupActive={propsContext?.popup.popupActive ? propsContext?.popup.popupActive : false}
+          popupActive={
+            propsContext?.popupPost.popupActivePost ? propsContext?.popupPost.popupActivePost : false
+          }
           popupTitle="Discard changes?"
           popupDetail="This can’t be undone and you’ll lose your changes."
           popupBtnText="Discard"
@@ -43,8 +48,8 @@ const ModalAddNewTweet: React.FC = () => {
           handleClose={handleClosePopup}
         />
         <div
-          className="modal-container addTweet"
-          style={{ height: propsContext?.emojiState.chosenEmoji ? "600px" : "" }}
+          className={propsContext?.emojiPostState.chosenEmojiPost ? "modal-container addTweet addTweetHeight" : "modal-container addTweet"}
+          // style={{ height: propsContext?.emojiPostState.chosenEmojiPost ? "600px" : "" }}
         >
           <div className="modal-header">
             <div className="icon-and-title">

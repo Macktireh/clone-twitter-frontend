@@ -29,6 +29,8 @@ const deleteCommentAction =
       }
     } else {
       dispatch({ type: Types.DELETE_COMMENT_FAIL });
+      dispatch({ type: Types.AUTHENTICATED_FAIL });
+      dispatch({ type: Types.LOGOUT });
     }
   };
 

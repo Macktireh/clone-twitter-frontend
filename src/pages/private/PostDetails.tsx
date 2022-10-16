@@ -6,8 +6,8 @@ import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import CardTweetDetails from "@/components/PostDetails/CardTweetDetails";
 import CardComment from "@/components/PostDetails/CardComment";
-import PopupDeletePost from "@/components/homePrivate/PopupDeletePost1";
-import PopupDeleteComment from "@/components/PostDetails/PopupDeleteComment1";
+import PopupDeletePost from "@/components/homePrivate/PopupDeletePost";
+import PopupDeleteComment from "@/components/PostDetails/PopupDeleteComment";
 import Aside from "@/components/aside/Aside";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
@@ -59,23 +59,25 @@ const PostDetails: React.FC<propsTypes> = ({
     }
     if (currentUser && users && posts) {
       if (currentUser.pseudo === pseudo) {
-        setAuthorPost(currentUser)
+        setAuthorPost(currentUser);
         // setTimeout(() => setAuthorPost(currentUser), 100);
       } else {
-        setAuthorPost(users.find((u) => u.pseudo === pseudo))
+        setAuthorPost(users.find((u) => u.pseudo === pseudo));
         // setTimeout(() => setAuthorPost(users.find((u) => u.pseudo === pseudo)), 100);
       }
-      const searchPost = posts.filter((p) => p.publicId === postPublicId)
-        if (searchPost.length === 0) {
-          setIsPostExist(false);
-        } else {
-          setIsPostExist(true);
-          setPostDetails(searchPost[0]);
-        }
+      const searchPost = posts.filter((p) => p.publicId === postPublicId);
+      if (searchPost.length === 0) {
+        setIsPostExist(false);
+      } else {
+        setIsPostExist(true);
+        setPostDetails(searchPost[0]);
+      }
       // setTimeout(() => setPostDetails(posts.find((u) => u.publicId === postPublicId)), 100);
     }
-
-    document.title = `${pseudo} on Twitter : ${postDetails?.body.slice(0, 50)}...`;
+    document.title =
+      postDetails && postDetails.body !== null
+        ? `${pseudo} on Twitter : ${postDetails.body.slice(0, 50)}...`
+        : (pseudo as string);
 
     if (currentUser && users && postDetails && authorPost && comments) setLoading(false);
 
@@ -127,8 +129,8 @@ const PostDetails: React.FC<propsTypes> = ({
             )}
           </section>
         </div>
+        <Aside page={privateRoutes.home.name} />
       </main>
-      <Aside page={privateRoutes.home.name} />
       <PopupDeletePost />
       <PopupDeleteComment />
     </>
@@ -142,7 +144,7 @@ const PostDetailsConnectWithStore: React.FC<propsTypes> = ({
   comments,
   getAllUsersAction,
   getAllPostAction,
-  getAllCommentAction
+  getAllCommentAction,
 }) => {
   return (
     <Layout>

@@ -3,15 +3,16 @@ import React from "react";
 import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import NavTabs from "@/widgets/NavTabs";
+import CardNotif from "@/components/notification/CardNotif";
+import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 import Aside from "@/components/aside/Aside";
 import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
 import { IUserProfile, IRootState, TTabState } from "@/models";
-import CardNotif from "@/components/notification/CardNotif";
 
 type propsTypes = { currentUser: IUserProfile | null };
 
-const Notifications: React.FC<propsTypes> = () => {
+const Notifications: React.FC<propsTypes> = ({ currentUser }) => {
   const tabState: TTabState[] = [
     { id: 1, title: "All", grow: false },
     { id: 2, title: "Montions", grow: false },
@@ -36,7 +37,11 @@ const Notifications: React.FC<propsTypes> = () => {
       <main className="main">
         <div className="Notifications main-container">
           <section className="sec-header sticky-2">
-            <SectionHeaderTweet page={privateRoutes.notifications.name} title="Notifications" />
+            <SectionHeaderTweet
+              page={privateRoutes.notifications.name}
+              title="Notifications"
+              currentUser={currentUser}
+            />
             <nav>
               <NavTabs listTabs={tabState} activeTab={activeTab} toggleTab={toggleTab} />
             </nav>
@@ -54,8 +59,9 @@ const Notifications: React.FC<propsTypes> = () => {
             </div>
           )}
         </div>
+        <Aside page={privateRoutes.notifications.name} />
       </main>
-      <Aside page={privateRoutes.notifications.name} />
+      <ButtonAddTweet nameClass="add-tweet-global" />
     </>
   );
 };

@@ -28,6 +28,8 @@ const getAllPostAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
     }
   } else {
     dispatch({ type: Types.GET_ALL_POST_FAIL });
+    dispatch({ type: Types.AUTHENTICATED_FAIL });
+    dispatch({ type: Types.LOGOUT });
   }
 };
 

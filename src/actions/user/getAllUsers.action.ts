@@ -23,11 +23,13 @@ const getAllUsersAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
         payload: res.data,
       });
     } catch (error: any) {
-      dispatch(checkAuthenticatedAction(_getAllUsersAction));
       dispatch({type: Types.GET_ALL_USERS_LOADED_FAIL,});
+      dispatch(checkAuthenticatedAction(_getAllUsersAction));
     }
   } else {
     dispatch({type: Types.GET_ALL_USERS_LOADED_FAIL,});
+    dispatch({ type: Types.AUTHENTICATED_FAIL });
+    dispatch({ type: Types.LOGOUT });
   }
 };
 

@@ -1,11 +1,12 @@
 import React from "react";
 
 import Navbar from "@/components/navbar/Navbar";
-// import TweetProvider from "@/context/TweetProvider";
-// import CommentProvider from "@/context/CommentProvider";
-import ModalAddNewTweet from "@/components/homePrivate/ModalAddNewTweet1";
-import ModalAddComment from "@/components/PostDetails/ModalAddComment1";
+import ModalAddNewTweet from "@/components/homePrivate/ModalAddNewTweet";
+import ModalAddComment from "@/components/PostDetails/ModalAddComment";
 import TweetCommentProvider from "@/context/TweetCommentProvider";
+import NavbarMobile from "@/components/navbar/NavbarMobile";
+import NavbarMobileLeft from "@/components/navbar/NavbarMobileLeft";
+import NavbarProvider from "@/context/CommentProvider";
 
 const Layout = (props: React.PropsWithChildren<any>) => {
   const flag = React.useRef(false);
@@ -20,20 +21,24 @@ const Layout = (props: React.PropsWithChildren<any>) => {
     }
   });
   return (
-    <div className="layout">
-      <TweetCommentProvider>
-        {/* <CommentProvider> */}
-          <header className="header">
-            <div className="nav-container">
-              <Navbar />
-            </div>
-          </header>
-          {props.children}
-          <ModalAddComment />
-        {/* </CommentProvider> */}
-        <ModalAddNewTweet />
-      </TweetCommentProvider>
-    </div>
+    <>
+      <NavbarProvider>
+        <div className="layout">
+          <TweetCommentProvider>
+            <header className="header">
+              <div className="nav-container">
+                <Navbar />
+              </div>
+            </header>
+            {props.children}
+            <ModalAddComment />
+            <ModalAddNewTweet />
+          </TweetCommentProvider>
+        </div>
+        <NavbarMobile />
+        <NavbarMobileLeft />
+      </NavbarProvider>
+    </>
   );
 };
 

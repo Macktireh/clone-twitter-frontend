@@ -1,7 +1,6 @@
 import React from "react";
 
 import IconSVG from "@/widgets/IconSVG";
-import { baseURL } from "@/config/axios";
 
 const CardNotif: React.FC = () => {
   return (
@@ -11,7 +10,7 @@ const CardNotif: React.FC = () => {
       </div>
       <div className="content">
         <div className="box-img">
-          <img src={baseURL + "/mediafiles/default/profilePic.png"} alt="" />
+          <img src="https://res.cloudinary.com/doysjtoym/image/upload/v1665693389/cloneTwitter/default/profilePic_hbvouc.png" alt="" />
           <div className="svg-icon">
             <IconSVG iconName="3-dot" fill="#919090" />
           </div>

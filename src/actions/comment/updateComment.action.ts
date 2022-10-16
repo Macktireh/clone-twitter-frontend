@@ -29,6 +29,8 @@ const updateCommentAction =
       }
     } else {
       dispatch({ type: Types.UPDATE_COMMENT_FAIL });
+      dispatch({ type: Types.AUTHENTICATED_FAIL });
+      dispatch({ type: Types.LOGOUT });
     }
   };
 

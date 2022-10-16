@@ -28,6 +28,8 @@ const getOnePostAction = (publicId: string) => async (dispatch: Dispatch<AnyActi
     }
   } else {
     dispatch({ type: Types.GET_ONE_POST_FAIL });
+    dispatch({ type: Types.AUTHENTICATED_FAIL });
+    dispatch({ type: Types.LOGOUT });
   }
 };
 

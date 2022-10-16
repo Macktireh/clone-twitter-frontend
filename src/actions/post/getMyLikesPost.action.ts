@@ -28,6 +28,8 @@ const getMyLikesPostAction = () => async (dispatch: Dispatch<AnyAction> | any) =
     }
   } else {
     dispatch({ type: Types.GET_LIST_POSTS_LIKES_FAIL });
+    dispatch({ type: Types.AUTHENTICATED_FAIL });
+    dispatch({ type: Types.LOGOUT });
   }
 };
 

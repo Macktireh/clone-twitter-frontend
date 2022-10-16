@@ -5,7 +5,7 @@ import { IEmojiData } from "emoji-picker-react";
 import addNewPostAction from "@/actions/post/addNewPost.action";
 import deletePostAction from "@/actions/post/deletePost.action";
 import updatePostAction from "@/actions/post/updatePost.action";
-import { baseURL } from "@/config/axios";
+// import { baseURL } from "@/config/axios";
 import {
   // bodyStateType,
   // emojiStateType,
@@ -155,7 +155,8 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
             setEditBodyPost(post.body);
           }
           setImagePreviewPost(
-            post.image ? (post.image.includes(baseURL as string) ? post.image : baseURL + post.image) : ""
+            post.image
+            // post.image ? (post.image.includes(baseURL as string) ? post.image : baseURL + post.image) : ""
           );
         }
         return post;
@@ -190,17 +191,12 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
           if (editBodyComment === "" || editBodyComment === comment.message) {
             setEditBodyComment(comment.message);
           }
-          setImagePreviewComment(
-            comment.image
-              ? comment.image.includes(baseURL as string)
-                ? comment.image
-                : baseURL + comment.image
-              : ""
-          );
+          setImagePreviewComment(comment.image);
         }
         return comment;
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isEditingPost,
     imagePost,
@@ -337,9 +333,11 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
   /*****************************************************************************************
     Comment
   ******************************************************************************************/
-  const resetImageComment = () => {
-    setImageComment(null);
-    setEditImageComment(null);
+  const resetImageComment = async () => {
+    // await setImageComment(null);
+    setTimeout(() => setImageComment(null), 200)
+    await setEditImageComment(null);
+    setImagePreviewComment(null)
   };
 
   const onEmojiClickComment = (e: React.MouseEvent<Element, MouseEvent>, emojiObject: IEmojiData) => {

@@ -1,10 +1,10 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
 import UserCard from "@/components/navbar/UserCard";
 import IconSVG from "@/widgets/IconSVG";
-import { IUserProfile } from "@/models";
-import { useDispatch } from "react-redux";
 import logoutAction from "@/actions/auth/logout.action";
+import { IUserProfile } from "@/models";
 
 type propsTypes = React.PropsWithChildren<{
   currentUser?: IUserProfile | null;

@@ -1,13 +1,14 @@
 import React from "react";
 
 import Popup from "@/widgets/Popup";
-import { useTweet } from "@/context/TweetProvider";
+// import { useTweet } from "@/context/TweetProvider";
+import { useTweetComment } from "@/context/TweetCommentProvider";
 
 const PopupDeletePost = () => {
-  const propsContext = useTweet();
+  const propsContext = useTweetComment();
 
   const handleClosePopup = () => {
-    propsContext?.popupDelete.setPopupActiveDelete && propsContext.popupDelete.setPopupActiveDelete();
+    propsContext?.popupDeletePost.setPopupActiveDeletePost && propsContext.popupDeletePost.setPopupActiveDeletePost();
   };
 
   const handleDelete = () => {
@@ -17,7 +18,7 @@ const PopupDeletePost = () => {
   return (
       <Popup
         popupActive={
-          propsContext?.popupDelete.popupActiveDelete ? propsContext.popupDelete.popupActiveDelete : false
+          propsContext?.popupDeletePost.popupActiveDeletePost ? propsContext.popupDeletePost.popupActiveDeletePost : false
         }
         popupTitle="Vous êtes sûr de vouloir supprimer ?"
         popupBtnText="Oui Supprimer"

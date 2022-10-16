@@ -6,10 +6,11 @@ import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
 import { IUserProfile, IRootState } from "@/models";
 import Aside from "@/components/aside/Aside";
+import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 
 type propsTypes = { currentUser: IUserProfile | null };
 
-const Lists: React.FC<propsTypes> = () => {
+const Lists: React.FC<propsTypes> = ({ currentUser }) => {
   return (
     <>
       <main className="main">
@@ -19,8 +20,9 @@ const Lists: React.FC<propsTypes> = () => {
           </section>
           <div>Lists</div>
         </div>
+        <Aside page={privateRoutes.lists.name} />
       </main>
-      <Aside page={privateRoutes.lists.name} />
+      <ButtonAddTweet nameClass="add-tweet-global" />
     </>
   );
 };

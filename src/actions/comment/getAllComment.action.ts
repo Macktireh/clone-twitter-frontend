@@ -28,6 +28,8 @@ const getAllCommentAction = (postPublicId: string) => async (dispatch: Dispatch<
     }
   } else {
     dispatch({ type: Types.GET_ALL_COMMENT_FAIL });
+    dispatch({ type: Types.AUTHENTICATED_FAIL });
+    dispatch({ type: Types.LOGOUT });
   }
 };
 

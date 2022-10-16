@@ -29,6 +29,8 @@ const likePostAction = (postPublicId: string) => async (dispatch: Dispatch<AnyAc
     }
   } else {
     dispatch({ type: Types.LIKE_OR_UNLIKE_POST_FAIL });
+    dispatch({ type: Types.AUTHENTICATED_FAIL });
+    dispatch({ type: Types.LOGOUT });
   }
 };
 

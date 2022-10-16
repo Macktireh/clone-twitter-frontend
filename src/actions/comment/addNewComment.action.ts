@@ -28,6 +28,8 @@ const addNewCommentAction =
       }
     } else {
       dispatch({ type: Types.ADD_NEW_COMMENT_FAIL });
+      dispatch({ type: Types.AUTHENTICATED_FAIL });
+      dispatch({ type: Types.LOGOUT });
     }
   };
 
