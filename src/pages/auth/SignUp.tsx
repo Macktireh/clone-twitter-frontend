@@ -1,10 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import InputCustom from "@/widgets/InputCustom";
 import ButtonCustom from "@/widgets/ButtonCustom";
-import SpinnersLoding from "@/widgets/SpinnersLoding";
+import ModalAuth from "@/components/auth/ModalAuth";
 import signupAction from "@/actions/auth/signup.action";
 import * as controlField from "@/validators/controlField";
 import * as ErrorMessage from "@/utils/displayError";
@@ -49,8 +49,9 @@ const SignUp: React.FC<any> = ({ signupAction }) => {
 
       if (!res.SignUpSuccess) {
         ErrorMessage.DispyalErrorMessageBackend(res, setDisplayError, setDetailError);
-        setDisabled(false);
-        setLoading(false);
+        setTimeout(() => setDisabled(false), 5000);
+        setTimeout(() => setLoading(false), 5000);
+        // setLoading(false);
       } else {
         setDisplayError(false);
         setDetailError("");
@@ -69,58 +70,79 @@ const SignUp: React.FC<any> = ({ signupAction }) => {
   };
 
   return (
-    <div className="container-auth">
-      <SpinnersLoding isLoading={loading} nameClass={loading ? "" : "displayNone"} />
-      <div className="modal-auth">
-        <form onSubmit={onSubmit}>
-          <h2>Créer votre compte</h2>
-          {displayError && (
-            <div className="error-auth">
-              <img src="/static/svg/error.svg" alt="icon error" />
-              <span>{detailError}</span>
-            </div>
-          )}
-          <InputCustom id="firstName" name="firstName" label="Prénom *" maxLength="50" onChange={handleChange} value={firstName} />
-          <InputCustom id="lastName" name="lastName" label="Nom *" maxLength="50" onChange={handleChange} value={lastName} />
-          <InputCustom id="email" name="email" type="email" label="Email *" onChange={handleChange} value={email} />
-          <InputCustom
-            id="password"
-            name="password"
-            type="password"
-            label="Mot de passe *"
-            onChange={handleChange}
-            isPasswords={true}
-            value={password}
-          />
-          <InputCustom
-            id="confirmPassword"
-            name="confirmPassword"
-            type="password"
-            label="Confimer mot de passe *"
-            onChange={handleChange}
-            isPasswords={true}
-            value={confirmPassword}
-          />
-          <ButtonCustom
-            nameClass={disabled ? "btn-signup disabled" : "btn-signup"}
-            text={"S'inscrire"}
-            isDisabled={disabled}
-          />
-          <div className="info">
-            <h4>
-              Vous avez déjà un compte ?{" "}
-              <span onClick={() => navigate(disabled ? "" : authRoutes.login.path)}>Connectez-vous</span>
-              <br />
-              <br />
-            </h4>
+    // <div className="container-auth">
+    //   <SpinnersLoding isLoading={loading} nameClass={loading ? "" : "displayNone"} />
+    //   <div className="modal-auth">
+    <ModalAuth title="Créer votre compte" loading={loading} disabled={disabled}>
+      <form onSubmit={onSubmit}>
+        {displayError && (
+          <div className="error-auth">
+            <img src="/static/svg/error.svg" alt="icon error" />
+            <span>{detailError}</span>
           </div>
-        </form>
-
-        <div className="close" onClick={() => navigate(disabled ? "" : "/")}>
-          <img src="/static/svg/close.svg" alt="" />
+        )}
+        <InputCustom
+          id="firstName"
+          name="firstName"
+          label="Prénom *"
+          maxLength="50"
+          onChange={handleChange}
+          value={firstName}
+        />
+        <InputCustom
+          id="lastName"
+          name="lastName"
+          label="Nom *"
+          maxLength="50"
+          onChange={handleChange}
+          value={lastName}
+        />
+        <InputCustom
+          id="email"
+          name="email"
+          type="email"
+          label="Email *"
+          onChange={handleChange}
+          value={email}
+        />
+        <InputCustom
+          id="password"
+          name="password"
+          type="password"
+          label="Mot de passe *"
+          onChange={handleChange}
+          isPasswords={true}
+          value={password}
+        />
+        <InputCustom
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          label="Confimer mot de passe *"
+          onChange={handleChange}
+          isPasswords={true}
+          value={confirmPassword}
+        />
+        <ButtonCustom
+          nameClass={disabled ? "btn-signup disabled" : "btn-signup"}
+          text={"S'inscrire"}
+          isDisabled={disabled}
+        />
+        <div className="info">
+          <h4>
+            Vous avez déjà un compte ?<Link to={disabled ? "" : authRoutes.login.path}> Connectez-vous</Link>
+            <br />
+            <br />
+          </h4>
         </div>
-      </div>
-    </div>
+      </form>
+    </ModalAuth>
+
+    //     <div className="close" onClick={() => navigate(disabled ? "" : "/")}>
+    //       <img src="/static/svg/close.svg" alt="" />
+    //     </div>
+    //   </div>
+    // </div>
   );
 };
 

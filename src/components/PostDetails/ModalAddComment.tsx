@@ -1,7 +1,7 @@
 import React from "react";
 
 import Popup from "@/widgets/Popup";
-import AddNewComment from "@/components/PostDetails/AddNewComment";
+import AddNewComment from "@/components/postDetails/AddNewComment";
 // import { useComment } from "@/context/CommentProvider";
 import { useTweetComment } from "@/context/TweetCommentProvider";
 

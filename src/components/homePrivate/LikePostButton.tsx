@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import IconSVG from "@/widgets/IconSVG";
-import getListPostsLikesAction from "@/actions/post/getMyLikesPost.action";
 import likePostAction from "@/actions/post/likePost.action";
 import likeCommentAction from "@/actions/comment/likeComment.action";
 import { IUserProfile, IPost, IComment } from "@/models";
@@ -25,7 +24,7 @@ const LikePostButton: React.FC<propsTypes> = ({ type, currentUser, post, isDispl
       if (currentUser && post) {
         await dispatch(likePostAction(post.publicId) as any);
         dispatch(getAllPostAction() as any);
-        dispatch(getListPostsLikesAction() as any);
+        // dispatch(getListPostsLikesAction() as any);
       }
     } else {
       if (post) {

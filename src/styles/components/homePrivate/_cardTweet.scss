@@ -44,6 +44,9 @@
         width: 100%;
         @include flex(row, flex-start, flex-start);
         gap: 4px;
+        @media (max-width: 500px) {
+          font-size: 0.9em;
+        }
         *:hover {
           text-decoration: underline;
           cursor: pointer;

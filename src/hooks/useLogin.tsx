@@ -1,5 +1,5 @@
 import Axios from "@/config/axios";
-import * as Api from "@/config/api";
+import * as Api from "@/config/apiEndPoint";
 
 const useLogin = async (
   email: string,

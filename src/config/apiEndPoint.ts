@@ -23,7 +23,7 @@ export const allUserEndpoint : string = "/api/users/"
  */
 export const postEndpoint : string = "/api/posts/"
 export const likePostEndpoint : string = "/api/posts/likes/"
-export const listPostsLikes : string = "/api/posts/list/likes/"
+export const listPostsLikes : string = "/api/posts/likes/"
 
 
 /***

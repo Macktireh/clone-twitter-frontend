@@ -2,7 +2,7 @@ import { AnyAction, Dispatch } from "redux";
 import { AxiosError, AxiosResponse } from "axios";
 
 import Axios from "@/config/axios";
-import * as Api from "@/config/api";
+import * as Api from "@/config/apiEndPoint";
 import * as Types from "@/actions/types";
 
 const accountActivationAction = (uidb64: string, token: string) => async (dispatch: Dispatch<AnyAction>) => {

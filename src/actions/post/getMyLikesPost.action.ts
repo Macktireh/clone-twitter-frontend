@@ -1,12 +1,12 @@
 import { AnyAction, Dispatch } from "redux";
 
 import Axios from "@/config/axios";
-import * as Api from "@/config/api";
+import * as Api from "@/config/apiEndPoint";
 import * as Types from "@/actions/types";
 import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
 import { AxiosError } from "axios";
 
-const getMyLikesPostAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
+const getMyLikesPostAction = (userPublicId: string) => async (dispatch: Dispatch<AnyAction> | any) => {
   if (localStorage.getItem("access")) {
     const config = {
       headers: {
@@ -16,7 +16,7 @@ const getMyLikesPostAction = () => async (dispatch: Dispatch<AnyAction> | any) =
       },
     };
     try {
-      const res = await Axios.get(Api.listPostsLikes, config);
+      const res = await Axios.get(`${Api.listPostsLikes + userPublicId}/`, config);
       dispatch({ type: Types.GET_LIST_POSTS_LIKES_SUCCESS, payload: res.data });
     } catch (error: unknown) {
       if (error instanceof AxiosError && error.response) {

@@ -1,7 +1,7 @@
 import { AnyAction, Dispatch } from "redux";
 
 import Axios from "@/config/axios";
-import * as Api from "@/config/api";
+import * as Api from "@/config/apiEndPoint";
 import * as Types from "@/actions/types";
 import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
 import { AxiosError } from "axios";

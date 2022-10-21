@@ -21,7 +21,7 @@ interface propsTypes extends IPropsRootStateType {
   postsLikes: IPost[] | null;
   getAllUsersAction?: () => void;
   getAllPostAction?: () => void;
-  getListPostsLikesAction?: () => void;
+  getListPostsLikesAction?: (public_id: string) => void;
 }
 
 const styleSpinnersLoding: React.CSSProperties = {
@@ -55,18 +55,22 @@ const Profile: React.FC<propsTypes> = ({
   React.useEffect(() => {
     document.title = `${currentUser?.user.first_name} ${currentUser?.user.last_name} (@${currentUser?.pseudo}) | Clone Twitter`;
 
+    // dispatch(getAllUsersAction1() as any)
+
     if (!flag.current) {
       (async () => {
         getAllUsersAction && getAllUsersAction();
         getAllPostAction && getAllPostAction();
-        getListPostsLikesAction && getListPostsLikesAction();
+        
         flag.current = true;
       })();
     }
+    console.log("Setting");
 
     if (currentUser && users) {
       if (pseudo === currentUser.pseudo) {
         setIsCurrentUser("yes");
+        setAnotherUser(currentUser);
         setLoading(false);
       } else {
         const searchUser = users.filter((user) => user.pseudo === pseudo);
@@ -79,7 +83,12 @@ const Profile: React.FC<propsTypes> = ({
         }
       }
     }
-    if (currentUser && users && posts && postsLikes) setLoadingPost(false);
+
+    if ((!postsLikes && anotherUser) || (activeTab === 4 &&  anotherUser)) getListPostsLikesAction && getListPostsLikesAction(anotherUser.user.public_id as string);
+
+    if (currentUser && users && posts) setLoadingPost(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     flag,
     pseudo,
@@ -87,10 +96,11 @@ const Profile: React.FC<propsTypes> = ({
     currentUser,
     users,
     posts,
-    postsLikes,
-    getAllPostAction,
-    getAllUsersAction,
-    getListPostsLikesAction,
+    // postsLikes,
+    activeTab,
+    // getAllPostAction,
+    // getAllUsersAction,
+    // getListPostsLikesAction,
   ]);
 
   if (isCurrentUser === "error") return <Navigate to="/error/404" />;
@@ -110,18 +120,17 @@ const Profile: React.FC<propsTypes> = ({
           titleModal="Edit Profile"
           textBtnModal="Save"
           handleCloseMmdal={() => setModalActive(!modalActive)}
-          currentUser={currentUser ? currentUser : null}
+          currentUser={anotherUser ? anotherUser : null}
         >
-          <EdidProfile currentUser={currentUser} />
+          <EdidProfile currentUser={anotherUser as IUserProfile} />
         </ModalEditProfile>
       </EditProfileProvider>
       <>
         <main className="main">
           <ContentProfile
             isCurrentUser={isCurrentUser === "yes" ? true : false}
-            userProfile={
-              isCurrentUser === "yes" ? (currentUser as IUserProfile) : (anotherUser as IUserProfile)
-            }
+            currentUser={currentUser as IUserProfile}
+            userProfile={anotherUser as IUserProfile}
             users={users}
             posts={posts as IPost[]}
             postsLikes={postsLikes}

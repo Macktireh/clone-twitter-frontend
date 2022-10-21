@@ -37,7 +37,7 @@ const HomePublic: React.FC = () => {
             </div>
             <div className="frame-signup-int">
               <Link to={authRoutes.signup.path}>
-                <Button nameClass={"btn-signup-int"} text={"S'inscrire avec un email et password"} />
+                <Button nameClass={"btn-signup-int"} text={"S'inscrire avec email et password"} />
               </Link>
               <p>
                 En vous inscrivant, vous acceptez les{" "}

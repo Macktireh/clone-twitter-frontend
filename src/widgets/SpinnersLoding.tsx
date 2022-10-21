@@ -11,7 +11,7 @@ type TSipinner = {isLoading: boolean, nameClass?: string, styleSpinnersLoding?: 
 
 const SpinnersLoding: React.FC<TSipinner> = ({ nameClass, isLoading, styleSpinnersLoding }) => {
   return (
-    <div className={nameClass ? "spinners-container" + nameClass : "spinners-container"} style={styleSpinnersLoding}>
+    <div className={nameClass ? "spinners-container " + nameClass : "spinners-container"} style={styleSpinnersLoding}>
       <ScaleLoader color={"#1d9bf0"} loading={isLoading} cssOverride={override} />
     </div>
   );

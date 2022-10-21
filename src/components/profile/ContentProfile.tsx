@@ -15,6 +15,7 @@ import { dateParserJoined } from "@/utils/dateParser";
 type propsTypes = {
   isCurrentUser: boolean;
   userProfile: IUserProfile | null;
+  currentUser: IUserProfile | null;
   users: IUserProfile[] | null;
   posts: IPost[] | null;
   postsLikes: IPost[] | null;
@@ -30,6 +31,7 @@ const styleSpinnersLoding: React.CSSProperties = {
 
 const ContentProfile: React.FC<propsTypes> = ({
   isCurrentUser,
+  currentUser,
   userProfile,
   users,
   posts,
@@ -96,7 +98,7 @@ const ContentProfile: React.FC<propsTypes> = ({
                 </Link>
                 <Link to="">
                   <span>45</span>
-                  <p>Follower</p>
+                  <p>Followers</p>
                 </Link>
               </div>
             </div>
@@ -131,7 +133,7 @@ const ContentProfile: React.FC<propsTypes> = ({
                   ?.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
                   .map((post) => (
                     <div className="list-post" key={post.publicId}>
-                      <CardTweet key={post.publicId} currentUser={userProfile} post={post} users={users} />
+                      <CardTweet key={post.publicId} currentUser={currentUser} post={post} users={users} />
                     </div>
                   ))
               )}

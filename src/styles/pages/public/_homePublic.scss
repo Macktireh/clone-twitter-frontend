@@ -7,6 +7,10 @@
   grid-template-areas: "img content" "footer footer";
   padding-bottom: 1rem;
   background-color: $color1;
+  font-size: 0.9em;
+  @media (max-width: 820px) {
+      @include flex(column, flex-start, null);
+  }
 
   .container-img {
     grid-area: img;
@@ -36,11 +40,11 @@
 
     .frame-title {
       h1 {
-        font-size: 56px;
+        font-size: 3em;
         margin-bottom: 2rem;
       }
       h2 {
-        font-size: 30px;
+        font-size: 1.6em;
       }
     }
 
@@ -56,7 +60,14 @@
       .btn-signup-ext,
       .btn-signup-int,
       .btn-signin {
-        width: 305px;
+        font-size: 0.9em;
+        font-weight: 500;
+        width: 280px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        img {
+          width: 18px;
+        }
       }
       .btn-signup-ext {
         background-color: $color2;
@@ -122,11 +133,5 @@
     a {
       color: $color5;
     }
-  }
-}
-
-@media screen and (max-width: 820px) {
-  .home-page {
-    @include flex(column, flex-start, null);
   }
 }

@@ -1,7 +1,7 @@
 import { AnyAction, Dispatch } from "redux";
 
 import Axios from "@/config/axios";
-import * as Api from "@/config/api";
+import * as Api from "@/config/apiEndPoint";
 import * as Types from "@/actions/types";
 import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
 import { AxiosError } from "axios";
@@ -15,7 +15,7 @@ const likeCommenttAction = (commentPublicId: string) => async (dispatch: Dispatc
         Accept: "application/json",
       },
     };
-    const body = JSON.stringify({ commentPublicId })
+    const body = JSON.stringify({ commentPublicId });
     try {
       const res = await Axios.post(Api.likeCommentEndpoint, body, config);
       dispatch({ type: Types.LIKE_OR_UNLIKE_COMMENT_SUCCESS, payload: res.data });
