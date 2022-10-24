@@ -11,13 +11,23 @@ import * as ErrorMessage from "@/utils/displayError";
 import { IAuthSignUp } from "@/models";
 import { authRoutes } from "@/routes/auth.routes";
 
-const SignUp: React.FC<any> = ({ signupAction }) => {
+type propsTypes = {
+  signupAction: (
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+    confirmPassword: string
+  ) => Promise<{ response: any; SignUpSuccess: boolean }>;
+};
+
+const SignUp: React.FC<propsTypes> = ({ signupAction }) => {
   const [formData, setFormData] = React.useState<IAuthSignUp>({
-    firstName: "Mack",
-    lastName: "AS",
-    email: "abdimack97@gmail.com",
-    password: "Charco@97",
-    confirmPassword: "Charco@97",
+    firstName: process.env.REACT_APP_firstName || "",
+    lastName: process.env.REACT_APP_lastName || "",
+    email: process.env.REACT_APP_Email || "",
+    password: process.env.REACT_APP_Password || "",
+    confirmPassword: process.env.REACT_APP_confirmPassword || "",
   });
   const [displayError, setDisplayError] = React.useState(false);
   const [detailError, setDetailError] = React.useState("");
@@ -49,9 +59,8 @@ const SignUp: React.FC<any> = ({ signupAction }) => {
 
       if (!res.SignUpSuccess) {
         ErrorMessage.DispyalErrorMessageBackend(res, setDisplayError, setDetailError);
-        setTimeout(() => setDisabled(false), 5000);
-        setTimeout(() => setLoading(false), 5000);
-        // setLoading(false);
+        setDisabled(false);
+        setLoading(false);
       } else {
         setDisplayError(false);
         setDetailError("");
@@ -70,9 +79,6 @@ const SignUp: React.FC<any> = ({ signupAction }) => {
   };
 
   return (
-    // <div className="container-auth">
-    //   <SpinnersLoding isLoading={loading} nameClass={loading ? "" : "displayNone"} />
-    //   <div className="modal-auth">
     <ModalAuth title="Créer votre compte" loading={loading} disabled={disabled}>
       <form onSubmit={onSubmit}>
         {displayError && (
@@ -131,18 +137,10 @@ const SignUp: React.FC<any> = ({ signupAction }) => {
         <div className="info">
           <h4>
             Vous avez déjà un compte ?<Link to={disabled ? "" : authRoutes.login.path}> Connectez-vous</Link>
-            <br />
-            <br />
           </h4>
         </div>
       </form>
     </ModalAuth>
-
-    //     <div className="close" onClick={() => navigate(disabled ? "" : "/")}>
-    //       <img src="/static/svg/close.svg" alt="" />
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 

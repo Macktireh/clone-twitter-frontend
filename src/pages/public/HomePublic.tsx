@@ -40,11 +40,11 @@ const HomePublic: React.FC = () => {
                 <Button nameClass={"btn-signup-int"} text={"S'inscrire avec email et password"} />
               </Link>
               <p>
-                En vous inscrivant, vous acceptez les{" "}
+                En vous inscrivant, vous acceptez les
                 <Link to="/">
-                  <span>Conditions d'Utilisation</span>
-                </Link>{" "}
-                et la <span>Politique de Confidentialité</span>, incluant l'
+                  <span> Conditions d'Utilisation</span>
+                </Link>
+                et la <span> Politique de Confidentialité</span>, incluant l'
                 <span>Utilisation de Cookies</span>.
               </p>
             </div>

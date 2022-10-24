@@ -8,7 +8,7 @@ const useLogin = async (
   setDisplayError: React.Dispatch<React.SetStateAction<boolean>>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
   setDetailError: React.Dispatch<React.SetStateAction<string>>,
-  loginAction: (isAuthenticated?: boolean) => (dispatch: any) => Promise<void>
+  loginAction: (isAuthenticated?: boolean) => Promise<void>
 ) => {
   setLoading(true);
   setDisabled(true);

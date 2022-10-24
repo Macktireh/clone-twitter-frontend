@@ -2,15 +2,24 @@ import React from "react";
 import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-import resetPasswordAction from "@/actions/auth/resetPassword.action";
+import ModalAuth from "@/components/auth/ModalAuth";
 import ButtonCustom from "@/widgets/ButtonCustom";
 import InputCustom from "@/widgets/InputCustom";
+import resetPasswordAction from "@/actions/auth/resetPassword.action";
 import * as controlField from "@/validators/controlField";
 import * as ErrorMessage from "@/utils/displayError";
 import { authRoutes } from "@/routes/auth.routes";
-import SpinnersLoding from "@/widgets/SpinnersLoding";
 
-const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
+type propsTypes = {
+  resetPasswordAction: (
+    uid: string,
+    token: string,
+    newPassword: string,
+    reNewPassword: string
+  ) => Promise<{ response: any; error: boolean }>;
+};
+
+const ResetPassword: React.FC<propsTypes> = ({ resetPasswordAction }) => {
   const [formData, setFormData] = React.useState({
     password: "",
     confirmPassword: "",
@@ -39,7 +48,7 @@ const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
       setDisabled(true);
       setDisplayError(false);
       setDetailError("");
-      const res = await resetPasswordAction(uid, token, password, confirmPassword);
+      const res = await resetPasswordAction(uid as string, token as string, password, confirmPassword);
       if (res.error) {
         navigate("/not-found/");
       } else {
@@ -54,43 +63,35 @@ const ResetPassword: React.FC<any> = ({ resetPasswordAction }) => {
   };
 
   return (
-    <div className="container-auth">
-      <SpinnersLoding isLoading={loading} nameClass={loading ? "" : "displayNone"} />
-      <div className="modal-auth">
-        <form onSubmit={onSubmit}>
-          <h2>Connectez-vous à Mack-Twitter</h2>
-          {displayError && (
-            <div className="error-auth">
-              <img src="/static/svg/error.svg" alt="icon error" />
-              <span>{detailError}</span>
-            </div>
-          )}
-          <InputCustom
-            id="password"
-            name="password"
-            type="password"
-            label="Mot de passe"
-            onChange={handleChange}
-            isPasswords={true}
-             value={password}
-          />
-          <InputCustom
-            id="confirmPassword"
-            name="confirmPassword"
-            type="password"
-            label="Confimer mot de passe *"
-            onChange={handleChange}
-            isPasswords={true}
-             value={confirmPassword}
-          />
-          <ButtonCustom nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
-        </form>
-
-        <div className="close" onClick={() => navigate(disabled ? "" : "/")}>
-          <img src="/static/svg/close.svg" alt="" />
-        </div>
-      </div>
-    </div>
+    <ModalAuth title="Réinitialisation votre mot de passe" loading={loading} disabled={disabled}>
+      <form onSubmit={onSubmit}>
+        {displayError && (
+          <div className="error-auth">
+            <img src="/static/svg/error.svg" alt="icon error" />
+            <span>{detailError}</span>
+          </div>
+        )}
+        <InputCustom
+          id="password"
+          name="password"
+          type="password"
+          label="Mot de passe"
+          onChange={handleChange}
+          isPasswords={true}
+          value={password}
+        />
+        <InputCustom
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          label="Confimer mot de passe *"
+          onChange={handleChange}
+          isPasswords={true}
+          value={confirmPassword}
+        />
+        <ButtonCustom nameClass={"btn-signup"} text={"Valider"} isDisabled={disabled} />
+      </form>
+    </ModalAuth>
   );
 };
 

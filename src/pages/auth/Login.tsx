@@ -1,25 +1,26 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
+import ModalAuth from "@/components/auth/ModalAuth";
 import InputCustom from "@/widgets/InputCustom";
 import ButtonCoustom from "@/widgets/ButtonCustom";
 import useLogin from "@/hooks/useLogin";
 import loginAction from "@/actions/auth/login.action";
 import { IAuthLogin } from "@/models";
 import { authRoutes } from "@/routes/auth.routes";
-import SpinnersLoding from "@/widgets/SpinnersLoding";
 
-const Login: React.FC<any> = ({ loginAction }) => {
+type propsTypes = { loginAction: (isAuthenticated?: boolean) => Promise<void> };
+
+const Login: React.FC<propsTypes> = ({ loginAction }) => {
   const [formData, setFormData] = React.useState<IAuthLogin>({
-    email: "abdimack97@gmail.com",
-    password: "Charco@97",
+    email: process.env.REACT_APP_Email || "",
+    password: process.env.REACT_APP_Password || "",
   });
   const [displayError, setDisplayError] = React.useState(false);
   const [detailError, setDetailError] = React.useState("");
   const [disabled, setDisabled] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const navigate = useNavigate();
   const customHooksLogin = useLogin;
   const { email, password } = formData;
 
@@ -36,49 +37,46 @@ const Login: React.FC<any> = ({ loginAction }) => {
   };
 
   return (
-    <div className="container-auth">
-      <SpinnersLoding isLoading={loading} nameClass={loading ? "" : "displayNone"} />
-      <div className="modal-auth">
-        <form onSubmit={onSubmit}>
-          <h2>Connectez-vous à Mack-Twitter</h2>
-          {displayError && (
-            <div className="error-auth">
-              <img src="/static/svg/error.svg" alt="icon error" />
-              <span>{detailError}</span>
-            </div>
-          )}
-          <InputCustom id="email" name="email" type="email" label="Email" onChange={handleChange} value={email} />
-          <InputCustom
-            id="password"
-            name="password"
-            type="password"
-            label="Mot de passe"
-            onChange={handleChange}
-            isPasswords={true}
-            value={password}
-          />
-          <ButtonCoustom nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
-          <div className="info">
-            <h4>
-              Mot de passe ?{" "}
-              <span onClick={() => navigate(disabled ? "" : authRoutes.requestResetPassword.path)}>
-                Cliquer ici
-              </span>
-            </h4>
-            <h4>
-              Vous n'avez pas de compte ?{" "}
-              <span onClick={() => navigate(disabled ? "" : authRoutes.signup.path)}>Inscrivez-vous</span>
-              <br />
-              <br />
-            </h4>
+    <ModalAuth title="Connectez-vous à Clone Twitter" loading={loading} disabled={disabled}>
+      <form onSubmit={onSubmit}>
+        {displayError && (
+          <div className="error-auth">
+            <img src="/static/svg/error.svg" alt="icon error" />
+            <span>{detailError}</span>
           </div>
-        </form>
-
-        <div className="close" onClick={() => navigate(disabled ? "" : "/")}>
-          <img src="/static/svg/close.svg" alt="" />
+        )}
+        <InputCustom
+          id="email"
+          name="email"
+          type="email"
+          label="Email"
+          onChange={handleChange}
+          value={email}
+        />
+        <InputCustom
+          id="password"
+          name="password"
+          type="password"
+          label="Mot de passe"
+          onChange={handleChange}
+          isPasswords={true}
+          value={password}
+        />
+        <ButtonCoustom nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
+        <div className="info">
+          <h4>
+            Mot de passe ? 
+            <Link to={disabled ? "" : authRoutes.requestResetPassword.path}> Cliquer ici</Link>
+          </h4>
+          <h4>
+            Vous n'avez pas de compte ?
+            <Link to={disabled ? "" : authRoutes.signup.path}> Inscrivez-vous</Link>
+            <br />
+            <br />
+          </h4>
         </div>
-      </div>
-    </div>
+      </form>
+    </ModalAuth>
   );
 };
 

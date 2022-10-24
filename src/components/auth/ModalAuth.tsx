@@ -6,9 +6,9 @@ import SpinnersLoding from "@/widgets/SpinnersLoding";
 
 
 type propsTypes = React.PropsWithChildren<{
-  title: string;
-  loading: boolean;
-  disabled: boolean
+  title?: string;
+  loading?: boolean;
+  disabled?: boolean
 }>;
 
 const ModalAuth: React.FC<propsTypes> = ({ children, title, loading, disabled }) => {
@@ -17,7 +17,7 @@ const ModalAuth: React.FC<propsTypes> = ({ children, title, loading, disabled })
   return (
     <div className="modalAuth">
       <div className="modal-global modal-auth-global">
-        <SpinnersLoding isLoading={loading as boolean} nameClass={loading ? "" : "displayNone"} />
+        {loading && <SpinnersLoding isLoading={loading as boolean} nameClass={loading ? "" : "displayNone"} />}
         <div className="modal-container">
           <div className="modal-header">
             <div className="icon-and-title">
@@ -28,7 +28,7 @@ const ModalAuth: React.FC<propsTypes> = ({ children, title, loading, disabled })
               </div>
             </div>
             <div className="title-modal">
-              <h1>{title}</h1>
+              {title && <h1>{title}</h1>}
             </div>
           </div>
           <div className="modal-content">{children}</div>
