@@ -1,10 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
+import InputSearch from "@/widgets/InputSearch";
 import IconSVG from "@/widgets/IconSVG";
 import { privateRoutes } from "@/routes/private.routes";
-import { Link } from "react-router-dom";
-import InputSearch from "@/widgets/InputSearch";
-import { IUserProfile } from "../../models/userProfile";
+import { IUserProfile } from "@/models/userProfile";
 import { useNavbarContext } from "@/context/CommentProvider";
 
 type propsTypes = {
@@ -16,6 +16,7 @@ type propsTypes = {
 
 const SectionHeaderTweet: React.FC<propsTypes> = ({ page, title, subtitle, currentUser }) => {
   const propsContext = useNavbarContext();
+  const navigate = useNavigate();
 
   const handleClick = () => propsContext?.displayNavLeft.setNavLeft();
 
@@ -45,9 +46,9 @@ const SectionHeaderTweet: React.FC<propsTypes> = ({ page, title, subtitle, curre
         page === privateRoutes.profile.name ||
         page === privateRoutes.postDetails.name) && (
         <div className="left">
-          <Link to={privateRoutes.home.path}>
+          <div className="back" onClick={() => navigate(-1)}>
             <IconSVG iconName="back" />
-          </Link>
+          </div>
         </div>
       )}
       <div className="center">

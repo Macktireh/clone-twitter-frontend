@@ -15,14 +15,13 @@ type ContextPropsType = {
   displayNavLeft: { navLeft: boolean; setNavLeft: () => void };
 };
 
-type PropsTypes = { 
+type PropsTypes = {
   currentUser: IUserProfile | null;
   propsContext: ContextPropsType | null;
   dispatch: any;
 };
 
 const NavbarMobileLeft: React.FC<PropsTypes> = ({ currentUser, propsContext, dispatch }) => {
-
   const handleCloseNavLeft = () => propsContext?.displayNavLeft.setNavLeft();
 
   const handleLogout = () => {
@@ -89,7 +88,13 @@ const NavbarMobileLeftConnectWithStore: React.FC = () => {
   const currentUser = useSelector((state: IRootState) => state.authReducer.currentUser);
   const propsContext = useNavbarContext();
   const dispatch = useDispatch();
-  return <NavbarMobileLeft currentUser={currentUser} propsContext={propsContext} dispatch={dispatch as any} />;
+  return (
+    <NavbarMobileLeft
+      currentUser={currentUser}
+      propsContext={propsContext}
+      dispatch={dispatch as any}
+    />
+  );
 };
 
 export default NavbarMobileLeftConnectWithStore;

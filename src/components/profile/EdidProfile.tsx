@@ -1,10 +1,9 @@
 import React from "react";
 
-import { IUserProfile } from "@/models";
-import { baseURL } from "@/config/axios";
-import IconSVG from "@/widgets/IconSVG";
-import { useEditProfile } from "@/context/EditProfileProvider";
 import InputCustom from "@/widgets/InputCustom";
+import IconSVG from "@/widgets/IconSVG";
+import { IUserProfile } from "@/models";
+import { useEditProfile } from "@/context/EditProfileProvider";
 
 type propsTypes = {
   currentUser: IUserProfile | null;
@@ -55,13 +54,7 @@ const EdidProfile: React.FC<propsTypes> = ({ currentUser }) => {
       <div className="img-container">
         <div className="cover-pic">
           <img
-            src={
-              coverPicturePreview
-                ? coverPicturePreview
-                : currentUser?.coverPicture
-                ? currentUser.coverPicture
-                : baseURL + "/mediafiles/default/coverPic.jpg"
-            }
+            src={coverPicturePreview ? coverPicturePreview : (currentUser?.coverPicture as string)}
             alt="cover-pic"
           />
           <input
@@ -81,13 +74,7 @@ const EdidProfile: React.FC<propsTypes> = ({ currentUser }) => {
         <div className="profile-pic">
           <img
             className=""
-            src={
-              profilePicturePreview
-                ? profilePicturePreview
-                : currentUser?.profilePicture
-                ? currentUser.profilePicture
-                : baseURL + "/mediafiles/default/coverPic.jpg"
-            }
+            src={profilePicturePreview ? profilePicturePreview : (currentUser?.profilePicture as string)}
             alt="profile-pic"
           />
           <input

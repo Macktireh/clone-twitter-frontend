@@ -52,11 +52,12 @@ nav {
     width: 55px;
     height: 100%;
     @extend .flex-center;
-    a {
+    .back {
       width: 38px;
       padding: 9px;
       border-radius: 50%;
       @extend .flex-center;
+      cursor: pointer;
       &:hover {
         background-color: $color9;
       }

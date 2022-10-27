@@ -31,3 +31,10 @@ export const listPostsLikes : string = "/api/posts/likes/"
  */
 export const commentEndpoint : string = "/api/comments/"
 export const likeCommentEndpoint : string = "/api/comments/likes/"
+
+
+/***
+ * Endpoint Following and Followers
+ */
+export const followingEndpoint : string = "/api/following/"
+export const followersEndpoint : string = "/api/followers/"

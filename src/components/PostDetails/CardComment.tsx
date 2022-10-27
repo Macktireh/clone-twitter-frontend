@@ -20,22 +20,15 @@ type propsTypes = {
 const CardComment: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
   const [authorPost, setAuthorPost] = React.useState<IUserProfile | null>();
   const [ReTweet, setReTweet] = React.useState<IComment | null>();
-  // const navigate = useNavigate();
 
   React.useEffect(() => {
     if (currentUser && comment && users) {
       if (comment.authorDetail.public_id === currentUser.user.public_id) {
         setAuthorPost(currentUser);
-        // setTimeout(() => setAuthorPost(currentUser), 100);
       } else {
         setAuthorPost(users.find((u) => u.user.public_id === comment.authorDetail.public_id));
-        // setTimeout(
-        //   () => setAuthorPost(users.find((u) => u.user.public_id === comment.authorDetail.public_id)),
-        //   100
-        // );
       }
       setReTweet(comment);
-      // setTimeout(() => setReTweet(comment), 100);
     }
   }, [currentUser, comment, users]);
 
@@ -56,7 +49,12 @@ const CardComment: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
           <div className="skeleton-anim"></div>
         ) : (
           <Tippy
-            content={<TooltipCardUser authorPost={authorPost} currentUser={currentUser} />}
+            content={
+              <TooltipCardUser
+                authorPost={authorPost}
+                currentUser={currentUser}
+              />
+            }
             interactive={true}
             delay={0}
             hideOnClick={false}

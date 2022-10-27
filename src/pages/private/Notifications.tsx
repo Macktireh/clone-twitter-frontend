@@ -8,9 +8,9 @@ import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 import Aside from "@/components/aside/Aside";
 import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
-import { IUserProfile, IRootState, TTabState } from "@/models";
+import { IRootState, TTabState, IPropsRootStateType } from "@/models";
 
-type propsTypes = { currentUser: IUserProfile | null };
+interface propsTypes extends Omit<IPropsRootStateType, 'users' | 'posts' | 'postsLikes' | 'comments' | 'followers' | 'following'> {}
 
 const Notifications: React.FC<propsTypes> = ({ currentUser }) => {
   const tabState: TTabState[] = [
@@ -43,7 +43,7 @@ const Notifications: React.FC<propsTypes> = ({ currentUser }) => {
               currentUser={currentUser}
             />
             <nav>
-              <NavTabs listTabs={tabState} activeTab={activeTab} toggleTab={toggleTab} />
+              <NavTabs listTabs={tabState} activeTab={activeTab} toggleTab={toggleTab} linkActive={false} />
             </nav>
           </section>
           {activeTab === 1 ? (

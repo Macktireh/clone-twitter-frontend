@@ -17,8 +17,7 @@ import EditProfileProvider from "@/context/EditProfileProvider";
 import { IUserProfile, IPost, IRootState, IPropsRootStateType, TTabState } from "@/models";
 import { privateRoutes } from "@/routes/private.routes";
 
-interface propsTypes extends IPropsRootStateType {
-  postsLikes: IPost[] | null;
+interface propsTypes extends Omit<IPropsRootStateType, "comments"> {
   getAllUsersAction?: () => void;
   getAllPostAction?: () => void;
   getListPostsLikesAction?: (public_id: string) => void;
@@ -33,11 +32,13 @@ const Profile: React.FC<propsTypes> = ({
   users,
   posts,
   postsLikes,
+  followers,
+  following,
   getAllUsersAction,
   getAllPostAction,
   getListPostsLikesAction,
 }) => {
-  const [loading, setLoading] = React.useState<boolean>(true);
+  // const [loading, setLoading] = React.useState<boolean>(true);
   const [loadingPost, setLoadingPost] = React.useState<boolean>(true);
   const [activeTab, setActiveTab] = React.useState<number>(1);
   const [modalActive, setModalActive] = React.useState<boolean>(false);
@@ -55,23 +56,20 @@ const Profile: React.FC<propsTypes> = ({
   React.useEffect(() => {
     document.title = `${currentUser?.user.first_name} ${currentUser?.user.last_name} (@${currentUser?.pseudo}) | Clone Twitter`;
 
-    // dispatch(getAllUsersAction1() as any)
-
     if (!flag.current) {
       (async () => {
         getAllUsersAction && getAllUsersAction();
         getAllPostAction && getAllPostAction();
-        
+
         flag.current = true;
       })();
     }
-    console.log("Setting");
 
     if (currentUser && users) {
       if (pseudo === currentUser.pseudo) {
         setIsCurrentUser("yes");
         setAnotherUser(currentUser);
-        setLoading(false);
+        // setLoading(false);
       } else {
         const searchUser = users.filter((user) => user.pseudo === pseudo);
         if (searchUser.length === 0) {
@@ -79,36 +77,25 @@ const Profile: React.FC<propsTypes> = ({
         } else {
           setIsCurrentUser("no");
           setAnotherUser(searchUser[0]);
-          setLoading(false);
+          // setLoading(false);
         }
       }
     }
 
-    if ((!postsLikes && anotherUser) || (activeTab === 4 &&  anotherUser)) getListPostsLikesAction && getListPostsLikesAction(anotherUser.user.public_id as string);
+    if ((!postsLikes && anotherUser) || (activeTab === 4 && anotherUser))
+      getListPostsLikesAction && getListPostsLikesAction(anotherUser.user.public_id as string);
 
     if (currentUser && users && posts) setLoadingPost(false);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    flag,
-    pseudo,
-    isCurrentUser,
-    currentUser,
-    users,
-    posts,
-    // postsLikes,
-    activeTab,
-    // getAllPostAction,
-    // getAllUsersAction,
-    // getListPostsLikesAction,
-  ]);
+  }, [flag, pseudo, isCurrentUser, currentUser, users, posts, followers, following, activeTab]);
 
   if (isCurrentUser === "error") return <Navigate to="/error/404" />;
 
-  return loading ? (
+  return (!currentUser && !users && !posts) ? (
     <>
       <main className="main">
-        <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
+        <SpinnersLoding isLoading={(!currentUser && !users && !posts) ? true : false} styleSpinnersLoding={styleSpinnersLoding} />
         <aside className="aside"></aside>
       </main>
     </>
@@ -153,6 +140,8 @@ const ProfileConnectWithStore: React.FC<any> = ({
   users,
   posts,
   postsLikes,
+  followers,
+  following,
   getAllUsersAction,
   getAllPostAction,
   getListPostsLikesAction,
@@ -163,6 +152,8 @@ const ProfileConnectWithStore: React.FC<any> = ({
         currentUser={currentUser}
         users={users}
         posts={posts}
+        followers={followers}
+        following={following}
         postsLikes={postsLikes}
         getAllUsersAction={getAllUsersAction}
         getAllPostAction={getAllPostAction}
@@ -177,6 +168,8 @@ const mapStateToProps = (state: IRootState) => ({
   users: state.userReducer,
   posts: state.postReducer,
   postsLikes: state.mylLikesPostReducer,
+  followers: state.followReducer.followers,
+  following: state.followReducer.following,
 });
 
 export default connect(mapStateToProps, { getAllUsersAction, getAllPostAction, getListPostsLikesAction })(

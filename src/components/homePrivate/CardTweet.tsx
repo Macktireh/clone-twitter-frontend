@@ -8,7 +8,6 @@ import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOpti
 import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
 import ButtonAddComment from "@/components/postDetails/ButtonAddComment";
 import { IUserProfile, IPost } from "@/models";
-// import { baseURL } from "@/config/axios";
 import { dateParserCreated } from "@/utils/dateParser";
 import { pathLinkPostDetail, pathLinkProfile } from "@/utils/pathRoute";
 
@@ -27,16 +26,10 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
     if (currentUser && post && users) {
       if (post.authorDetail.public_id === currentUser.user.public_id) {
         setAuthorPost(currentUser);
-        // setTimeout(() => setAuthorPost(currentUser), 100);
       } else {
         setAuthorPost(users.find((u) => u.user.public_id === post.authorDetail.public_id));
-        // setTimeout(
-        //   () => setAuthorPost(users.find((u) => u.user.public_id === post.authorDetail.public_id)),
-        //   100
-        // );
       }
       setTweet(post);
-      // setTimeout(() => setTweet(post), 100);
     }
   }, [currentUser, post, tweet, users]);
 
@@ -51,7 +44,12 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
           <div className="skeleton-anim"></div>
         ) : (
           <Tippy
-            content={<TooltipCardUser authorPost={authorPost} currentUser={currentUser} />}
+            content={
+              <TooltipCardUser
+                authorPost={authorPost}
+                currentUser={currentUser}
+              />
+            }
             interactive={true}
             delay={0}
             hideOnClick={false}

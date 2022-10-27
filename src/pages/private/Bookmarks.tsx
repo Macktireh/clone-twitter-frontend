@@ -4,11 +4,11 @@ import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
-import { IUserProfile, IRootState } from "@/models";
+import { IRootState, IPropsRootStateType } from "@/models";
 import Aside from "@/components/aside/Aside";
 import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 
-type propsTypes = { currentUser: IUserProfile | null };
+interface propsTypes extends Omit<IPropsRootStateType, 'users' | 'posts' | 'postsLikes' | 'comments' | 'followers' | 'following'> {}
 
 const Bookmarks: React.FC<propsTypes> = ({ currentUser }) => {
   React.useEffect(() => {

@@ -5,20 +5,11 @@ import { IEmojiData } from "emoji-picker-react";
 import addNewPostAction from "@/actions/post/addNewPost.action";
 import deletePostAction from "@/actions/post/deletePost.action";
 import updatePostAction from "@/actions/post/updatePost.action";
-// import { baseURL } from "@/config/axios";
-import {
-  // bodyStateType,
-  // emojiStateType,
-  IUserProfile,
-  // imagePreviewStateType,
-  // imageStateType,
-  IRootState,
-  // editBodyStateType,
-} from "@/models";
 import updateCommentAction from "@/actions/comment/updateComment.action";
 import addNewCommentAction from "@/actions/comment/addNewComment.action";
 import deleteCommentAction from "@/actions/comment/deleteComment.action";
 import getAllPostAction from "@/actions/post/getAllPost.action";
+import { IUserProfile, IRootState, } from "@/models";
 
 export type bodyPostStateType = { bodyPost: string; setBodyPost: (value: string) => void };
 export type emojiPostStateType = { chosenEmojiPost: boolean; setChosenEmojiPost: (value: boolean) => void };

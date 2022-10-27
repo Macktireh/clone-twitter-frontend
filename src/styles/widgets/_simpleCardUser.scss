@@ -43,9 +43,17 @@
   .follow {
     margin-top: 5px;
     font-size: 0.9em;
-    strong {
-      color: $color2;
+    .numFollow {
+      color: $color5;
+      &:hover {
+        text-decoration: underline;
+      }
+      strong {
+        color: $color2;
+        font-weight: bold;
+      }
     }
+      
     @include flex(row, flex-start, flex-start);
     gap: 0.5rem;
   }

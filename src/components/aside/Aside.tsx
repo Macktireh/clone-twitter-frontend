@@ -1,22 +1,26 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import InputSearch from "@/widgets/InputSearch";
-import Trending from "./Trending";
-import Follow from "./Follow";
-import FooterPrivate from "./FooterPrivate";
+import Trending from "@/components/aside/Trending";
+import CardFollow from "@/components/follow/CardFollow";
+import FooterPrivate from "@/components/aside/FooterPrivate";
 import { privateRoutes } from "@/routes/private.routes";
+import { IPropsRootStateType, IRootState } from "@/models";
 
-type propsTypes = { page: string };
+interface propsTypes extends Omit<IPropsRootStateType, 'posts' | 'postsLikes' | 'comments' | 'followers' | 'following'> {
+  page: string;
+}
 
-const Aside: React.FC<propsTypes> = ({ page }) => {
+const Aside: React.FC<propsTypes> = ({ page, currentUser, users }) => {
   const renderTrendOrFollowing = (render: string): JSX.Element | undefined => {
-    if (render === "Follow") {
+    if (render === "CardFollow") {
       return (
         <div className="follow-container">
           <div className="content">
             <h3>Who to follow</h3>
             {[1, 2, 3].map((n, i) => (
-              <Follow key={i} />
+              <CardFollow key={i} bio={false} typeFollow={1} />
             ))}
             <span className="show-more">Show more</span>
           </div>
@@ -38,7 +42,7 @@ const Aside: React.FC<propsTypes> = ({ page }) => {
 
   const render = (id: number) => {
     if (id === 1) {
-      if (page === privateRoutes.profile.name) return renderTrendOrFollowing("Follow");
+      if (page === privateRoutes.profile.name) return renderTrendOrFollowing("CardFollow");
       else if (
         page === privateRoutes.home.name ||
         page === privateRoutes.notifications.name ||
@@ -54,7 +58,7 @@ const Aside: React.FC<propsTypes> = ({ page }) => {
         page === privateRoutes.lists.name ||
         page === privateRoutes.bookmarks.name
       )
-        return renderTrendOrFollowing("Follow");
+        return renderTrendOrFollowing("CardFollow");
     }
   };
 
@@ -73,7 +77,7 @@ const Aside: React.FC<propsTypes> = ({ page }) => {
         </>
       ) : (
         <div className="footer-container explore">
-          {renderTrendOrFollowing("Follow")}
+          {renderTrendOrFollowing("CardFollow")}
           <FooterPrivate />
         </div>
       )}
@@ -81,4 +85,13 @@ const Aside: React.FC<propsTypes> = ({ page }) => {
   );
 };
 
-export default Aside;
+const AsideConnectWithStore: React.FC<propsTypes> = ({ page, currentUser, users }) => (
+  <Aside page={page} currentUser={currentUser} users={users} />
+);
+
+const mapStateToProps = (state: IRootState) => ({
+  currentUser: state.authReducer.currentUser,
+  users: state.userReducer,
+});
+
+export default connect(mapStateToProps, {})(AsideConnectWithStore);

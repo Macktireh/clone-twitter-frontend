@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 
 import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
-// import AddNewPost from "@/components/homePrivate/AddNewPost";
 import CardTweet from "@/components/homePrivate/CardTweet";
-// import PopupDeletePost from "@/components/homePrivate/PopupDeletePost";
 import Aside from "@/components/aside/Aside";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllPostAction from "@/actions/post/getAllPost.action";
@@ -16,7 +14,8 @@ import AddNewPost1 from "@/components/homePrivate/AddNewPost";
 import PopupDeletePost1 from "@/components/homePrivate/PopupDeletePost";
 import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 
-interface propsTypes extends IPropsRootStateType {
+interface propsTypes
+  extends Omit<IPropsRootStateType, "postsLikes" | "comments" | "followers" | "following"> {
   getAllPostAction?: any;
   getAllUsersAction?: any;
 }
@@ -32,7 +31,7 @@ const HomePrivate: React.FC<propsTypes> = ({
   getAllUsersAction,
   getAllPostAction,
 }) => {
-  const [loading, setLoading] = React.useState(true);
+  // const [loading, setLoading] = React.useState(true);
   const flag = React.useRef(false);
 
   React.useEffect(() => {
@@ -42,9 +41,9 @@ const HomePrivate: React.FC<propsTypes> = ({
       getAllPostAction();
       flag.current = true;
     }
-
-    if (currentUser && users && posts) setLoading(false);
-  }, [flag, currentUser, users, posts, getAllUsersAction, getAllPostAction]);
+    // if (currentUser && users && posts) setLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flag, currentUser, users, posts]);
 
   return (
     <>
@@ -62,8 +61,11 @@ const HomePrivate: React.FC<propsTypes> = ({
           </section>
           {/* <div className="line"></div> */}
           <section className="sec-list-post">
-            {loading ? (
-              <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
+            {!currentUser && !users && !posts ? (
+              <SpinnersLoding
+                isLoading={!currentUser && !users && !posts ? true : false}
+                styleSpinnersLoding={styleSpinnersLoding}
+              />
             ) : (
               posts
                 ?.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
@@ -90,10 +92,6 @@ const HomePrivateConnectWithStore: React.FC<propsTypes> = ({
   getAllUsersAction,
   getAllPostAction,
 }) => {
-  // const currentUser = useSelector((state: IRootState) => state.authReducer.currentUser, shallowEqual);
-  // const users = useSelector((state: IRootState) => state.userReducer, shallowEqual);
-  // const posts = useSelector((state: IRootState) => state.postReducer, shallowEqual );
-
   return (
     <Layout>
       <HomePrivate
@@ -113,5 +111,4 @@ const mapStateToProps = (state: IRootState) => ({
   posts: state.postReducer,
 });
 
-// export default HomePrivateConnectWithStore;
 export default connect(mapStateToProps, { getAllUsersAction, getAllPostAction })(HomePrivateConnectWithStore);

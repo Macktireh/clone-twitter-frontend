@@ -8,6 +8,7 @@ import Notifications from "@/pages/private/Notifications";
 import Profile from "@/pages/private/Profile";
 import { pathLinkPostDetail, pathLinkProfile } from "@/utils/pathRoute";
 import PostDetails from "@/pages/private/PostDetails";
+import Follow from "@/pages/private/Follow";
 
 export const privateRoutes = {
   home: {
@@ -50,6 +51,16 @@ export const privateRoutes = {
     title: "post details | Clone Twitter",
     name: "postDetails",
   },
+  followers: {
+    path: pathLinkProfile(":pseudo") + "/followers",
+    title: "followers | Clone Twitter",
+    name: "followers",
+  },
+  following: {
+    path: pathLinkProfile(":pseudo") + "/following",
+    title: "following | Clone Twitter",
+    name: "following",
+  },
 };
 
 export const privateRoutesList: TRoutesList[] = [
@@ -61,4 +72,6 @@ export const privateRoutesList: TRoutesList[] = [
   { path: privateRoutes.lists.path, element: <Lists /> },
   { path: privateRoutes.profile.path, element: <Profile /> },
   { path: privateRoutes.postDetails.path, element: <PostDetails /> },
+  { path: privateRoutes.followers.path, element: <Follow followActive={1} /> },
+  { path: privateRoutes.following.path, element: <Follow followActive={2} /> },
 ];

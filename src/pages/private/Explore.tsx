@@ -5,10 +5,10 @@ import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import Aside from "@/components/aside/Aside";
 import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
-import { IUserProfile, IRootState } from "@/models";
+import { IRootState, IPropsRootStateType } from "@/models";
 import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 
-type propsTypes = { currentUser: IUserProfile | null };
+interface propsTypes extends Omit<IPropsRootStateType, 'users' | 'posts' | 'postsLikes' | 'comments' | 'followers' | 'following'> {}
 
 const Explore: React.FC<propsTypes> = ({ currentUser }) => {
   return (

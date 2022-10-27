@@ -13,12 +13,11 @@ import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllCommentAction from "@/actions/comment/getAllComment.action";
-import { IComment, IPost, IPropsRootStateType, IRootState, IUserProfile } from "@/models";
+import { IPost, IPropsRootStateType, IRootState, IUserProfile } from "@/models";
 import { privateRoutes } from "@/routes/private.routes";
 import { useTweetComment } from "@/context/TweetCommentProvider";
 
-interface propsTypes extends IPropsRootStateType {
-  comments: IComment[] | null;
+interface propsTypes extends Omit<IPropsRootStateType, 'postsLikes' | 'following' | 'followers'> {
   getAllUsersAction: () => void;
   getAllPostAction: () => void;
   getAllCommentAction: (postPublicId: string) => void;
@@ -60,10 +59,8 @@ const PostDetails: React.FC<propsTypes> = ({
     if (currentUser && users && posts) {
       if (currentUser.pseudo === pseudo) {
         setAuthorPost(currentUser);
-        // setTimeout(() => setAuthorPost(currentUser), 100);
       } else {
         setAuthorPost(users.find((u) => u.pseudo === pseudo));
-        // setTimeout(() => setAuthorPost(users.find((u) => u.pseudo === pseudo)), 100);
       }
       const searchPost = posts.filter((p) => p.publicId === postPublicId);
       if (searchPost.length === 0) {
@@ -72,7 +69,6 @@ const PostDetails: React.FC<propsTypes> = ({
         setIsPostExist(true);
         setPostDetails(searchPost[0]);
       }
-      // setTimeout(() => setPostDetails(posts.find((u) => u.publicId === postPublicId)), 100);
     }
     document.title =
       postDetails && postDetails.body !== null
@@ -82,6 +78,7 @@ const PostDetails: React.FC<propsTypes> = ({
     if (currentUser && users && postDetails && authorPost && comments) setLoading(false);
 
     if (postPublicId) postPublicIdState.setPostPublicId(postPublicId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     flag,
     currentUser,
@@ -93,9 +90,6 @@ const PostDetails: React.FC<propsTypes> = ({
     pseudo,
     postPublicId,
     postPublicIdState,
-    getAllUsersAction,
-    getAllPostAction,
-    getAllCommentAction,
   ]);
 
   if (IsPostExist === false) return <Navigate to="/error/404" />;
@@ -123,7 +117,11 @@ const PostDetails: React.FC<propsTypes> = ({
                 ?.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
                 .map((comment) => (
                   <div className="list-post" key={comment.publicId}>
-                    <CardComment currentUser={currentUser} comment={comment} users={users} />
+                    <CardComment
+                      currentUser={currentUser}
+                      comment={comment}
+                      users={users}
+                    />
                   </div>
                 ))
             )}

@@ -25,9 +25,11 @@
 // Component Profile
 @import "./components/profile/edidProfile";
 
+// Component Follow
+@import "./components/follow/cardFollow";
+
 // Component aside
 @import "./components/aside/trending";
-@import "./components/aside/follow";
 
 // Widgets
 @import "./widgets/buttonCustom";
@@ -52,6 +54,7 @@
 @import "./pages/private/messages";
 @import "./pages/private/bookmarks";
 @import "./pages/private/profile";
+@import "./pages/private/follow";
 
 // Class utils
 @import "./settings/utils";

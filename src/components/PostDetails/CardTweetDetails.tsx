@@ -8,7 +8,6 @@ import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
 import AddNewComment from "@/components/postDetails/AddNewComment";
 import IconSVG from "@/widgets/IconSVG";
 import { IUserProfile, IPost } from "@/models";
-// import { baseURL } from "@/config/axios";
 import { dateParserCustom } from "@/utils/dateParser";
 import { pathLinkProfile } from "@/utils/pathRoute";
 import ButtonAddComment from "./ButtonAddComment";
@@ -19,7 +18,11 @@ type propsTypes = {
   authorPost: IUserProfile | null;
 };
 
-const CardTweetDetails: React.FC<propsTypes> = ({ currentUser, postDetails, authorPost }) => {
+const CardTweetDetails: React.FC<propsTypes> = ({
+  currentUser,
+  postDetails,
+  authorPost,
+}) => {
   return (
     <div className="CardTweetDetails">
       <div className="header-postDetails">
@@ -28,7 +31,12 @@ const CardTweetDetails: React.FC<propsTypes> = ({ currentUser, postDetails, auth
             <div className="skeleton-anim-img-profile"></div>
           ) : (
             <Tippy
-              content={<TooltipCardUser authorPost={authorPost} currentUser={currentUser} />}
+              content={
+                <TooltipCardUser
+                  authorPost={authorPost}
+                  currentUser={currentUser}
+                />
+              }
               interactive={true}
               delay={0}
               hideOnClick={false}

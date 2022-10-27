@@ -1,5 +1,4 @@
 /**********************************
-import { LIKE_OR_UNLIKE_POST_FAIL } from './types';
  * Types Action Authentication
  **/
 export const SIGNUP_SUCCESS: string = "SIGNUP_SUCCESS";
@@ -29,8 +28,8 @@ export const RESET_PASSWORD_FAIL: string = "RESET_PASSWORD_FAIL";
 export const LOGOUT: string = "LOGOUT";
 
 /**********************************
- * Types Action User
- **/
+* Types Action User
+**/
 export const GET_CURRENT_USER_LOADED_SUCCESS: string = "GET_CURRENT_USER_LOADED_SUCCESS";
 export const GET_CURRENT_USER_LOADED_FAIL: string = "GET_CURRENT_USER_LOADED_FAIL";
 
@@ -41,8 +40,8 @@ export const GET_ALL_USERS_LOADED_SUCCESS: string = "GET_ALL_USERS_LOADED_SUCCES
 export const GET_ALL_USERS_LOADED_FAIL: string = "GET_ALL_USERS_LOADED_FAIL";
 
 /**********************************
- * Types Action Post and LikePost
- **/
+* Types Action Post and LikePost
+**/
 export const GET_ALL_POST_SUCCESS: string = "GET_ALL_POST_SUCCESS";
 export const GET_ALL_POST_FAIL: string = "GET_ALL_POST_FAIL";
 
@@ -72,8 +71,8 @@ export const GET_LIST_POSTS_LIKES_FAIL: string = "GET_LIST_POSTS_LIKES_FAIL";
 
 
 /**********************************
- * Types Comment and LikeComment
- **/
+* Types Comment and LikeComment
+**/
 export const GET_ALL_COMMENT_SUCCESS: string = "GET_ALL_COMMENT_SUCCESS";
 export const GET_ALL_COMMENT_FAIL: string = "GET_ALL_COMMENT_FAIL";
 
@@ -91,3 +90,16 @@ export const DELETE_COMMENT_FAIL: string = "DELETE_COMMENT_FAIL";
 
 export const LIKE_OR_UNLIKE_COMMENT_SUCCESS: string = "LIKE_OR_UNLIKE_COMMENT_SUCCESS";
 export const LIKE_OR_UNLIKE_COMMENT_FAIL: string = "LIKE_OR_UNLIKE_COMMENT_FAIL";
+
+
+/**********************************
+* Types Following and Followers
+**/
+export const GET_ALL_FOLLOWING_SUCCESS: string = "GET_ALL_FOLLOWING_SUCCESS";
+export const GET_ALL_FOLLOWING_FAIL: string = "GET_ALL_FOLLOWING_FAIL";
+
+export const ADD_FOLLOWING_SUCCESS: string = "ADD_FOLLOWING_SUCCESS";
+export const ADD_FOLLOWING_FAIL: string = "ADD_FOLLOWING_FAIL";
+
+export const GET_ALL_FOLLOWERS_SUCCESS: string = "GET_ALL_FOLLOWERS_SUCCESS";
+export const GET_ALL_FOLLOWERS_FAIL: string = "GET_ALL_FOLLOWERS_FAIL";

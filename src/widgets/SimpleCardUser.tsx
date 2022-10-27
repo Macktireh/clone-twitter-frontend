@@ -30,12 +30,12 @@ const SimpleCardUser: React.FC<propsTypes> = ({ children, userData, bio }) => {
       </div>
       {bio && <p className="bio">{userData?.bio}</p>}
       <div className="follow">
-        <span>
-          <strong>834</strong> Following
-        </span>
-        <span>
-          <strong>451k</strong> Followers
-        </span>
+        <Link to={`/${userData?.pseudo}/following`} className="numFollow">
+          <strong>{userData?.numberOfFollowing}</strong> Following
+        </Link>
+        <Link to={`/${userData?.pseudo}/followers`} className="numFollow">
+          <strong>{userData?.numberOfFollowers}</strong> Followers
+        </Link>
       </div>
     </div>
   );

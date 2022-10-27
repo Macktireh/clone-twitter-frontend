@@ -8,18 +8,17 @@ import IconSVG from "@/widgets/IconSVG";
 import NavTabs from "@/widgets/NavTabs";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import { privateRoutes } from "@/routes/private.routes";
-import { baseURL } from "@/config/axios";
 import { IUserProfile, IPost, TTabState } from "@/models";
 import { dateParserJoined } from "@/utils/dateParser";
 
 type propsTypes = {
   isCurrentUser: boolean;
+  loadingPost: boolean;
   userProfile: IUserProfile | null;
   currentUser: IUserProfile | null;
   users: IUserProfile[] | null;
   posts: IPost[] | null;
   postsLikes: IPost[] | null;
-  loadingPost: boolean;
   modalActiveState: { modalActive: boolean; setModalActive(value: boolean): void };
   tabState: TTabState[];
   activeTabState: { activeTab: number; setActiveTab(activeTabId: number): void };
@@ -58,20 +57,12 @@ const ContentProfile: React.FC<propsTypes> = ({
         <div className="info-profile-container">
           <div className="cover-profile-pic">
             <img
-              src={
-                userProfile?.coverPicture
-                  ? userProfile.coverPicture
-                  : baseURL + "/mediafiles/default/coverPic.jpg"
-              }
+              src={userProfile?.coverPicture as string}
               alt="coverPicture"
             />
             <img
               className="profile-pic"
-              src={
-                userProfile?.profilePicture
-                  ? userProfile.profilePicture
-                  : baseURL + "/mediafiles/default/profilePic.png"
-              }
+              src={userProfile?.profilePicture as string}
               alt="profilePicture"
             />
           </div>
@@ -92,12 +83,12 @@ const ContentProfile: React.FC<propsTypes> = ({
                 <p>Joined {userProfile?.created && dateParserJoined(userProfile.created)}</p>
               </div>
               <div className="box-info-follow">
-                <Link to="">
-                  <span>20</span>
+                <Link to="following">
+                  <span>{userProfile?.numberOfFollowing}</span>
                   <p>Following</p>
                 </Link>
-                <Link to="">
-                  <span>45</span>
+                <Link to="followers">
+                  <span>{userProfile?.numberOfFollowers}</span>
                   <p>Followers</p>
                 </Link>
               </div>
@@ -105,7 +96,7 @@ const ContentProfile: React.FC<propsTypes> = ({
           </div>
         </div>
         <nav>
-          <NavTabs listTabs={tabState} activeTab={activeTab} toggleTab={setActiveTab} />
+          <NavTabs listTabs={tabState} activeTab={activeTab} toggleTab={setActiveTab} linkActive={false} />
         </nav>
         <div className="my-content-container">
           {(activeTab === 1 || activeTab === 2) && (
@@ -118,7 +109,12 @@ const ContentProfile: React.FC<propsTypes> = ({
                   .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
                   .map((post) => (
                     <div className="list-post" key={post.publicId}>
-                      <CardTweet key={post.publicId} currentUser={userProfile} post={post} users={users} />
+                      <CardTweet
+                        key={post.publicId}
+                        currentUser={userProfile}
+                        post={post}
+                        users={users}
+                      />
                     </div>
                   ))
               )}
@@ -133,7 +129,12 @@ const ContentProfile: React.FC<propsTypes> = ({
                   ?.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
                   .map((post) => (
                     <div className="list-post" key={post.publicId}>
-                      <CardTweet key={post.publicId} currentUser={currentUser} post={post} users={users} />
+                      <CardTweet
+                        key={post.publicId}
+                        currentUser={currentUser}
+                        post={post}
+                        users={users}
+                      />
                     </div>
                   ))
               )}
