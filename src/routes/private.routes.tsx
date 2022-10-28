@@ -72,6 +72,6 @@ export const privateRoutesList: TRoutesList[] = [
   { path: privateRoutes.lists.path, element: <Lists /> },
   { path: privateRoutes.profile.path, element: <Profile /> },
   { path: privateRoutes.postDetails.path, element: <PostDetails /> },
-  { path: privateRoutes.followers.path, element: <Follow followActive={1} /> },
-  { path: privateRoutes.following.path, element: <Follow followActive={2} /> },
+  { path: privateRoutes.followers.path, element: <Follow title="People following" followActive={1} /> },
+  { path: privateRoutes.following.path, element: <Follow title="People followed by" followActive={2} /> },
 ];

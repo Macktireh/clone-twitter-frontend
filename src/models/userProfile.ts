@@ -11,8 +11,8 @@ export interface IUserProfile {
   profilePicture: string | null;
   coverPicture: string | null;
   bio: string | null;
-  numberOfFollowers: number;
-  numberOfFollowing: number;
+  followers: string[];
+  following: string[];
   updated: string;
   created: string;
 }

@@ -84,11 +84,11 @@ const ContentProfile: React.FC<propsTypes> = ({
               </div>
               <div className="box-info-follow">
                 <Link to="following">
-                  <span>{userProfile?.numberOfFollowing}</span>
+                  <span>{userProfile?.following.length}</span>
                   <p>Following</p>
                 </Link>
                 <Link to="followers">
-                  <span>{userProfile?.numberOfFollowers}</span>
+                  <span>{userProfile?.followers.length}</span>
                   <p>Followers</p>
                 </Link>
               </div>

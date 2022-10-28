@@ -5,7 +5,7 @@ const Error404: React.FC = () => {
   React.useEffect(() => {
     document.title = "Error 404 Not Found | Clone Twitter";
     const container: HTMLElement | null = document.getElementById("container-Error404");
-    window.onmousemove = (e) => {
+    window.onmousemove = (e: MouseEvent) => {
       let x = -e.clientX / 5;
       let y = -e.clientY / 5;
       if (container) {
