@@ -8,7 +8,11 @@ import { IRootState, IPropsRootStateType } from "@/models";
 import Aside from "@/components/aside/Aside";
 import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 
-interface propsTypes extends Omit<IPropsRootStateType, 'users' | 'posts' | 'postsLikes' | 'comments' | 'followers' | 'following'> {}
+interface propsTypes
+  extends Omit<
+    IPropsRootStateType,
+    "users" | "posts" | "postsLikes" | "comments" | "followers" | "following" | "peopleConnect"
+  > {}
 
 const Lists: React.FC<propsTypes> = ({ currentUser }) => {
   return (

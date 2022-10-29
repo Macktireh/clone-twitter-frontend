@@ -8,20 +8,25 @@ import FooterPrivate from "@/components/aside/FooterPrivate";
 import { privateRoutes } from "@/routes/private.routes";
 import { IPropsRootStateType, IRootState } from "@/models";
 
-interface propsTypes extends Omit<IPropsRootStateType, 'posts' | 'postsLikes' | 'comments' | 'followers' | 'following'> {
+interface propsTypes
+  extends Omit<
+    IPropsRootStateType,
+    "users" | "posts" | "postsLikes" | "comments" | "followers" | "following"
+  > {
   page: string;
 }
 
-const Aside: React.FC<propsTypes> = ({ page, currentUser, users }) => {
+const Aside: React.FC<propsTypes> = ({ page, currentUser, peopleConnect }) => {
   const renderTrendOrFollowing = (render: string): JSX.Element | undefined => {
     if (render === "CardFollow") {
       return (
         <div className="follow-container">
           <div className="content">
             <h3>Who to follow</h3>
-            {[1, 2, 3].map((n, i) => (
-              <CardFollow key={i} bio={false} typeFollow={1} />
-            ))}
+            {peopleConnect &&
+              peopleConnect
+                .slice(0, 3)
+                .map((u, i) => <CardFollow key={i} bio={false} typeFollow={1} userFollower={u} />)}
             <span className="show-more">Show more</span>
           </div>
         </div>
@@ -85,13 +90,14 @@ const Aside: React.FC<propsTypes> = ({ page, currentUser, users }) => {
   );
 };
 
-const AsideConnectWithStore: React.FC<propsTypes> = ({ page, currentUser, users }) => (
-  <Aside page={page} currentUser={currentUser} users={users} />
+const AsideConnectWithStore: React.FC<propsTypes> = ({ page, currentUser, peopleConnect }) => (
+  <Aside page={page} currentUser={currentUser} peopleConnect={peopleConnect} />
 );
 
 const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
   users: state.userReducer,
+  peopleConnect: state.followReducer.peopleConnect,
 });
 
 export default connect(mapStateToProps, {})(AsideConnectWithStore);

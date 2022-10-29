@@ -8,7 +8,11 @@ import { connect } from "react-redux";
 import { IRootState, IPropsRootStateType } from "@/models";
 import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 
-interface propsTypes extends Omit<IPropsRootStateType, 'users' | 'posts' | 'postsLikes' | 'comments' | 'followers' | 'following'> {}
+interface propsTypes
+  extends Omit<
+    IPropsRootStateType,
+    "users" | "posts" | "postsLikes" | "comments" | "followers" | "following" | "peopleConnect"
+  > {}
 
 const Explore: React.FC<propsTypes> = ({ currentUser }) => {
   return (
@@ -16,7 +20,11 @@ const Explore: React.FC<propsTypes> = ({ currentUser }) => {
       <main className="main">
         <div className="main-container">
           <section className="sec-header sticky-2">
-            <SectionHeaderTweet page={privateRoutes.explore.name} title="Latest Tweets" currentUser={currentUser} />
+            <SectionHeaderTweet
+              page={privateRoutes.explore.name}
+              title="Latest Tweets"
+              currentUser={currentUser}
+            />
           </section>
           <div>Explore</div>
         </div>

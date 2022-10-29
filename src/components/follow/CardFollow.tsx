@@ -2,11 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import ButtonCustom from "@/widgets/ButtonCustom";
-import { IUserProfile } from "@/models";
+import { IUser } from "@/models";
 import { pathLinkProfile } from "@/utils/pathRoute";
 
 type propsTypes = {
-  userFollower?: IUserProfile | null;
+  userFollower?: IUser | null;
   bio: boolean;
   typeFollow: number;
 };
@@ -23,11 +23,11 @@ const CardFollow: React.FC<propsTypes> = ({ bio, typeFollow, userFollower }) => 
         <div className="img-container">
           <img
             src={userFollower?.profilePicture as string}
-            alt={`${userFollower?.user.first_name} ${userFollower?.user.last_name}`}
+            alt={`${userFollower?.first_name} ${userFollower?.last_name}`}
           />
         </div>
         <div className="info-container">
-          <strong>{`${userFollower?.user.first_name} ${userFollower?.user.last_name}`}</strong>
+          <strong>{`${userFollower?.first_name} ${userFollower?.last_name}`}</strong>
           <span>@{userFollower?.pseudo}</span>
           {bio ? <p>{userFollower?.bio}</p> : null}
         </div>

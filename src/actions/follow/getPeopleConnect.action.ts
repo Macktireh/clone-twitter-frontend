@@ -6,7 +6,7 @@ import * as Api from "@/config/apiEndPoint";
 import * as Types from "@/actions/types";
 import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
 
-const getAllFollowingAction = (userPubblicId: string ) => async (dispatch: Dispatch<AnyAction> | any) => {
+const getPeopleConnect = () => async (dispatch: Dispatch<AnyAction> | any) => {
   if (localStorage.getItem("access")) {
     const config = {
       headers: {
@@ -17,24 +17,24 @@ const getAllFollowingAction = (userPubblicId: string ) => async (dispatch: Dispa
     };
 
     try {
-      const res = await Axios.get(`${Api.followingEndpoint + userPubblicId}/`, config);
-      dispatch({ type: Types.GET_ALL_FOLLOWING_SUCCESS, payload: res.data });
+      const res = await Axios.get(Api.peopleConnectEndpoint, config);
+      dispatch({ type: Types.GET_PEOPLE_CONNECT_SUCCESS, payload: res.data });
     } catch (error: unknown) {
       if (error instanceof AxiosError && error.response) {
         if (error.response.status === 401) {
-          dispatch(checkAuthenticatedAction(_getAllFollowingAction, userPubblicId));
+          dispatch(checkAuthenticatedAction(_getPeopleConnect));
         }
       }
-      dispatch({ type: Types.GET_ALL_FOLLOWING_FAIL });
+      dispatch({ type: Types.GET_PEOPLE_CONNECT_FAIL });
     }
   } else {
-    dispatch({ type: Types.GET_ALL_FOLLOWING_FAIL });
+    dispatch({ type: Types.GET_PEOPLE_CONNECT_FAIL });
     dispatch({ type: Types.AUTHENTICATED_FAIL });
     dispatch({ type: Types.LOGOUT });
   }
 };
 
-const _getAllFollowingAction = (userPubblicId: string) => async (dispatch: Dispatch<AnyAction> | any) => {
+const _getPeopleConnect = () => async (dispatch: Dispatch<AnyAction> | any) => {
   if (localStorage.getItem("access")) {
     const config = {
       headers: {
@@ -45,14 +45,14 @@ const _getAllFollowingAction = (userPubblicId: string) => async (dispatch: Dispa
     };
 
     try {
-      const res = await Axios.get(`${Api.followingEndpoint + userPubblicId}/`, config);
-      dispatch({ type: Types.GET_ALL_FOLLOWING_SUCCESS, payload: res.data });
+      const res = await Axios.get(Api.peopleConnectEndpoint, config);
+      dispatch({ type: Types.GET_PEOPLE_CONNECT_SUCCESS, payload: res.data });
     } catch (error: unknown) {
-      dispatch({ type: Types.GET_ALL_FOLLOWING_FAIL });
+      dispatch({ type: Types.GET_PEOPLE_CONNECT_FAIL });
     }
   } else {
-    dispatch({ type: Types.GET_ALL_FOLLOWING_FAIL });
+    dispatch({ type: Types.GET_PEOPLE_CONNECT_FAIL });
   }
 };
 
-export default getAllFollowingAction;
+export default getPeopleConnect;

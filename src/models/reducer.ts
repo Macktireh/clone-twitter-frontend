@@ -18,6 +18,7 @@ export type TCommentReducerType = IComment[] | null;
 export type TFollowReducerType = {
   following: IFollow[] | null
   followers: IFollow[] | null
+  peopleConnect: IUser[] | null
 };
 
 export interface IRootState {
@@ -43,4 +44,5 @@ export interface IPropsRootStateType {
   comments: IComment[] | null;
   following: IFollow[] | null;
   followers: IFollow[] | null;
+  peopleConnect: IUser[] | null;
 }

@@ -10,7 +10,11 @@ import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
 import { IRootState, TTabState, IPropsRootStateType } from "@/models";
 
-interface propsTypes extends Omit<IPropsRootStateType, 'users' | 'posts' | 'postsLikes' | 'comments' | 'followers' | 'following'> {}
+interface propsTypes
+  extends Omit<
+    IPropsRootStateType,
+    "users" | "posts" | "postsLikes" | "comments" | "followers" | "following" | "peopleConnect"
+  > {}
 
 const Notifications: React.FC<propsTypes> = ({ currentUser }) => {
   const tabState: TTabState[] = [

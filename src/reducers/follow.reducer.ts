@@ -3,7 +3,8 @@ import { IActionReducer, TFollowReducerType } from "@/models";
 
 const initialState: TFollowReducerType = {
   following: null,
-  followers: null
+  followers: null,
+  peopleConnect: null
 };
 
 const followReducer = (state: TFollowReducerType = initialState, action: IActionReducer): TFollowReducerType => {
@@ -32,6 +33,18 @@ const followReducer = (state: TFollowReducerType = initialState, action: IAction
       return {
         ...state,
         followers: null
+      };
+
+    case Types.GET_PEOPLE_CONNECT_SUCCESS:
+      return {
+        ...state,
+        peopleConnect: payload
+      };
+
+    case Types.GET_PEOPLE_CONNECT_FAIL:
+      return {
+        ...state,
+        peopleConnect: null
       };
 
     default:

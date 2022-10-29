@@ -6,7 +6,7 @@ import * as Api from "@/config/apiEndPoint";
 import * as Types from "@/actions/types";
 import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
 
-const getAllFollowersAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
+const getAllFollowersAction = (userPubblicId: string) => async (dispatch: Dispatch<AnyAction> | any) => {
   if (localStorage.getItem("access")) {
     const config = {
       headers: {
@@ -17,12 +17,12 @@ const getAllFollowersAction = () => async (dispatch: Dispatch<AnyAction> | any) 
     };
 
     try {
-      const res = await Axios.get(Api.followersEndpoint, config);
+      const res = await Axios.get(`${Api.followersEndpoint + userPubblicId}/`, config);
       dispatch({ type: Types.GET_ALL_FOLLOWERS_SUCCESS, payload: res.data });
     } catch (error: unknown) {
       if (error instanceof AxiosError && error.response) {
         if (error.response.status === 401) {
-          dispatch(checkAuthenticatedAction(_getAllFollowersAction));
+          dispatch(checkAuthenticatedAction(_getAllFollowersAction, userPubblicId));
         }
       }
       dispatch({ type: Types.GET_ALL_FOLLOWERS_FAIL });
@@ -34,7 +34,7 @@ const getAllFollowersAction = () => async (dispatch: Dispatch<AnyAction> | any) 
   }
 };
 
-const _getAllFollowersAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
+const _getAllFollowersAction = (userPubblicId: string) => async (dispatch: Dispatch<AnyAction> | any) => {
   if (localStorage.getItem("access")) {
     const config = {
       headers: {
@@ -45,7 +45,7 @@ const _getAllFollowersAction = () => async (dispatch: Dispatch<AnyAction> | any)
     };
 
     try {
-      const res = await Axios.get(Api.followersEndpoint, config);
+      const res = await Axios.get(`${Api.followersEndpoint + userPubblicId}/`, config);
       dispatch({ type: Types.GET_ALL_FOLLOWERS_SUCCESS, payload: res.data });
     } catch (error: unknown) {
       dispatch({ type: Types.GET_ALL_FOLLOWERS_FAIL });

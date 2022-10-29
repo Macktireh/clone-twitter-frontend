@@ -3,21 +3,23 @@ import { connect } from "react-redux";
 
 import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
+import AddNewPost from "@/components/homePrivate/AddNewPost";
+import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 import CardTweet from "@/components/homePrivate/CardTweet";
+import PopupDeletePost from "@/components/homePrivate/PopupDeletePost";
 import Aside from "@/components/aside/Aside";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
+import getPeopleConnect from "@/actions/follow/getPeopleConnect.action";
 import { privateRoutes } from "@/routes/private.routes";
 import { IRootState, IPropsRootStateType } from "@/models";
-import AddNewPost1 from "@/components/homePrivate/AddNewPost";
-import PopupDeletePost1 from "@/components/homePrivate/PopupDeletePost";
-import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 
 interface propsTypes
-  extends Omit<IPropsRootStateType, "postsLikes" | "comments" | "followers" | "following"> {
-  getAllPostAction?: any;
-  getAllUsersAction?: any;
+  extends Omit<IPropsRootStateType, "postsLikes" | "comments" | "followers" | "following" | "peopleConnect"> {
+  getAllPostAction: () => void;
+  getAllUsersAction: () => void;
+  getPeopleConnect: () => void;
 }
 
 const styleSpinnersLoding: React.CSSProperties = {
@@ -30,6 +32,7 @@ const HomePrivate: React.FC<propsTypes> = ({
   posts,
   getAllUsersAction,
   getAllPostAction,
+  getPeopleConnect,
 }) => {
   // const [loading, setLoading] = React.useState(true);
   const flag = React.useRef(false);
@@ -39,6 +42,7 @@ const HomePrivate: React.FC<propsTypes> = ({
     if (!flag.current) {
       getAllUsersAction();
       getAllPostAction();
+      getPeopleConnect();
       flag.current = true;
     }
     // if (currentUser && users && posts) setLoading(false);
@@ -57,9 +61,8 @@ const HomePrivate: React.FC<propsTypes> = ({
             />
           </section>
           <section className="sec-add-new-post">
-            <AddNewPost1 nameClass="textarea-1" />
+            <AddNewPost nameClass="textarea-1" />
           </section>
-          {/* <div className="line"></div> */}
           <section className="sec-list-post">
             {!currentUser && !users && !posts ? (
               <SpinnersLoding
@@ -80,7 +83,7 @@ const HomePrivate: React.FC<propsTypes> = ({
         <Aside page={privateRoutes.home.name} />
       </main>
       <ButtonAddTweet nameClass="add-tweet-global" />
-      <PopupDeletePost1 />
+      <PopupDeletePost />
     </>
   );
 };
@@ -91,6 +94,7 @@ const HomePrivateConnectWithStore: React.FC<propsTypes> = ({
   posts,
   getAllUsersAction,
   getAllPostAction,
+  getPeopleConnect,
 }) => {
   return (
     <Layout>
@@ -100,6 +104,7 @@ const HomePrivateConnectWithStore: React.FC<propsTypes> = ({
         posts={posts}
         getAllUsersAction={getAllUsersAction}
         getAllPostAction={getAllPostAction}
+        getPeopleConnect={getPeopleConnect}
       />
     </Layout>
   );
@@ -111,4 +116,4 @@ const mapStateToProps = (state: IRootState) => ({
   posts: state.postReducer,
 });
 
-export default connect(mapStateToProps, { getAllUsersAction, getAllPostAction })(HomePrivateConnectWithStore);
+export default connect(mapStateToProps, { getAllUsersAction, getAllPostAction, getPeopleConnect })(HomePrivateConnectWithStore);

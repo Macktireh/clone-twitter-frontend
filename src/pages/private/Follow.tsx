@@ -9,14 +9,19 @@ import CardFollow from "@/components/follow/CardFollow";
 import Aside from "@/components/aside/Aside";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
+import getAllFollowingAction from "@/actions/follow/getAllFollowing.action";
+import getAllFollowersAction from "@/actions/follow/getAllFollowers.action";
 import { IUserProfile, IRootState, IPropsRootStateType, TTabState } from "@/models";
 import { privateRoutes } from "@/routes/private.routes";
 import { Link } from "react-router-dom";
 
-interface propsTypes extends Omit<IPropsRootStateType, "posts" | "comments" | "postsLikes"> {
+interface propsTypes
+  extends Omit<IPropsRootStateType, "posts" | "comments" | "postsLikes" | "peopleConnect"> {
   title: string;
   followActive: number;
   getAllUsersAction?: () => void;
+  getAllFollowersAction: any;
+  getAllFollowingAction: any;
 }
 
 const styleSpinnersLoding: React.CSSProperties = {
@@ -31,6 +36,8 @@ const Follow: React.FC<propsTypes> = ({
   followers,
   following,
   getAllUsersAction,
+  getAllFollowersAction,
+  getAllFollowingAction,
 }) => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [activeTab, setActiveTab] = React.useState<number>(followActive);
@@ -38,6 +45,7 @@ const Follow: React.FC<propsTypes> = ({
   const [another, setAnother] = React.useState<IUserProfile>();
   const { pseudo } = useParams();
   const flag = React.useRef(false);
+  const flagFollow = React.useRef(false);
   const tabState: TTabState[] = [
     { id: 1, title: "Followers", grow: false },
     { id: 2, title: "Following", grow: false },
@@ -51,19 +59,20 @@ const Follow: React.FC<propsTypes> = ({
     document.title = `${title} ${currentUser?.user.first_name} ${currentUser?.user.last_name} (@${currentUser?.pseudo}) | Clone Twitter`;
 
     setActiveTab(followActive);
-
     if (!flag.current) {
-      (async () => {
-        getAllUsersAction && getAllUsersAction();
-        flag.current = true;
-      })();
+      getAllUsersAction && getAllUsersAction();
+      flag.current = true;
     }
 
     if (currentUser && users) {
       if (pseudo === currentUser.pseudo) {
         setIsCurrentUser("yes");
         setAnother(currentUser);
-        setLoading(false);
+        if (!flagFollow.current) {
+          getAllFollowingAction(currentUser.user.public_id);
+          getAllFollowersAction(currentUser.user.public_id);
+          flagFollow.current = true;
+        }
       } else {
         const searchUser = users.filter((user) => user.pseudo === pseudo);
         if (searchUser.length === 0) {
@@ -71,10 +80,16 @@ const Follow: React.FC<propsTypes> = ({
         } else {
           setIsCurrentUser("no");
           setAnother(searchUser[0]);
-          setLoading(false);
+          if (!flagFollow.current) {
+            getAllFollowingAction(searchUser[0].user.public_id);
+            getAllFollowersAction(searchUser[0].user.public_id);
+            flagFollow.current = true;
+          }
         }
       }
     }
+
+    if (currentUser && users && followers && following) setLoading(false);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flag, pseudo, isCurrentUser, currentUser, users, followers, following, followActive]);
@@ -111,18 +126,15 @@ const Follow: React.FC<propsTypes> = ({
           </section>
           {activeTab === 1 ? (
             <div className="list-cardFollow">
-              {users && another?.followers && another.followers.length > 0 ? (
-                users.map(
-                  (u, index) =>
-                    another.followers.includes(u.user.public_id) && (
-                      <CardFollow
-                        key={index}
-                        bio={true}
-                        typeFollow={another.following.includes(u.user.public_id) ? 2 : 1}
-                        userFollower={u}
-                      />
-                    )
-                )
+              {followers && another && followers.length > 0 ? (
+                followers.map((u, index) => (
+                  <CardFollow
+                    key={index}
+                    bio={true}
+                    typeFollow={another.following.includes(u.user.public_id) ? 2 : 1}
+                    userFollower={u.user}
+                  />
+                ))
               ) : (
                 <div className="notFollow">
                   <img src="/static/img/followers.png" alt="" />
@@ -138,13 +150,10 @@ const Follow: React.FC<propsTypes> = ({
             </div>
           ) : (
             <div className="list-cardFollow">
-              {users && another?.following && another.following.length > 0 ? (
-                users.map(
-                  (u, index) =>
-                    another.following.includes(u.user.public_id) && (
-                      <CardFollow key={index} bio={true} typeFollow={2} userFollower={u} />
-                    )
-                )
+              {following && another && following.length > 0 ? (
+                following.map((u, index) => (
+                  <CardFollow key={index} bio={true} typeFollow={2} userFollower={u.user} />
+                ))
               ) : (
                 <div className="notFollow">
                   <div className="notFollowers">
@@ -176,6 +185,8 @@ const FollowConnectWithStore: React.FC<propsTypes> = ({
   followers,
   following,
   getAllUsersAction,
+  getAllFollowersAction,
+  getAllFollowingAction,
 }) => {
   return (
     <Layout>
@@ -187,6 +198,8 @@ const FollowConnectWithStore: React.FC<propsTypes> = ({
         followers={followers}
         following={following}
         getAllUsersAction={getAllUsersAction}
+        getAllFollowersAction={getAllFollowersAction}
+        getAllFollowingAction={getAllFollowingAction}
       />
     </Layout>
   );
@@ -199,4 +212,6 @@ const mapStateToProps = (state: IRootState) => ({
   following: state.followReducer.following,
 });
 
-export default connect(mapStateToProps, { getAllUsersAction })(FollowConnectWithStore);
+export default connect(mapStateToProps, { getAllUsersAction, getAllFollowersAction, getAllFollowingAction })(
+  FollowConnectWithStore
+);

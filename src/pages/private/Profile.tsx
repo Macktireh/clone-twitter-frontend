@@ -17,7 +17,7 @@ import EditProfileProvider from "@/context/EditProfileProvider";
 import { IUserProfile, IPost, IRootState, IPropsRootStateType, TTabState } from "@/models";
 import { privateRoutes } from "@/routes/private.routes";
 
-interface propsTypes extends Omit<IPropsRootStateType, "comments"> {
+interface propsTypes extends Omit<IPropsRootStateType, "comments" | "peopleConnect"> {
   getAllUsersAction?: () => void;
   getAllPostAction?: () => void;
   getListPostsLikesAction?: (public_id: string) => void;

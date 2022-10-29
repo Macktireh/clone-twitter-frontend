@@ -17,7 +17,8 @@ import { IPost, IPropsRootStateType, IRootState, IUserProfile } from "@/models";
 import { privateRoutes } from "@/routes/private.routes";
 import { useTweetComment } from "@/context/TweetCommentProvider";
 
-interface propsTypes extends Omit<IPropsRootStateType, 'postsLikes' | 'following' | 'followers'> {
+interface propsTypes
+  extends Omit<IPropsRootStateType, "postsLikes" | "following" | "followers" | "peopleConnect"> {
   getAllUsersAction: () => void;
   getAllPostAction: () => void;
   getAllCommentAction: (postPublicId: string) => void;
@@ -117,11 +118,7 @@ const PostDetails: React.FC<propsTypes> = ({
                 ?.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
                 .map((comment) => (
                   <div className="list-post" key={comment.publicId}>
-                    <CardComment
-                      currentUser={currentUser}
-                      comment={comment}
-                      users={users}
-                    />
+                    <CardComment currentUser={currentUser} comment={comment} users={users} />
                   </div>
                 ))
             )}

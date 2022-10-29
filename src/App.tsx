@@ -3,21 +3,15 @@ import { connect } from "react-redux";
 
 import Routes from "@/routes";
 import getCurrentUserAction from "@/actions/user/getCurrentUser.action";
-import getAllFollowersAction from "@/actions/follow/getAllFollowers.action";
-import getAllFollowingAction from "@/actions/follow/getAllFollowing.action";
 
 import "@/styles/index.scss";
 
 type propsTypes = {
   getCurrentUserAction: () => void;
-  getAllFollowersAction: () => void;
-  getAllFollowingAction: () => void;
 };
 
 const App: React.FC<propsTypes> = ({
   getCurrentUserAction,
-  getAllFollowersAction,
-  getAllFollowingAction,
 }) => {
   const [loading, setLoading] = React.useState(true);
   const flag = React.useRef(false);
@@ -26,8 +20,6 @@ const App: React.FC<propsTypes> = ({
     if (!flag.current) {
       (async () => {
         await getCurrentUserAction();
-        await getAllFollowersAction();
-        await getAllFollowingAction();
         setTimeout(() => setLoading(false), 800);
         flag.current = true;
       })();
@@ -43,4 +35,4 @@ const App: React.FC<propsTypes> = ({
   );
 };
 
-export default connect(null, { getCurrentUserAction, getAllFollowersAction, getAllFollowingAction })(App);
+export default connect(null, { getCurrentUserAction })(App);

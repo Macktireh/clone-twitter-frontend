@@ -7,7 +7,11 @@ import { connect } from "react-redux";
 import { IRootState, IPropsRootStateType } from "@/models";
 import ButtonCustom from "@/widgets/ButtonCustom";
 
-interface propsTypes extends Omit<IPropsRootStateType, 'users' | 'posts' | 'postsLikes' | 'comments' | 'followers' | 'following'> {}
+interface propsTypes
+  extends Omit<
+    IPropsRootStateType,
+    "users" | "posts" | "postsLikes" | "comments" | "followers" | "following" | "peopleConnect"
+  > {}
 
 const Messages: React.FC<propsTypes> = ({ currentUser }) => {
   React.useEffect(() => {

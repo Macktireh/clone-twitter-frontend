@@ -38,3 +38,4 @@ export const likeCommentEndpoint : string = "/api/comments/likes/"
  */
 export const followingEndpoint : string = "/api/following/"
 export const followersEndpoint : string = "/api/followers/"
+export const peopleConnectEndpoint : string = "/api/people-connect/"

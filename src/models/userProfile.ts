@@ -2,6 +2,9 @@ export interface IUser {
   public_id: string;
   first_name: string;
   last_name: string;
+  pseudo: string;
+  profilePicture: string | null;
+  bio: string | null;
 }
 
 export interface IUserProfile {
