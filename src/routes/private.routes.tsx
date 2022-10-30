@@ -6,9 +6,10 @@ import Lists from "@/pages/private/Lists";
 import Messages from "@/pages/private/Messages";
 import Notifications from "@/pages/private/Notifications";
 import Profile from "@/pages/private/Profile";
-import { pathLinkPostDetail, pathLinkProfile } from "@/utils/pathRoute";
 import PostDetails from "@/pages/private/PostDetails";
 import Follow from "@/pages/private/Follow";
+import PeopleConnect from "@/pages/private/PeopleConnect";
+import { pathLinkPostDetail, pathLinkProfile } from "@/utils/pathRoute";
 
 export const privateRoutes = {
   home: {
@@ -61,6 +62,11 @@ export const privateRoutes = {
     title: "following | Clone Twitter",
     name: "following",
   },
+  peopleConnect: {
+    path: "/i/connect-people",
+    title: "Connect | Clone Twitter",
+    name: "peopleConnect",
+  },
 };
 
 export const privateRoutesList: TRoutesList[] = [
@@ -74,4 +80,5 @@ export const privateRoutesList: TRoutesList[] = [
   { path: privateRoutes.postDetails.path, element: <PostDetails /> },
   { path: privateRoutes.followers.path, element: <Follow title="People following" followActive={1} /> },
   { path: privateRoutes.following.path, element: <Follow title="People followed by" followActive={2} /> },
+  { path: privateRoutes.peopleConnect.path, element: <PeopleConnect /> },
 ];

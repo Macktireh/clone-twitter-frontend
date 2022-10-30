@@ -41,14 +41,36 @@
       }
     }
 
-    .info-profile-container {
+    .info-profile-box {
+      width: 100%;
+      @include flex(column, flex-start, center);
+      gap: 3px;
       position: relative;
       button {
-        width: 130px;
+        width: 110px;
         font-weight: 700;
-        padding: 8px 0;
+        padding: 6px 0;
         @include position-abs(10px, 20px, null, null, null, null);
         z-index: 2;
+      }
+      .right {
+        button {
+          background-color: $color2;
+          color: $color1;
+          font-weight: 600;
+        }
+      }
+      .right.transparent {
+        button {
+          background-color: transparent;
+          color: $color2;
+          transition: all 0.1s ease-in-out;
+          &:hover {
+            background-color: rgba($red, 0.1);
+            color: $red;
+            border-color: rgba($red, 0.4)
+          }
+        }
       }
       .info-profile {
         @include flex(column, flex-start, flex-start);

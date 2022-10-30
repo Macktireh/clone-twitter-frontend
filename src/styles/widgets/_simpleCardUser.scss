@@ -8,9 +8,6 @@
   .bio,
   .follow {
     width: 100%;
-    span {
-      color: $color5;
-    }
   }
   .tooltip-header {
     @include flex(row, space-between, flex-start);
@@ -25,11 +22,13 @@
       padding: 4px 8px;
       @extend .flex-center;
     }
-    
   }
 
   .username {
     @include flex(column, flex-start, flex-start);
+    span {
+      color: $color5;
+    }
   }
 
   .bio {
@@ -53,7 +52,7 @@
         font-weight: bold;
       }
     }
-      
+
     @include flex(row, flex-start, flex-start);
     gap: 0.5rem;
   }

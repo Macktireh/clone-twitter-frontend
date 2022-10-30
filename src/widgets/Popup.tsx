@@ -26,8 +26,8 @@ const Popup: React.FC<propsTypes> = ({
       <div className="popup-container">
         <h2>{popupTitle}</h2>
         <p>{popupDetail}</p>
-        <ButtonCustom text={popupBtnText} nameClass="btn-danger" handleClick={handleDiscard} />
-        <ButtonCustom text="Annuler" nameClass="btn-cancel" handleClick={handleClose} />
+        <ButtonCustom text={popupBtnText} nameClass="btn-danger" onClick={handleDiscard} />
+        <ButtonCustom text="Annuler" nameClass="btn-cancel" onClick={handleClose} />
       </div>
     </div>
   );

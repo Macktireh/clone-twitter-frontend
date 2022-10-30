@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import CardTweet from "@/components/homePrivate/CardTweet";
 import ButtonCustom from "@/widgets/ButtonCustom";
+import ButtonFollow from "@/components/follow/ButtonFollow";
 import IconSVG from "@/widgets/IconSVG";
 import NavTabs from "@/widgets/NavTabs";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
@@ -56,19 +57,20 @@ const ContentProfile: React.FC<propsTypes> = ({
       <div className="pro-container">
         <div className="info-profile-container">
           <div className="cover-profile-pic">
-            <img
-              src={userProfile?.coverPicture as string}
-              alt="coverPicture"
-            />
-            <img
-              className="profile-pic"
-              src={userProfile?.profilePicture as string}
-              alt="profilePicture"
-            />
+            <img src={userProfile?.coverPicture as string} alt="coverPicture" />
+            <img className="profile-pic" src={userProfile?.profilePicture as string} alt="profilePicture" />
           </div>
-          <div className="info-profile-container">
-            {isCurrentUser && (
-              <ButtonCustom text="Edit profile" handleClick={() => setModalActive(!modalActive)} />
+          <div className="info-profile-box">
+            {isCurrentUser ? (
+              <ButtonCustom text="Edit profile" onClick={() => setModalActive(!modalActive)} />
+            ) : (
+              <>
+                <ButtonFollow
+                  typeFollow={currentUser?.following.includes(userProfile?.user.public_id as string) ? 2 : 1}
+                  userPubblicId={currentUser?.user.public_id as string}
+                  userFollowing={userProfile?.user.public_id as string}
+                />
+              </>
             )}
             <div className="info-profile">
               <div className="box-info-name">
@@ -109,12 +111,7 @@ const ContentProfile: React.FC<propsTypes> = ({
                   .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
                   .map((post) => (
                     <div className="list-post" key={post.publicId}>
-                      <CardTweet
-                        key={post.publicId}
-                        currentUser={userProfile}
-                        post={post}
-                        users={users}
-                      />
+                      <CardTweet key={post.publicId} currentUser={userProfile} post={post} users={users} />
                     </div>
                   ))
               )}
@@ -129,12 +126,7 @@ const ContentProfile: React.FC<propsTypes> = ({
                   ?.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
                   .map((post) => (
                     <div className="list-post" key={post.publicId}>
-                      <CardTweet
-                        key={post.publicId}
-                        currentUser={currentUser}
-                        post={post}
-                        users={users}
-                      />
+                      <CardTweet key={post.publicId} currentUser={currentUser} post={post} users={users} />
                     </div>
                   ))
               )}

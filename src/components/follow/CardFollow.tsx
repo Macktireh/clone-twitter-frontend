@@ -1,25 +1,27 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import ButtonCustom from "@/widgets/ButtonCustom";
-import { IUser } from "@/models";
+import ButtonFollow from "@/components/follow/ButtonFollow";
+import { IUser, IUserProfile } from "@/models";
 import { pathLinkProfile } from "@/utils/pathRoute";
 
 type propsTypes = {
-  userFollower?: IUser | null;
-  bio: boolean;
+  userFollower: IUser | null;
   typeFollow: number;
+  user: IUser | null;
+  currentUser: IUserProfile | null;
+  bio: boolean;
 };
 
-const CardFollow: React.FC<propsTypes> = ({ bio, typeFollow, userFollower }) => {
-  const navigate = useNavigate()
+const CardFollow: React.FC<propsTypes> = ({ bio, typeFollow, userFollower, user, currentUser }) => {
+  const navigate = useNavigate();
   return (
     <div className="CardFollow">
       <div
         className="click"
         onClick={() => userFollower && navigate(pathLinkProfile(userFollower.pseudo))}
       ></div>
-      <div className="left">
+      <div className="box">
         <div className="img-container">
           <img
             src={userFollower?.profilePicture as string}
@@ -27,13 +29,25 @@ const CardFollow: React.FC<propsTypes> = ({ bio, typeFollow, userFollower }) => 
           />
         </div>
         <div className="info-container">
-          <strong>{`${userFollower?.first_name} ${userFollower?.last_name}`}</strong>
-          <span>@{userFollower?.pseudo}</span>
+          <div className="top">
+            <div className="username">
+              <strong>{`${userFollower?.first_name} ${userFollower?.last_name}`}</strong>
+              <span>@{userFollower?.pseudo}</span>
+            </div>
+            {currentUser?.user.public_id !== userFollower?.public_id ? (
+              <ButtonFollow
+                typeFollow={typeFollow}
+                userPubblicId={user?.public_id as string}
+                userFollowing={userFollower?.public_id as string}
+              />
+            ) : (
+              <div className="btn">
+                <span className="vous">Vous</span>
+              </div>
+            )}
+          </div>
           {bio ? <p>{userFollower?.bio}</p> : null}
         </div>
-      </div>
-      <div className={typeFollow === 2 ? "right transparent" : "right"}>
-        <ButtonCustom text={typeFollow === 1 ? "Follow" : "Unfollow"} />
       </div>
     </div>
   );

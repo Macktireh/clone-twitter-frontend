@@ -11,7 +11,6 @@ import Aside from "@/components/aside/Aside";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
-import getPeopleConnect from "@/actions/follow/getPeopleConnect.action";
 import { privateRoutes } from "@/routes/private.routes";
 import { IRootState, IPropsRootStateType } from "@/models";
 
@@ -19,7 +18,6 @@ interface propsTypes
   extends Omit<IPropsRootStateType, "postsLikes" | "comments" | "followers" | "following" | "peopleConnect"> {
   getAllPostAction: () => void;
   getAllUsersAction: () => void;
-  getPeopleConnect: () => void;
 }
 
 const styleSpinnersLoding: React.CSSProperties = {
@@ -32,7 +30,6 @@ const HomePrivate: React.FC<propsTypes> = ({
   posts,
   getAllUsersAction,
   getAllPostAction,
-  getPeopleConnect,
 }) => {
   // const [loading, setLoading] = React.useState(true);
   const flag = React.useRef(false);
@@ -42,7 +39,6 @@ const HomePrivate: React.FC<propsTypes> = ({
     if (!flag.current) {
       getAllUsersAction();
       getAllPostAction();
-      getPeopleConnect();
       flag.current = true;
     }
     // if (currentUser && users && posts) setLoading(false);
@@ -94,7 +90,6 @@ const HomePrivateConnectWithStore: React.FC<propsTypes> = ({
   posts,
   getAllUsersAction,
   getAllPostAction,
-  getPeopleConnect,
 }) => {
   return (
     <Layout>
@@ -104,7 +99,6 @@ const HomePrivateConnectWithStore: React.FC<propsTypes> = ({
         posts={posts}
         getAllUsersAction={getAllUsersAction}
         getAllPostAction={getAllPostAction}
-        getPeopleConnect={getPeopleConnect}
       />
     </Layout>
   );
@@ -116,4 +110,4 @@ const mapStateToProps = (state: IRootState) => ({
   posts: state.postReducer,
 });
 
-export default connect(mapStateToProps, { getAllUsersAction, getAllPostAction, getPeopleConnect })(HomePrivateConnectWithStore);
+export default connect(mapStateToProps, { getAllUsersAction, getAllPostAction })(HomePrivateConnectWithStore);

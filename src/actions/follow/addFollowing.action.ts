@@ -22,7 +22,7 @@ const addFollowingAction =
       try {
         const res = await Axios.post(
           `${Api.followingEndpoint + userPubblicId}/`,
-          { userPubblicId, body },
+          body,
           config
         );
         dispatch({ type: Types.ADD_FOLLOWING_SUCCESS, payload: res.data });

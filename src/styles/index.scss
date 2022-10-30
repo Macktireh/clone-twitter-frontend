@@ -27,6 +27,7 @@
 
 // Component Follow
 @import "./components/follow/cardFollow";
+@import "./components/follow/buttonFollow";
 
 // Component aside
 @import "./components/aside/trending";
@@ -55,6 +56,7 @@
 @import "./pages/private/bookmarks";
 @import "./pages/private/profile";
 @import "./pages/private/follow";
+@import "./pages/private/peopleConnect";
 
 // Class utils
 @import "./settings/utils";

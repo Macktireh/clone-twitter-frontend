@@ -89,7 +89,7 @@ const ModalEditProfile: React.FC<propsTypes> = ({
           <div className="btn-modal">
             <ButtonCustom
               text={textBtnModal}
-              handleClick={handleSubmit}
+              onClick={handleSubmit}
               isDisabled={
                 currentUser?.user.first_name !== first_name ||
                 currentUser?.user.last_name !== last_name ||

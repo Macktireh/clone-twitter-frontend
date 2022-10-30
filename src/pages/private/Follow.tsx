@@ -19,7 +19,7 @@ interface propsTypes
   extends Omit<IPropsRootStateType, "posts" | "comments" | "postsLikes" | "peopleConnect"> {
   title: string;
   followActive: number;
-  getAllUsersAction?: () => void;
+  getAllUsersAction: () => void;
   getAllFollowersAction: any;
   getAllFollowingAction: any;
 }
@@ -60,7 +60,7 @@ const Follow: React.FC<propsTypes> = ({
 
     setActiveTab(followActive);
     if (!flag.current) {
-      getAllUsersAction && getAllUsersAction();
+      getAllUsersAction();
       flag.current = true;
     }
 
@@ -131,8 +131,10 @@ const Follow: React.FC<propsTypes> = ({
                   <CardFollow
                     key={index}
                     bio={true}
-                    typeFollow={another.following.includes(u.user.public_id) ? 2 : 1}
+                    typeFollow={currentUser?.following.includes(u.user.public_id) ? 2 : 1}
                     userFollower={u.user}
+                    user={another.user}
+                    currentUser={currentUser}
                   />
                 ))
               ) : (
@@ -152,7 +154,14 @@ const Follow: React.FC<propsTypes> = ({
             <div className="list-cardFollow">
               {following && another && following.length > 0 ? (
                 following.map((u, index) => (
-                  <CardFollow key={index} bio={true} typeFollow={2} userFollower={u.user} />
+                  <CardFollow
+                    key={index}
+                    bio={true}
+                    typeFollow={currentUser?.following.includes(u.user.public_id) ? 2 : 1}
+                    userFollower={u.user}
+                    user={another.user}
+                    currentUser={currentUser}
+                  />
                 ))
               ) : (
                 <div className="notFollow">
@@ -163,7 +172,7 @@ const Follow: React.FC<propsTypes> = ({
                       se passe sur les sujets et les personnes qui vous intéressent.
                     </p>
                   </div>
-                  <Link to="" className="link">
+                  <Link to={privateRoutes.peopleConnect.path} className="link">
                     Trouver des personnes à suivre
                   </Link>
                 </div>
