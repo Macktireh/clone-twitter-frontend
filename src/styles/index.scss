@@ -1,10 +1,63 @@
-@import "./settings/settings";
+// Settings
+@import "./settings/variables";
 @import "./settings/mixin";
+@import "./settings/settings";
 
-@import "./components/Buttons/Button";
-@import "./components/Input/input";
+// Component Auth
+@import "./components/auth/popupLogout";
 
-@import "./pages/Home";
-@import "./pages/account/account";
+// Component navbar
+@import "./components/navbar/userCard";
+@import "./components/navbar/navbar";
+@import "./components/navbar/navbarMobile";
+@import "./components/navbar/navbarMobileLeft";
 
-@import "./pages/NotFound.scss";
+// Component HomePrivate
+@import "./components/homePrivate/sectionHeaderTweet";
+@import "./components/homePrivate/addNewPost";
+@import "./components/homePrivate/cardTweet";
+@import "./components/homePrivate/popupPostOrCommentOptionCard";
+@import "./components/homePrivate/tooltipCardUser";
+
+// Component PostDetails
+@import "./components/postDetails/cardTweetDetails";
+
+// Component Profile
+@import "./components/profile/edidProfile";
+
+// Component Follow
+@import "./components/follow/cardFollow";
+@import "./components/follow/buttonFollow";
+
+// Component aside
+@import "./components/aside/trending";
+
+// Widgets
+@import "./widgets/buttonCustom";
+@import "./widgets/inputCustom";
+@import "./widgets/inputSearch";
+@import "./widgets/navTabs";
+@import "./widgets/modalOrPopup";
+@import "./widgets/simpleCardUser";
+
+// Page Public Component
+@import "./pages/public/homePublic";
+@import "./pages/auth/auth";
+@import "./pages/error/error404";
+
+// Layaout Private Component
+@import "./layout/layout";
+
+// Page Private Component
+@import "./pages/private/homePrivate";
+@import "./pages/private/explore";
+@import "./pages/private/notifications";
+@import "./pages/private/messages";
+@import "./pages/private/bookmarks";
+@import "./pages/private/profile";
+@import "./pages/private/postDetails";
+@import "./pages/private/follow";
+@import "./pages/private/peopleConnect";
+
+// Class utils
+@import "./settings/utils";

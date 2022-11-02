@@ -1,0 +1,98 @@
+.Notifications {
+  .all-notif {
+    width: 100%;
+    @include flex(column, flex-start, flex-start);
+
+    .CardNotif {
+      width: 100%;
+      @include flex(row, flex-start, flex-start);
+      border-bottom: 1px solid $color7;
+      padding: 0.8rem;
+      cursor: pointer;
+      transition: background-color 0.1s ease-in-out;
+      &:hover {
+        background-color: $color9;
+      }
+      // &:nth-child(3) {
+      //   // background-color: rgba($color7, 0.2);
+      //   position: relative;
+      //   &:before {
+      //     content: "";
+      //     display: block;
+      //     position: absolute;
+      //     left: -1px;
+      //     top: 50%;
+      //     transform: translateY(-50%);
+      //     width: 4px;
+      //     height: 85%;
+      //     border-radius: 15px;
+      //     background: $color3;
+      //   }
+      // }
+
+      .icon {
+        width: 70px;
+        height: 100%;
+        @include flex(row, center, flex-start);
+
+        svg {
+          width: 35px;
+        }
+      }
+
+      .content {
+        width: 100%;
+        @include flex(column, flex-start, flex-start);
+        gap: 6px;
+
+        .box-img {
+          width: 100%;
+          @include flex(row, space-between, flex-start);
+
+          img {
+            width: 40px;
+            border-radius: 50%;
+          }
+
+          .svg-icon {
+            width: 40px;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.1s ease-in-out;
+            @include flex(row, flex-end, flex-start);
+            &:hover {
+              background-color: $color9;
+            }
+            svg {
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      .box-msg {
+        p {
+          color: $color5;
+          word-break: break-word;
+          white-space: pre-line;
+        }
+      }
+    }
+  }
+
+  .montions {
+    width: 100%;
+    padding: 2rem;
+    @include flex(column, center, center);
+    gap: 1rem;
+
+    h3 {
+      font-size: 26px;
+      font-weight: 700;
+    }
+    p {
+      color: $color5;
+    }
+  }
+}

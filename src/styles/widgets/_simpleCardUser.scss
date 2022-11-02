@@ -1,0 +1,59 @@
+.SimpleCardUser {
+  width: 100%;
+  @include flex(column, flex-start, flex-start);
+  gap: 0.5rem;
+
+  .tooltip-header,
+  .username,
+  .bio,
+  .follow {
+    width: 100%;
+  }
+  .tooltip-header {
+    @include flex(row, space-between, flex-start);
+    img {
+      cursor: pointer;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+    }
+    button {
+      width: 100px;
+      padding: 4px 8px;
+      @extend .flex-center;
+    }
+  }
+
+  .username {
+    @include flex(column, flex-start, flex-start);
+    span {
+      color: $color5;
+    }
+  }
+
+  .bio {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .follow {
+    margin-top: 5px;
+    font-size: 0.9em;
+    .numFollow {
+      color: $color5;
+      &:hover {
+        text-decoration: underline;
+      }
+      strong {
+        color: $color2;
+        font-weight: bold;
+      }
+    }
+
+    @include flex(row, flex-start, flex-start);
+    gap: 0.5rem;
+  }
+}

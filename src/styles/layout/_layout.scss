@@ -1,0 +1,208 @@
+.layout {
+  width: 100%;
+  max-width: 1300px;
+  @include flex(row, center, null);
+  margin: auto;
+  gap: 0.8rem;
+  flex-shrink: 0;
+  @media (max-width: 500px) {
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0;
+  }
+
+  .header {
+    height: 100vh;
+    width: 20%;
+    max-width: 280px;
+    @include flex(row, flex-end, flex-start);
+    position: sticky;
+    top: 0px;
+    .nav-container {
+      height: 100%;
+      width: 100%;
+      @include flex(row, center, flex-start);
+    }
+    @media (max-width: 1150px) {
+      width: 80px;
+      align-items: flex-end;
+      .nav-container {
+        width: 100%;
+      }
+    }
+    @media (max-width: 500px) {
+      display: none;
+    }
+  }
+
+  .main {
+    width: 80%;
+    @include flex(row, space-between, null);
+    gap: 0.5em;
+    @media (max-width: 500px) {
+      width: 100%;
+      justify-content: center;
+      .main-container {
+        border: none;
+      }
+    }
+
+    .main-container {
+      width: 62%;
+      height: 100%;
+      @include flex(column, flex-start, center);
+      border-right: 1px solid $color7;
+      border-left: 1px solid $color7;
+      position: relative;
+      @media (max-width: 950px) {
+        width: 100%;
+      }
+      @media (max-width: 500px) {
+        border: none;
+      }
+    }
+
+    .aside {
+      width: 38%;
+      @include flex(column, flex-start, center);
+      gap: 1.5rem;
+      border-radius: 8px;
+      padding: 4px;
+      position: relative;
+      transition: all 0.2s;
+      @media (max-width: 950px) {
+        display: none;
+      }
+      .search-container {
+        width: 100%;
+        @include flex(row, flex-start, center);
+        position: sticky;
+        top: 0px;
+        z-index: 3;
+      }
+      .search-container.sticky {
+        background-color: $color1;
+        padding: 4px 0;
+        z-index: 3;
+      }
+
+      .trends-container,
+      .follow-container {
+        width: 100%;
+
+        .content {
+          width: 95%;
+          border-radius: 15px;
+          background-color: $color4;
+          @include flex(column, flex-start, flex-start);
+          h3 {
+            font-size: 20px;
+            font-weight: 700;
+            padding: 1rem;
+          }
+        }
+      }
+
+      .footer-container {
+        width: 100%;
+        @include flex(column, flex-start, flex-start);
+        gap: 0.5rem;
+        position: sticky;
+        top: 80px;
+      }
+      .explore {
+        top: 15px;
+      }
+
+      .follow-container {
+        .show-more {
+          width: 100%;
+          color: $color3;
+          padding: 1rem;
+          font-size: 15px;
+          border-bottom-left-radius: 15px;
+          border-bottom-right-radius: 15px;
+          transition: all 0.2s ease-in-out;
+          user-select: none;
+          cursor: pointer;
+          &:hover {
+            background-color: $color9;
+          }
+        }
+      }
+
+      footer {
+        @include flex(row, flex-start, center);
+        gap: 8px;
+        flex-wrap: wrap;
+        padding: 1rem;
+        line-height: 12px;
+
+        div {
+          @include flex(row, flex-end, flex-end);
+          gap: 2px;
+          color: rgba($color5, 0.6);
+          font-size: 15px;
+          span {
+            cursor: pointer;
+            transition: all 0.2s;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+          svg {
+            width: 17px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .main-messages {
+    width: 80%;
+    @include flex(row, center, center);
+    // position: relative;
+    // margin-right: 15px;
+    // @media (max-width: 1350px) {
+    //   margin-right: 30px;
+    // }
+
+    .inbox {
+      width: 40%;
+    }
+
+    .chatrom {
+      width: 60%;
+      height: 100%;
+      border-right: 1px solid $color7;
+    }
+  }
+
+  .add-tweet-global {
+    display: none;
+    width: 55px;
+    height: 55px;
+    background-color: $color3;
+    border-radius: 50%;
+    @extend .flex-center;
+    position: fixed;
+    bottom: 65px;
+    z-index: 2;
+    right: 15px;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba($color7, 0.3), 
+      0 0 10px rgba($color7, 0.3), 
+      0 0 15px rgba($color7, 0.3);
+    @media (max-width: 500px) {
+      display: flex;
+    }
+    svg {
+      display: block;
+      width: 28px;
+    }
+    span {
+      display: none;
+    }
+  }
+}

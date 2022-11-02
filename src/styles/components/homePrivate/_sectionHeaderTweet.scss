@@ -1,0 +1,118 @@
+.sec-header {
+  width: 100%;
+  // height: 58px;
+  @include flex(column, space-between, flex-start);
+  
+  position: sticky;
+  top: -0.5px;
+  z-index: 3;
+}
+.sec-header.sticky-2 {
+  background-color: rgba($color1, 0.7);
+  backdrop-filter: blur(15px);
+}
+.sec-header.sticky-2.notif {
+  background-color: rgba($color1, 0.9);
+}
+
+nav {
+  width: 100%;
+  border-bottom: 1px solid $color7;
+}
+
+.SectionHeaderTweet {
+  padding: 8px;
+  @include flex(row, space-between, center);
+  gap: 4px;
+  width: 100%;
+  height: 100%;
+
+  .profile-pic-top {
+    display: none;
+    margin-left: 8px;
+    width: 60px;
+    border-radius: 50%;
+    @extend .flex-center;
+    overflow: hidden;
+    cursor: pointer;
+    @media (max-width: 500px) {
+      display: flex;
+    }
+    img {
+      width: 100%;
+    }
+  }
+
+  .left,
+  .right {
+    @extend .flex-center;
+  }
+
+  .left {
+    width: 55px;
+    height: 100%;
+    @extend .flex-center;
+    .back {
+      width: 38px;
+      padding: 9px;
+      border-radius: 50%;
+      @extend .flex-center;
+      cursor: pointer;
+      &:hover {
+        background-color: $color9;
+      }
+      svg {
+        width: 100%;
+      }
+    }
+  }
+  .center {
+    width: 100%;
+    padding-left: 0.5rem;
+    @include flex(column, flex-start, flex-start);
+
+    .centent {
+      width: 100%;
+      padding-left: 0.5rem;
+      @include flex(column, flex-start, flex-start);
+
+      strong {
+        font-size: 20px;
+        @media (max-width: 340px) {
+          font-size: 18px;
+        }
+        @media (max-width: 318px) {
+          font-size: 17px;
+        }
+      }
+
+      span {
+        font-size: 0.9em;
+        color: $color5;
+      }
+    }
+  }
+
+  .right {
+    width: 80px;
+    padding: 2px;
+    height: 100%;
+    @extend .flex-center;
+    gap: 0.1rem;
+    .icon-container {
+      @extend .flex-center;
+      width: 40px;
+      padding: 0.5rem;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+      &:hover {
+        background-color: rgb($color9, 0.9);
+      }
+      svg {
+        width: 100%;
+        // max-width: 20px;
+      }
+    }
+  }
+}

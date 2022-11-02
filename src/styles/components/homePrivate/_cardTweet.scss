@@ -1,0 +1,211 @@
+.CardTweet {
+  width: 100%;
+  height: 100%;
+  @include flex(row, space-between, flex-start);
+  flex-basis: 100%;
+  gap: 0.5rem;
+  padding: 5px;
+  position: relative;
+
+  .box-img {
+    width: 70px;
+    height: 100%;
+    @include flex(row, center, flex-start);
+    user-select: none;
+    img,
+    .skeleton-anim {
+      position: relative;
+      z-index: 1;
+      cursor: pointer;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+    }
+  }
+
+  .post-main {
+    // width: calc(100% - 17px);
+    width: 70%;
+    // height: 100%;
+    @include flex(column, flex-start, flex-start);
+    flex-basis: 100%;
+
+    .post-header {
+      width: 100%;
+      @include flex(row, space-between, flex-start);
+
+      .skeleton-anim {
+        width: 75%;
+        height: 11px;
+        margin-top: 5px;
+      }
+
+      p {
+        width: 100%;
+        @include flex(row, flex-start, flex-start);
+        gap: 4px;
+        @media (max-width: 500px) {
+          font-size: 0.9em;
+        }
+        *:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+
+        strong,
+        span {
+          position: relative;
+          z-index: 1;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        span {
+          font-size: 15px;
+          color: $color5;
+        }
+      }
+      .option {
+        position: relative;
+        z-index: 1;
+        width: 30px;
+        @extend .flex-center;
+        padding: 2px;
+        border-radius: 50%;
+        transition: all 0.1s ease-in-out;
+        border: 1px solid transparent;
+        &:hover {
+          background-color: rgba($color3, 0.1);
+          border-color: rgba($color3, 0.4);
+        }
+        svg {
+          width: 100%;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .post-content {
+      width: 100%;
+      @include flex(column, flex-start, flex-start);
+      flex-basis: 100%;
+      gap: 0.3rem;
+      .post-text {
+        p {
+          position: relative;
+          // z-index: 1;
+          text-align: left;
+          display: inline-block;
+          word-break: break-word;
+          font-size: 1.2em;
+          line-height: 1.4em;
+          font-weight: 400;
+        }
+      }
+
+      .post-img {
+        width: 100%;
+        margin-top: 0.5rem;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 15px;
+          border: 1px solid rgba($color: $color7, $alpha: 0.3);
+        }
+      }
+
+      .body.skeleton-anim {
+        width: 60%;
+        height: 10px;
+        &:first-child {
+          margin-top: 2px;
+          width: 70%;
+        }
+        &:nth-child(2) {
+          width: 80%;
+        }
+      }
+
+      .image.skeleton-anim {
+        margin-top: 0.5rem;
+        width: 100%;
+        height: 300px;
+        border-radius: 15px;
+        border: 1px solid rgba($color: $color7, $alpha: 0.3);
+      }
+
+      .post-footer {
+        width: 100%;
+        @include flex(row, flex-start, center);
+        gap: 4em;
+        @media (max-width: 580px) {
+          gap: 3em;
+        }
+        @media (max-width: 400px) {
+          gap: 2em;
+        }
+        @media (max-width: 345px) {
+          gap: 1.5em;
+        }
+        * {
+          user-select: none;
+        }
+        .post-icon {
+          position: relative;
+          z-index: 1;
+          min-width: 35px;
+          min-height: 35px;
+          border-radius: 50%;
+          transition: all 0.1s ease-in-out;
+          @extend .flex-center;
+          gap: 4px;
+
+          cursor: pointer;
+          &:hover {
+            background-color: rgba($color7, 0.3);
+            box-shadow: 0 0 5px rgba($color7, 0.3), 0 0 15px rgba($color7, 0.3), 0 0 25px rgba($color7, 0.3);
+          }
+          svg {
+            width: 20px;
+            cursor: pointer;
+          }
+          span {
+            color: $color5;
+            font-size: 15px;
+          }
+          span.like {
+            color: $color8;
+          }
+        }
+        .like-unLike {
+          &:hover {
+            background-color: rgba(#f91880, 0.3);
+            box-shadow: 0 0 5px rgba(#f91880, 0.3), 0 0 15px rgba(#f91880, 0.3), 0 0 25px rgba(#f91880, 0.4);
+          }
+        }
+      }
+    }
+  }
+
+  .click {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    cursor: pointer;
+  }
+}
+
+.skeleton-anim {
+  background-color: rgba($color5, 0.6);
+  animation: skeleton 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes skeleton {
+  to {
+    opacity: 0.6;
+  }
+}

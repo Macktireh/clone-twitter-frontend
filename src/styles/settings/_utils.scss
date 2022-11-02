@@ -1,0 +1,7 @@
+.btn-danger {
+  background-color: rgba($red, 0.9);
+  border-color: $red;
+  &:hover {
+    background-color: $red;
+  }
+}

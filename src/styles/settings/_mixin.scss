@@ -23,9 +23,27 @@
 @mixin hr($m-t, $m-b, $width, $color) {
   margin: $m-t auto $m-b;
   width: $width;
-  // max-width: 3.5rem;
-  // height: 0.2rem;
   background-color: $color;
   border: none;
   outline: none;
+}
+
+@mixin srolled() {
+  ::-webkit-scrollbar {
+    width: 8px;
+    @media (max-width: 500px) {
+      width: 4px;
+    }
+    @media (max-width: 400px) {
+      width: 2px;
+    }
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: $color5;
+    border-radius: 10px;
+  }
 }

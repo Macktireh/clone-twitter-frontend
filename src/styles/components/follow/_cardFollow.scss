@@ -1,0 +1,110 @@
+.CardFollow {
+  width: 100%;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    background-color: $color9;
+  }
+
+  .click {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    cursor: pointer;
+  }
+
+  .box {
+    width: 100%;
+    @include flex(column, space-between, flex-start);
+  }
+
+  .box {
+    height: 100%;
+    width: 100%;
+  }
+
+  .box {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    @include flex(row, flex-start, flex-start);
+    gap: 0.6rem;
+
+    .img-container {
+      img {
+        width: 45px;
+        height: 45px;
+        object-position: center;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+
+    .info-container {
+      width: 100%;
+      @include flex(column, space-between, flex-start);
+      gap: 0.3rem;
+      .top {
+        width: 100%;
+        @include flex(row, space-between, flex-start);
+        .username {
+          span {
+            color: $color5;
+            font-size: 0.9em;
+          }
+          strong,
+          span {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+
+        // .btnFollow {
+        //   width: 100px;
+        //   z-index: 2;
+        //   span.vous {
+        //     font-weight: 600;
+        //     // margin-left: 0.5rem;
+        //   }
+        //   button {
+        //     background-color: $color2;
+        //     font-weight: 700;
+        //     width: 90px;
+        //     padding: 5px;
+        //     transition: all 0.1s ease-in-out;
+        //     span {
+        //       color: $color1;
+        //       transition: all 0.1s ease-in-out;
+        //     }
+        //   }
+        // }
+        // .btnFollow.transparent {
+        //   button {
+        //     background-color: transparent;
+        //     &:hover {
+        //       background-color: rgba($red, 0.1);
+        //       border-color: rgba($red, 0.4);
+        //       span {
+        //         color: $red;
+        //       }
+        //     }
+        //     span {
+        //       color: $color2;
+        //     }
+        //   }
+        // }
+      }
+
+      p {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}

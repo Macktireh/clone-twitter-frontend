@@ -11,7 +11,11 @@ node_modules
 # production
 /build
 
+# config vscode
+.vscode
+
 # misc
+.env
 .DS_Store
 .env.local
 .env.development.local
