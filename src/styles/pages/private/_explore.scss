@@ -1,0 +1,23 @@
+.Explore {
+  .content-container {
+    width: 100%;
+    @include flex(column, flex-start, flex-start);
+    gap: 0.8rem;
+    .picsum {
+      width: 100%;
+      margin-top: 0.5rem;
+      @extend .flex-center;
+      img {
+        width: 100%;
+      }
+    }
+
+    .trends-container {
+      width: 100%;
+
+      h3 {
+        margin: 1rem;
+      }
+    }
+  }
+}

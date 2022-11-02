@@ -17,11 +17,11 @@
   .left,
   .right {
     height: 100%;
-    width: 100%;
+    // width: 100%;
   }
 
   .left {
-    flex: 80%;
+    width: 100%;
     @include flex(column, flex-start, flex-start);
 
     strong {
@@ -39,7 +39,6 @@
   }
 
   .right {
-    flex: 20%;
     @extend .flex-center;
 
     .option {

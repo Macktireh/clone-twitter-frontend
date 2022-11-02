@@ -2,11 +2,12 @@ import React from "react";
 
 import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
+import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
+import Trending from "@/components/aside/Trending";
 import Aside from "@/components/aside/Aside";
 import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
 import { IRootState, IPropsRootStateType } from "@/models";
-import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 
 interface propsTypes
   extends Omit<
@@ -18,7 +19,7 @@ const Explore: React.FC<propsTypes> = ({ currentUser }) => {
   return (
     <>
       <main className="main">
-        <div className="main-container">
+        <div className="Explore main-container">
           <section className="sec-header sticky-2">
             <SectionHeaderTweet
               page={privateRoutes.explore.name}
@@ -26,7 +27,19 @@ const Explore: React.FC<propsTypes> = ({ currentUser }) => {
               currentUser={currentUser}
             />
           </section>
-          <div>Explore</div>
+          <section className="content-container">
+            <div className="picsum">
+              <img src="https://picsum.photos/600/300" alt="picsum" />
+            </div>
+            <div className="trends-container">
+              <div className="content">
+                <h3>Trends for you</h3>
+                {[1, 2, 3, 4, 5, 6].map((n, i) => (
+                  <Trending key={i} />
+                ))}
+              </div>
+            </div>
+          </section>
         </div>
         <Aside page={privateRoutes.explore.name} />
       </main>
