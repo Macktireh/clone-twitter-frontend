@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 
 import Layout from "@/components/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
-import CardTweetDetails from "@/components/postDetails/CardTweetDetails";
-import CardComment from "@/components/postDetails/CardComment";
+import CardTweetDetails from "@/postDetails/CardTweetDetails";
+import CardComment from "@/postDetails/CardComment";
 import PopupDeletePost from "@/components/homePrivate/PopupDeletePost";
-import PopupDeleteComment from "@/components/postDetails/PopupDeleteComment";
+import PopupDeleteComment from "@/postDetails/PopupDeleteComment";
 import Aside from "@/components/aside/Aside";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";

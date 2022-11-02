@@ -6,7 +6,7 @@ import IconSVG from "@/widgets/IconSVG";
 import LikePostButton from "@/components/homePrivate/LikePostButton";
 import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard";
 import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
-import ButtonAddComment from "@/components/postDetails/ButtonAddComment";
+import ButtonAddComment from "@/postDetails/ButtonAddComment";
 import { IUserProfile, IPost } from "@/models";
 import { dateParserCreated } from "@/utils/dateParser";
 import { pathLinkPostDetail, pathLinkProfile } from "@/utils/pathRoute";
