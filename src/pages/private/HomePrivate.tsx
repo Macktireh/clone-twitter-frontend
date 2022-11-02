@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import Layout from "@/components/layout/Layout";
+import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import AddNewPost from "@/components/homePrivate/AddNewPost";
 import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";

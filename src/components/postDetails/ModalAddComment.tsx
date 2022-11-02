@@ -1,7 +1,7 @@
 import React from "react";
 
 import Popup from "@/widgets/Popup";
-import AddNewComment from "@/postDetails/AddNewComment";
+import AddNewComment from "@/components/postDetails/AddNewComment";
 import { useTweetComment } from "@/context/TweetCommentProvider";
 
 const ModalAddComment: React.FC = () => {

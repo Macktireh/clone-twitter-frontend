@@ -2,12 +2,12 @@ import React from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 
-import Layout from "@/components/layout/Layout";
+import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
-import CardTweetDetails from "@/postDetails/CardTweetDetails";
-import CardComment from "@/postDetails/CardComment";
+import CardTweetDetails from "@/components/postDetails/CardTweetDetails";
+import CardComment from "@/components/postDetails/CardComment";
 import PopupDeletePost from "@/components/homePrivate/PopupDeletePost";
-import PopupDeleteComment from "@/postDetails/PopupDeleteComment";
+import PopupDeleteComment from "@/components/postDetails/PopupDeleteComment";
 import Aside from "@/components/aside/Aside";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
