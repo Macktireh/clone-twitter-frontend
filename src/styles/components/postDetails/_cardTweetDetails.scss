@@ -1,0 +1,230 @@
+.CardTweetDetails {
+  width: 100%;
+  padding: 0.8rem;
+  @include flex(column, flex-start, flex-start);
+  gap: 0.8em;
+  border-bottom: 1px solid $color7;
+
+  .header-postDetails {
+    width: inherit;
+    @include flex(row, space-between, flex-start);
+    .profile {
+      width: 100%;
+      @include flex(row, flex-start, flex-start);
+      gap: 0.5em;
+
+      img {
+        position: relative;
+        z-index: 1;
+        cursor: pointer;
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+      }
+      .username {
+        width: 100%;
+        margin-top: 3px;
+        @include flex(column, flex-start, flex-start);
+        strong,
+        span {
+          cursor: pointer;
+        }
+        strong {
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        span {
+          font-size: 0.9em;
+          color: $color5;
+          font-weight: 400;
+        }
+
+        .skeleton-anim {
+          width: 40%;
+          height: 10px;
+          &:first-child {
+            margin: 4px 0;
+            width: 70%;
+            height: 12px;
+          }
+        }
+      }
+    }
+
+    .option {
+      position: relative;
+      z-index: 9999;
+      width: 30px;
+      @extend .flex-center;
+      padding: 2px;
+      border-radius: 50%;
+      transition: all 0.1s ease-in-out;
+      border: 1px solid transparent;
+      &:hover {
+        background-color: rgba($color3, 0.1);
+        border-color: rgba($color3, 0.4);
+      }
+      svg {
+        width: 100%;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .content {
+    width: 100%;
+    @include flex(column, flex-start, flex-start);
+    gap: 0.3rem;
+    .post-text {
+      padding: 1px 2px;
+      p {
+        position: relative;
+        z-index: 1;
+        text-align: left;
+        display: inline-block;
+        word-break: break-word;
+        font-size: 1.2em;
+        line-height: 1.4em;
+        font-weight: 400;
+      }
+    }
+
+    .post-img {
+      width: 100%;
+      margin-top: 0.5rem;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        border: 1px solid rgba($color: $color7, $alpha: 0.3);
+      }
+    }
+
+    .body.skeleton-anim {
+      width: 70%;
+      height: 10px;
+      &:first-child {
+        margin-top: 2px;
+        width: 80%;
+      }
+      &:nth-child(2) {
+        width: 90%;
+      }
+    }
+
+    .image.skeleton-anim {
+      margin-top: 0.5rem;
+      width: 100%;
+      height: 300px;
+      border-radius: 15px;
+      border: 1px solid rgba($color: $color7, $alpha: 0.3);
+    }
+  }
+
+  .date-create {
+    @include flex(row, flex-start, flex-start);
+    p {
+      @include flex(row, flex-start, center);
+      gap: 5px;
+      a {
+        color: $color5;
+        font-weight: 400;
+        @media (max-width: 340px) {
+          font-size: 0.9em;
+        }
+      }
+      span {
+        margin-top: 3px;
+        height: 2px;
+        width: 2px;
+        background-color: $color5;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .date-create, .stats {
+    width: 100%;
+    .skeleton-anim {
+      margin-left: 3px;
+      width: 60%;
+      height: 10px;
+    }
+  }
+
+  .stats {
+    @include flex(row, flex-start, center);
+    gap: 1rem;
+    p {
+      color: $color5;
+      font-weight: 400;
+      strong {
+        color: $color2;
+      }
+    }
+  }
+
+  .icons {
+    width: 100%;
+    @include flex(row, space-evenly, center);
+    gap: 2em;
+    * {
+      user-select: none;
+    }
+    .post-icon {
+      position: relative;
+      z-index: 1;
+      min-width: 35px;
+      min-height: 35px;
+      border-radius: 50%;
+      transition: all 0.1s ease-in-out;
+      @extend .flex-center;
+      gap: 4px;
+
+      cursor: pointer;
+      &:hover {
+        background-color: rgba($color7, 0.3);
+        box-shadow: 0 0 5px rgba($color7, 0.3), 0 0 15px rgba($color7, 0.3), 0 0 25px rgba($color7, 0.3);
+      }
+      svg {
+        width: 20px;
+        cursor: pointer;
+      }
+      span {
+        color: $color5;
+        font-size: 15px;
+      }
+      span.like {
+        color: $color8;
+      }
+    }
+    .like-unLike {
+      &:hover {
+        background-color: rgba(#f91880, 0.3);
+        box-shadow: 0 0 5px rgba(#f91880, 0.3), 0 0 15px rgba(#f91880, 0.3), 0 0 25px rgba(#f91880, 0.4);
+      }
+    }
+  }
+
+  .add-new-comment {
+    width: 100%;
+    display: flex;
+  }
+}
+
+
+.skeleton-anim-img-profile {
+  cursor: pointer;
+  width: 65px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: $color5;
+  background-color: rgba($color5, 0.6);
+  animation: skeleton 0.8s ease-in-out infinite alternate;
+}

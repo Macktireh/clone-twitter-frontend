@@ -1,0 +1,45 @@
+.Follow {
+  .list-cardFollow {
+    width: 100%;
+    @include flex(column, flex-start, flex-start);
+
+    .notFollow {
+      margin-top: 60px;
+      width: 100%;
+      @extend .flex-center;
+      flex-direction: column;
+      img {
+        width: 400px;
+        @media (max-width: 500px) {
+          width: 300px;
+        }
+      }
+
+      .notFollowers {
+        width: 350px;
+        @include flex(column, flex-start, flex-start);
+        flex-direction: column;
+        gap: 00.3em;
+        @media (max-width: 500px) {
+          width: 280px;
+        }
+        h1 {
+          @media (max-width: 500px) {
+            font-size: 1.5em;
+          }
+        }
+        p {
+          color: $color5;
+        }
+      }
+
+      .link {
+        margin-top: 2rem;
+        padding: 0.6rem 2rem;
+        background-color: $color3;
+        border-radius: 30px;
+        font-weight: 700;
+      }
+    }
+  }
+}

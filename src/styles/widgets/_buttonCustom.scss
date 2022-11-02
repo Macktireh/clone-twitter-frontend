@@ -1,0 +1,18 @@
+.button {
+  background-color: transparent;
+  cursor: pointer;
+  width: 100%;
+
+  @extend .flex-center;
+  gap: 15px;
+  padding: 10px;
+  border: 1px solid $color5;
+  border-radius: 20px;
+
+  &:active {
+    transform: scale(0.99);
+  }
+  img {
+    width: 20px;
+  }
+}

@@ -1,0 +1,31 @@
+.HomePrivate {
+  .sec-add-new-post {
+    width: 100%;
+    display: flex;
+    padding: 4px 8px;
+    border-bottom: 1px solid $color7;
+    @media (max-width: 500px) {
+      display: none;
+    }
+  }
+  .line {
+    width: 100%;
+    height: 1.5px;
+    background-color: $color7;
+  }
+  .sec-list-post {
+    width: 100%;
+    @include flex(column, flex-start, null);
+
+    .list-post {
+      width: 100%;
+      border-bottom: 1px solid $color7;
+      padding: 0.5em;
+      position: relative;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        background-color: $color9;
+      }
+    }
+  }
+}

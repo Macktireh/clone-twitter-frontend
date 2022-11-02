@@ -1,14 +1,3 @@
-$font1: ui-sans-serif, system-ui, sans-serif;
-
-$color1: #15202b;
-$color2: #ebeeee;
-$color3: #1d9bf0;
-$color4: #1e2732;
-$color5: #919090;
-$red: #ff0000;
-$orange: orange;
-$green: #23ad5c;
-
 *,
 ::after,
 ::before {
@@ -18,12 +7,28 @@ $green: #23ad5c;
   outline: none;
 }
 
-body {
+body,
+html {
   background: $color1;
   color: $color2;
   font-family: $font1;
+  font-weight: 350;
   width: 100%;
   height: 100%;
+  @include srolled
+}
+
+body {
+  overflow-y: scroll;
+  @include srolled
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  @media (max-width: 500px) {
+    @include flex(column, space-between, flex-start)
+  }
 }
 
 li {
@@ -48,11 +53,23 @@ button {
   outline: none;
 }
 
-#root {
-  width: 100%;
-  height: 100%;
+.spinners-container {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  background-color: $color1;
+  @extend .flex-center;
+
+  img {
+    width: 60px;
+    height: 60px;
+  }
 }
 
-html {
-  background-color: $color4;
+.spinners-container.displayNode {
+  left: -200%;
+  top: -200%;
+  display: none;
 }

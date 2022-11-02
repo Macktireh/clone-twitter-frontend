@@ -1,0 +1,14 @@
+.peopleConnect {
+  .content {
+    width: 100%;
+    // padding: 0 5px;
+    @include flex(column, flex-start, flex-start);
+
+    h3 {
+      margin: 0.6rem 1rem 0.8rem;
+    }
+    .list-cardPeopleConnect {
+      width: 100%;
+    }
+  }
+}
