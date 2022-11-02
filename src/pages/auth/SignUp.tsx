@@ -1,36 +1,76 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import * as React from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
 
 import Input from "../../components/Input/Input";
 import Button from "../../components/Buttons/buttonSubmit";
-import { ISignUp } from "../../interfaces";
+import signupAction from "../../actions/auth/signup.action";
+import * as controlField from "../../validators/controlField";
+import * as ErrorMessage from "../../utils/function";
+import { IAuthUserSignUp, TAuthUserReducer } from "../../models";
+import { authRoutes } from "../../routes/auth.routes";
+import { tweetRoutes } from "../../routes/tweet.routes";
 
-const SignUp: React.FC = () => {
-  const [formData, setFormData] = useState<ISignUp>({
+const SignUp: React.FC<any> = ({ signupAction, isAuthenticated }) => {
+  const [formData, setFormData] = React.useState<IAuthUserSignUp>({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-  const [displayError, setDisplayError] = useState(false);
-
+  const [displayError, setDisplayError] = React.useState(false);
+  const [detailError, setDetailError] = React.useState("");
+  const [disabled, setDisabled] = React.useState(false);
+  const navigate = useNavigate();
   const { firstName, lastName, email, password, confirmPassword } = formData;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  React.useEffect(() => {
+    document.title = authRoutes.signup.title;
+  });
 
-  // const CheckeredPassword = async () => {};
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(`
-    firstName: ${firstName}
-    lastName: ${lastName}
-    email: ${email} 
-    password: ${password}
-    confirmPassword: ${confirmPassword}`);
+    const checkFirstName = await controlField.blankValidator("Prénom", firstName);
+    const checkLastName = await controlField.blankValidator("Nom", lastName);
+    const checkEmail = await controlField.emailValidator(email);
+    const checkPassword = await controlField.passwordValidator(password, confirmPassword);
+
+    if (
+      checkFirstName.validate &&
+      checkLastName.validate &&
+      checkEmail.validate &&
+      checkPassword.validate
+    ) {
+      setDisplayError(false);
+      setDetailError("");
+      setDisabled(true);
+      const res = await signupAction(firstName, lastName, email, password, confirmPassword);
+
+      if (!res.SignUpSuccess) {
+        ErrorMessage.DispyalErrorMessageBackend(res, setDisplayError, setDetailError);
+        setDisabled(false);
+      } else {
+        setDisplayError(false);
+        setDetailError("");
+        navigate(authRoutes.signupConfirm.path);
+      }
+    } else {
+      ErrorMessage.DispyalErrorMessageFrontend(
+        setDisplayError,
+        setDetailError,
+        checkFirstName,
+        checkLastName,
+        checkEmail,
+        checkPassword
+      );
+    }
   };
+
+  if (isAuthenticated) return <Navigate to={tweetRoutes.home.path} />;
 
   return (
     <div className="container-auth">
@@ -40,7 +80,7 @@ const SignUp: React.FC = () => {
           {displayError && (
             <div className="error-auth">
               <img src="/static/svg/error.svg" alt="icon error" />
-              <span>Adresse email ou mot de passe incorrect</span>
+              <span>{detailError}</span>
             </div>
           )}
           <Input
@@ -57,19 +97,14 @@ const SignUp: React.FC = () => {
             maxLength="50"
             onChange={handleChange}
           />
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            label="Email *"
-            onChange={handleChange}
-          />
+          <Input id="email" name="email" type="email" label="Email *" onChange={handleChange} />
           <Input
             id="password"
             name="password"
             type="password"
             label="Mot de passe *"
             onChange={handleChange}
+            isPasswords={true}
           />
           <Input
             id="confirmPassword"
@@ -77,24 +112,35 @@ const SignUp: React.FC = () => {
             type="password"
             label="Confimer mot de passe *"
             onChange={handleChange}
+            isPasswords={true}
           />
-          <Button nameClass={"btn-signup"} text={"S'inscrire"} />
-          <h4>
-            Vous avez déjà un compte ?{" "}
-            <Link to="/auth/login">
-              <span>Connectez-vous</span>
-            </Link>
-          </h4>
+          <Button
+            nameClass={disabled ? "btn-signup disabled" : "btn-signup"}
+            text={"S'inscrire"}
+            isDisabled={disabled}
+          />
+          <div className="info">
+            <h4>
+              Vous avez déjà un compte ?{" "}
+              <span onClick={() => navigate(disabled ? "" : authRoutes.login.path)}>
+                Connectez-vous
+              </span>
+              <br />
+              <br />
+            </h4>
+          </div>
         </form>
 
-        <Link to="/">
-          <div className="close">
-            <img src="/static/svg/close.svg" alt="" />
-          </div>
-        </Link>
+        <div className="close" onClick={() => navigate(disabled ? "" : "/")}>
+          <img src="/static/svg/close.svg" alt="" />
+        </div>
       </div>
     </div>
   );
 };
 
-export default SignUp;
+const mapStateToProps = (state: TAuthUserReducer) => ({
+  isAuthenticated: state.userReducer.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { signupAction })(SignUp);

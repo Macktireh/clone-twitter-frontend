@@ -1,29 +1,30 @@
 import * as React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
-import Input from "../../components/Input/Input";
+import resetPasswordAction from "../../actions/auth/resetPassword.action";
 import Button from "../../components/Buttons/buttonSubmit";
-import useLogin from "../../hooks/useLogin";
-import loginAction from "../../actions/auth/login.action";
-import { IAuthUserLogin, TAuthUserReducer } from "../../models";
+import Input from "../../components/Input/Input";
+import * as controlField from "../../validators/controlField";
+import * as ErrorMessage from "../../utils/function";
 import { authRoutes } from "../../routes/auth.routes";
 import { tweetRoutes } from "../../routes/tweet.routes";
+import { TAuthUserReducer } from "../../models";
 
-const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
-  const [formData, setFormData] = React.useState<IAuthUserLogin>({
-    email: "",
+const ResetPassword: React.FC<any> = ({ isAuthenticated, resetPasswordAction }) => {
+  const [formData, setFormData] = React.useState({
     password: "",
+    confirmPassword: "",
   });
   const [displayError, setDisplayError] = React.useState(false);
   const [detailError, setDetailError] = React.useState("");
   const [disabled, setDisabled] = React.useState(false);
   const navigate = useNavigate();
-  const customHooksLogin = useLogin;
-  const { email, password } = formData;
+  const { uid, token } = useParams();
+  const { password, confirmPassword } = formData;
 
   React.useEffect(() => {
-    document.title = authRoutes.login.title;
+    document.title = authRoutes.resetPassword.title;
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
@@ -31,7 +32,23 @@ const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    customHooksLogin(email, password, setDisplayError, setDisabled, setDetailError, loginAction);
+    const checkPassword = await controlField.passwordValidator(password, confirmPassword);
+
+    if (checkPassword.validate) {
+      setDisabled(true);
+      setDisplayError(false);
+      setDetailError("");
+      const res = await resetPasswordAction(uid, token, password, confirmPassword);
+      if (res.error) {
+        navigate("/not-found/");
+      } else {
+        navigate(authRoutes.resetPasswordConfirm.path);
+        setDisplayError(false);
+      }
+    } else {
+      setDisabled(false);
+      ErrorMessage.DispyalErrorMessageFrontend(setDisplayError, setDetailError, checkPassword);
+    }
   };
 
   if (isAuthenticated) return <Navigate to={tweetRoutes.home.path} />;
@@ -47,31 +64,23 @@ const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
               <span>{detailError}</span>
             </div>
           )}
-          <Input id="email" name="email" type="email" label="Email" onChange={handleChange} />
           <Input
             id="password"
             name="password"
             type="password"
             label="Mot de passe"
             onChange={handleChange}
+            isPasswords={true}
+          />
+          <Input
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            label="Confimer mot de passe *"
+            onChange={handleChange}
+            isPasswords={true}
           />
           <Button nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
-          <div className="info">
-            <h4>
-              Mot de passe ?{" "}
-              <span onClick={() => navigate(disabled ? "" : authRoutes.requestResetPassword.path)}>
-                Cliquer ici
-              </span>
-            </h4>
-            <h4>
-              Vous n'avez pas de compte ?{" "}
-              <span onClick={() => navigate(disabled ? "" : authRoutes.signup.path)}>
-                Inscrivez-vous
-              </span>
-              <br />
-              <br />
-            </h4>
-          </div>
         </form>
 
         <div className="close" onClick={() => navigate(disabled ? "" : "/")}>
@@ -86,4 +95,4 @@ const mapStateToProps = (state: TAuthUserReducer) => ({
   isAuthenticated: state.userReducer.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { loginAction })(Login);
+export default connect(mapStateToProps, { resetPasswordAction })(ResetPassword);

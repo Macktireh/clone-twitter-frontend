@@ -3,6 +3,7 @@ $font1: ui-sans-serif, system-ui, sans-serif;
 $color1: #15202b;
 $color2: #ebeeee;
 $color3: #1d9bf0;
+$color3-2: #1d9cf074;
 $color4: #1e2732;
 $color5: #919090;
 $red: #ff0000;
@@ -51,8 +52,4 @@ button {
 #root {
   width: 100%;
   height: 100%;
-}
-
-html {
-  background-color: $color4;
 }

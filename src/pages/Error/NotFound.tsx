@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const NotFound: React.FC = () => {
   useEffect(() => {
-    const container: HTMLElement | null =
-      document.getElementById("container-404");
+    document.title = "Not Found";
+    const container: HTMLElement | null = document.getElementById("container-404");
     window.onmousemove = (e) => {
       let x = -e.clientX / 5;
       let y = -e.clientY / 5;
@@ -22,8 +22,8 @@ const NotFound: React.FC = () => {
           <h2>404</h2>
           <h4>Opps! page not found</h4>
           <p>
-            La page que vous recherchez n'existe pas. Il se peut que vous ayez
-            mal saisi l'adresse ou que la page ait été déplacée.
+            La page que vous recherchez n'existe pas. Il se peut que vous ayez mal saisi l'adresse
+            ou que la page ait été déplacée.
           </p>
           <Link to="/">
             <span>Revenir à la page d'acceuil</span>
