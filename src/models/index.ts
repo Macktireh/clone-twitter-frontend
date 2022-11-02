@@ -1,2 +1,6 @@
-export type TRoutesList = { path: string; element: JSX.Element };
-export * from "./auth";
+export * from "@/models/public";
+export * from "@/models/auth";
+export * from "@/models/userProfile";
+export * from "@/models/postAndComment";
+export * from "@/models/follow";
+export * from "@/models/reducer";

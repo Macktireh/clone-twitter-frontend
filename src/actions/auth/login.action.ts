@@ -1,7 +1,7 @@
 import { AnyAction, Dispatch } from "redux";
 
-import * as Types from "../types";
-import loadUser from "./loadUser.action";
+import * as Types from "@/actions/types";
+import loadUser from "@/actions/user/getCurrentUser.action";
 
 const loginAction =
   (isAuthenticated: boolean = false) =>

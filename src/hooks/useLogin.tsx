@@ -1,13 +1,16 @@
-import axios from "axios";
+import Axios from "@/config/axios";
+import * as Api from "@/config/apiEndPoint";
 
 const useLogin = async (
   email: string,
   password: string,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setDisplayError: React.Dispatch<React.SetStateAction<boolean>>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
   setDetailError: React.Dispatch<React.SetStateAction<string>>,
-  loginAction: (isAuthenticated?: boolean) => (dispatch: any) => Promise<void>
+  loginAction: (isAuthenticated?: boolean) => Promise<void>
 ) => {
+  setLoading(true);
   setDisabled(true);
   const config = {
     headers: {
@@ -18,18 +21,14 @@ const useLogin = async (
   const body = JSON.stringify({ email, password });
 
   try {
-    const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/api/account/login/`,
-      body,
-      config
-    );
+    const res = await Axios.post(Api.loginEndpoint, body, config);
 
-    sessionStorage.setItem("access", res.data.token.access);
-    sessionStorage.setItem("refresh", res.data.token.refresh);
+    localStorage.setItem("access", res.data.token.access);
+    localStorage.setItem("refresh", res.data.token.refresh);
     setDisplayError(false);
     loginAction(true);
   } catch (error: any) {
-    // console.log(error);
+    setLoading(false);
     setDisabled(false);
     setDisplayError(true);
     if (

@@ -1,0 +1,134 @@
+.modal-global {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  @include flex(row, center, flex-start);
+
+  .closed {
+    position: absolute;
+  }
+
+  .modal-container {
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    max-height: 600px;
+    padding-bottom: 2rem;
+    background-color: $color1;
+    border-radius: 10px;
+    margin-top: 50px;
+    z-index: 5;
+    overflow-y: scroll;
+    @include flex(column, flex-start, flex-start);
+    gap: 0.5rem;
+    @media (max-width: 600px) {
+      max-height: none;
+      margin-top: 0;
+    }
+
+    .modal-header {
+      width: 100%;
+      @include flex(row, space-between, flex-start);
+      padding: 0.8rem;
+      position: sticky;
+      top: -0.5px;
+      left: -0.5px;
+      z-index: 8;
+      background-color: rgba($color1, 0.7);
+      backdrop-filter: blur(15px);
+
+      .icon-and-title {
+        @include flex(row, space-between, flex-start);
+        gap: 0.5rem;
+      }
+
+      .img {
+        width: 35px;
+        border-radius: 50%;
+        padding: 5px;
+        cursor: pointer;
+        @extend .flex-center;
+        &:hover {
+          background-color: $color9;
+        }
+        img {
+          width: 100%;
+        }
+      }
+
+      button {
+        margin-top: 5px;
+        width: 80px;
+        height: 30px;
+        color: #000;
+        background-color: $color2;
+        border: none;
+      }
+      button[disabled] {
+        cursor: not-allowed;
+        opacity: 0.5;
+        &:active {
+          transform: scale(1);
+        }
+      }
+    }
+
+    .modal-content {
+      width: 100%;
+    }
+  }
+
+  .modal-container.addTweet {
+    height: auto;
+    min-height: 230px;
+    @media (max-width: 600px) {
+      height: 100%;
+    }
+
+    .modal-content {
+      width: 100%;
+      display: flex;
+      padding: 0 0.5rem;
+    }
+  }
+  .modal-container.addTweet.addTweetHeight {
+    height: 600px;
+  }
+
+}
+.closed {
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color10, 0.5);
+}
+.popup {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 9999;
+  .closed {
+    position: fixed;
+    z-index: 9999;
+  }
+  .popup-container {
+    width: 320px;
+    height: 270px;
+    padding: 2rem;
+    background-color: $color1;
+    border-radius: 10px;
+    z-index: 9999;
+    @include position-abs(50%, null, null, 50%, -50%, -50%);
+    @include flex(column, flex-start, flex-start);
+    gap: 1rem;
+
+    button {
+      transition: all 0.2s ease-in-out;
+    }
+    button.btn-cancel {
+      &:hover {
+        background-color: rgba($color7, 0.3);
+      }
+    }
+  }
+}

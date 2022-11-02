@@ -1,7 +1,8 @@
-import axios from "axios";
 import { AnyAction, Dispatch } from "redux";
 
-import * as Types from "../types";
+import Axios from "@/config/axios";
+import * as Api from "@/config/apiEndPoint";
+import * as Types from "@/actions/types";
 
 const signupAction =
   (firstName: string, lastName: string, email: string, password: string, confirmPassword: string) =>
@@ -12,20 +13,10 @@ const signupAction =
       },
     };
 
-    const body = JSON.stringify({
-      firstName,
-      lastName,
-      email,
-      password,
-      confirmPassword,
-    });
+    const body = JSON.stringify({ firstName, lastName, email, password, confirmPassword });
 
     try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/account/signup/`,
-        body,
-        config
-      );
+      const res = await Axios.post(Api.signupEndpoint, body, config);
 
       dispatch({
         type: Types.SIGNUP_SUCCESS,

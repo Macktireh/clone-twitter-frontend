@@ -1,24 +1,26 @@
-import * as React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import Input from "../../components/Input/Input";
-import Button from "../../components/Buttons/buttonSubmit";
-import useLogin from "../../hooks/useLogin";
-import loginAction from "../../actions/auth/login.action";
-import { IAuthUserLogin, TAuthUserReducer } from "../../models";
-import { authRoutes } from "../../routes/auth.routes";
-import { tweetRoutes } from "../../routes/tweet.routes";
+import ModalAuth from "@/components/auth/ModalAuth";
+import InputCustom from "@/widgets/InputCustom";
+import ButtonCoustom from "@/widgets/ButtonCustom";
+import useLogin from "@/hooks/UseLogin";
+import loginAction from "@/actions/auth/login.action";
+import { IAuthLogin } from "@/models";
+import { authRoutes } from "@/routes/auth.routes";
 
-const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
-  const [formData, setFormData] = React.useState<IAuthUserLogin>({
-    email: "",
-    password: "",
+type propsTypes = { loginAction: (isAuthenticated?: boolean) => Promise<void> };
+
+const Login: React.FC<propsTypes> = ({ loginAction }) => {
+  const [formData, setFormData] = React.useState<IAuthLogin>({
+    email: process.env.REACT_APP_Email || "",
+    password: process.env.REACT_APP_Password || "",
   });
   const [displayError, setDisplayError] = React.useState(false);
   const [detailError, setDetailError] = React.useState("");
   const [disabled, setDisabled] = React.useState(false);
-  const navigate = useNavigate();
+  const [loading, setLoading] = React.useState(false);
   const customHooksLogin = useLogin;
   const { email, password } = formData;
 
@@ -31,59 +33,51 @@ const Login: React.FC<any> = ({ loginAction, isAuthenticated }) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    customHooksLogin(email, password, setDisplayError, setDisabled, setDetailError, loginAction);
+    customHooksLogin(email, password, setLoading, setDisplayError, setDisabled, setDetailError, loginAction);
   };
 
-  if (isAuthenticated) return <Navigate to={tweetRoutes.home.path} />;
-
   return (
-    <div className="container-auth">
-      <div className="modal-auth">
-        <form onSubmit={onSubmit}>
-          <h2>Connectez-vous à Mack-Twitter</h2>
-          {displayError && (
-            <div className="error-auth">
-              <img src="/static/svg/error.svg" alt="icon error" />
-              <span>{detailError}</span>
-            </div>
-          )}
-          <Input id="email" name="email" type="email" label="Email" onChange={handleChange} />
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            label="Mot de passe"
-            onChange={handleChange}
-          />
-          <Button nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
-          <div className="info">
-            <h4>
-              Mot de passe ?{" "}
-              <span onClick={() => navigate(disabled ? "" : authRoutes.requestResetPassword.path)}>
-                Cliquer ici
-              </span>
-            </h4>
-            <h4>
-              Vous n'avez pas de compte ?{" "}
-              <span onClick={() => navigate(disabled ? "" : authRoutes.signup.path)}>
-                Inscrivez-vous
-              </span>
-              <br />
-              <br />
-            </h4>
+    <ModalAuth title="Connectez-vous à Clone Twitter" loading={loading} disabled={disabled}>
+      <form onSubmit={onSubmit}>
+        {displayError && (
+          <div className="error-auth">
+            <img src="/static/svg/error.svg" alt="icon error" />
+            <span>{detailError}</span>
           </div>
-        </form>
-
-        <div className="close" onClick={() => navigate(disabled ? "" : "/")}>
-          <img src="/static/svg/close.svg" alt="" />
+        )}
+        <InputCustom
+          id="email"
+          name="email"
+          type="email"
+          label="Email"
+          onChange={handleChange}
+          value={email}
+        />
+        <InputCustom
+          id="password"
+          name="password"
+          type="password"
+          label="Mot de passe"
+          onChange={handleChange}
+          isPasswords={true}
+          value={password}
+        />
+        <ButtonCoustom nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
+        <div className="info">
+          <h4>
+            Mot de passe ? 
+            <Link to={disabled ? "" : authRoutes.requestResetPassword.path}> Cliquer ici</Link>
+          </h4>
+          <h4>
+            Vous n'avez pas de compte ?
+            <Link to={disabled ? "" : authRoutes.signup.path}> Inscrivez-vous</Link>
+            <br />
+            <br />
+          </h4>
         </div>
-      </div>
-    </div>
+      </form>
+    </ModalAuth>
   );
 };
 
-const mapStateToProps = (state: TAuthUserReducer) => ({
-  isAuthenticated: state.userReducer.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { loginAction })(Login);
+export default connect(null, { loginAction })(Login);

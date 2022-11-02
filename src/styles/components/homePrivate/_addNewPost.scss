@@ -1,0 +1,131 @@
+.AddNewPost {
+  @include flex(row, space-between, center);
+  flex-basis: 100%;
+  gap: 0.5rem;
+  padding: 4px;
+
+  .box-img {
+    width: 70px;
+    height: 100%;
+    @include flex(row, center, flex-start);
+    user-select: none;
+    img,
+    svg {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+    }
+  }
+
+  form {
+    width: 100%;
+    @include flex(column, center, flex-start);
+    flex-basis: 100%;
+    gap: 0.5rem;
+    position: relative;
+
+    .textarea-image {
+      width: 100%;
+      @include flex(column, center, flex-start);
+      // gap: 0.5rem;
+      textarea {
+        width: 100%;
+        height: 60px;
+        resize: none;
+        background-color: transparent;
+        color: $color2;
+        font-family: $font1;
+        font-size: 18px;
+        border: none;
+        padding: 8px;
+        &::-webkit-input-placeholder {
+          font-size: 20px;
+          font-weight: 600;
+          user-select: none;
+        }
+        &::-webkit-scrollbar {
+          width: 0;
+        }
+      }
+      .img-preview-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 15px;
+          border: 1px solid rgba($color: $color7, $alpha: 0.3);
+        }
+        .close {
+          width: 32px;
+          border-radius: 50%;
+          padding: 6px;
+          cursor: pointer;
+          @extend .flex-center;
+          @include position-abs(8px, null, null, 8px, null, null);
+          background-color: rgba($color: $color1, $alpha: 0.8);
+          transition: all 0.1s ease-in-out;
+          box-shadow: 0 0 5px rgba($color: $color5, $alpha: 0.5);
+          &:hover {
+            background-color: rgba($color: $color1, $alpha: 0.6);
+          }
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .form-btn {
+      width: 100%;
+      @include flex(row, space-between, center);
+      svg {
+        width: 20px;
+        cursor: pointer;
+      }
+      .input-icon {
+        @include flex(row, center, flex-start);
+        gap: 1em;
+        @media (max-width: 360px) {
+          gap: 0.5em;
+        }
+      }
+
+      .box-btn {
+        width: 60%;
+        max-width: 80px;
+        user-select: none;
+        button {
+          background-color: $color3;
+          border: none;
+          padding: 6px;
+          span {
+            font-weight: bold;
+          }
+        }
+        button[disabled] {
+          cursor: not-allowed;
+          opacity: 0.5;
+          &:active {
+            transform: scale(1);
+          }
+        }
+      }
+    }
+  }
+}
+.emojiPicker {
+  width: 55px;
+  position: absolute;
+  top: 95%;
+  z-index: 2;
+}
+
+// .close-emoji {
+//   width: 100%;
+//   height: 100%;
+//   position: fixed;
+//   z-index: 8888;
+//   background-color: rgba(burlywood, 0.4);
+// }
