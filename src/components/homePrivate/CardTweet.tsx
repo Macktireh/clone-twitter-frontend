@@ -44,12 +44,7 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
           <div className="skeleton-anim"></div>
         ) : (
           <Tippy
-            content={
-              <TooltipCardUser
-                authorPost={authorPost}
-                currentUser={currentUser}
-              />
-            }
+            content={<TooltipCardUser authorPost={authorPost} currentUser={currentUser} />}
             interactive={true}
             delay={0}
             hideOnClick={false}

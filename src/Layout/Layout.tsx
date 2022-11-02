@@ -3,8 +3,8 @@ import React from "react";
 import Navbar from "@/components/navbar/Navbar";
 import NavbarProvider from "@/context/CommentProvider";
 import ModalAddNewTweet from "@/components/homePrivate/ModalAddNewTweet";
-import ModalAddComment from "@/components/postDetails/ModalAddComment";
 import TweetCommentProvider from "@/context/TweetCommentProvider";
+import ModalAddComment from "@/components/postDetails/ModalAddComment";
 import NavbarMobile from "@/components/navbar/NavbarMobile";
 import NavbarMobileLeft from "@/components/navbar/NavbarMobileLeft";
 
