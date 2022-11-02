@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
 
-import Layout from "@/layout/Layout";
+import Layout from "@/components/layout/Layout";
 import NavTabs from "@/widgets/NavTabs";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import CardFollow from "@/components/follow/CardFollow";

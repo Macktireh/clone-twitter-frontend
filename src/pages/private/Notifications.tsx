@@ -1,6 +1,6 @@
 import React from "react";
 
-import Layout from "@/layout/Layout";
+import Layout from "@/components/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import NavTabs from "@/widgets/NavTabs";
 import CardNotif from "@/components/notification/CardNotif";

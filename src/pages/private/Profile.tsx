@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
 
-import Layout from "@/layout/Layout";
+import Layout from "@/components/layout/Layout";
 import EdidProfile from "@/components/profile/EdidProfile";
 import ModalEditProfile from "@/components/profile/ModalEditProfile";
 import ContentProfile from "@/components/profile/ContentProfile";
@@ -92,10 +92,13 @@ const Profile: React.FC<propsTypes> = ({
 
   if (isCurrentUser === "error") return <Navigate to="/error/404" />;
 
-  return (!currentUser && !users && !posts) ? (
+  return !currentUser && !users && !posts ? (
     <>
       <main className="main">
-        <SpinnersLoding isLoading={(!currentUser && !users && !posts) ? true : false} styleSpinnersLoding={styleSpinnersLoding} />
+        <SpinnersLoding
+          isLoading={!currentUser && !users && !posts ? true : false}
+          styleSpinnersLoding={styleSpinnersLoding}
+        />
         <aside className="aside"></aside>
       </main>
     </>
