@@ -9,7 +9,7 @@ import logoutAction from "@/actions/auth/logout.action";
 import { IRootState, IUserProfile } from "@/models";
 import { privateRoutes } from "@/routes/private.routes";
 import { pathLinkProfile } from "@/utils/pathRoute";
-import { useNavbarContext } from "@/context/CommentProvider";
+import { useNavbarContext } from "@/context/NavbarProvider";
 
 type ContextPropsType = {
   displayNavLeft: { navLeft: boolean; setNavLeft: () => void };
@@ -89,11 +89,7 @@ const NavbarMobileLeftConnectWithStore: React.FC = () => {
   const propsContext = useNavbarContext();
   const dispatch = useDispatch();
   return (
-    <NavbarMobileLeft
-      currentUser={currentUser}
-      propsContext={propsContext}
-      dispatch={dispatch as any}
-    />
+    <NavbarMobileLeft currentUser={currentUser} propsContext={propsContext} dispatch={dispatch as any} />
   );
 };
 

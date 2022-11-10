@@ -5,7 +5,7 @@ import InputSearch from "@/widgets/InputSearch";
 import IconSVG from "@/widgets/IconSVG";
 import { privateRoutes } from "@/routes/private.routes";
 import { IUserProfile } from "@/models/userProfile";
-import { useNavbarContext } from "@/context/CommentProvider";
+import { useNavbarContext } from "@/context/NavbarProvider";
 
 type propsTypes = {
   page: string;

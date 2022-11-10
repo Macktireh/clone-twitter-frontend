@@ -1,7 +1,7 @@
 import React from "react";
 
 import Navbar from "@/components/navbar/Navbar";
-import NavbarProvider from "@/context/CommentProvider";
+import NavbarProvider from "@/context/NavbarProvider";
 import ModalAddNewTweet from "@/components/homePrivate/ModalAddNewTweet";
 import TweetCommentProvider from "@/context/TweetCommentProvider";
 import ModalAddComment from "@/components/postDetails/ModalAddComment";
