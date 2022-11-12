@@ -22,6 +22,7 @@ export const allUserEndpoint : string = "/api/users/"
  * Endpoint Post and likePost
  */
 export const postEndpoint : string = "/api/posts/"
+export const postDeleteEndpoint : string = "/api/posts/delete/"
 export const likePostEndpoint : string = "/api/posts/likes/"
 export const listPostsLikes : string = "/api/posts/likes/"
 
@@ -30,6 +31,7 @@ export const listPostsLikes : string = "/api/posts/likes/"
  * Endpoint Comment and likeComment
  */
 export const commentEndpoint : string = "/api/comments/"
+export const commentDeleteEndpoint : string = "/api/comments/delete/"
 export const likeCommentEndpoint : string = "/api/comments/likes/"
 
 
