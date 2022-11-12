@@ -17,7 +17,7 @@ const deleteCommentAction =
         },
       };
       try {
-        await Axios.delete(`${Api.commentEndpoint + postPublicId}/${public_id}/`, config);
+        await Axios.post(`${Api.commentDeleteEndpoint + postPublicId}/${public_id}/`, {}, config);
         dispatch({ type: Types.DELETE_COMMENT_SUCCESS, payload: public_id });
       } catch (error: unknown) {
         if (error instanceof AxiosError && error.response) {
@@ -46,7 +46,7 @@ const _deleteCommentAction =
         },
       };
       try {
-        await Axios.delete(`${Api.commentEndpoint + postPublicId}/${public_id}/`, config);
+        await Axios.post(`${Api.commentDeleteEndpoint + postPublicId}/${public_id}/`, {}, config);
         dispatch({ type: Types.DELETE_COMMENT_SUCCESS, payload: public_id });
       } catch (error: any) {
         dispatch({ type: Types.DELETE_COMMENT_FAIL });
