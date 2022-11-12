@@ -16,7 +16,7 @@ const deletePostAction = (public_id: string) => async (dispatch: Dispatch<AnyAct
       },
     };
     try {
-      await Axios.post(`${Api.postDeleteEndpoint + public_id}/`, {}, config);
+      await Axios.delete(`${Api.postEndpoint + public_id}/`, config);
       dispatch({ type: Types.DELETE_POST_SUCCESS, payload: public_id });
     } catch (error: unknown) {
       if (error instanceof AxiosError && error.response) {
@@ -34,7 +34,6 @@ const deletePostAction = (public_id: string) => async (dispatch: Dispatch<AnyAct
 };
 
 const _deletePostAction = (public_id: string) => async (dispatch: Dispatch<AnyAction> | any) => {
-  console.log(public_id)
   if (localStorage.getItem("access")) {
     const config = {
       headers: {
@@ -44,7 +43,7 @@ const _deletePostAction = (public_id: string) => async (dispatch: Dispatch<AnyAc
       },
     };
     try {
-      await Axios.post(`${Api.postDeleteEndpoint + public_id}/`, {}, config);
+      await Axios.delete(`${Api.postEndpoint + public_id}/`, config);
       dispatch({ type: Types.DELETE_POST_SUCCESS, payload: public_id });
     } catch (error: any) {
       dispatch({ type: Types.DELETE_POST_FAIL });
