@@ -8,7 +8,7 @@ import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOpti
 import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
 import ButtonAddComment from "@/components/postDetails/ButtonAddComment";
 import { IUserProfile, IPost } from "@/models";
-import { dateParserCreated } from "@/utils/dateParser";
+import { dateParserCreated, timeSince } from "@/utils/dateParser";
 import { pathLinkPostDetail, pathLinkProfile } from "@/utils/pathRoute";
 
 type propsTypes = {
@@ -71,7 +71,7 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
                 <span>@{authorPost.pseudo}</span>
               </Link>
               <span>·</span>
-              <span>{tweet?.created && dateParserCreated(tweet.created)}</span>
+              <span>{tweet?.created && `il y a ${timeSince(dateParserCreated(tweet.created))}`}</span>
             </p>
           )}
           <Tippy
