@@ -8,7 +8,7 @@ import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOpti
 import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
 import { IUserProfile, IComment } from "@/models";
 // import { baseURL } from "@/config/axios";
-import { dateParserCreated } from "@/utils/dateParser";
+import { dateParserCreated, timeSince } from "@/utils/dateParser";
 import { pathLinkProfile } from "@/utils/pathRoute";
 
 type propsTypes = {
@@ -81,7 +81,7 @@ const CardComment: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
                 <span>@{authorPost.pseudo}</span>
               </Link>
               <span>·</span>
-              <span>{ReTweet?.created && dateParserCreated(ReTweet.created)}</span>
+              <span>{ReTweet?.created && `il y a ${timeSince(dateParserCreated(ReTweet.created))}`}</span>
             </p>
           )}
           <Tippy
