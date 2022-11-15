@@ -18,10 +18,10 @@ const Bookmarks: React.FC<propsTypes> = ({ currentUser }) => {
   React.useEffect(() => {
     document.title = privateRoutes.bookmarks.title;
 
-    window.addEventListener("scroll", () => {
-      const secHeaderBg: HTMLElement | null = document.querySelector(".sec-header");
-      secHeaderBg?.classList.toggle("sticky-2", window.scrollY > 0);
-    });
+    // window.addEventListener("scroll", () => {
+    //   const secHeaderBg: HTMLElement | null = document.querySelector(".sec-header");
+    //   secHeaderBg?.classList.toggle("sticky-2", window.scrollY > 0);
+    // });
   });
 
   return (

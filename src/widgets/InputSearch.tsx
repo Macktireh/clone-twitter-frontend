@@ -3,21 +3,21 @@ import React from "react";
 import IconSVG from "@/widgets/IconSVG";
 
 const InputSearch = () => {
-  const [value, setValue] = React.useState("");
+  const [searchValue, setSearchValue] = React.useState<string>("");
 
   return (
-    <div className="input-search">
+    <form className="input-search">
       <IconSVG iconName="explore" fill="#919090" />
       <input
-        type="search"
+        type="text"
         placeholder="Search Twitter"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
       />
-      {/* <div className="clear" style={{ display: value ? "flex" : "none" }} onClick={(e) => setValue("")}>
+      <div className="clear" style={{ display: searchValue ? "flex" : "none" }} onClick={(e) => setSearchValue("")}>
         <img src="/static/svg/close.svg" alt="" />
-      </div> */}
-    </div>
+      </div>
+    </form>
   );
 };
 
