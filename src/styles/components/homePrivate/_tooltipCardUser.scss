@@ -1,6 +1,7 @@
 .TooltipCardUser {
   .content {
-    width: 270px;
+    min-width: 280px;
+    max-width: 280px;
     padding: 0.8rem;
     background-color: $color1;
     border-radius: 10px;

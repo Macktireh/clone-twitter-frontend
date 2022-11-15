@@ -68,7 +68,7 @@ const SectionHeaderTweet: React.FC<propsTypes> = ({ page, title, subtitle, curre
           {showIcon(page)?.map(
             (icon, index) =>
               icon && (
-                <div key={index} className="icon-container">
+                <div key={index} className={page === privateRoutes.lists.name ? "icon-container list" : "icon-container"}>
                   {icon}
                 </div>
               )
