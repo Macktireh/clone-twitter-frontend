@@ -1,10 +1,9 @@
 import * as Types from "@/actions/types";
-// import { baseURL } from "@/config/axios";
-import { IComment, TCommentReducerType } from "@/models";
+import { IActionReducer, IComment, TCommentReducerType } from "@/models";
 
 const initialState: TCommentReducerType = null;
 
-const commentReducer = (state: TCommentReducerType = initialState, action: any): TCommentReducerType => {
+const commentReducer = (state: TCommentReducerType = initialState, action: IActionReducer): TCommentReducerType => {
   const { type, payload } = action;
 
   switch (type) {
