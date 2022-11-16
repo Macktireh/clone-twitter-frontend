@@ -1,9 +1,9 @@
 import * as Types from "@/actions/types";
-import { IUser, TLikesPostReducerType } from "@/models";
+import { IActionReducer, IUser, TLikesPostReducerType } from "@/models";
 
 const initialState: TLikesPostReducerType = null;
 
-const likesPostReducer = (state: TLikesPostReducerType = initialState, action: any): TLikesPostReducerType => {
+const likesPostReducer = (state: TLikesPostReducerType = initialState, action: IActionReducer): TLikesPostReducerType => {
   const { type, payload } = action;
 
   switch (type) {

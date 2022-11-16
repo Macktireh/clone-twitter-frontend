@@ -1,10 +1,10 @@
 import * as Types from "@/actions/types";
 // import { baseURL } from "@/config/axios";
-import { IPost, TPostReducerType } from "@/models";
+import { IActionReducer, IPost, TPostReducerType } from "@/models";
 
 const initialState: TPostReducerType = null;
 
-const postReducer = (state: TPostReducerType = initialState, action: any): TPostReducerType => {
+const postReducer = (state: TPostReducerType = initialState, action: IActionReducer): TPostReducerType => {
   const { type, payload } = action;
 
   switch (type) {
