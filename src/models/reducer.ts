@@ -1,6 +1,7 @@
 import { IComment, IPost } from "@/models/postAndComment";
 import { IUser, IUserProfile } from "@/models/userProfile";
 import { IFollow } from '@/models/follow';
+import { INotif } from '@/models/notificationAndChat';
 
 export interface IAuthReducer {
   isAuthenticated: boolean | null;
@@ -14,6 +15,8 @@ export type TPostReducerType = IPost[] | null;
 export type TLikesPostReducerType = IUser[] | null;
 
 export type TCommentReducerType = IComment[] | null;
+
+export type TNotifReducerType = INotif[] | null;
 
 export type TFollowReducerType = {
   following: IFollow[] | null

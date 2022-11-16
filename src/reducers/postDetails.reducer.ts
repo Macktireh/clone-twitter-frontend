@@ -1,11 +1,11 @@
 import * as Types from "@/actions/types";
-import { IPost } from "@/models";
+import { IActionReducer, IPost } from "@/models";
 
 type TPostDetailsReducer = IPost | null;
 
 const initialState: TPostDetailsReducer = null;
 
-const postDetailsReducer = (state: TPostDetailsReducer = initialState, action: any): TPostDetailsReducer => {
+const postDetailsReducer = (state: TPostDetailsReducer = initialState, action: IActionReducer): TPostDetailsReducer => {
   const { type, payload } = action;
 
   switch (type) {

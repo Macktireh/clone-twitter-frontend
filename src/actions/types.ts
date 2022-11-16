@@ -106,3 +106,10 @@ export const GET_ALL_FOLLOWERS_FAIL: string = "GET_ALL_FOLLOWERS_FAIL";
 
 export const GET_PEOPLE_CONNECT_SUCCESS: string = "GET_PEOPLE_CONNECT_SUCCESS";
 export const GET_PEOPLE_CONNECT_FAIL: string = "GET_PEOPLE_CONNECT_FAIL";
+
+
+/**********************************
+* Types Notification
+**/
+export const GET_NOTIFICATION_SUCCESS: string = "GET_NOTIFICATION_SUCCESS";
+export const GET_NOTIFICATION_FAIL: string = "GET_NOTIFICATION_FAIL";

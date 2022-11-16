@@ -92,7 +92,7 @@ const AddNewPost: React.FC<propsTypes> = ({
               <div className="img-preview-container">
                 <img src={imagePreviewState.imagePreviewPost} alt="imagePostPreview" />
                 <div className="close" onClick={() => resetImage()}>
-                  <IconSVG iconName="close" />
+                  <img src="/static/svg/close.svg" alt="" />
                 </div>
               </div>
             )}
