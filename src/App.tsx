@@ -1,18 +1,13 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
+import "@/styles/index.scss";
 import Routes from "@/routes";
 import getCurrentUserAction from "@/actions/user/getCurrentUser.action";
 
-import "@/styles/index.scss";
+type propsTypes = { getCurrentUserAction: () => void };
 
-type propsTypes = {
-  getCurrentUserAction: () => void;
-};
-
-const App: React.FC<propsTypes> = ({
-  getCurrentUserAction,
-}) => {
+const App: React.FC<propsTypes> = ({ getCurrentUserAction }) => {
   const [loading, setLoading] = React.useState(true);
   const flag = React.useRef(false);
 
