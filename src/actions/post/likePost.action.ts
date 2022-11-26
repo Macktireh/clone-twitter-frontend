@@ -5,6 +5,8 @@ import * as Api from "@/config/apiEndPoint";
 import * as Types from "@/actions/types";
 import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
 import { AxiosError } from "axios";
+import { notifSocket } from "@/config/soket";
+import { notification } from "@/context/NotificationProvider";
 
 const likePostAction = (postPublicId: string) => async (dispatch: Dispatch<AnyAction> | any) => {
   if (localStorage.getItem("access")) {
@@ -19,6 +21,16 @@ const likePostAction = (postPublicId: string) => async (dispatch: Dispatch<AnyAc
     try {
       const res = await Axios.post(Api.likePostEndpoint, body, config);
       dispatch({ type: Types.LIKE_OR_UNLIKE_POST_SUCCESS, payload: res.data });
+      setTimeout(() => {
+        let ws = notifSocket;
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.send(
+            JSON.stringify({
+              message: notification.likePost,
+            })
+          );
+        }
+      }, 3000);
     } catch (error: unknown) {
       if (error instanceof AxiosError && error.response) {
         if (error.response.status === 401) {

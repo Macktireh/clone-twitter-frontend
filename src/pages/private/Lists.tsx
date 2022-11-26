@@ -1,6 +1,6 @@
 import React from "react";
 
-import Layout from "@/layout/Layout";
+import Layout from "@/components/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
@@ -15,7 +15,6 @@ interface propsTypes
   > {}
 
 const Lists: React.FC<propsTypes> = ({ currentUser }) => {
-
   React.useEffect(() => {
     document.title = privateRoutes.lists.title;
   }, []);

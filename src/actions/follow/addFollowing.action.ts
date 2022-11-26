@@ -5,6 +5,8 @@ import Axios from "@/config/axios";
 import * as Api from "@/config/apiEndPoint";
 import * as Types from "@/actions/types";
 import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
+import { notifSocket } from "@/config/soket";
+import { notification } from "@/context/NotificationProvider";
 
 const addFollowingAction =
   (userPubblicId: string, followingPubblicId: string) => async (dispatch: Dispatch<AnyAction> | any) => {
@@ -20,12 +22,18 @@ const addFollowingAction =
       const body = JSON.stringify({ followingPubblicId });
 
       try {
-        const res = await Axios.post(
-          `${Api.followingEndpoint + userPubblicId}/`,
-          body,
-          config
-        );
+        const res = await Axios.post(`${Api.followingEndpoint + userPubblicId}/`, body, config);
         dispatch({ type: Types.ADD_FOLLOWING_SUCCESS, payload: res.data });
+        setTimeout(() => {
+          let ws = notifSocket;
+          if (ws.readyState === WebSocket.OPEN) {
+            ws.send(
+              JSON.stringify({
+                message: notification.following
+              })
+            );
+          }
+        }, 1000);
       } catch (error: unknown) {
         if (error instanceof AxiosError && error.response) {
           if (error.response.status === 401) {

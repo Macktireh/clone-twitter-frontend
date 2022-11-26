@@ -32,6 +32,7 @@ export interface IRootState {
   postDetailsReducer: IPost;
   commentReducer: TCommentReducerType;
   followReducer: TFollowReducerType;
+  notificationReducer: TNotifReducerType;
 }
 
 export interface IActionReducer {

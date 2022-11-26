@@ -1,6 +1,6 @@
 import React from "react";
 
-import Layout from "@/layout/Layout";
+import Layout from "@/components/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 import Trending from "@/components/aside/Trending";
@@ -16,7 +16,6 @@ interface propsTypes
   > {}
 
 const Explore: React.FC<propsTypes> = ({ currentUser }) => {
-
   React.useEffect(() => {
     document.title = privateRoutes.explore.title;
   }, []);
