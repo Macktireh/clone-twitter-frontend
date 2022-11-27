@@ -49,4 +49,5 @@ export interface IPropsRootStateType {
   following: IFollow[] | null;
   followers: IFollow[] | null;
   peopleConnect: IUser[] | null;
+  // notification: INotif[] | null;
 }

@@ -9,19 +9,33 @@ import Aside from "@/components/aside/Aside";
 import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
 import { IRootState, TTabState, IPropsRootStateType } from "@/models";
+import { INotif } from "../../models/notificationAndChat";
+import getAllUsersAction from "@/actions/user/getAllUsers.action";
+import SpinnersLoding from "@/widgets/SpinnersLoding";
+import getNotificationAction from '@/actions/notification/getNotification.action';
 
 interface propsTypes
   extends Omit<
     IPropsRootStateType,
-    "users" | "posts" | "postsLikes" | "comments" | "followers" | "following" | "peopleConnect"
-  > {}
+    "posts" | "postsLikes" | "comments" | "followers" | "following" | "peopleConnect"
+  > {
+  notifications: INotif[] | null;
+  getAllUsersAction: () => void;
+  getNotificationAction: () => void;
+}
 
-const Notifications: React.FC<propsTypes> = ({ currentUser }) => {
+const styleSpinnersLoding: React.CSSProperties = {
+  width: "auto",
+};
+
+const Notifications: React.FC<propsTypes> = ({ currentUser, users, notifications, getAllUsersAction, getNotificationAction }) => {
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [activeTab, setActiveTab] = React.useState(1);
+  const flag = React.useRef(false);
   const tabState: TTabState[] = [
     { id: 1, title: "All", grow: false },
     { id: 2, title: "Montions", grow: false },
   ];
-  const [activeTab, setActiveTab] = React.useState(1);
 
   const toggleTab = (id: number) => {
     setActiveTab(id);
@@ -30,13 +44,25 @@ const Notifications: React.FC<propsTypes> = ({ currentUser }) => {
   React.useEffect(() => {
     document.title = privateRoutes.notifications.title;
 
-    window.addEventListener("scroll", () => {
-      const secHeaderBg: HTMLElement | null = document.querySelector(".sec-header");
-      secHeaderBg?.classList.toggle("sticky-2", window.scrollY > 0);
-    });
-  });
+    if (!flag.current) {
+      getAllUsersAction();
+      getNotificationAction();
+      flag.current = true;
+    }
 
-  return (
+    if (notifications && users && notifications) setLoading(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flag, currentUser, users, notifications]);
+
+  return loading ? (
+    <>
+      <main className="main">
+        <SpinnersLoding isLoading={loading} styleSpinnersLoding={styleSpinnersLoding} />
+        <aside className="aside"></aside>
+      </main>
+    </>
+  ) : (
     <>
       <main className="main">
         <div className="Notifications main-container">
@@ -52,8 +78,8 @@ const Notifications: React.FC<propsTypes> = ({ currentUser }) => {
           </section>
           {activeTab === 1 ? (
             <div className="all-notif">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n, i) => (
-                <CardNotif key={i} />
+              {users && notifications && notifications.map((n, i) => (
+                <CardNotif key={i} fromUser={users.filter((u) => u.user.public_id === n.fromId)[0]} />
               ))}
             </div>
           ) : (
@@ -70,16 +96,30 @@ const Notifications: React.FC<propsTypes> = ({ currentUser }) => {
   );
 };
 
-const NotificationsConnectWithStore: React.FC<propsTypes> = ({ currentUser }) => {
+const NotificationsConnectWithStore: React.FC<propsTypes> = ({
+  currentUser,
+  users,
+  notifications,
+  getAllUsersAction,
+  getNotificationAction,
+}) => {
   return (
     <Layout>
-      <Notifications currentUser={currentUser} />
+      <Notifications
+        currentUser={currentUser}
+        users={users}
+        notifications={notifications}
+        getAllUsersAction={getAllUsersAction}
+        getNotificationAction={getNotificationAction}
+      />
     </Layout>
   );
 };
 
 const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
+  users: state.userReducer,
+  notifications: state.notificationReducer,
 });
 
-export default connect(mapStateToProps, {})(NotificationsConnectWithStore);
+export default connect(mapStateToProps, { getAllUsersAction, getNotificationAction })(NotificationsConnectWithStore);

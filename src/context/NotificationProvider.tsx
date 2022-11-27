@@ -3,78 +3,112 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import getNotificationAction from "@/actions/notification/getNotification.action";
-import { notifSocket } from "@/config/soket";
+import getAllPostAction from "@/actions/post/getAllPost.action";
+import getCurrentUserAction from "@/actions/user/getCurrentUser.action";
+import { urlWebSocket } from "@/config/soket";
 
-type ContextPropsType = {
-  notificationType: { typeNotif: string; setTypeNotif: () => void };
-  notifSocket: WebSocket;
-};
+type ContextPropsType = { clientRef: any };
 
-export const notification = {
-  addPost: "Add Post",
+export const notificationType = {
+  addPost: "Add_Post",
   deletePost: "Delete Post",
-  likePost: "Like Post",
-  addComment: "Add Comment",
+  likePost: "Like_Post",
+  addComment: "Add_Comment",
   deleteComment: "Delete Comment",
-  likeComment: "Like Comment",
-  following: "following",
+  likeComment: "Like_Comment",
+  following: "Follow_Or_Unfollow",
 };
 
 const NotificationContext = React.createContext<ContextPropsType | null>(null);
 
 const NotificationProvider = ({ children }: React.PropsWithChildren) => {
-  const [typeNotif, setTypeNotif] = React.useState<string>("");
   const dispatch = useDispatch();
 
-  const notificationType = {
-    typeNotif,
-    setTypeNotif: () => setTypeNotif(""),
-  };
-
-  const connectWS = (ws: WebSocket) => {
-    ws.onopen = function (e) {
-      console.log("Successfully connected to the WebSocket from useContext.");
-    };
-
-    ws.onclose = function (e) {
-      console.log("WebSocket connection closed unexpectedly. Trying to reconnect in 2s...");
-      setTimeout(function () {
-        console.log("Reconnecting...");
-        connectWS(ws);
-      }, 2000);
-    };
-
-    ws.onmessage = function (e) {
-      const data = JSON.parse(e.data);
-      if (data.type === "notif_message") {
-        console.log("data.message : ", data.message);
-        dispatch(getNotificationAction() as any);
-      }
-    };
-
-    ws.onerror = function (err: any) {
-      console.log("WebSocket encountered an error: " + err.message);
-      console.log("Closing the socket.");
-      ws.close();
-    };
-  };
+  const clientRef = React.useRef<any>(null);
+  const [waitingToReconnect, setWaitingToReconnect] = React.useState<boolean | null>(null);
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    connectWS(notifSocket);
-    if (typeNotif) {
-      if (typeNotif === notification.addPost) console.log(notification.addPost);
-      else if (typeNotif === notification.likePost) console.log(notification.likePost);
-      else if (typeNotif === notification.addComment) console.log(notification.addComment);
-      else if (typeNotif === notification.likeComment) console.log(notification.likeComment);
+    if (waitingToReconnect) {
+      return;
+    }
+
+    // Only set up the websocket once
+    if (!clientRef.current) {
+      const client = new WebSocket(urlWebSocket);
+      clientRef.current = client;
+
+      // window.client = client;
+
+      client.onerror = (e) => null;
+
+      client.onopen = () => {
+        setIsOpen(true);
+        // console.log("ws opened");
+      };
+
+      client.onclose = () => {
+        if (clientRef.current) {
+          // Connection failed
+          // console.log("ws closed by server");
+        } else {
+          // Cleanup initiated from app side, can return here, to not attempt a reconnect
+          // console.log("ws closed by app component unmount");
+          return;
+        }
+
+        if (waitingToReconnect) {
+          return;
+        }
+
+        // Parse event code and log
+        setIsOpen(false);
+        // console.log("ws closed");
+
+        // Setting this will trigger a re-run of the effect,
+        // cleaning up the current websocket, but not setting
+        // up a new one right away
+        setWaitingToReconnect(true);
+
+        // This will trigger another re-run, and because it is false,
+        // the socket will be set up again
+        setTimeout(() => setWaitingToReconnect(null), 5000);
+      };
+
+      client.onmessage = (e) => {
+        const data = JSON.parse(e.data);
+        if (data.type === "notif_message") {
+          // console.log("data.message : ", data.message);
+          switch (data.message) {
+            case notificationType.addPost:
+            case notificationType.likePost:
+            case notificationType.deletePost:
+            case notificationType.addComment:
+            case notificationType.deleteComment:
+              dispatch(getAllPostAction() as any);
+              break;
+            case notificationType.following:
+              dispatch(getCurrentUserAction() as any);
+              break;
+            default:
+              break;
+          }
+          dispatch(getNotificationAction() as any);
+        }
+      };
+
+      return () => {
+        // console.log("Cleanup");
+        // Dereference, so it will set up next time
+        clientRef.current = null;
+
+        client.close();
+      };
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typeNotif]);
+  }, [waitingToReconnect]);
 
-  return (
-    <NotificationContext.Provider value={{ notificationType, notifSocket }}>
-      {children}
-    </NotificationContext.Provider>
-  );
+  return <NotificationContext.Provider value={{ clientRef }}>{children}</NotificationContext.Provider>;
 };
 
 export const useNotificationContext = (): ContextPropsType | null => {

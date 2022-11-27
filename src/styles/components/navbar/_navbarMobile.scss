@@ -32,17 +32,17 @@
         background-color: $color3-2;
       }
       svg {
-        width: 100%
+        width: 100%;
       }
       .info-notif {
         height: 18px;
-        min-width: 22px;
-        font-size: 0.8em;
+        min-width: 18px;
+        font-size: 11px;
         font-weight: 500;
         border-radius: 24px;
         background-color: $color3;
         @extend .flex-center;
-        @include position-abs(4px, null, null, 17px, null, null);
+        @include position-abs(5px, null, null, 21px, null, null);
       }
     }
   }

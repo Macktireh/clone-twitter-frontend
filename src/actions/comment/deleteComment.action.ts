@@ -5,8 +5,6 @@ import * as Api from "@/config/apiEndPoint";
 import * as Types from "@/actions/types";
 import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
 import { AxiosError } from "axios";
-import { notifSocket } from "@/config/soket";
-import { notification } from "@/context/NotificationProvider";
 
 const deleteCommentAction =
   (postPublicId: string, public_id: string) => async (dispatch: Dispatch<AnyAction> | any) => {
@@ -50,16 +48,6 @@ const _deleteCommentAction =
       try {
         await Axios.delete(`${Api.commentEndpoint + postPublicId}/${public_id}/`, config);
         dispatch({ type: Types.DELETE_COMMENT_SUCCESS, payload: public_id });
-        setTimeout(() => {
-          let ws = notifSocket;
-          if (ws.readyState === WebSocket.OPEN) {
-            ws.send(
-              JSON.stringify({
-                message: notification.deleteComment
-              })
-            );
-          }
-        }, 1000);
       } catch (error: any) {
         dispatch({ type: Types.DELETE_COMMENT_FAIL });
       }

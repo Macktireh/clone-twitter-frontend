@@ -5,8 +5,6 @@ import * as Api from "@/config/apiEndPoint";
 import * as Types from "@/actions/types";
 import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
 import { AxiosError } from "axios";
-import { notifSocket } from "@/config/soket";
-import { notification } from "@/context/NotificationProvider";
 
 const addNewPostAction = (data: FormData) => async (dispatch: Dispatch<AnyAction> | any) => {
   if (localStorage.getItem("access")) {
@@ -19,16 +17,6 @@ const addNewPostAction = (data: FormData) => async (dispatch: Dispatch<AnyAction
     try {
       const res = await Axios.post(Api.postEndpoint, data, config);
       dispatch({ type: Types.ADD_NEW_POST_SUCCESS, payload: res.data });
-      setTimeout(() => {
-        let ws = notifSocket;
-        if (ws.readyState === WebSocket.OPEN) {
-          ws.send(
-            JSON.stringify({
-              message: notification.addComment,
-            })
-          );
-        }
-      }, 3000);
     } catch (error: unknown) {
       if (error instanceof AxiosError && error.response) {
         if (error.response.status === 401) {
