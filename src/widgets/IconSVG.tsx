@@ -642,7 +642,7 @@ const IconSVG: React.FC<TIconeName> = ({ iconName, fill, nameClass, handleClick 
             </g>
           </svg>
         );
-      case "icon-notif":
+      case "icon-notif-add":
         return (
           <svg
             className={nameClass ? nameClass : ""}

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Layout from "@/components/layout/Layout";
+import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import NavTabs from "@/widgets/NavTabs";
 import CardNotif from "@/components/notification/CardNotif";
@@ -12,7 +12,7 @@ import { IRootState, TTabState, IPropsRootStateType } from "@/models";
 import { INotif } from "../../models/notificationAndChat";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import SpinnersLoding from "@/widgets/SpinnersLoding";
-import getNotificationAction from '@/actions/notification/getNotification.action';
+import getNotificationAction from "@/actions/notification/getNotification.action";
 
 interface propsTypes
   extends Omit<
@@ -21,14 +21,20 @@ interface propsTypes
   > {
   notifications: INotif[] | null;
   getAllUsersAction: () => void;
-  getNotificationAction: () => void;
+  getNotificationAction: (seen?: boolean) => void;
 }
 
 const styleSpinnersLoding: React.CSSProperties = {
   width: "auto",
 };
 
-const Notifications: React.FC<propsTypes> = ({ currentUser, users, notifications, getAllUsersAction, getNotificationAction }) => {
+const Notifications: React.FC<propsTypes> = ({
+  currentUser,
+  users,
+  notifications,
+  getAllUsersAction,
+  getNotificationAction,
+}) => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [activeTab, setActiveTab] = React.useState(1);
   const flag = React.useRef(false);
@@ -46,7 +52,7 @@ const Notifications: React.FC<propsTypes> = ({ currentUser, users, notifications
 
     if (!flag.current) {
       getAllUsersAction();
-      getNotificationAction();
+      getNotificationAction(true);
       flag.current = true;
     }
 
@@ -78,9 +84,11 @@ const Notifications: React.FC<propsTypes> = ({ currentUser, users, notifications
           </section>
           {activeTab === 1 ? (
             <div className="all-notif">
-              {users && notifications && notifications.map((n, i) => (
-                <CardNotif key={i} fromUser={users.filter((u) => u.user.public_id === n.fromId)[0]} />
-              ))}
+              {users &&
+                notifications &&
+                notifications.map((n, i) => (
+                  <CardNotif key={i} notification={n} fromUser={users.filter((u) => u.user.public_id === n.fromId)[0]} />
+                ))}
             </div>
           ) : (
             <div className="montions">
@@ -122,4 +130,6 @@ const mapStateToProps = (state: IRootState) => ({
   notifications: state.notificationReducer,
 });
 
-export default connect(mapStateToProps, { getAllUsersAction, getNotificationAction })(NotificationsConnectWithStore);
+export default connect(mapStateToProps, { getAllUsersAction, getNotificationAction })(
+  NotificationsConnectWithStore
+);

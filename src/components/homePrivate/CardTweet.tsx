@@ -48,7 +48,6 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
             interactive={true}
             delay={0}
             hideOnClick={false}
-            placement="top"
           >
             <div className="tooltip" tabIndex={0}>
               <Link to={pathLinkProfile(authorPost.pseudo)}>

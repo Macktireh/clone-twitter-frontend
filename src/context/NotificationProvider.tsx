@@ -16,7 +16,7 @@ export const notificationType = {
   addComment: "Add_Comment",
   deleteComment: "Delete Comment",
   likeComment: "Like_Comment",
-  following: "Follow_Or_Unfollow",
+  following: "following",
 };
 
 const NotificationContext = React.createContext<ContextPropsType | null>(null);

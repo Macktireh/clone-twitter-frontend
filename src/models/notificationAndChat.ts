@@ -1,5 +1,6 @@
 export interface INotif {
   public_id: string;
+  typeNotif: string;
   fromId: string;
   toId: string;
   postPublicId: string;
