@@ -1,6 +1,5 @@
 import * as Types from "@/actions/types";
-// import { baseURL } from "@/config/axios";
-import { IActionReducer, TNotifReducerType } from "@/models";
+import { IActionReducer, INotif, TNotifReducerType } from "@/models";
 
 const initialState: TNotifReducerType = null;
 
@@ -11,7 +10,18 @@ const notificationReducer = (state: TNotifReducerType = initialState, action: IA
     case Types.GET_NOTIFICATION_SUCCESS:
       return payload;
 
+    case Types.READ_NOTIFICATION_SUCCESS:
+      const notifications = state?.slice();
+      notifications?.filter((notif) => {
+        if (notif.publicId === payload.publicId) {
+          notif.read = true;
+        }
+        return notif;
+      });
+      return notifications as INotif[];
+
     case Types.GET_NOTIFICATION_FAIL:
+    case Types.READ_NOTIFICATION_FAIL:
       return state;
 
     default:

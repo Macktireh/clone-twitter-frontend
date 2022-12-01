@@ -1,11 +1,13 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import IconSVG from "@/widgets/IconSVG";
 import { INotif, IUserProfile } from "@/models";
 import { notificationType } from "@/context/NotificationProvider";
 import { pathLinkPostDetail, pathLinkProfile } from "@/utils/pathRoute";
 import { privateRoutes } from "@/routes/private.routes";
+import readNotificationAction from "@/actions/notification/readNotification.action";
 
 type propsTypes = {
   notification: INotif | null;
@@ -14,6 +16,7 @@ type propsTypes = {
 
 const CardNotif: React.FC<propsTypes> = ({ notification, fromUser }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const iconNotification = (type: string): JSX.Element => {
     switch (type) {
@@ -52,16 +55,16 @@ const CardNotif: React.FC<propsTypes> = ({ notification, fromUser }) => {
     }
   };
 
+  const handleClick = () => {
+    dispatch(readNotificationAction(notification?.publicId as string) as any);
+    notification?.typeNotif === notificationType.following
+      ? navigate(`${pathLinkProfile(fromUser.pseudo)}/${privateRoutes.following.name}`)
+      : notification && navigate(pathLinkPostDetail(fromUser.pseudo, notification.postPublicId));
+  };
+
   return (
     <div className="CardNotif">
-      <div
-        className="click"
-        onClick={() =>
-          notification?.typeNotif === notificationType.following
-            ? navigate(`${pathLinkProfile(fromUser.pseudo)}/${privateRoutes.following.name}`)
-            : notification && navigate(pathLinkPostDetail(fromUser.pseudo, notification.postPublicId))
-        }
-      ></div>
+      <div className="click" onClick={handleClick}></div>
       <div className="warapper">
         <div className="icon">{iconNotification(notification?.typeNotif as string)}</div>
         <div className="content">

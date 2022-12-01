@@ -1,5 +1,4 @@
 import * as Types from "@/actions/types";
-// import { baseURL } from "@/config/axios";
 import { IActionReducer, IPost, TPostReducerType } from "@/models";
 
 const initialState: TPostReducerType = null;
