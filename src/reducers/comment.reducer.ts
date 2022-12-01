@@ -19,7 +19,6 @@ const commentReducer = (state: TCommentReducerType = initialState, action: IActi
         if (post.publicId === payload.publicId) {
           post.message = payload.message;
           post.image = payload.image;
-          // post.image = payload.image ? baseURL + payload.image : payload.image;
         }
         return post;
       });
@@ -46,7 +45,6 @@ const commentReducer = (state: TCommentReducerType = initialState, action: IActi
 
     case Types.ADD_NEW_COMMENT_FAIL:
     case Types.DELETE_COMMENT_FAIL:
-    // case Types.LIKE_OR_UNLIKE_COMMENT_FAIL:
       return state;
 
     case Types.GET_ALL_COMMENT_FAIL:

@@ -1,11 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 
 import IconSVG from "@/widgets/IconSVG";
-
 import { privateRoutes } from "@/routes/private.routes";
+import { INotif, IRootState, IUserProfile } from "@/models";
 
-const NavbarMobile: React.FC = () => {
+type propsTypes = {
+  currentUser: IUserProfile | null;
+  notification: INotif[] | null;
+};
+
+const NavbarMobile: React.FC<propsTypes> = ({ currentUser, notification }) => {
   const [active, setActive] = React.useState("");
 
   const handleActive = (active: string): string => {
@@ -38,6 +44,9 @@ const NavbarMobile: React.FC = () => {
           className={(nav) => (nav.isActive ? handleActive("notification") : "nav-link")}
         >
           <IconSVG iconName={active === "notification" ? "notificationActive" : "notification"} />
+          {notification && notification.filter((n) => n.seen === false).length > 0 && (
+            <div className="info-notif">{notification.filter((n) => n.seen === false).length}</div>
+          )}
         </NavLink>
 
         <NavLink
@@ -52,4 +61,13 @@ const NavbarMobile: React.FC = () => {
   );
 };
 
-export default NavbarMobile;
+const NavbarMobileConnectWithStore: React.FC<propsTypes> = ({ currentUser, notification }) => {
+  return <NavbarMobile currentUser={currentUser} notification={notification} />;
+};
+
+const mapStateToProps = (state: IRootState) => ({
+  currentUser: state.authReducer.currentUser,
+  notification: state.notificationReducer,
+});
+
+export default connect(mapStateToProps, {})(NavbarMobileConnectWithStore);

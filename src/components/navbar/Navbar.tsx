@@ -10,10 +10,14 @@ import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
 import { privateRoutes } from "@/routes/private.routes";
 import { IUserProfile, IRootState } from "@/models";
 import { pathLinkProfile } from "@/utils/pathRoute";
+import { INotif } from "@/models/notificationAndChat";
 
-type propsTypes = { currentUser: IUserProfile | null };
+type propsTypes = {
+  currentUser: IUserProfile | null;
+  notification: INotif[] | null;
+};
 
-const Navbar: React.FC<propsTypes> = ({ currentUser }) => {
+const Navbar: React.FC<propsTypes> = ({ currentUser, notification }) => {
   const [active, setActive] = React.useState("");
 
   const handleActive = (active: string): string => {
@@ -29,7 +33,7 @@ const Navbar: React.FC<propsTypes> = ({ currentUser }) => {
             <img src="/static/svg/twitter.svg" alt="logo" />
           </NavLink>
         </div>
-        <div className="nav__list">
+        <ul className="nav__list">
           <NavLink
             end
             to={privateRoutes.home.path}
@@ -56,6 +60,9 @@ const Navbar: React.FC<propsTypes> = ({ currentUser }) => {
           >
             <IconSVG iconName={active === "notification" ? "notificationActive" : "notification"} />
             <span className={active === "notification" ? "active" : ""}>Notifications</span>
+            {notification && notification.filter((n) => n.seen === false).length > 0 && (
+              <div className="info-notif">{notification.filter((n) => n.seen === false).length}</div>
+            )}
           </NavLink>
 
           <NavLink
@@ -98,7 +105,7 @@ const Navbar: React.FC<propsTypes> = ({ currentUser }) => {
             <IconSVG iconName="more" />
             <span>More</span>
           </div>
-        </div>
+        </ul>
 
         <ButtonAddTweet nameClass="add-tweet-nav" />
       </div>
@@ -110,7 +117,7 @@ const Navbar: React.FC<propsTypes> = ({ currentUser }) => {
         delay={0}
         placement="top-end"
       >
-        <div className="nav-user-container"  tabIndex={0}>
+        <div className="nav-user-container" tabIndex={0}>
           <UserCard currentUser={currentUser} nameClass="nav-user">
             <IconSVG iconName="3-dot" />
           </UserCard>
@@ -120,16 +127,13 @@ const Navbar: React.FC<propsTypes> = ({ currentUser }) => {
   );
 };
 
-const NavbarConnectWithStore: React.FC<propsTypes> = ({ currentUser }) => {
-  return (
-    <>
-      <Navbar currentUser={currentUser} />
-    </>
-  );
+const NavbarConnectWithStore: React.FC<propsTypes> = ({ currentUser, notification }) => {
+  return <Navbar currentUser={currentUser} notification={notification} />;
 };
 
 const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
+  notification: state.notificationReducer,
 });
 
 export default connect(mapStateToProps, {})(NavbarConnectWithStore);

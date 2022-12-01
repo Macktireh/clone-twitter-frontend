@@ -68,9 +68,9 @@ const NavbarMobileLeft: React.FC<PropsTypes> = ({ currentUser, propsContext, dis
             <IconSVG iconName="list" />
             <span>Lists</span>
           </Link>
-          <Link to="" className="nav-link">
+          <Link to={privateRoutes.peopleConnect.path} className="nav-link">
             <IconSVG iconName="twitterCircle" />
-            <span>Twitter Circle</span>
+            <span>People</span>
           </Link>
           <div className="nav-link" onClick={handleLogout}>
             <IconSVG iconName="logout" />

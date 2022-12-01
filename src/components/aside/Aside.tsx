@@ -7,6 +7,7 @@ import Trending from "@/components/aside/Trending";
 import CardFollow from "@/components/follow/CardFollow";
 import FooterPrivate from "@/components/aside/FooterPrivate";
 import getPeopleConnect from "@/actions/follow/getPeopleConnect.action";
+import getNotificationAction from "@/actions/notification/getNotification.action";
 import { privateRoutes } from "@/routes/private.routes";
 import { IPropsRootStateType, IRootState } from "@/models";
 
@@ -17,17 +18,26 @@ interface propsTypes
   > {
   page: string;
   getPeopleConnect: () => void;
+  getNotificationAction: () => void;
 }
 
-const Aside: React.FC<propsTypes> = ({ page, currentUser, peopleConnect, getPeopleConnect }) => {
+const Aside: React.FC<propsTypes> = ({
+  page,
+  currentUser,
+  peopleConnect,
+  getPeopleConnect,
+  getNotificationAction,
+}) => {
   const flag = React.useRef(false);
 
   React.useEffect(() => {
     if (!flag.current) {
       getPeopleConnect();
+      getNotificationAction();
       flag.current = true;
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flag]);
 
   const renderTrendOrFollowing = (render: string): JSX.Element | undefined => {
     if (render === "CardFollow") {
@@ -119,12 +129,14 @@ const AsideConnectWithStore: React.FC<propsTypes> = ({
   currentUser,
   peopleConnect,
   getPeopleConnect,
+  getNotificationAction,
 }) => (
   <Aside
     page={page}
     currentUser={currentUser}
     peopleConnect={peopleConnect}
     getPeopleConnect={getPeopleConnect}
+    getNotificationAction={getNotificationAction}
   />
 );
 
@@ -134,4 +146,4 @@ const mapStateToProps = (state: IRootState) => ({
   peopleConnect: state.followReducer.peopleConnect,
 });
 
-export default connect(mapStateToProps, { getPeopleConnect })(AsideConnectWithStore);
+export default connect(mapStateToProps, { getPeopleConnect, getNotificationAction })(AsideConnectWithStore);

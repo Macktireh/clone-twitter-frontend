@@ -15,7 +15,6 @@ interface propsTypes
   > {}
 
 const Lists: React.FC<propsTypes> = ({ currentUser }) => {
-
   React.useEffect(() => {
     document.title = privateRoutes.lists.title;
   }, []);
