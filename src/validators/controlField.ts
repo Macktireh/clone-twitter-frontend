@@ -2,9 +2,8 @@ const detailPassword =
   "Le mot de passe doit contenir au moins 8 caractères, au moins une lettre majuscule et minuscule, un chiffre et un caractère spécial.";
 const detailConfirmPassword = "Les mots de passe ne correspondent pas";
 
-const regexPasswordValidator =
-  /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/;
 const regexEmailValidator = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+const regexPasswordValidator = /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/;
 
 export const blankValidator = (name: string, value: string) => {
   if (value === "" || value.length < 1 || value === " ") {

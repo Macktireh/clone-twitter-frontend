@@ -2,7 +2,7 @@
   height: 100vh;
   width: 100%;
   display: grid;
-  grid-template-columns: 45% 55%;
+  grid-template-columns: 50% 50%;
   grid-template-rows: 1fr 80px;
   grid-template-areas: "img content" "footer footer";
   padding-bottom: 1rem;
@@ -17,7 +17,7 @@
     background: url("../../../assets/img/lohp_1302x955.png") no-repeat center;
     @extend .flex-center;
     img {
-      width: 55%;
+      width: 50%;
     }
   }
 

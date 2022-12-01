@@ -32,6 +32,7 @@ export interface IRootState {
   postDetailsReducer: IPost;
   commentReducer: TCommentReducerType;
   followReducer: TFollowReducerType;
+  notificationReducer: TNotifReducerType;
 }
 
 export interface IActionReducer {
@@ -48,4 +49,5 @@ export interface IPropsRootStateType {
   following: IFollow[] | null;
   followers: IFollow[] | null;
   peopleConnect: IUser[] | null;
+  // notification: INotif[] | null;
 }

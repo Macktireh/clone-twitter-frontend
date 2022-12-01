@@ -4,8 +4,11 @@ import { connect } from "react-redux";
 import "@/styles/index.scss";
 import Routes from "@/routes";
 import getCurrentUserAction from "@/actions/user/getCurrentUser.action";
+import NotificationProvider from "@/context/NotificationProvider";
 
-type propsTypes = { getCurrentUserAction: () => void };
+type propsTypes = {
+  getCurrentUserAction: () => void;
+};
 
 const App: React.FC<propsTypes> = ({ getCurrentUserAction }) => {
   const [loading, setLoading] = React.useState(true);
@@ -26,7 +29,9 @@ const App: React.FC<propsTypes> = ({ getCurrentUserAction }) => {
       <img src="/static/svg/twitter-blue.svg" alt="" />
     </div>
   ) : (
-    <Routes />
+    <NotificationProvider>
+      <Routes />
+    </NotificationProvider>
   );
 };
 
