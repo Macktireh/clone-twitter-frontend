@@ -1,6 +1,6 @@
 export const DOMAIN = process.env.REACT_APP_DOMAIN_BACKEND
 
-export const urlWebSocket = `ws://${DOMAIN}/ws/notification/`
+export const urlWebSocket = `${DOMAIN}/ws/notification/`
 
 export let notifSocket = "new WebSocket(urlWebSocket)";
 // export let notifSocket = new WebSocket(urlWebSocket);
