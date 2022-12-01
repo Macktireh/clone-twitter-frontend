@@ -70,6 +70,10 @@ const AddNewPost: React.FC<propsTypes> = ({
     if (imageInputRef.current) imageInputRef.current.value = "";
   };
 
+  // const onSubmit = (e: React.FormEvent<HTMLFormElement>) => [
+
+  // ]
+
   return (
     <>
       <div className="AddNewPost">

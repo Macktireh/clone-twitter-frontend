@@ -9,6 +9,8 @@ import getAllFollowersAction from "@/actions/follow/getAllFollowers.action";
 import getCurrentUserAction from "@/actions/user/getCurrentUser.action";
 import getAllUsersAction from "@/actions/user/getAllUsers.action";
 import getPeopleConnect from "@/actions/follow/getPeopleConnect.action";
+import { notificationType, useNotificationContext } from "@/context/NotificationProvider";
+import { pushNotification } from "@/config/soket";
 
 type propsTypes = {
   typeFollow: number;
@@ -18,6 +20,7 @@ type propsTypes = {
 
 const ButtonFollow: React.FC<propsTypes> = ({ typeFollow, userPubblicId, userFollowing }) => {
   const dispatch = useDispatch();
+  const sokect = useNotificationContext();
 
   const handleFollow = async () => {
     await dispatch(addFollowingAction(userPubblicId, userFollowing) as Dispatch<AnyAction> | any);
@@ -26,6 +29,7 @@ const ButtonFollow: React.FC<propsTypes> = ({ typeFollow, userPubblicId, userFol
     dispatch(getPeopleConnect() as Dispatch<AnyAction> | any);
     dispatch(getAllFollowingAction(userPubblicId) as Dispatch<AnyAction> | any);
     dispatch(getAllFollowersAction(userPubblicId) as Dispatch<AnyAction> | any);
+    sokect && setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.following), 2000);
   };
 
   return (

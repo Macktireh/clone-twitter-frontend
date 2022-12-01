@@ -47,3 +47,4 @@ export const peopleConnectEndpoint : string = "/api/people-connect/"
  * Endpoint Notifications
  */
 export const notificationEndpoint : string = "/api/notifications/"
+export const notificationSeenEndpoint : string = "/api/notifications/seen/"

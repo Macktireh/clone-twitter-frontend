@@ -9,7 +9,9 @@ import updateCommentAction from "@/actions/comment/updateComment.action";
 import addNewCommentAction from "@/actions/comment/addNewComment.action";
 import deleteCommentAction from "@/actions/comment/deleteComment.action";
 import getAllPostAction from "@/actions/post/getAllPost.action";
-import { IUserProfile, IRootState, } from "@/models";
+import { IUserProfile, IRootState } from "@/models";
+import { notificationType, useNotificationContext } from "@/context/NotificationProvider";
+import { pushNotification } from "@/config/soket";
 
 export type bodyPostStateType = { bodyPost: string; setBodyPost: (value: string) => void };
 export type emojiPostStateType = { chosenEmojiPost: boolean; setChosenEmojiPost: (value: boolean) => void };
@@ -88,6 +90,7 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
   const posts = useSelector((state: IRootState) => state.postReducer);
   const comments = useSelector((state: IRootState) => state.commentReducer);
   const dispatch = useDispatch();
+  const sokect = useNotificationContext();
 
   // Post State
   const [modalActivePost, setModalActivePost] = React.useState<boolean>(false);
@@ -291,6 +294,7 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
       }
     }
     handleDiscardPost();
+    sokect && setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.addPost), 2000);
   };
 
   const handleDeletePost = async () => {
@@ -298,6 +302,8 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
       dispatch(deletePostAction(postPublicId) as any);
       popupActiveDeletePost && setPopupActiveDeletePost(!popupActiveDeletePost);
       setPostPublicId("");
+      sokect &&
+        setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.deletePost), 2000);
     }
   };
 
@@ -326,9 +332,9 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
   ******************************************************************************************/
   const resetImageComment = async () => {
     // await setImageComment(null);
-    setTimeout(() => setImageComment(null), 200)
+    setTimeout(() => setImageComment(null), 200);
     await setEditImageComment(null);
-    setImagePreviewComment(null)
+    setImagePreviewComment(null);
   };
 
   const onEmojiClickComment = (e: React.MouseEvent<Element, MouseEvent>, emojiObject: IEmojiData) => {
@@ -421,6 +427,7 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
       dispatch(getAllPostAction() as any);
     }
     handleDiscardComment();
+    sokect && setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.addComment), 2000);
   };
 
   const handleDeleteComment = async () => {
@@ -429,6 +436,8 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
       dispatch(getAllPostAction() as any);
       popupActiveDeleteComment && setPopupActiveDeleteComment(!popupActiveDeleteComment);
       setCommentPublicId("");
+      sokect &&
+        setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.deleteComment), 2000);
     }
   };
 

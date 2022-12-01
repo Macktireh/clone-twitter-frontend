@@ -16,7 +16,6 @@ interface propsTypes
   > {}
 
 const Explore: React.FC<propsTypes> = ({ currentUser }) => {
-
   React.useEffect(() => {
     document.title = privateRoutes.explore.title;
   }, []);
