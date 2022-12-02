@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import getNotificationAction from "@/actions/notification/getNotification.action";
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getCurrentUserAction from "@/actions/user/getCurrentUser.action";
-import { urlWebSocket } from "@/config/soket";
+import { urlWebSocketNotification } from "@/config/soket";
 
 type ContextPropsType = { clientRef: any };
 
@@ -35,7 +35,7 @@ const NotificationProvider = ({ children }: React.PropsWithChildren) => {
 
     // Only set up the websocket once
     if (!clientRef.current) {
-      const client = new WebSocket(urlWebSocket);
+      const client = new WebSocket(urlWebSocketNotification);
       clientRef.current = client;
 
       // window.client = client;
