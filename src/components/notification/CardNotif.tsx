@@ -63,7 +63,7 @@ const CardNotif: React.FC<propsTypes> = ({ notification, fromUser }) => {
   };
 
   return (
-    <div className="CardNotif">
+    <div className={notification?.read ? "CardNotif": "CardNotif no-read"}>
       <div className="click" onClick={handleClick}></div>
       <div className="warapper">
         <div className="icon">{iconNotification(notification?.typeNotif as string)}</div>
