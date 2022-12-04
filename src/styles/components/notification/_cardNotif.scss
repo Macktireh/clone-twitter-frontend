@@ -1,0 +1,86 @@
+.CardNotif {
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid $color7;
+  transition: background-color 0.2s ease-in-out;
+  &:hover {
+    background-color: $color9;
+  }
+
+  .warapper {
+    @include flex(row, flex-start, flex-start);
+    padding: 0.8rem;
+    cursor: pointer;
+
+    .icon {
+      width: 70px;
+      height: 100%;
+      @include flex(row, center, flex-start);
+
+      svg,
+      img {
+        width: 34px;
+      }
+    }
+
+    .content {
+      width: 100%;
+      @include flex(column, flex-start, flex-start);
+      gap: 6px;
+
+      .box-img {
+        width: 100%;
+        @include flex(row, space-between, flex-start);
+
+        img {
+          width: 40px;
+          border-radius: 50%;
+          position: relative;
+          z-index: 1;
+        }
+
+        .svg-icon {
+          position: relative;
+          z-index: 1;
+          width: 26px;
+          height: 26px;
+          @extend .flex-center;
+          border-radius: 50%;
+          transition: all 0.1s ease-in-out;
+          border: 1px solid transparent;
+          &:hover {
+            background-color: rgba($color3, 0.1);
+            border-color: rgba($color3, 0.4);
+          }
+          svg {
+            width: 100%;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .box-msg {
+      p {
+        color: $color5;
+        word-break: break-word;
+        white-space: pre-line;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  .click {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    cursor: pointer;
+  }
+}
+.CardNotif.no-read {
+  background-color: $color3-2;
+}

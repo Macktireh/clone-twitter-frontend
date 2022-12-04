@@ -162,12 +162,12 @@
   .main-messages {
     width: 80%;
     @include flex(row, center, center);
-    @media (max-width: 1020px) {
-      width: 70%;
-    }
-    @media (max-width: 600px) {
-      width: 76%;
-    }
+    // @media (max-width: 1020px) {
+    //   width: 70%;
+    // }
+    // @media (max-width: 600px) {
+    //   width: 76%;
+    // }
     @media (max-width: 500px) {
       width: 100%;
     }
@@ -175,6 +175,9 @@
     .inbox {
       width: 40%;
       @media (max-width: 1020px) {
+        width: 46%;
+      }
+      @media (max-width: 920px) {
         width: 100%;
       }
     }
@@ -184,6 +187,9 @@
       height: 100%;
       border-right: 1px solid $color7;
       @media (max-width: 1020px) {
+        width: 54%;
+      }
+      @media (max-width: 920px) {
         display: none;
       }
     }

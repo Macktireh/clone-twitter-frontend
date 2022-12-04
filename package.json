@@ -1,7 +1,31 @@
 {
   "name": "clone-twitter-frontend",
   "version": "0.1.0",
+  "main": "public/main.js",
+  "homepage": "./",
   "private": true,
+  "author": "Mack AS",
+  "description": "My fantastic Electron app",
+  "build": {
+    "appId": "com.clone.twitter",
+    "productName": "Clone Twitter",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "public"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "deb"
+    }
+  },
   "dependencies": {
     "@craco/craco": "^7.0.0-alpha.7",
     "@testing-library/jest-dom": "^5.16.4",
@@ -32,14 +56,28 @@
     "redux-thunk": "^2.4.1",
     "sass": "^1.54.0",
     "tippy.js": "^6.3.7",
+    "ts-jest": "^29.0.3",
     "typescript": "^4.7.4",
     "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "cross-env": "^7.0.3",
+    "electron": "^22.0.0",
+    "electron-builder": "^23.6.0",
+    "wait-on": "^6.0.1"
   },
   "scripts": {
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "craco eject"
+    "eject": "react-scripts eject",
+    "electron:serve": "concurrently -k \"cross-env BROWSER=none npm start\" \"npm run electron:start\"",
+    "electron:build": "react-scripts eject",
+    "electron:start": "wait-on tcp:3000 && electron .",
+    "electron:package:mac": "npm run build && electron-builder -m -c.extraMetadata.main=build/main.js",
+    "electron:package:win": "npm run build && electron-builder -w -c.extraMetadata.main=build/main.js",
+    "electron:package:linux": "npm run build && electron-builder -l -c.extraMetadata.main=build/main.js"
   },
   "eslintConfig": {
     "extends": [

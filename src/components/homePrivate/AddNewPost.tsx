@@ -17,6 +17,7 @@ import {
 import { Link } from "react-router-dom";
 import { pathLinkProfile } from "@/utils/pathRoute";
 import { bodyPostStateType, editBodyPostStateType, emojiPostStateType, imagePostStateType, imagePreviewPostStateType, useTweetComment } from "@/context/TweetCommentProvider";
+import Tippy from "@tippyjs/react";
 
 type propsTypes = {
   nameClass: string;
@@ -118,7 +119,7 @@ const AddNewPost: React.FC<propsTypes> = ({
               </label>
               <IconSVG iconName="gif" fill="#1d9bf0" />
               <IconSVG iconName="pol" fill="#1d9bf0" />
-              {/* <Tippy
+              <Tippy
                 content={
                   <div className="emojiPicker">
                     <Picker onEmojiClick={onEmojiClick} searchPlaceholder="Search Emoji" />
@@ -127,18 +128,18 @@ const AddNewPost: React.FC<propsTypes> = ({
                 interactive={true}
                 trigger="click"
                 delay={0}
-                placement="top-end"
+                // placement="bottom"
                 // hideOnClick={false}:
               >
-                <div style={{ position: "relative" }}> */}
+                <div style={{ position: "relative" }}>
               <IconSVG
                 iconName="emoji"
                 nameClass="emoji"
                 fill="#1d9bf0"
                 handleClick={() => emojiState.setChosenEmojiPost(!emojiState.chosenEmojiPost)}
               />
-              {/* </div>
-              </Tippy> */}
+              </div>
+              </Tippy>
               <IconSVG iconName="schedule" fill="#1d9bf0" />
             </div>
             <div className="box-btn">
