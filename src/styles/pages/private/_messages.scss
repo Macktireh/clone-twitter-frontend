@@ -4,6 +4,9 @@
   margin-top: 40vh;
   @include flex(column, flex-start, flex-start);
   gap: 0.5rem;
+  @media (max-width: 1000px) {
+    width: 90%;
+  }
   h2 {
     font-size: 32px;
     font-weight: 800;
