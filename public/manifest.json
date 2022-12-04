@@ -8,26 +8,8 @@
   "start_url": "/",
   "icons": [
     {
-      "src": "static/maskable/maskable_icon_x48.png",
-      "sizes": "48x48",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "static/maskable/maskable_icon_x72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "static/maskable/maskable_icon_x128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
       "src": "static/maskable/maskable_icon_x384.png",
-      "sizes": "384x384",
+      "sizes": "196x196",
       "type": "image/png",
       "purpose": "any maskable"
     },
