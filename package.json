@@ -65,15 +65,16 @@
     "cross-env": "^7.0.3",
     "electron": "^22.0.0",
     "electron-builder": "^23.6.0",
+    "serve": "^14.1.2",
     "wait-on": "^6.0.1"
   },
   "scripts": {
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
+    "prod": "npm run build && serve -s build",
     "eject": "react-scripts eject",
     "electron:serve": "concurrently -k \"cross-env BROWSER=none npm start\" \"npm run electron:start\"",
-    "electron:build": "react-scripts eject",
     "electron:start": "wait-on tcp:3000 && electron .",
     "electron:package:mac": "npm run build && electron-builder -m -c.extraMetadata.main=build/main.js",
     "electron:package:win": "npm run build && electron-builder -w -c.extraMetadata.main=build/main.js",

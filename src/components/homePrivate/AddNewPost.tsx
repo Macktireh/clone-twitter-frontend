@@ -1,23 +1,20 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
 import Picker, { IEmojiData } from "emoji-picker-react";
-// import Tippy from "@tippyjs/react";
 
 import IconSVG from "@/widgets/IconSVG";
 import ButtonCoustom from "@/widgets/ButtonCustom";
-import {
-  // bodyStateType,
-  // emojiStateType,
-  IUserProfile,
-  // imagePreviewStateType,
-  // imageStateType,
-  // editBodyStateType,
-} from "@/models";
-// import { useTweet } from "@/context/TweetProvider";
-import { Link } from "react-router-dom";
+import { IUserProfile } from "@/models";
 import { pathLinkProfile } from "@/utils/pathRoute";
-import { bodyPostStateType, editBodyPostStateType, emojiPostStateType, imagePostStateType, imagePreviewPostStateType, useTweetComment } from "@/context/TweetCommentProvider";
-import Tippy from "@tippyjs/react";
+import {
+  bodyPostStateType,
+  editBodyPostStateType,
+  emojiPostStateType,
+  imagePostStateType,
+  imagePreviewPostStateType,
+  useTweetComment,
+} from "@/context/TweetCommentProvider";
 
 type propsTypes = {
   nameClass: string;
@@ -48,10 +45,6 @@ const AddNewPost: React.FC<propsTypes> = ({
   handleSubmit,
   resetImage,
 }) => {
-  // const { body, setBody } = bodyState;
-  // const { chosenEmoji, setChosenEmoji } = emojiState;
-  // const { image, handleChangeImage } = imageState;
-  // const { editBody, setEditBody } = editBodyState;
   const imageInputRef = React.useRef<HTMLInputElement>(null);
 
   const textareaAutoSize = (el: HTMLElement) => {
@@ -71,10 +64,6 @@ const AddNewPost: React.FC<propsTypes> = ({
     if (imageInputRef.current) imageInputRef.current.value = "";
   };
 
-  // const onSubmit = (e: React.FormEvent<HTMLFormElement>) => [
-
-  // ]
-
   return (
     <>
       <div className="AddNewPost">
@@ -90,7 +79,9 @@ const AddNewPost: React.FC<propsTypes> = ({
               placeholder="What's happening?"
               value={isEditState.isEditingPost ? editBodyState.editBodyPost : bodyState.bodyPost}
               onChange={(e) =>
-                isEditState.isEditingPost ? editBodyState.setEditBodyPost(e.target.value) : bodyState.setBodyPost(e.target.value)
+                isEditState.isEditingPost
+                  ? editBodyState.setEditBodyPost(e.target.value)
+                  : bodyState.setBodyPost(e.target.value)
               }
             />
             {imagePreviewState.imagePreviewPost && (
@@ -119,7 +110,7 @@ const AddNewPost: React.FC<propsTypes> = ({
               </label>
               <IconSVG iconName="gif" fill="#1d9bf0" />
               <IconSVG iconName="pol" fill="#1d9bf0" />
-              <Tippy
+              {/* <Tippy
                 content={
                   <div className="emojiPicker">
                     <Picker onEmojiClick={onEmojiClick} searchPlaceholder="Search Emoji" />
@@ -131,15 +122,15 @@ const AddNewPost: React.FC<propsTypes> = ({
                 // placement="bottom"
                 // hideOnClick={false}:
               >
-                <div style={{ position: "relative" }}>
+                <div style={{ position: "relative" }}> */}
               <IconSVG
                 iconName="emoji"
                 nameClass="emoji"
                 fill="#1d9bf0"
                 handleClick={() => emojiState.setChosenEmojiPost(!emojiState.chosenEmojiPost)}
               />
-              </div>
-              </Tippy>
+              {/* </div>
+              </Tippy> */}
               <IconSVG iconName="schedule" fill="#1d9bf0" />
             </div>
             <div className="box-btn">
@@ -159,7 +150,9 @@ const AddNewPost: React.FC<propsTypes> = ({
           </div>
 
           <div className="emojiPicker">
-            {emojiState.chosenEmojiPost && <Picker onEmojiClick={onEmojiClick} searchPlaceholder="Search Emoji" />}
+            {emojiState.chosenEmojiPost && (
+              <Picker onEmojiClick={onEmojiClick} searchPlaceholder="Search Emoji" />
+            )}
           </div>
         </form>
       </div>
@@ -176,7 +169,10 @@ const AddNewPostLogical: React.FC<PropsLogicalType> = ({ nameClass }) => {
   const emojiState = propsContext?.emojiPostState as emojiPostStateType;
   const imageState = propsContext?.imagePostState as imagePostStateType;
   const imagePreviewState = propsContext?.imagePreviewPostState as imagePreviewPostStateType;
-  const isEditState = propsContext?.isEditPostState as { isEditingPost: boolean; setIsEditingPost: () => void };
+  const isEditState = propsContext?.isEditPostState as {
+    isEditingPost: boolean;
+    setIsEditingPost: () => void;
+  };
   const editBodyState = propsContext?.editBodyPostState as editBodyPostStateType;
   const editImage = propsContext?.editImagePost as File | null;
   const onEmojiClick = propsContext?.onEmojiClickPost as (
