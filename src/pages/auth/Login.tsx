@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import ModalAuth from "@/components/auth/ModalAuth";
 import InputCustom from "@/widgets/InputCustom";
-import ButtonCoustom from "@/widgets/ButtonCustom";
+import ButtonCustom from "@/widgets/ButtonCustom";
 import useLogin from "@/hooks/UseLogin";
 import loginAction from "@/actions/auth/login.action";
 import { IAuthLogin } from "@/models";
@@ -38,44 +38,62 @@ const Login: React.FC<propsTypes> = ({ loginAction }) => {
 
   return (
     <ModalAuth title="Connectez-vous à Clone Twitter" loading={loading} disabled={disabled}>
-      <form onSubmit={onSubmit}>
-        {displayError && (
-          <div className="error-auth">
-            <img src="/static/svg/error.svg" alt="icon error" />
-            <span>{detailError}</span>
-          </div>
-        )}
-        <InputCustom
-          id="email"
-          name="email"
-          type="email"
-          label="Email"
-          onChange={handleChange}
-          value={email}
-        />
-        <InputCustom
-          id="password"
-          name="password"
-          type="password"
-          label="Mot de passe"
-          onChange={handleChange}
-          isPasswords={true}
-          value={password}
-        />
-        <ButtonCoustom nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
-        <div className="info">
-          <h4>
-            Mot de passe ? 
-            <Link to={disabled ? "" : authRoutes.requestResetPassword.path}> Cliquer ici</Link>
-          </h4>
-          <h4>
-            Vous n'avez pas de compte ?
-            <Link to={disabled ? "" : authRoutes.signup.path}> Inscrivez-vous</Link>
-            <br />
-            <br />
-          </h4>
+      <div className="container-login">
+        <div className="box-social-auth">
+          <ButtonCustom
+            nameClass={"btn-signup-ext"}
+            pic={"/static/svg/google.svg"}
+            text={"Se connecter avec Google"}
+          />
+          <ButtonCustom
+            nameClass={"btn-signup-ext"}
+            pic={"/static/svg/apple.svg"}
+            text={"Se connecter avec Apple"}
+          />
         </div>
-      </form>
+        <div className="sep">
+          <hr />
+          <span>ou</span>
+        </div>
+        <form onSubmit={onSubmit}>
+          {displayError && (
+            <div className="error-auth">
+              <img src="/static/svg/error.svg" alt="icon error" />
+              <span>{detailError}</span>
+            </div>
+          )}
+          <InputCustom
+            id="email"
+            name="email"
+            type="email"
+            label="Email"
+            onChange={handleChange}
+            value={email}
+          />
+          <InputCustom
+            id="password"
+            name="password"
+            type="password"
+            label="Mot de passe"
+            onChange={handleChange}
+            isPasswords={true}
+            value={password}
+          />
+          <ButtonCustom nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
+          <div className="info">
+            <h4>
+              Mot de passe ?
+              <Link to={disabled ? "" : authRoutes.requestResetPassword.path}> Cliquer ici</Link>
+            </h4>
+            <h4>
+              Vous n'avez pas de compte ?
+              <Link to={disabled ? "" : authRoutes.signup.path}> Inscrivez-vous</Link>
+              <br />
+              <br />
+            </h4>
+          </div>
+        </form>
+      </div>
     </ModalAuth>
   );
 };

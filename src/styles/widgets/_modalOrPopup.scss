@@ -17,7 +17,7 @@
     padding-bottom: 2rem;
     background-color: $color1;
     border-radius: 10px;
-    margin-top: 50px;
+    margin: auto;
     z-index: 5;
     overflow-y: scroll;
     @include flex(column, flex-start, flex-start);
