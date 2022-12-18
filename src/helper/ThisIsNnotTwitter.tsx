@@ -11,7 +11,7 @@ const ThisIsNnotTwitter: React.FC = () => {
   const setStateIsNotTwitter = () => propsContext && propsContext.setStateIsNotTwitter()
 
   return (
-    <div className="CGU-container">
+    <div className="CGU-container" style={{ position: "absolute", width: "100%", height: "100%"}}>
       <Popup
         popupActive={propsContext?.isNotTwitter ? false : true}
         popupTitle="Dit is niet de website van Twitter"
