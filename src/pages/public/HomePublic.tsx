@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import Button from "@/widgets/ButtonCustom";
+import ButtonCustom from "@/widgets/ButtonCustom";
 import { authRoutes } from "@/routes/auth.routes";
 
 const HomePublic: React.FC = () => {
@@ -21,12 +21,12 @@ const HomePublic: React.FC = () => {
         </div>
         <div className="frame-btn-connexion">
           <div className="frame1">
-            <Button
+            <ButtonCustom
               nameClass={"btn-signup-ext"}
               pic={"/static/svg/google.svg"}
               text={"S'inscrire avec Google"}
             />
-            <Button
+            <ButtonCustom
               nameClass={"btn-signup-ext"}
               pic={"/static/svg/apple.svg"}
               text={"S'inscrire avec Apple"}
@@ -37,7 +37,7 @@ const HomePublic: React.FC = () => {
             </div>
             <div className="frame-signup-int">
               <Link to={authRoutes.signup.path}>
-                <Button nameClass={"btn-signup-int"} text={"S'inscrire avec email et password"} />
+                <ButtonCustom nameClass={"btn-signup-int"} text={"S'inscrire avec email et password"} />
               </Link>
               <p>
                 En vous inscrivant, vous acceptez les
@@ -52,7 +52,7 @@ const HomePublic: React.FC = () => {
           <div className="frame-signin">
             <h4>Vous avez déjà un compte ?</h4>
             <Link to={authRoutes.login.path}>
-              <Button nameClass={"btn-signin"} text={"Se connecter"} />
+              <ButtonCustom nameClass={"btn-signin"} text={"Se connecter"} />
             </Link>
           </div>
         </div>

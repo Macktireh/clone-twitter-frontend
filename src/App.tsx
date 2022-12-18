@@ -5,6 +5,7 @@ import "@/styles/index.scss";
 import Routes from "@/routes";
 import getCurrentUserAction from "@/actions/user/getCurrentUser.action";
 import NotificationProvider from "@/context/NotificationProvider";
+import ThisIsNnotTwitter from "@/helper/ThisIsNnotTwitter";
 
 type propsTypes = {
   getCurrentUserAction: () => void;
@@ -30,6 +31,7 @@ const App: React.FC<propsTypes> = ({ getCurrentUserAction }) => {
     </div>
   ) : (
     <NotificationProvider>
+      <ThisIsNnotTwitter />
       <Routes />
     </NotificationProvider>
   );
