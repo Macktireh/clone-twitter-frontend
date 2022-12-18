@@ -47,6 +47,9 @@ const CardNotif: React.FC<propsTypes> = ({ notification, fromUser }) => {
       case notificationType.likeComment:
         return "liked your ReTweet";
 
+      case notificationType.addComment:
+        return "added a retweet to your Tweet";
+
       case notificationType.following:
         return "follow you";
 
@@ -63,7 +66,7 @@ const CardNotif: React.FC<propsTypes> = ({ notification, fromUser }) => {
   };
 
   return (
-    <div className={notification?.read ? "CardNotif": "CardNotif no-read"}>
+    <div className={notification?.read ? "CardNotif" : "CardNotif no-read"}>
       <div className="click" onClick={handleClick}></div>
       <div className="warapper">
         <div className="icon">{iconNotification(notification?.typeNotif as string)}</div>
@@ -82,7 +85,12 @@ const CardNotif: React.FC<propsTypes> = ({ notification, fromUser }) => {
             )}`}</strong>
           </div>
           <div className="box-msg">
-            <p>{notification?.post}</p>
+            <p>
+              {notification?.typeNotif === notificationType.likeComment ||
+              notification?.typeNotif === notificationType.addComment
+                ? notification.comment
+                : notification?.post}
+            </p>
           </div>
         </div>
       </div>

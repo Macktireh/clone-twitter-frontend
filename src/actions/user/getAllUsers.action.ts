@@ -3,7 +3,7 @@ import { AnyAction, Dispatch } from "redux";
 import Axios from "@/config/axios";
 import * as Api from "@/config/apiEndPoint";
 import * as Types from "@/actions/types";
-import checkAuthenticatedAction from "../auth/checkAuthenticated.action";
+import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
 
 const getAllUsersAction = () => async (dispatch: Dispatch<AnyAction> | any) => {
   if (localStorage.getItem("access")) {

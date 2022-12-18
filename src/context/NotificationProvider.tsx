@@ -7,7 +7,12 @@ import getAllPostAction from "@/actions/post/getAllPost.action";
 import getCurrentUserAction from "@/actions/user/getCurrentUser.action";
 import { urlWebSocketNotification } from "@/config/soket";
 
-type ContextPropsType = { clientRef: any };
+type ContextPropsType = { 
+  clientRef: any; 
+  isNotTwitter: boolean;
+  IUnderstandthiswebsiteIsNotTwitter: () => void;
+  setStateIsNotTwitter: () => void;
+};
 
 export const notificationType = {
   addPost: "Add_Post",
@@ -27,6 +32,28 @@ const NotificationProvider = ({ children }: React.PropsWithChildren) => {
   const clientRef = React.useRef<any>(null);
   const [waitingToReconnect, setWaitingToReconnect] = React.useState<boolean | null>(null);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isNotTwitter, setIsNotTwitter] = React.useState<boolean>(true);
+
+  const IUnderstandthiswebsiteIsNotTwitter = () => {
+    localStorage.setItem("thiswebsiteIsNotTwitter", "I understand");
+    setIsNotTwitter(true);
+  }
+
+  const setStateIsNotTwitter = () => setIsNotTwitter(false);
+
+  React.useEffect(() => {
+    if (localStorage.getItem("thiswebsiteIsNotTwitter")) {
+      const thiswebsiteIsNotTwitter = localStorage.getItem("thiswebsiteIsNotTwitter");
+
+      if (thiswebsiteIsNotTwitter === "I understand") {
+        setIsNotTwitter(true);
+      } else {
+        setIsNotTwitter(false);
+      }
+    } else {
+      setIsNotTwitter(false);
+    }
+  }, [isNotTwitter]);
 
   React.useEffect(() => {
     if (waitingToReconnect) {
@@ -108,7 +135,11 @@ const NotificationProvider = ({ children }: React.PropsWithChildren) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [waitingToReconnect]);
 
-  return <NotificationContext.Provider value={{ clientRef }}>{children}</NotificationContext.Provider>;
+  return (
+    <NotificationContext.Provider value={{ clientRef, isNotTwitter, IUnderstandthiswebsiteIsNotTwitter, setStateIsNotTwitter }}>
+      {children}
+    </NotificationContext.Provider>
+  );
 };
 
 export const useNotificationContext = (): ContextPropsType | null => {

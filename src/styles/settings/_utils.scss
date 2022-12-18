@@ -5,3 +5,11 @@
     background-color: $red;
   }
 }
+
+.btn-ok {
+  background-color: rgba($color3, 0.9);
+  border-color: $color3;
+  &:hover {
+    background-color: $color3;
+  }
+}
