@@ -13,7 +13,7 @@ const logoutAction = (public_id: string) => async (dispatch: Dispatch<AnyAction>
         Accept: "application/json",
       },
     };
-    const body = JSON.stringify({ public_id });
+    const body = JSON.stringify({ public_id, refresh: localStorage.getItem("refresh") });
     try {
       await Axios.post(Api.logoutEndpoint, body, config);
       dispatch({ type: Types.LOGOUT });
@@ -30,4 +30,5 @@ const logoutAction = (public_id: string) => async (dispatch: Dispatch<AnyAction>
     dispatch({ type: Types.GET_ALL_POST_FAIL });
   }
 };
+
 export default logoutAction;
