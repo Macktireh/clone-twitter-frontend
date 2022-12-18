@@ -116,3 +116,10 @@ export const GET_NOTIFICATION_FAIL: string = "GET_NOTIFICATION_FAIL";
 
 export const READ_NOTIFICATION_SUCCESS: string = "READ_NOTIFICATION_SUCCESS";
 export const READ_NOTIFICATION_FAIL: string = "READ_NOTIFICATION_FAIL";
+
+
+/**********************************
+* I understand this is not twitter
+**/
+export const I_UNDERSTAND_THIS_IS_NOT_TWITTER_SUCCES: string = "I_UNDERSTAND_THIS_IS_NOT_TWITTER_SUCCES";
+export const I_UNDERSTAND_THIS_IS_NOT_TWITTER_FAIL: string = "I_UNDERSTAND_THIS_IS_NOT_TWITTER_FAIL";

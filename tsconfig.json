@@ -1,11 +1,8 @@
 {
+  "extends": "./tsconfig.path.json",
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -21,5 +18,4 @@
     "jsx": "react-jsx"
   },
   "include": ["src"]
-  // "extends": "./tsconfig.paths.json"
 }
