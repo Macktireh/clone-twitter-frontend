@@ -1,5 +1,5 @@
 .AddNewPost {
-  @include flex(row, space-between, center);
+  @include flex(row, space-between, flex-start);
   flex-basis: 100%;
   gap: 0.5rem;
   padding: 4px;
@@ -119,7 +119,7 @@
 .emojiPicker {
   width: 55px;
   position: absolute;
-  top: 95%;
+  top: 100%;
   z-index: 2;
 }
 
