@@ -43,7 +43,7 @@ export type imagePreviewCommentStateType = {
   setImagePreviewComment: (value: string) => void;
 };
 
-type ContextPropsType = {
+export type TweetCommentContextPropsType = {
   currentUser: IUserProfile | null;
   // Post ContextProps
   modalPost: { modalActivePost: boolean; setModalActivePost: () => void };
@@ -83,7 +83,7 @@ type ContextPropsType = {
   handleCloseModalComment: () => void;
 };
 
-const TweetCommentContext = React.createContext<ContextPropsType | null>(null);
+const TweetCommentContext = React.createContext<TweetCommentContextPropsType | null>(null);
 
 const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
   const currentUser = useSelector((state: IRootState) => state.authReducer.currentUser);
@@ -502,7 +502,7 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
           handleDiscardComment,
           handleDeleteComment,
           handleCloseModalComment,
-        } as ContextPropsType
+        } as TweetCommentContextPropsType
       }
     >
       {children}
@@ -510,7 +510,7 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
   );
 };
 
-export const useTweetComment = (): ContextPropsType | null => {
+export const useTweetComment = (): TweetCommentContextPropsType | null => {
   return React.useContext(TweetCommentContext);
 };
 
