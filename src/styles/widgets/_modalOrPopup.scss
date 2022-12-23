@@ -25,6 +25,7 @@
     @media (max-width: 600px) {
       max-height: none;
       margin-top: 0;
+      border-radius: 0;
     }
 
     .modal-header {
@@ -88,8 +89,29 @@
 
     .modal-content {
       width: 100%;
-      display: flex;
       padding: 0 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .replying {
+        width: 100%;
+        padding: 0 0 0 32px;
+        @include flex(row, flex-start, center);
+        gap: 3rem;
+
+        .line-v {
+          width: 3px;
+          height: 50px;
+          background-color: $color7;
+        }
+        p {
+          color: $color5;
+          span {
+            color: $color3
+          }
+        }
+      }
     }
   }
   .modal-container.addTweet.addTweetHeight {

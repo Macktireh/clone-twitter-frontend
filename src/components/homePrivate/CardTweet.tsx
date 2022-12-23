@@ -15,9 +15,10 @@ type propsTypes = {
   currentUser: IUserProfile | null;
   post: IPost | null;
   users: IUserProfile[] | null;
+  displayImageIcons?: boolean;
 };
 
-const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
+const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users, displayImageIcons }) => {
   const [authorPost, setAuthorPost] = React.useState<IUserProfile | null>();
   const [tweet, setTweet] = React.useState<IPost | null>();
   const navigate = useNavigate();
@@ -48,6 +49,7 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
             interactive={true}
             delay={0}
             hideOnClick={false}
+            disabled={displayImageIcons ? true : false}
           >
             <div className="tooltip" tabIndex={0}>
               <Link to={pathLinkProfile(authorPost.pseudo)}>
@@ -96,7 +98,7 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
                 </div>
               )}
               {tweet.image && (
-                <div className="post-img">
+                <div className="post-img" style={{ display: displayImageIcons ? "none" : "block"}}>
                   <img
                     src={tweet.image}
                     // src={tweet.image.includes(baseURL as string) ? tweet.image : baseURL + tweet.image}
@@ -113,7 +115,7 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users }) => {
               <div className="skeleton-anim image"></div>
             </>
           )}
-          <div className="post-footer">
+          <div className="post-footer" style={{ display: displayImageIcons ? "none" : "flex"}}>
             <ButtonAddComment post={tweet as IPost} isDisplayNumComments={true} />
             {/* <div className="reply post-icon">
               <IconSVG iconName="reply" fill="#919090" />
