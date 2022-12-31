@@ -7,6 +7,7 @@ import LikePostButton from "@/components/homePrivate/LikePostButton";
 import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard";
 import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
 import ButtonAddComment from "@/components/postDetails/ButtonAddComment";
+import BookmarkButton from "@/components/bookmark/BookmarkButton";
 import { IUserProfile, IPost } from "@/models";
 import { dateParserCreated, timeSince } from "@/utils/dateParser";
 import { pathLinkPostDetail, pathLinkProfile } from "@/utils/pathRoute";
@@ -98,7 +99,7 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users, displayImag
                 </div>
               )}
               {tweet.image && (
-                <div className="post-img" style={{ display: displayImageIcons ? "none" : "block"}}>
+                <div className="post-img" style={{ display: displayImageIcons ? "none" : "block" }}>
                   <img
                     src={tweet.image}
                     // src={tweet.image.includes(baseURL as string) ? tweet.image : baseURL + tweet.image}
@@ -115,12 +116,8 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users, displayImag
               <div className="skeleton-anim image"></div>
             </>
           )}
-          <div className="post-footer" style={{ display: displayImageIcons ? "none" : "flex"}}>
+          <div className="post-footer" style={{ display: displayImageIcons ? "none" : "flex" }}>
             <ButtonAddComment post={tweet as IPost} isDisplayNumComments={true} />
-            {/* <div className="reply post-icon">
-              <IconSVG iconName="reply" fill="#919090" />
-              <span>{tweet?.numberComments}</span>
-            </div> */}
             <div className="retweet post-icon">
               <IconSVG iconName="retweet" fill="#919090" />
               <span>18</span>
@@ -131,9 +128,7 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users, displayImag
               post={tweet as IPost}
               isDisplayNumLike={true}
             />
-            <div className="share post-icon">
-              <IconSVG iconName="share" fill="#919090" />
-            </div>
+            <BookmarkButton currentUser={currentUser} post={tweet as IPost} />
           </div>
         </div>
       </div>
