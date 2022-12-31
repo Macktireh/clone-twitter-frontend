@@ -28,20 +28,21 @@ export const RESET_PASSWORD_FAIL: string = "RESET_PASSWORD_FAIL";
 export const LOGOUT: string = "LOGOUT";
 
 /**********************************
-* Types Action User
-**/
+ * Types Action User
+ **/
 export const GET_CURRENT_USER_LOADED_SUCCESS: string = "GET_CURRENT_USER_LOADED_SUCCESS";
 export const GET_CURRENT_USER_LOADED_FAIL: string = "GET_CURRENT_USER_LOADED_FAIL";
 
-export const UPDATE_PROFILE_CURRENT_USER_LOADED_SUCCESS: string = "UPDATE_PROFILE_CURRENT_USER_LOADED_SUCCESS";
+export const UPDATE_PROFILE_CURRENT_USER_LOADED_SUCCESS: string =
+  "UPDATE_PROFILE_CURRENT_USER_LOADED_SUCCESS";
 export const UPDATE_PROFILE_CURRENT_USER_LOADED_FAIL: string = "UPDATE_PROFILE_CURRENT_USER_LOADED_FAIL";
 
 export const GET_ALL_USERS_LOADED_SUCCESS: string = "GET_ALL_USERS_LOADED_SUCCESS";
 export const GET_ALL_USERS_LOADED_FAIL: string = "GET_ALL_USERS_LOADED_FAIL";
 
 /**********************************
-* Types Action Post and LikePost
-**/
+ * Types Action Post and LikePost
+ **/
 export const GET_ALL_POST_SUCCESS: string = "GET_ALL_POST_SUCCESS";
 export const GET_ALL_POST_FAIL: string = "GET_ALL_POST_FAIL";
 
@@ -69,10 +70,9 @@ export const UPDATE_LIKE_OR_UNLIKE_POST_FAIL: string = "UPDATE_LIKE_OR_UNLIKE_PO
 export const GET_LIST_POSTS_LIKES_SUCCESS: string = "GET_LIST_POSTS_LIKES_SUCCESS";
 export const GET_LIST_POSTS_LIKES_FAIL: string = "GET_LIST_POSTS_LIKES_FAIL";
 
-
 /**********************************
-* Types Comment and LikeComment
-**/
+ * Types Comment and LikeComment
+ **/
 export const GET_ALL_COMMENT_SUCCESS: string = "GET_ALL_COMMENT_SUCCESS";
 export const GET_ALL_COMMENT_FAIL: string = "GET_ALL_COMMENT_FAIL";
 
@@ -91,10 +91,9 @@ export const DELETE_COMMENT_FAIL: string = "DELETE_COMMENT_FAIL";
 export const LIKE_OR_UNLIKE_COMMENT_SUCCESS: string = "LIKE_OR_UNLIKE_COMMENT_SUCCESS";
 export const LIKE_OR_UNLIKE_COMMENT_FAIL: string = "LIKE_OR_UNLIKE_COMMENT_FAIL";
 
-
 /**********************************
-* Types Following and Followers
-**/
+ * Types Following and Followers
+ **/
 export const GET_ALL_FOLLOWING_SUCCESS: string = "GET_ALL_FOLLOWING_SUCCESS";
 export const GET_ALL_FOLLOWING_FAIL: string = "GET_ALL_FOLLOWING_FAIL";
 
@@ -107,19 +106,20 @@ export const GET_ALL_FOLLOWERS_FAIL: string = "GET_ALL_FOLLOWERS_FAIL";
 export const GET_PEOPLE_CONNECT_SUCCESS: string = "GET_PEOPLE_CONNECT_SUCCESS";
 export const GET_PEOPLE_CONNECT_FAIL: string = "GET_PEOPLE_CONNECT_FAIL";
 
-
 /**********************************
-* Types Notification
-**/
+ * Types Notification
+ **/
 export const GET_NOTIFICATION_SUCCESS: string = "GET_NOTIFICATION_SUCCESS";
 export const GET_NOTIFICATION_FAIL: string = "GET_NOTIFICATION_FAIL";
 
 export const READ_NOTIFICATION_SUCCESS: string = "READ_NOTIFICATION_SUCCESS";
 export const READ_NOTIFICATION_FAIL: string = "READ_NOTIFICATION_FAIL";
 
-
 /**********************************
-* I understand this is not twitter
-**/
-export const I_UNDERSTAND_THIS_IS_NOT_TWITTER_SUCCES: string = "I_UNDERSTAND_THIS_IS_NOT_TWITTER_SUCCES";
-export const I_UNDERSTAND_THIS_IS_NOT_TWITTER_FAIL: string = "I_UNDERSTAND_THIS_IS_NOT_TWITTER_FAIL";
+ * Types Bookmark
+ **/
+export const BOOKMARK_SUCCESS: string = "BOOKMARK_SUCCESS";
+export const BOOKMARK_FAIL: string = "BOOKMARK_FAIL";
+
+export const GET_BOOKMARKS_SUCCESS: string = "GET_BOOKMARKS_SUCCESS";
+export const GET_BOOKMARKS_FAIL: string = "GET_BOOKMARKS_FAIL";
