@@ -9,8 +9,12 @@ export interface IPost {
   created: Date;
   updated: Date;
   liked: IUser[];
-  comments: IComment[];
   numberComments: number;
+  bookmarks: string[];
+}
+
+export interface IBookmark {
+  posts: IPost;
 }
 
 export interface IComment {

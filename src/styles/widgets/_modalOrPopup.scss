@@ -108,7 +108,7 @@
         p {
           color: $color5;
           span {
-            color: $color3
+            color: $color3;
           }
         }
       }
@@ -117,7 +117,6 @@
   .modal-container.addTweet.addTweetHeight {
     height: 600px;
   }
-
 }
 .closed {
   width: 100%;
@@ -144,12 +143,33 @@
     @include flex(column, flex-start, flex-start);
     gap: 1rem;
 
-    button {
-      transition: all 0.2s ease-in-out;
+    .tille-popup {
+      width: 100%;
+      @include flex(raw, flex-start, center);
+      gap: 0.5rem;
+      svg {
+        width: 50px;
+      }
     }
-    button.btn-cancel {
-      &:hover {
-        background-color: rgba($color7, 0.3);
+
+    p {
+      font-size: 0.9em;
+      font-weight: 470;
+      line-height: 20px;
+    }
+
+    .box-btn {
+      width: 100%;
+      @include flex(column, center, flex-start);
+      flex-grow: 2;
+      gap: 0.5rem;
+      button {
+        transition: all 0.2s ease-in-out;
+      }
+      button.btn-cancel {
+        &:hover {
+          background-color: rgba($color7, 0.3);
+        }
       }
     }
   }

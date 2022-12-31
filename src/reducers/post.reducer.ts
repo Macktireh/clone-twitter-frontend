@@ -41,9 +41,25 @@ const postReducer = (state: TPostReducerType = initialState, action: IActionRedu
         }
         return post;
       });
-      return [...likePost as IPost[]];
+      return [...(likePost as IPost[])];
+
+    case Types.BOOKMARK_SUCCESS:
+      const posts = state?.slice();
+      posts?.map((post) => {
+        if (post.publicId === payload.posts.publicId) {
+          if (post.bookmarks.includes(payload.userPublicId)) {
+            post.bookmarks.splice(post.bookmarks.indexOf(payload.userPublicId), 1);
+          } else {
+            post.bookmarks.push(payload.userPublicId);
+          }
+          return post;
+        }
+        return post;
+      });
+      return [...(posts as IPost[])];
 
     case Types.ADD_NEW_POST_FAIL:
+    case Types.BOOKMARK_FAIL:
     case Types.DELETE_POST_FAIL:
     case Types.LIKE_OR_UNLIKE_POST_FAIL:
       return state;

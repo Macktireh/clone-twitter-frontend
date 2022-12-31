@@ -14,7 +14,7 @@ type propsTypes = React.PropsWithChildren<{
 }>;
 
 const Popup: React.FC<propsTypes> = ({
-  // children,
+  children,
   popupActive,
   popupTitle,
   popupDetail,
@@ -28,10 +28,21 @@ const Popup: React.FC<propsTypes> = ({
     <div className="popup" style={{ display: popupActive ? "block" : "none" }}>
       <div className="closed" onClick={() => handleClose && handleClose()}></div>
       <div className="popup-container">
-        <h2>{popupTitle}</h2>
+        <div className="tille-popup">
+          {children}
+          <h2>{popupTitle}</h2>
+        </div>
         <p>{popupDetail}</p>
-        <ButtonCustom text={popupBtnText} nameClass={nameClassBtn ? nameClassBtn : "btn-danger"} onClick={handleDiscard} />
-        {hiddenBtnCancel ? null : <ButtonCustom text="Annuler" nameClass="btn-cancel" onClick={handleClose} />}
+        <div className="box-btn">
+          <ButtonCustom
+            text={popupBtnText}
+            nameClass={nameClassBtn ? nameClassBtn : "btn-danger"}
+            onClick={handleDiscard}
+          />
+          {hiddenBtnCancel ? null : (
+            <ButtonCustom text="Annuler" nameClass="btn-cancel" onClick={handleClose} />
+          )}
+        </div>
       </div>
     </div>
   );
