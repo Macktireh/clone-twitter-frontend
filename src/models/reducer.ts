@@ -35,6 +35,7 @@ export interface IRootState {
   commentReducer: TCommentReducerType;
   followReducer: TFollowReducerType;
   notificationReducer: TNotifReducerType;
+  bookmarkReducer: TBookmarkReducerType;
 }
 
 export interface IActionReducer {

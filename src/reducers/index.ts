@@ -7,6 +7,7 @@ import mylLikesPostReducer from "@/reducers/myLikesPost.reducer";
 import commentReducer from "@/reducers/comment.reducer";
 import followReducer from "@/reducers/follow.reducer";
 import notificationReducer from "@/reducers/notification.reducer";
+import bookmarkReducer from "@/reducers/bookmark.reducer";
 
 export default combineReducers({
   authReducer,
@@ -16,4 +17,5 @@ export default combineReducers({
   commentReducer,
   followReducer,
   notificationReducer,
+  bookmarkReducer,
 });
