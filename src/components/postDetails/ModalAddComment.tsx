@@ -65,7 +65,7 @@ const ModalAddComment: React.FC<propsTypes> = ({ propsContext, currentUser, post
           </div>
         </div>
         <div className="modal-content">
-          <CardTweet currentUser={currentUser} post={post} users={users} displayImageIcons={true} />
+          <CardTweet currentUser={currentUser} post={post} users={users} disabledTooltipImage={true} />
           <div className="replying">
             <div className="line-v"></div>
             <p>
