@@ -14,6 +14,7 @@ export interface IPost {
 }
 
 export interface IBookmark {
+  userPublicId: string;
   posts: IPost;
 }
 

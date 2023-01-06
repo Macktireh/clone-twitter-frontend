@@ -4,12 +4,12 @@ import { useDispatch } from "react-redux";
 import IconSVG from "@/widgets/IconSVG";
 import likePostAction from "@/actions/post/likePost.action";
 import likeCommentAction from "@/actions/comment/likeComment.action";
-import { IUserProfile, IPost, IComment } from "@/models";
 import getAllPostAction from "@/actions/post/getAllPost.action";
-import getAllCommentAction from "../../actions/comment/getAllComment.action";
+import getAllCommentAction from "@/actions/comment/getAllComment.action";
 import { pushNotification } from "@/config/soket";
 import { notificationType } from "@/context/NotificationProvider";
 import { useNotificationContext } from "@/context/NotificationProvider";
+import { IUserProfile, IPost, IComment } from "@/models";
 
 type propsTypes = {
   type: string;

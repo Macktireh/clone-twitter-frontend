@@ -28,20 +28,23 @@ const postReducer = (state: TPostReducerType = initialState, action: IActionRedu
       return state?.filter((post) => post.publicId !== payload) as IPost[];
 
     case Types.LIKE_OR_UNLIKE_POST_SUCCESS:
-      const likePost = state?.slice();
-      likePost?.map((post) => {
+      const updatedLikePost = state?.map((post) => {
         if (post.publicId === payload.PublicId) {
           if (payload.value === "Like") {
-            post.liked.push(payload.authorDetail);
-            return { ...post, liked: [...post.liked, payload.authorDetail] };
+            return {
+              ...post,
+              liked: [...post.liked, payload.authorDetail],
+            };
           } else if (payload.value === "Unlike") {
-            post.liked = post.liked.filter((like) => like.public_id !== payload.authorDetail.public_id);
-            return post;
+            return {
+              ...post,
+              liked: post.liked.filter((like) => like.public_id !== payload.authorDetail.public_id),
+            };
           }
         }
         return post;
       });
-      return [...(likePost as IPost[])];
+      return [...(updatedLikePost as IPost[])];
 
     case Types.BOOKMARK_SUCCESS:
       const posts = state?.slice();

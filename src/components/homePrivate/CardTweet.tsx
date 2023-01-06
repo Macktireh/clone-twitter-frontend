@@ -16,10 +16,10 @@ type propsTypes = {
   currentUser: IUserProfile | null;
   post: IPost | null;
   users: IUserProfile[] | null;
-  displayImageIcons?: boolean;
+  disabledTooltipImage?: boolean;
 };
 
-const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users, displayImageIcons }) => {
+const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users, disabledTooltipImage }) => {
   const [authorPost, setAuthorPost] = React.useState<IUserProfile | null>();
   const [tweet, setTweet] = React.useState<IPost | null>();
   const navigate = useNavigate();
@@ -50,7 +50,7 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users, displayImag
             interactive={true}
             delay={0}
             hideOnClick={false}
-            disabled={displayImageIcons ? true : false}
+            disabled={disabledTooltipImage ? true : false}
           >
             <div className="tooltip" tabIndex={0}>
               <Link to={pathLinkProfile(authorPost.pseudo)}>
@@ -99,7 +99,7 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users, displayImag
                 </div>
               )}
               {tweet.image && (
-                <div className="post-img" style={{ display: displayImageIcons ? "none" : "block" }}>
+                <div className="post-img" style={{ display: disabledTooltipImage ? "none" : "block" }}>
                   <img
                     src={tweet.image}
                     // src={tweet.image.includes(baseURL as string) ? tweet.image : baseURL + tweet.image}
@@ -116,7 +116,7 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users, displayImag
               <div className="skeleton-anim image"></div>
             </>
           )}
-          <div className="post-footer" style={{ display: displayImageIcons ? "none" : "flex" }}>
+          <div className="post-footer" style={{ display: disabledTooltipImage ? "none" : "flex" }}>
             <ButtonAddComment post={tweet as IPost} isDisplayNumComments={true} />
             <div className="retweet post-icon">
               <IconSVG iconName="retweet" fill="#919090" />

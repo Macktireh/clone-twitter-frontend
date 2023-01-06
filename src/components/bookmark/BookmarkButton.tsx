@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 
 import IconSVG from "@/widgets/IconSVG";
 import addPostBookmark from "@/actions/bookmark/AddPostBookmark.action";
-// import getAllPostAction from "@/actions/post/getAllPost.action";
 import { IPost, IUserProfile } from "@/models";
+import getBookmarks from "@/actions/bookmark/getBookmarks.action";
 
 type propsTypes = {
   currentUser: IUserProfile | null;
@@ -15,8 +15,8 @@ const BookmarkButton: React.FC<propsTypes> = ({ currentUser, post }) => {
   const dispatch = useDispatch();
 
   const handleClick = async () => {
-    post && dispatch(addPostBookmark(post.publicId) as any);
-    // dispatch(getAllPostAction() as any);
+    post && await dispatch(addPostBookmark(post.publicId) as any);
+    dispatch(getBookmarks() as any);
   }
 
   return (
