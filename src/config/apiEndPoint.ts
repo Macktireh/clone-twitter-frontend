@@ -38,9 +38,9 @@ export const likeCommentEndpoint : string = "/api/comments/likes/"
 /***
  * Endpoint Following and Followers
  */
-export const followingEndpoint : string = "/api/following/"
-export const followersEndpoint : string = "/api/followers/"
-export const peopleConnectEndpoint : string = "/api/people-connect/"
+export const followingEndpoint : string = "/api/follow/following/"
+export const followersEndpoint : string = "/api/follow/followers/"
+export const peopleConnectEndpoint : string = "/api/follow/people-connect/"
 
 
 /***
@@ -48,3 +48,9 @@ export const peopleConnectEndpoint : string = "/api/people-connect/"
  */
 export const notificationEndpoint : string = "/api/notifications/"
 export const notificationSeenEndpoint : string = "/api/notifications/seen/"
+
+
+/***
+ * Endpoint Bookmark
+ */
+export const bookmarksEndpoint : string = "/api/bookmarks/"

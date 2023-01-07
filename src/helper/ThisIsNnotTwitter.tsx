@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Popup from '@/widgets/Popup';
+import IconSVG from '@/widgets/IconSVG';
 import { useNotificationContext } from '@/context/NotificationProvider';
 
 const ThisIsNnotTwitter: React.FC = () => {
@@ -14,14 +15,16 @@ const ThisIsNnotTwitter: React.FC = () => {
     <div className="CGU-container" style={{ position: "absolute", width: "100%", height: "100%", display: propsContext?.isNotTwitter ? "none" : "block" }}>
       <Popup
         popupActive={propsContext?.isNotTwitter ? false : true}
-        popupTitle="Dit is niet de website van Twitter"
-        popupDetail="This application is a clone of Twitter and is not the real Twitter."
+        popupTitle="Information"
+        popupDetail="We inform you that this application is a Twitter clone and not the real Twitter. Thank you for your understanding."
         popupBtnText="Okay, I understand."
         handleDiscard={IUnderstandthiswebsiteIsNotTwitter}
         nameClassBtn="btn-ok"
         handleClose={setStateIsNotTwitter}
         hiddenBtnCancel={true}
-      />
+      >
+        <IconSVG iconName="info" />
+      </Popup>
     </div>
   );
 };

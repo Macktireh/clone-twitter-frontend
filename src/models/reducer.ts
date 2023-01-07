@@ -1,4 +1,4 @@
-import { IComment, IPost } from "@/models/postAndComment";
+import { IBookmark, IComment, IPost } from "@/models/postAndComment";
 import { IUser, IUserProfile } from "@/models/userProfile";
 import { IFollow } from '@/models/follow';
 import { INotif } from '@/models/notificationAndChat';
@@ -13,6 +13,8 @@ export type TUsersReducerType = IUserProfile[] | null;
 export type TPostReducerType = IPost[] | null;
 
 export type TLikesPostReducerType = IUser[] | null;
+
+export type TBookmarkReducerType = IBookmark[] | null;
 
 export type TCommentReducerType = IComment[] | null;
 
@@ -33,6 +35,7 @@ export interface IRootState {
   commentReducer: TCommentReducerType;
   followReducer: TFollowReducerType;
   notificationReducer: TNotifReducerType;
+  bookmarkReducer: TBookmarkReducerType;
 }
 
 export interface IActionReducer {
