@@ -10,11 +10,12 @@ import { privateRoutes } from "@/routes/private.routes";
 import readNotificationAction from "@/actions/notification/readNotification.action";
 
 type propsTypes = {
+  currentUser: IUserProfile | null;
   notification: INotif | null;
   fromUser: IUserProfile;
 };
 
-const CardNotif: React.FC<propsTypes> = ({ notification, fromUser }) => {
+const CardNotif: React.FC<propsTypes> = ({ currentUser, notification, fromUser }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -61,7 +62,7 @@ const CardNotif: React.FC<propsTypes> = ({ notification, fromUser }) => {
   const handleClick = () => {
     dispatch(readNotificationAction(notification?.publicId as string) as any);
     notification?.typeNotif === notificationType.following
-      ? navigate(`${pathLinkProfile(fromUser.pseudo)}/${privateRoutes.following.name}`)
+      ? navigate(`${pathLinkProfile(currentUser?.pseudo as string)}/${privateRoutes.followers.name}`)
       : notification && navigate(pathLinkPostDetail(fromUser.pseudo, notification.postPublicId));
   };
 
