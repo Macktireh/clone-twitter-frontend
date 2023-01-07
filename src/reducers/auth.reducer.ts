@@ -32,7 +32,7 @@ const authReducer = (state: IAuthReducer = initialState, action: IActionReducer)
     case Types.GET_CURRENT_USER_LOADED_SUCCESS:
       return {
         ...state,
-        currentUser: payload,
+        currentUser: {...payload},
       };
 
     case Types.AUTHENTICATED_FAIL:
