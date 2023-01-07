@@ -113,7 +113,7 @@ const EdidProfile: React.FC<propsTypes> = ({ currentUser }) => {
           onChange={propsContext?.handleChange}
           value={propsContext?.userData.last_name ? propsContext.userData.last_name : ""}
         />
-        {/* <InputCustom
+        <InputCustom
           nameClass="entry-container"
           id="pseudo"
           name="pseudo"
@@ -122,7 +122,7 @@ const EdidProfile: React.FC<propsTypes> = ({ currentUser }) => {
           maxLength="50"
           onChange={propsContext?.handleChange}
           value={propsContext?.userData.pseudo ? propsContext.userData.pseudo : ""}
-        /> */}
+        />
         <InputCustom
           nameClass="entry-container"
           id="bio"
