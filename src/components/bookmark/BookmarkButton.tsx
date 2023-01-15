@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 
 import IconSVG from "@/widgets/IconSVG";
 import addPostBookmark from "@/actions/bookmark/AddPostBookmark.action";
-import { IPost, IUserProfile } from "@/models";
 import getBookmarks from "@/actions/bookmark/getBookmarks.action";
+import { useNotifyContext } from "@/context/NotifyProvider";
+import { IPost, IUserProfile } from "@/models";
 
 type propsTypes = {
   currentUser: IUserProfile | null;
@@ -13,11 +14,18 @@ type propsTypes = {
 
 const BookmarkButton: React.FC<propsTypes> = ({ currentUser, post }) => {
   const dispatch = useDispatch();
+  const notifyContext = useNotifyContext();
+  // const flag = React.useRef(false);
 
   const handleClick = async () => {
-    post && await dispatch(addPostBookmark(post.publicId) as any);
-    dispatch(getBookmarks() as any);
-  }
+    if (post) {
+      post.bookmarks.includes(currentUser?.user.public_id as string)
+        ? notifyContext?.notify(notifyContext.typeNotify.default, "Tweet removed from your Bookmarks.")
+        : notifyContext?.notify(notifyContext.typeNotify.default, "Tweet added to your Bookmarks.");
+      await dispatch(addPostBookmark(post.publicId) as any);
+      await dispatch(getBookmarks() as any);
+    }
+  };
 
   return (
     <div className="share post-icon" onClick={handleClick}>
