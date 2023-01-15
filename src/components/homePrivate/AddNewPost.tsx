@@ -57,6 +57,7 @@ const AddNewPost: React.FC<propsTypes> = ({
     if (textarea) {
       textarea.addEventListener("input", () => textareaAutoSize(textarea));
       textarea.addEventListener("focus", () => textareaAutoSize(textarea));
+      // textareaAutoSize(textarea)
     }
   });
 

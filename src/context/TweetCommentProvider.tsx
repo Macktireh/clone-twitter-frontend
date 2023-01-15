@@ -9,9 +9,10 @@ import updateCommentAction from "@/actions/comment/updateComment.action";
 import addNewCommentAction from "@/actions/comment/addNewComment.action";
 import deleteCommentAction from "@/actions/comment/deleteComment.action";
 import getAllPostAction from "@/actions/post/getAllPost.action";
-import { IUserProfile, IRootState } from "@/models";
 import { notificationType, useNotificationContext } from "@/context/NotificationProvider";
+import { useNotifyContext } from "@/context/NotifyProvider";
 import { pushNotification } from "@/config/soket";
+import { IUserProfile, IRootState } from "@/models";
 
 export type bodyPostStateType = { bodyPost: string; setBodyPost: (value: string) => void };
 export type emojiPostStateType = { chosenEmojiPost: boolean; setChosenEmojiPost: (value: boolean) => void };
@@ -91,6 +92,8 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
   const comments = useSelector((state: IRootState) => state.commentReducer);
   const dispatch = useDispatch();
   const sokect = useNotificationContext();
+
+  const notifyContext = useNotifyContext();
 
   // Post State
   const [modalActivePost, setModalActivePost] = React.useState<boolean>(false);
@@ -267,7 +270,11 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
         const formData = new FormData();
         formData.append("body", editBodyPost as string);
         formData.append("image", editImagePost as any);
-        dispatch(updatePostAction(postPublicId, formData) as any);
+        dispatch(updatePostAction(postPublicId, formData) as any).then((res: any) => {
+          if (res && res.type === "file size error") {
+            notifyContext?.notify(notifyContext.typeNotify.error, res.message);
+          }
+        });
       } else if (editBodyPost) {
         const formData = new FormData();
         formData.append("body", editBodyPost as string);
@@ -275,14 +282,23 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
       } else if (editImagePost) {
         const formData = new FormData();
         formData.append("image", editImagePost as any);
-        dispatch(updatePostAction(postPublicId, formData) as any);
+        dispatch(updatePostAction(postPublicId, formData) as any).then((res: any) => {
+          if (res && res.type === "file size error") {
+            notifyContext?.notify(notifyContext.typeNotify.error, res.message);
+          }
+        });
       }
+      notifyContext?.notify(notifyContext.typeNotify.default, "Your Tweet has been modified.");
     } else {
       if (bodyPost && imagePost) {
         const formData = new FormData();
         formData.append("body", bodyPost as string);
         formData.append("image", imagePost as any);
-        dispatch(addNewPostAction(formData) as any);
+        dispatch(addNewPostAction(formData) as any).then((res: any) => {
+          if (res && res.type === "file size error") {
+            notifyContext?.notify(notifyContext.typeNotify.error, res.message);
+          }
+        });
       } else if (bodyPost) {
         const formData = new FormData();
         formData.append("body", bodyPost as string);
@@ -290,11 +306,16 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
       } else if (imagePost) {
         const formData = new FormData();
         formData.append("image", imagePost as any);
-        dispatch(addNewPostAction(formData) as any);
+        dispatch(addNewPostAction(formData) as any).then((res: any) => {
+          if (res && res.type === "file size error") {
+            notifyContext?.notify(notifyContext.typeNotify.error, res.message);
+          }
+        });
       }
+      notifyContext?.notify(notifyContext.typeNotify.default, "Your Tweet was sent.");
     }
     handleDiscardPost();
-    sokect && setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.addPost), 2000);
+    sokect && setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.addPost), 3000);
   };
 
   const handleDeletePost = async () => {
@@ -302,8 +323,9 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
       dispatch(deletePostAction(postPublicId) as any);
       popupActiveDeletePost && setPopupActiveDeletePost(!popupActiveDeletePost);
       setPostPublicId("");
+      notifyContext?.notify(notifyContext.typeNotify.default, "Your Tweet was deleted.");
       sokect &&
-        setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.deletePost), 2000);
+        setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.deletePost), 3000);
     }
   };
 
@@ -406,6 +428,7 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
         formData.append("image", editImageComment as any);
         dispatch(updateCommentAction(postPublicId, commentPublicId, formData) as any);
       }
+      notifyContext?.notify(notifyContext.typeNotify.default, "Your ReTweet has been modified.");
     } else {
       if (bodyComment && imageComment) {
         const formData = new FormData();
@@ -425,9 +448,10 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
         await dispatch(addNewCommentAction(postPublicId, formData) as any);
       }
       dispatch(getAllPostAction() as any);
+      notifyContext?.notify(notifyContext.typeNotify.default, "Your ReTweet was sent.");
     }
     handleDiscardComment();
-    sokect && setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.addComment), 2000);
+    sokect && setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.addComment), 3000);
   };
 
   const handleDeleteComment = async () => {
@@ -436,8 +460,9 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
       dispatch(getAllPostAction() as any);
       popupActiveDeleteComment && setPopupActiveDeleteComment(!popupActiveDeleteComment);
       setCommentPublicId("");
+      notifyContext?.notify(notifyContext.typeNotify.default, "Your ReTweet was deleted.");
       sokect &&
-        setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.deleteComment), 2000);
+        setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.deleteComment), 3000);
     }
   };
 
