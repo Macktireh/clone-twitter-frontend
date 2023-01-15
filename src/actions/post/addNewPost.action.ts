@@ -24,6 +24,7 @@ const addNewPostAction = (data: FormData) => async (dispatch: Dispatch<AnyAction
         }
       }
       dispatch({ type: Types.ADD_NEW_POST_FAIL });
+      return await (error as any).response.data.errors;
     }
   } else {
     dispatch({ type: Types.ADD_NEW_POST_FAIL });
@@ -44,6 +45,7 @@ const _addNewPostAction = (data: FormData) => async (dispatch: Dispatch<AnyActio
       dispatch({ type: Types.ADD_NEW_POST_SUCCESS, payload: res.data });
     } catch (error: any) {
       dispatch({ type: Types.ADD_NEW_POST_FAIL });
+      return await (error as any).response.data.errors;
     }
   } else {
     dispatch({ type: Types.ADD_NEW_POST_FAIL });

@@ -6,6 +6,7 @@ import LikePostButton from "@/components/homePrivate/LikePostButton";
 import PopupPostOrCommentOptionCard from "@/components/homePrivate/PopupPostOptionCard";
 import TooltipCardUser from "@/components/homePrivate/TooltipCardUser";
 import ButtonAddComment from "@/components/postDetails/ButtonAddComment";
+import BookmarkButton from "@/components/bookmark/BookmarkButton";
 import AddNewComment from "@/components/postDetails/AddNewComment";
 import IconSVG from "@/widgets/IconSVG";
 import { IUserProfile, IPost } from "@/models";
@@ -135,16 +136,11 @@ const CardTweetDetails: React.FC<propsTypes> = ({ currentUser, postDetails, auth
       <div className="line"></div>
       <div className="icons">
         <ButtonAddComment post={postDetails as IPost} isDisplayNumComments={false} />
-        {/* <div className="reply post-icon">
-          <IconSVG iconName="reply" fill="#919090" />
-        </div> */}
         <div className="retweet post-icon">
           <IconSVG iconName="retweet" fill="#919090" />
         </div>
         <LikePostButton type="post" currentUser={currentUser} post={postDetails} isDisplayNumLike={false} />
-        <div className="share post-icon">
-          <IconSVG iconName="share" fill="#919090" />
-        </div>
+        <BookmarkButton currentUser={currentUser} post={postDetails as IPost} />
       </div>
       <div className="line"></div>
       <div className="add-new-comment">

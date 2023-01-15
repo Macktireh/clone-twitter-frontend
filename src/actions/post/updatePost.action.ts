@@ -25,6 +25,7 @@ const updatePostAction =
           }
         }
         dispatch({ type: Types.UPDATE_POST_FAIL });
+        return await (error as any).response.data.errors;
       }
     } else {
       dispatch({ type: Types.UPDATE_POST_FAIL });
@@ -47,6 +48,7 @@ const _updatePostAction =
         dispatch({ type: Types.UPDATE_POST_SUCCESS, payload: res.data });
       } catch (error) {
         dispatch({ type: Types.UPDATE_POST_FAIL });
+        return await (error as any).response.data.errors;
       }
     } else {
       dispatch({ type: Types.UPDATE_POST_FAIL });

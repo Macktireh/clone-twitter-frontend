@@ -1,6 +1,7 @@
 import React from "react";
 
 import ButtonCustom from "@/widgets/ButtonCustom";
+import WrapperPopup from "@/widgets/WrapperPopup";
 
 type propsTypes = React.PropsWithChildren<{
   popupActive: boolean | null;
@@ -25,8 +26,7 @@ const Popup: React.FC<propsTypes> = ({
   handleClose,
 }) => {
   return (
-    <div className="popup" style={{ display: popupActive ? "block" : "none" }}>
-      <div className="closed" onClick={() => handleClose && handleClose()}></div>
+    <WrapperPopup popupActive={popupActive} handleClose={handleClose}>
       <div className="popup-container">
         <div className="tille-popup">
           {children}
@@ -44,7 +44,7 @@ const Popup: React.FC<propsTypes> = ({
           )}
         </div>
       </div>
-    </div>
+    </WrapperPopup>
   );
 };
 

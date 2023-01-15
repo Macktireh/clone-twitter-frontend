@@ -1,11 +1,14 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import "@/styles/index.scss";
 import Routes from "@/routes";
 import getCurrentUserAction from "@/actions/user/getCurrentUser.action";
 import NotificationProvider from "@/context/NotificationProvider";
+import NotifyProvider from "@/context/NotifyProvider";
 import ThisIsNnotTwitter from "@/helper/ThisIsNnotTwitter";
+
+import "@/styles/index.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 type propsTypes = {
   getCurrentUserAction: () => void;
@@ -30,10 +33,12 @@ const App: React.FC<propsTypes> = ({ getCurrentUserAction }) => {
       <img src="/static/svg/twitter-blue.svg" alt="" />
     </div>
   ) : (
-    <NotificationProvider>
-      <ThisIsNnotTwitter />
-      <Routes />
-    </NotificationProvider>
+    <NotifyProvider>
+      <NotificationProvider>
+        <ThisIsNnotTwitter />
+        <Routes />
+      </NotificationProvider>
+    </NotifyProvider>
   );
 };
 
