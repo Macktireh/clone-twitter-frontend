@@ -27,7 +27,7 @@ const PopupPostOrCommentOptionCard: React.FC<propsTypes> = ({ type, currentUser,
       propsContext.popupDeletePost.setPopupActiveDeletePost();
     }
   };
-
+  
   const handleEditingComment = async (public_id: string) => {
     if (propsContext) {
       propsContext.commentPublicIdState.setCommentPublicId(public_id);
@@ -35,7 +35,7 @@ const PopupPostOrCommentOptionCard: React.FC<propsTypes> = ({ type, currentUser,
       propsContext.modalComment.setModalActiveComment();
     }
   };
-
+  
   const handleConfirmDeleteComment = async (public_id: string) => {
     if (propsContext) {
       propsContext.commentPublicIdState.setCommentPublicId(public_id);
