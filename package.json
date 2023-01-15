@@ -2,7 +2,7 @@
   "name": "clone-twitter-frontend",
   "version": "0.1.0",
   "main": "public/main.js",
-  "homepage": ".",
+  "homepage": "",
   "private": true,
   "author": "Mack AS",
   "description": "My fantastic Electron app",

@@ -11,6 +11,7 @@ __test__
 
 # production
 /build
+/dist
 
 # config vscode
 .vscode
