@@ -7,6 +7,7 @@ import TweetCommentProvider from "@/context/TweetCommentProvider";
 import ModalAddComment from "@/components/postDetails/ModalAddComment";
 import NavbarMobile from "@/components/navbar/NavbarMobile";
 import NavbarMobileLeft from "@/components/navbar/NavbarMobileLeft";
+import NotifyProvider from "@/context/NotifyProvider";
 
 const Layout = (props: React.PropsWithChildren<any>) => {
   const flag = React.useRef(false);
@@ -24,16 +25,18 @@ const Layout = (props: React.PropsWithChildren<any>) => {
     <>
       <NavbarProvider>
         <div className="layout">
-          <TweetCommentProvider>
-            <header className="header">
-              <div className="nav-container">
-                <Navbar />
-              </div>
-            </header>
-            {props.children}
-            <ModalAddComment />
-            <ModalAddNewTweet />
-          </TweetCommentProvider>
+          <NotifyProvider>
+            <TweetCommentProvider>
+              <header className="header">
+                <div className="nav-container">
+                  <Navbar />
+                </div>
+              </header>
+              {props.children}
+              <ModalAddComment />
+              <ModalAddNewTweet />
+            </TweetCommentProvider>
+          </NotifyProvider>
         </div>
         <NavbarMobile />
         <NavbarMobileLeft />
