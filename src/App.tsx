@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import Routes from "@/routes";
 import getCurrentUserAction from "@/actions/user/getCurrentUser.action";
 import NotificationProvider from "@/context/NotificationProvider";
-import NotifyProvider from "@/context/NotifyProvider";
 import ThisIsNnotTwitter from "@/helper/ThisIsNnotTwitter";
 
 import "@/styles/index.scss";
@@ -33,12 +32,10 @@ const App: React.FC<propsTypes> = ({ getCurrentUserAction }) => {
       <img src="/static/svg/twitter-blue.svg" alt="" />
     </div>
   ) : (
-    <NotifyProvider>
-      <NotificationProvider>
-        <ThisIsNnotTwitter />
-        <Routes />
-      </NotificationProvider>
-    </NotifyProvider>
+    <NotificationProvider>
+      <ThisIsNnotTwitter />
+      <Routes />
+    </NotificationProvider>
   );
 };
 
