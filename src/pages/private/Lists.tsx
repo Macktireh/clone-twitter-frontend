@@ -1,12 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
-import { privateRoutes } from "@/routes/private.routes";
-import { connect } from "react-redux";
-import { IRootState, IPropsRootStateType } from "@/models";
+import FavoriteSection from "@/components/lists/FavoriteSection";
 import Aside from "@/components/aside/Aside";
 import ButtonAddTweet from "@/components/navbar/ButtonAddTweet";
+import { privateRoutes } from "@/routes/private.routes";
+import { IRootState, IPropsRootStateType } from "@/models";
+import ListSection from "@/components/lists/ListSection";
 
 interface propsTypes
   extends Omit<
@@ -22,11 +24,12 @@ const Lists: React.FC<propsTypes> = ({ currentUser }) => {
   return (
     <>
       <main className="main">
-        <div className="main-container">
+        <div className="lists-page main-container">
           <section className="sec-header sticky-2">
-            <SectionHeaderTweet page={privateRoutes.lists.name} title="Lists" />
+            <SectionHeaderTweet page={privateRoutes.lists.name} title="Lists" subtitle={"@" + currentUser?.pseudo} />
           </section>
-          <div>Lists</div>
+          <FavoriteSection />
+          <ListSection />
         </div>
         <Aside page={privateRoutes.lists.name} />
       </main>
