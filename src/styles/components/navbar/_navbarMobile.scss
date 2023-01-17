@@ -8,6 +8,7 @@
   @extend .flex-center;
   padding: 1rem;
   background-color: $color1;
+  border-top: 1px solid $color7;
   @media (max-width: 500px) {
     display: flex;
   }

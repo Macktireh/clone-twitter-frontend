@@ -141,10 +141,10 @@ const Follow: React.FC<propsTypes> = ({
                 <div className="notFollow">
                   <img src="/static/img/followers.png" alt="" />
                   <div className="notFollowers">
-                    <h1>Vous cherchez des followers ?</h1>
+                    <h1>Looking for followers?</h1>
                     <p>
-                      Lorsque quelqu'un suit ce compte, il apparaît ici. Le fait de tweeter et d'interagir
-                      avec les autres permet d'augmenter le nombre de followers.
+                      When someone follows this account, they’ll show up here. Tweeting and interacting with
+                      others helps boost followers.
                     </p>
                   </div>
                 </div>
@@ -166,14 +166,14 @@ const Follow: React.FC<propsTypes> = ({
               ) : (
                 <div className="notFollow">
                   <div className="notFollowers">
-                    <h1>Soyez au courant</h1>
+                    <h1>Be in the know</h1>
                     <p>
-                      Suivre des comptes est un moyen facile de gérer votre ligne de temps et de savoir ce qui
-                      se passe sur les sujets et les personnes qui vous intéressent.
+                      Following accounts is an easy way to curate your timeline and know what’s happening with
+                      the topics and people you’re interested in.
                     </p>
                   </div>
                   <Link to={privateRoutes.peopleConnect.path} className="link">
-                    Trouver des personnes à suivre
+                    Find people to follow
                   </Link>
                 </div>
               )}
