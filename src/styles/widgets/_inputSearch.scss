@@ -1,43 +1,96 @@
-.input-search {
-  // position: fixed;
-  width: 95%;
-  height: 45px;
-  border-radius: 36px;
-  border: 1px solid transparent;
-  padding: 8px 16px;
-  background-color: $color6;
-  @include flex(row, space-between, center);
+.input-search-conatiner {
+  width: 100%;
+  @include flex(column, space-between, flex-start);
   gap: 0.5rem;
-  transition: all 0.2s ease-out;
-  @media (max-width: 500px) {
-    width: 100%;
-    box-shadow: 0px 0px 5px rgba($color4, 0.5);
-  }
+  position: relative;
 
-  svg {
-    width: 20px;
-    fill: $color6;
-    cursor: pointer;
-  }
-  input {
-    width: 100%;
-    background-color: transparent;
-    padding: 10px;
-  }
-  .clear {
-    width: 25px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: $color3;
-    cursor: pointer;
-    @extend .flex-center;
-    img {
-      width: 15px;
-      height: 15px;
+  .input-search {
+    width: 95%;
+    height: 45px;
+    border-radius: 36px;
+    border: 1px solid transparent;
+    padding: 8px 16px;
+    background-color: $color6;
+    @include flex(row, space-between, center);
+    gap: 0.5rem;
+    transition: all 0.2s ease-out;
+    @media (max-width: 500px) {
+      width: 100%;
+      box-shadow: 0px 0px 5px rgba($color4, 0.5);
+    }
+
+    svg {
+      width: 20px;
+      fill: $color6;
+      cursor: pointer;
+    }
+    input {
+      width: 100%;
+      background-color: transparent;
+      padding: 10px;
+    }
+    .clear {
+      width: 25px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: $color3;
+      cursor: pointer;
+      @extend .flex-center;
+      img {
+        width: 15px;
+        height: 15px;
+      }
     }
   }
-}
-.input-search:focus-within {
-  background-color: $color1;
-  border: 1px solid $color3;
+  .input-search:focus-within {
+    background-color: $color1;
+    border-color: $color3;
+  }
+
+  .suggestions {
+    width: 95%;
+    min-height: 70px;
+    max-height: 200px;
+    overflow-y: scroll;
+    background-color: $color1;
+    box-shadow: 0px 0px 10px $color7, 0px 0px 5px $color7, 0px 0px 10px $color7, 0px 0px 15px $color7;
+    border-radius: 15px;
+    padding: 12px 16px;
+    @include position-abs(50px, null, null, null, null, null);
+    @media (max-width: 500px) {
+      width: 100%;
+    }
+    ul {
+      width: 100%;
+      @include flex(column, center, flex-start);
+      gap: 8px;
+      li {
+        width: 100%;
+        @include flex(row, space-between, center);
+        span {
+          width: 85%;
+          padding: 4px 0;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .close-img {
+          width: 15%;
+          max-width: 30px;
+          border-radius: 50%;
+          padding: 3px;
+          cursor: pointer;
+          @extend .flex-center;
+          &:hover {
+            background-color: $color3-2;
+          }
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 }

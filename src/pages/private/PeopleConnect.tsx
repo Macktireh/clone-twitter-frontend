@@ -60,7 +60,7 @@ const PeopleConnect: React.FC<propsTypes> = ({
             <SectionHeaderTweet page={privateRoutes.profile.name} title="Connect" currentUser={currentUser} />
           </section>
           <section className="content">
-            <h3>Suggéré pour vous</h3>
+            <h3>Suggested for you</h3>
             <div className="list-cardPeopleConnect">
               {peopleConnect &&
                 peopleConnect

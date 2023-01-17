@@ -61,9 +61,21 @@ const CardNotif: React.FC<propsTypes> = ({ currentUser, notification, fromUser }
 
   const handleClick = () => {
     dispatch(readNotificationAction(notification?.publicId as string) as any);
-    notification?.typeNotif === notificationType.following
-      ? navigate(`${pathLinkProfile(currentUser?.pseudo as string)}/${privateRoutes.followers.name}`)
-      : notification && navigate(pathLinkPostDetail(fromUser.pseudo, notification.postPublicId));
+    // notification?.typeNotif === notificationType.following
+    //   ? navigate(`${pathLinkProfile(currentUser?.pseudo as string)}/${privateRoutes.followers.name}`)
+    //   : notification && currentUser && navigate(pathLinkPostDetail(currentUser.pseudo, notification.postPublicId));
+    if (notification) {
+      switch (notification.typeNotif) {
+        case notificationType.following:
+          navigate(`${pathLinkProfile(currentUser?.pseudo as string)}/${privateRoutes.followers.name}`)
+          break;
+        case notificationType.addPost:
+          notification && navigate(pathLinkPostDetail(fromUser.pseudo, notification.postPublicId));
+          break;
+        default:
+          notification && currentUser && navigate(pathLinkPostDetail(currentUser.pseudo, notification.postPublicId));
+      }
+    }
   };
 
   return (
