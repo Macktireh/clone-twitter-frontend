@@ -127,7 +127,7 @@ const NotificationsConnectWithStore: React.FC<propsTypes> = ({
 const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
   users: state.userReducer,
-  notifications: state.notificationReducer,
+  notifications: state.notificationReducer.notifications,
 });
 
 export default connect(mapStateToProps, { getAllUsersAction, getNotificationAction })(
