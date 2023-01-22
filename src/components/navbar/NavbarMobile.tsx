@@ -67,7 +67,7 @@ const NavbarMobileConnectWithStore: React.FC<propsTypes> = ({ currentUser, notif
 
 const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
-  notification: state.notificationReducer,
+  notification: state.notificationReducer.notifications,
 });
 
 export default connect(mapStateToProps, {})(NavbarMobileConnectWithStore);

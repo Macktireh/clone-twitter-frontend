@@ -46,7 +46,7 @@ const postReducer = (state: TPostReducerType = initialState, action: IActionRedu
       });
       return [...(updatedLikePost as IPost[])];
 
-    case Types.BOOKMARK_SUCCESS:
+    case Types.ADD_BOOKMARK_SUCCESS:
       const posts = state?.slice();
       posts?.map((post) => {
         if (post.publicId === payload.posts.publicId) {
@@ -62,7 +62,7 @@ const postReducer = (state: TPostReducerType = initialState, action: IActionRedu
       return [...(posts as IPost[])];
 
     case Types.ADD_NEW_POST_FAIL:
-    case Types.BOOKMARK_FAIL:
+    case Types.ADD_BOOKMARK_FAIL:
     case Types.DELETE_POST_FAIL:
     case Types.LIKE_OR_UNLIKE_POST_FAIL:
       return state;

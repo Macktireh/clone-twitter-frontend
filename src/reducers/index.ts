@@ -8,6 +8,7 @@ import commentReducer from "@/reducers/comment.reducer";
 import followReducer from "@/reducers/follow.reducer";
 import notificationReducer from "@/reducers/notification.reducer";
 import bookmarkReducer from "@/reducers/bookmark.reducer";
+import messageReducer from "@/reducers/message.reducer";
 
 export default combineReducers({
   authReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
   followReducer,
   notificationReducer,
   bookmarkReducer,
+  messageReducer,
 });
