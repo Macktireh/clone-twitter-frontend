@@ -1,7 +1,7 @@
 import { IBookmark, IComment, IPost } from "@/models/postAndComment";
 import { IUser, IUserProfile } from "@/models/userProfile";
 import { IFollow } from '@/models/follow';
-import { INotif } from '@/models/notificationAndChat';
+import { IMessage, INotif } from '@/models/notificationAndChat';
 
 export interface IAuthReducer {
   isAuthenticated: boolean | null;
@@ -18,13 +18,18 @@ export type TBookmarkReducerType = IBookmark[] | null;
 
 export type TCommentReducerType = IComment[] | null;
 
-export type TNotifReducerType = INotif[] | null;
+export type TNotifReducerType = {
+  numberMessagesNotif: number;
+  notifications: INotif[] | null
+}
 
 export type TFollowReducerType = {
   following: IFollow[] | null
   followers: IFollow[] | null
   peopleConnect: IUser[] | null
 };
+
+export type TMessageReducerType = IMessage[] | null;
 
 export interface IRootState {
   authReducer: IAuthReducer;
@@ -36,6 +41,7 @@ export interface IRootState {
   followReducer: TFollowReducerType;
   notificationReducer: TNotifReducerType;
   bookmarkReducer: TBookmarkReducerType;
+  messageReducer: TMessageReducerType;
 }
 
 export interface IActionReducer {

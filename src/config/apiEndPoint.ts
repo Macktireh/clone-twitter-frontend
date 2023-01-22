@@ -51,6 +51,13 @@ export const notificationSeenEndpoint : string = "/api/notifications/seen/"
 
 
 /***
+ * Endpoint Notifications Messages
+ */
+export const messagesEndpoint : string = "/api/chat/"
+export const noficationMessagesEndpoint : string = "/api/chat/messages/notifications/"
+
+
+/***
  * Endpoint Bookmark
  */
 export const bookmarksEndpoint : string = "/api/bookmarks/"
