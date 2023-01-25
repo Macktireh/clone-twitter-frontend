@@ -69,7 +69,7 @@ const SectionHeaderTweet: React.FC<propsTypes> = ({ page, title, subtitle, curre
       )}
       <div className="center">
         {page === privateRoutes.explore.name ? (
-          <InputSearch />
+          <InputSearch suggestion={true}  />
         ) : (
           <div className={page === privateRoutes.explore.name ? "centent notif" : "centent"}>
             <strong>{title}</strong>

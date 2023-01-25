@@ -106,7 +106,7 @@ const Aside: React.FC<propsTypes> = ({
       {page !== privateRoutes.explore.name ? (
         <>
           <div className="search-container">
-            <InputSearch />
+            <InputSearch suggestion={true} />
           </div>
           {render(1)}
           <div className="footer-container">
