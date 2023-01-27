@@ -6,7 +6,6 @@
   label {
     width: 100%;
     @include flex(row, center, center);
-    display: none;
     gap: .5rem;
     background-color: $color6;
     // background-color: rgba($color7, 0.2);
@@ -16,6 +15,7 @@
 
     span {
       color: $color5;
+      user-select: none;
     }
 
     svg {
@@ -27,8 +27,18 @@
     width: 100%;
     @include flex(row, center, center);
     gap: .5rem;
-    svg {
-      width: 30px;
+    .back {
+      width: 45px;
+      padding: 10px;
+      border-radius: 50%;
+      @extend .flex-center;
+      cursor: pointer;
+      &:hover {
+        background-color: $color9;
+      }
+      svg {
+        width: 100%;
+      }
     }
 
     .input-search {
