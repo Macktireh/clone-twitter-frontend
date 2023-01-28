@@ -6,9 +6,10 @@ import getNotificationAction from "@/actions/notification/getNotification.action
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getCurrentUserAction from "@/actions/user/getCurrentUser.action";
 import { urlWebSocketNotification } from "@/config/soket";
+import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
 
-type ContextPropsType = { 
-  clientRef: any; 
+type ContextPropsType = {
+  clientRef: any;
   isNotTwitter: boolean;
   IUnderstandthiswebsiteIsNotTwitter: () => void;
   setStateIsNotTwitter: () => void;
@@ -22,6 +23,7 @@ export const notificationType = {
   deleteComment: "Delete Comment",
   likeComment: "Like_Comment",
   following: "following",
+  sendMessage: "Send_Message",
 };
 
 const NotificationContext = React.createContext<ContextPropsType | null>(null);
@@ -37,7 +39,7 @@ const NotificationProvider = ({ children }: React.PropsWithChildren) => {
   const IUnderstandthiswebsiteIsNotTwitter = () => {
     localStorage.setItem("thiswebsiteIsNotTwitter", "I understand");
     setIsNotTwitter(true);
-  }
+  };
 
   const setStateIsNotTwitter = () => setIsNotTwitter(false);
 
@@ -62,7 +64,12 @@ const NotificationProvider = ({ children }: React.PropsWithChildren) => {
 
     // Only set up the websocket once
     if (!clientRef.current) {
-      const client = new WebSocket(urlWebSocketNotification);
+      let client: WebSocket;
+      if (localStorage.getItem("access")) {
+        client = new WebSocket(urlWebSocketNotification + "?token=" + localStorage.getItem("access"));
+      } else {
+        client = new WebSocket(urlWebSocketNotification + "?token=none");
+      }
       clientRef.current = client;
 
       // window.client = client;
@@ -78,6 +85,8 @@ const NotificationProvider = ({ children }: React.PropsWithChildren) => {
         if (clientRef.current) {
           // Connection failed
           // console.log("ws closed by server");
+          // client = new WebSocket(urlWebSocketNotification + "?token=" + localStorage.getItem("access"));
+          dispatch(checkAuthenticatedAction(() => null) as any);
         } else {
           // Cleanup initiated from app side, can return here, to not attempt a reconnect
           // console.log("ws closed by app component unmount");
@@ -104,7 +113,7 @@ const NotificationProvider = ({ children }: React.PropsWithChildren) => {
 
       client.onmessage = (e) => {
         const data = JSON.parse(e.data);
-        if (data.type === "notif_message") {
+        if (data.type === "other_notifications") {
           // console.log("data.message : ", data.message);
           switch (data.message) {
             case notificationType.addPost:
@@ -136,7 +145,9 @@ const NotificationProvider = ({ children }: React.PropsWithChildren) => {
   }, [waitingToReconnect]);
 
   return (
-    <NotificationContext.Provider value={{ clientRef, isNotTwitter, IUnderstandthiswebsiteIsNotTwitter, setStateIsNotTwitter }}>
+    <NotificationContext.Provider
+      value={{ clientRef, isNotTwitter, IUnderstandthiswebsiteIsNotTwitter, setStateIsNotTwitter }}
+    >
       {children}
     </NotificationContext.Provider>
   );

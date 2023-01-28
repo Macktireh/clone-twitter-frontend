@@ -1,3 +1,4 @@
+import { IUser } from '@/models/userProfile';
 export interface INotif {
   publicId: string;
   typeNotif: string;
@@ -10,4 +11,15 @@ export interface INotif {
   read: boolean;
   created: Date;
   updated: Date;
+}
+
+
+export interface IMessage {
+  sender: IUser,
+  reciever: IUser,
+  message: string,
+  seen: boolean,
+  preview: boolean,
+  created: Date,
+  updated: Date
 }

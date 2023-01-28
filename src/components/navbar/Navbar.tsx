@@ -72,6 +72,7 @@ const Navbar: React.FC<propsTypes> = ({ currentUser, notification }) => {
           >
             <IconSVG iconName={active === "message" ? "messageActive" : "message"} />
             <span className={active === "message" ? "active" : ""}>Messages</span>
+            <div className="info-notif">4</div>
           </NavLink>
 
           <NavLink
@@ -133,7 +134,7 @@ const NavbarConnectWithStore: React.FC<propsTypes> = ({ currentUser, notificatio
 
 const mapStateToProps = (state: IRootState) => ({
   currentUser: state.authReducer.currentUser,
-  notification: state.notificationReducer,
+  notification: state.notificationReducer.notifications,
 });
 
 export default connect(mapStateToProps, {})(NavbarConnectWithStore);
