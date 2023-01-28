@@ -1,19 +1,21 @@
 import React from "react";
 
 import IconSVG from "@/widgets/IconSVG";
+import { dataTrendsType } from "@/components/aside/data-trend";
 
-const Trending: React.FC = () => {
+
+const Trending: React.FC<dataTrendsType> = ({ subject, title, numTweet }) => {
   return (
     <div className="Trending">
       <div className="left">
         <div className="topic">
-          <span>Sports · Trending</span>
+          <span>{subject}</span>
         </div>
         <div className="name-account">
-          <strong>Macktireh ABDI SOUBANEH</strong>
+          <strong>{title}</strong>
         </div>
         <div className="stats-tweet">
-          <span>4,245k tweets</span>
+          <span>{numTweet}</span>
         </div>
       </div>
       <div className="right">
