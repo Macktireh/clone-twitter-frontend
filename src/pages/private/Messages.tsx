@@ -1,11 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import Layout from "@/layout/Layout";
 import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
+import NoMessage from "@/components/messages/NoMessage";
 import { privateRoutes } from "@/routes/private.routes";
-import { connect } from "react-redux";
 import { IRootState, IPropsRootStateType } from "@/models";
-import ButtonCustom from "@/widgets/ButtonCustom";
+// import SearchPeople from "@/components/messages/SearchPeople";
 
 interface propsTypes
   extends Omit<
@@ -30,23 +31,20 @@ const Messages: React.FC<propsTypes> = ({ currentUser }) => {
           <SectionHeaderTweet page={privateRoutes.messages.name} title="Messages" currentUser={currentUser} />
         </section>
         <div className="inbox-container">
-          <div className="not-msg">
-            <h2>Welcome to your inbox!</h2>
-            <p>
-              Drop a line, share Tweets and more with private conversations between you and others on Twitter.
-            </p>
-            <ButtonCustom text="Write a message" />
-          </div>
+          {/* <SearchPeople /> */}
+          <NoMessage
+            h2="Welcome to your inbox!"
+            p="Drop a line, share Tweets and more with private conversations between you and others on Twitter."
+            textBtn="Write a message"
+          />
         </div>
       </div>
       <div className="chatrom">
-        <div className="not-msg">
-          <h2>Select a message</h2>
-          <p>
-            Choose from your existing conversations, start a <br /> new one, or just keep swimming.
-          </p>
-          <ButtonCustom text="New message" />
-        </div>
+        <NoMessage
+          h2="Select a message"
+          p="Choose from your existing conversations, start a new one, or just keep swimming."
+          textBtn="New message"
+        />
       </div>
     </main>
   );

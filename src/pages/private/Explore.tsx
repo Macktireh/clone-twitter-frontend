@@ -8,6 +8,7 @@ import Aside from "@/components/aside/Aside";
 import { privateRoutes } from "@/routes/private.routes";
 import { connect } from "react-redux";
 import { IRootState, IPropsRootStateType } from "@/models";
+import { dataTrends } from "@/components/aside/data-trend";
 
 interface propsTypes
   extends Omit<
@@ -38,8 +39,8 @@ const Explore: React.FC<propsTypes> = ({ currentUser }) => {
             <div className="trends-container">
               <div className="content">
                 <h3>Trends for you</h3>
-                {[1, 2, 3, 4, 5, 6].map((n, i) => (
-                  <Trending key={i} />
+                {dataTrends.map((trend, i) => (
+                  <Trending key={i} subject={trend.subject} title={trend.title} numTweet={trend.numTweet} />
                 ))}
               </div>
             </div>
