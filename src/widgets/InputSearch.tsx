@@ -55,24 +55,24 @@ const InputSearch: React.FC<propsTypes> = ({ suggestion }) => {
       {suggestion && (
         <div className="suggestions" style={{ display: displaySuggestions ? "block" : "none" }}>
           <ul>
-            <li>
-              <span>search I interviewed over 50 back-end engineers in the last 2 years.</span>
+            {/* <li>
+              <span></span>
               <div className="close-img">
                 <img src="/static/svg/close.svg" alt="remove" />
               </div>
             </li>
             <li>
-              <span>search 2</span>
+              <span></span>
               <div className="close-img">
                 <img src="/static/svg/close.svg" alt="remove" />
               </div>
             </li>
             <li>
-              <span>search 3</span>
+              <span></span>
               <div className="close-img">
                 <img src="/static/svg/close.svg" alt="remove" />
               </div>
-            </li>
+            </li> */}
           </ul>
         </div>
       )}

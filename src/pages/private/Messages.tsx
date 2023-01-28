@@ -6,7 +6,7 @@ import SectionHeaderTweet from "@/components/homePrivate/SectionHeaderTweet";
 import NoMessage from "@/components/messages/NoMessage";
 import { privateRoutes } from "@/routes/private.routes";
 import { IRootState, IPropsRootStateType } from "@/models";
-import SearchPeople from "@/components/messages/SearchPeople";
+// import SearchPeople from "@/components/messages/SearchPeople";
 
 interface propsTypes
   extends Omit<
@@ -31,7 +31,7 @@ const Messages: React.FC<propsTypes> = ({ currentUser }) => {
           <SectionHeaderTweet page={privateRoutes.messages.name} title="Messages" currentUser={currentUser} />
         </section>
         <div className="inbox-container">
-          <SearchPeople />
+          {/* <SearchPeople /> */}
           <NoMessage
             h2="Welcome to your inbox!"
             p="Drop a line, share Tweets and more with private conversations between you and others on Twitter."
