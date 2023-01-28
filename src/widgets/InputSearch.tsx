@@ -2,7 +2,11 @@ import React from "react";
 
 import IconSVG from "@/widgets/IconSVG";
 
-const InputSearch = () => {
+type propsTypes = {
+  suggestion?: boolean;
+};
+
+const InputSearch: React.FC<propsTypes> = ({ suggestion }) => {
   const [searchValue, setSearchValue] = React.useState<string>("");
   const [displaySuggestions, setDisplaySuggestions] = React.useState<boolean>(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -48,28 +52,30 @@ const InputSearch = () => {
           <img src="/static/svg/close.svg" alt="" />
         </div>
       </form>
-      <div className="suggestions" style={{display: displaySuggestions ? "block" : "none"}}>
-        <ul>
-          <li>
-            <span>search I interviewed over 50 back-end engineers in the last 2 years.</span>
-            <div className="close-img">
-              <img src="/static/svg/close.svg" alt="remove" />
-            </div>
-          </li>
-          <li>
-            <span>search 2</span>
-            <div className="close-img">
-              <img src="/static/svg/close.svg" alt="remove" />
-            </div>
-          </li>
-          <li>
-            <span>search 3</span>
-            <div className="close-img">
-              <img src="/static/svg/close.svg" alt="remove" />
-            </div>
-          </li>
-        </ul>
-      </div>
+      {suggestion && (
+        <div className="suggestions" style={{ display: displaySuggestions ? "block" : "none" }}>
+          <ul>
+            {/* <li>
+              <span></span>
+              <div className="close-img">
+                <img src="/static/svg/close.svg" alt="remove" />
+              </div>
+            </li>
+            <li>
+              <span></span>
+              <div className="close-img">
+                <img src="/static/svg/close.svg" alt="remove" />
+              </div>
+            </li>
+            <li>
+              <span></span>
+              <div className="close-img">
+                <img src="/static/svg/close.svg" alt="remove" />
+              </div>
+            </li> */}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

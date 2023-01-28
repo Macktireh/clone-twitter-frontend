@@ -1,0 +1,48 @@
+.SearchPeople{
+  width: 100%;
+  padding: 0 .5rem;
+  margin: 6px 0;
+
+  label {
+    width: 100%;
+    @include flex(row, center, center);
+    gap: .5rem;
+    background-color: $color6;
+    // background-color: rgba($color7, 0.2);
+    border-radius: 25px;
+    padding: .8rem;
+    cursor: text;
+
+    span {
+      color: $color5;
+      user-select: none;
+    }
+
+    svg {
+      width: 20px;
+    }
+  }
+
+  .searching {
+    width: 100%;
+    @include flex(row, center, center);
+    gap: .5rem;
+    .back {
+      width: 45px;
+      padding: 10px;
+      border-radius: 50%;
+      @extend .flex-center;
+      cursor: pointer;
+      &:hover {
+        background-color: $color9;
+      }
+      svg {
+        width: 100%;
+      }
+    }
+
+    .input-search {
+      width: 100%;
+    }
+  }
+}
