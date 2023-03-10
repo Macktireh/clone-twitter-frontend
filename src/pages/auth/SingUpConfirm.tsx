@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 import ModalAuth from "@/components/auth/ModalAuth";
 import { authRoutes } from "@/routes/auth.routes";

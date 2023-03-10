@@ -147,15 +147,21 @@
       width: 100%;
       @include flex(raw, flex-start, center);
       gap: 0.5rem;
+      .h2-tille-popup {
+        font-size: 1.1rem;
+      };
       svg {
         width: 50px;
+      }
+      .ThisIsNnotTwitterIconInfo {
+        width: 40px;
       }
     }
 
     p {
-      font-size: 0.9em;
+      font-size: 1em;
       font-weight: 470;
-      line-height: 20px;
+      line-height: 22px;
     }
 
     .box-btn {
