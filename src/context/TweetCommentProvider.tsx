@@ -315,7 +315,7 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
       notifyContext?.notify(notifyContext.typeNotify.default, "Your Tweet was sent.");
     }
     handleDiscardPost();
-    sokect && setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.addPost), 3000);
+    sokect && setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.addPost), 2000);
   };
 
   const handleDeletePost = async () => {
@@ -325,7 +325,7 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
       setPostPublicId("");
       notifyContext?.notify(notifyContext.typeNotify.default, "Your Tweet was deleted.");
       sokect &&
-        setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.deletePost), 3000);
+        setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.deletePost), 2000);
     }
   };
 
@@ -451,7 +451,7 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
       notifyContext?.notify(notifyContext.typeNotify.default, "Your ReTweet was sent.");
     }
     handleDiscardComment();
-    sokect && setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.addComment), 3000);
+    sokect && setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.addComment), 2000);
   };
 
   const handleDeleteComment = async () => {
@@ -462,7 +462,7 @@ const TweetCommentProvider = ({ children }: React.PropsWithChildren) => {
       setCommentPublicId("");
       notifyContext?.notify(notifyContext.typeNotify.default, "Your ReTweet was deleted.");
       sokect &&
-        setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.deleteComment), 3000);
+        setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.deleteComment), 2000);
     }
   };
 

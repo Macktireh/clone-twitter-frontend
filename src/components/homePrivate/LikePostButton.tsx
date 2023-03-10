@@ -35,14 +35,14 @@ const LikePostButton: React.FC<propsTypes> = ({
         await dispatch(likePostAction(post.publicId) as any);
         dispatch(getAllPostAction() as any);
         sokect &&
-          setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.likePost), 3000);
+          setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.likePost), 2000);
       }
     } else {
       if (post) {
         await dispatch(likeCommentAction(post.publicId) as any);
         dispatch(getAllCommentAction(postPublicIdRead as string) as any);
         sokect &&
-          setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.likeComment), 3000);
+          setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.likeComment), 2000);
       }
     }
   };
