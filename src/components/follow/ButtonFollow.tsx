@@ -29,7 +29,7 @@ const ButtonFollow: React.FC<propsTypes> = ({ typeFollow, userPubblicId, userFol
     dispatch(getPeopleConnect() as Dispatch<AnyAction> | any);
     dispatch(getAllFollowingAction(userPubblicId) as Dispatch<AnyAction> | any);
     dispatch(getAllFollowersAction(userPubblicId) as Dispatch<AnyAction> | any);
-    sokect && setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.following), 3000);
+    sokect && setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.following), 2000);
   };
 
   return (
