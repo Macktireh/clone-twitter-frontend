@@ -1,9 +1,12 @@
 import React from "react";
+import { useLocation } from 'react-router-dom';
 
 import ModalAuth from "@/components/auth/ModalAuth";
 import { authRoutes } from "@/routes/auth.routes";
 
 const SignUpConfirm: React.FC = () => {
+  const { state } = useLocation();
+
   React.useEffect(() => {
     document.title = authRoutes.signupConfirm.title;
   });
@@ -16,7 +19,7 @@ const SignUpConfirm: React.FC = () => {
         <br />
         <p>Veuillez vérifier votre adresse e-mail afin d'accéder à votre compte Clone Twitter.</p>
         <p>
-          Nous avons envoyé un email à <strong>abdimack97@gmail.com</strong> <br /> Pour continuer, veuillez
+          Nous avons envoyé un email à <strong>{state as string}</strong> <br /> Pour continuer, veuillez
           vérifier votre boîte de réception et vérifier votre adresse e-mail. Si vous n'avez pas reçu l'email,
           veuillez vérifier votre dossier spam.
         </p>
