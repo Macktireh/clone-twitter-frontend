@@ -6,7 +6,6 @@ import getNotificationAction from "@/actions/notification/getNotification.action
 import getAllPostAction from "@/actions/post/getAllPost.action";
 import getCurrentUserAction from "@/actions/user/getCurrentUser.action";
 import { urlWebSocketNotification } from "@/config/soket";
-import checkAuthenticatedAction from "@/actions/auth/checkAuthenticated.action";
 
 type ContextPropsType = {
   clientRef: any;
@@ -33,6 +32,7 @@ const NotificationProvider = ({ children }: React.PropsWithChildren) => {
 
   const clientRef = React.useRef<any>(null);
   const [waitingToReconnect, setWaitingToReconnect] = React.useState<boolean | null>(null);
+  // eslint-disable-next-line
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [isNotTwitter, setIsNotTwitter] = React.useState<boolean>(true);
 
@@ -86,7 +86,6 @@ const NotificationProvider = ({ children }: React.PropsWithChildren) => {
           // Connection failed
           // console.log("ws closed by server");
           // client = new WebSocket(urlWebSocketNotification + "?token=" + localStorage.getItem("access"));
-          dispatch(checkAuthenticatedAction(() => null) as any);
         } else {
           // Cleanup initiated from app side, can return here, to not attempt a reconnect
           // console.log("ws closed by app component unmount");
