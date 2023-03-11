@@ -31,12 +31,10 @@
 @mixin srolled() {
   ::-webkit-scrollbar {
     width: 8px;
-    @media (max-width: 500px) {
-      width: 4px;
+    @media (max-width: 900px) {
+      width: 0px;
     }
-    @media (max-width: 400px) {
-      width: 2px;
-    }
+    
   }
   ::-webkit-scrollbar-track {
     background: transparent;
