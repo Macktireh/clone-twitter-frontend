@@ -18,3 +18,7 @@ If you have `Git` on your computer, use the commands below, otherwise just downl
 ```bash
 git clone https://github.com/Macktireh/clone-twitter-frontend.git clone-twitter-backend
 ```
+
+```bash
+cd clone-twitter-backend
+```
