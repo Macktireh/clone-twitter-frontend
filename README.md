@@ -22,3 +22,7 @@ git clone https://github.com/Macktireh/clone-twitter-frontend.git clone-twitter-
 ```bash
 cd clone-twitter-backend
 ```
+
+```bash
+npm install
+```
