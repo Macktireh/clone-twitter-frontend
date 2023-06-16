@@ -111,7 +111,7 @@ const ContentProfile: React.FC<propsTypes> = ({
                   .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
                   .map((post) => (
                     <div className="list-post" key={post.publicId}>
-                      <CardTweet key={post.publicId} currentUser={userProfile} post={post} users={users} />
+                      <CardTweet key={post.publicId} currentUser={currentUser} post={post} users={users} />
                     </div>
                   ))
               )}
