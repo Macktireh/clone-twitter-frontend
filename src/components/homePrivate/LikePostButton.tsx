@@ -10,6 +10,7 @@ import { pushNotification } from "@/config/soket";
 import { notificationType } from "@/context/NotificationProvider";
 import { useNotificationContext } from "@/context/NotificationProvider";
 import { IUserProfile, IPost, IComment } from "@/models";
+import { useNotifyContext } from "@/context/NotifyProvider";
 
 type propsTypes = {
   type: string;
@@ -28,17 +29,26 @@ const LikePostButton: React.FC<propsTypes> = ({
 }) => {
   const dispatch = useDispatch();
   const sokect = useNotificationContext();
+  const notifyContext = useNotifyContext();
 
   const handlLiked = async () => {
     if (type === "post") {
       if (currentUser && post) {
+        const userLike = post.liked.find((user) => user.public_id === currentUser.user.public_id);
+        userLike
+          ? notifyContext?.notify(notifyContext.typeNotify.default, "You unliked Tweet.")
+          : notifyContext?.notify(notifyContext.typeNotify.default, "You liked Tweet.");
         await dispatch(likePostAction(post.publicId) as any);
         dispatch(getAllPostAction() as any);
         sokect &&
           setTimeout(() => pushNotification(sokect.clientRef.current, notificationType.likePost), 2000);
       }
     } else {
-      if (post) {
+      if (post && currentUser) {
+        const userLike = post.liked.find((user) => user.public_id === currentUser.user.public_id);
+        userLike
+          ? notifyContext?.notify(notifyContext.typeNotify.default, "You unliked Comment.")
+          : notifyContext?.notify(notifyContext.typeNotify.default, "You liked Comment.");
         await dispatch(likeCommentAction(post.publicId) as any);
         dispatch(getAllCommentAction(postPublicIdRead as string) as any);
         sokect &&
