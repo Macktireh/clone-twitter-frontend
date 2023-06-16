@@ -58,9 +58,13 @@ button {
   top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2;
+  z-index: 999999999;
   background-color: $color1;
   @extend .flex-center;
+
+  @media (max-width: 500px) {
+    // margin-top: 150px;
+  }
 
   img {
     width: 60px;

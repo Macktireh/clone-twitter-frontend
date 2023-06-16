@@ -27,7 +27,7 @@ const SignUp: React.FC<propsTypes> = ({ signupAction }) => {
     lastName: process.env.REACT_APP_lastName || "",
     email: process.env.REACT_APP_Email || "",
     password: process.env.REACT_APP_Password || "",
-    confirmPassword: process.env.REACT_APP_confirmPassword || "",
+    confirmPassword: process.env.REACT_APP_Password || "",
   });
   const [displayError, setDisplayError] = React.useState(false);
   const [detailError, setDetailError] = React.useState("");

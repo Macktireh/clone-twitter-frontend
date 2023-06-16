@@ -22,6 +22,7 @@ interface propsTypes
 
 const styleSpinnersLoding: React.CSSProperties = {
   top: "20%",
+  marginTop: "150px",
 };
 
 const HomePrivate: React.FC<propsTypes> = ({
@@ -31,7 +32,7 @@ const HomePrivate: React.FC<propsTypes> = ({
   getAllUsersAction,
   getAllPostAction,
 }) => {
-  // const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(true);
   const flag = React.useRef(false);
 
   React.useEffect(() => {
@@ -41,7 +42,7 @@ const HomePrivate: React.FC<propsTypes> = ({
       getAllPostAction();
       flag.current = true;
     }
-    // if (currentUser && users && posts) setLoading(false);
+    if (currentUser && users && posts) setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flag, currentUser, users, posts]);
 
@@ -60,9 +61,9 @@ const HomePrivate: React.FC<propsTypes> = ({
             <AddNewPost nameClass="textarea-1" />
           </section>
           <section className="sec-list-post">
-            {!currentUser && !users && !posts ? (
+            {loading ? (
               <SpinnersLoding
-                isLoading={!currentUser && !users && !posts ? true : false}
+                isLoading={loading}
                 styleSpinnersLoding={styleSpinnersLoding}
               />
             ) : (

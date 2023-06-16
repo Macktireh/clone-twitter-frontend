@@ -87,7 +87,12 @@ const Notifications: React.FC<propsTypes> = ({
               {users &&
                 notifications &&
                 notifications.map((n, i) => (
-                  <CardNotif key={i} currentUser={currentUser} notification={n} fromUser={users.filter((u) => u.user.public_id === n.fromId)[0]} />
+                  <CardNotif
+                    key={i}
+                    currentUser={currentUser}
+                    notification={n}
+                    fromUser={users.filter((u) => u.user.public_id === n.fromId)[0]}
+                  />
                 ))}
             </div>
           ) : (
