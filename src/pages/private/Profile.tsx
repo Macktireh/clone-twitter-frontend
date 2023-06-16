@@ -54,7 +54,7 @@ const Profile: React.FC<propsTypes> = ({
   ];
 
   React.useEffect(() => {
-    document.title = `${currentUser?.user.first_name} ${currentUser?.user.last_name} (@${currentUser?.pseudo}) | Clone Twitter`;
+    document.title = `${anotherUser?.user.first_name} ${anotherUser?.user.last_name} (@${anotherUser?.pseudo}) | Clone Twitter`;
 
     if (!flag.current) {
       (async () => {
