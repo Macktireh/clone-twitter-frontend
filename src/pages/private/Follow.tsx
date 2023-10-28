@@ -56,7 +56,7 @@ const Follow: React.FC<propsTypes> = ({
   };
 
   React.useEffect(() => {
-    document.title = `${title} ${currentUser?.user.first_name} ${currentUser?.user.last_name} (@${currentUser?.pseudo}) | Clone Twitter`;
+    document.title = `${title} ${another?.user.first_name} ${another?.user.last_name} (@${another?.pseudo}) | Clone Twitter`;
 
     setActiveTab(followActive);
     if (!flag.current) {

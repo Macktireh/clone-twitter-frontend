@@ -3,7 +3,7 @@ import React from "react";
 import IconSVG from "@/widgets/IconSVG";
 import { useTweetComment } from "@/context/TweetCommentProvider";
 
-type PropsTypes = { nameClass: string }
+type PropsTypes = { nameClass: string };
 
 const ButtonAddTweet: React.FC<PropsTypes> = ({ nameClass }) => {
   const propsContext = useTweetComment();
