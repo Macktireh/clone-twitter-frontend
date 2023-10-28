@@ -48,7 +48,11 @@ const ModalAddNewTweet: React.FC = () => {
           handleClose={handleClosePopup}
         />
         <div
-          className={propsContext?.emojiPostState.chosenEmojiPost ? "modal-container addTweet addTweetHeight" : "modal-container addTweet"}
+          className={
+            propsContext?.emojiPostState.chosenEmojiPost
+              ? "modal-container addTweet addTweetHeight"
+              : "modal-container addTweet"
+          }
           // style={{ height: propsContext?.emojiPostState.chosenEmojiPost ? "600px" : "" }}
         >
           <div className="modal-header">

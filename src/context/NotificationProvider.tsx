@@ -66,7 +66,8 @@ const NotificationProvider = ({ children }: React.PropsWithChildren) => {
     if (!clientRef.current) {
       let client: WebSocket;
       if (localStorage.getItem("access")) {
-        client = new WebSocket(urlWebSocketNotification + "?token=" + localStorage.getItem("access"));
+        // client = new WebSocket(urlWebSocketNotification + "?token=" + localStorage.getItem("access"));
+        client = new WebSocket(urlWebSocketNotification);
       } else {
         client = new WebSocket(urlWebSocketNotification + "?token=none");
       }

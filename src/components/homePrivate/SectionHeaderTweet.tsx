@@ -69,13 +69,13 @@ const SectionHeaderTweet: React.FC<propsTypes> = ({ page, title, subtitle, curre
       )}
       <div className="center">
         {page === privateRoutes.explore.name ? (
-          <InputSearch suggestion={true}  />
+          <InputSearch suggestion={true} />
         ) : (
           <div className={page === privateRoutes.explore.name ? "centent notif" : "centent"}>
             <strong>{title}</strong>
-            {(page === privateRoutes.profile.name || page === privateRoutes.bookmarks.name || page === privateRoutes.lists.name) && (
-              <span>{subtitle}</span>
-            )}
+            {(page === privateRoutes.profile.name ||
+              page === privateRoutes.bookmarks.name ||
+              page === privateRoutes.lists.name) && <span>{subtitle}</span>}
           </div>
         )}
       </div>
