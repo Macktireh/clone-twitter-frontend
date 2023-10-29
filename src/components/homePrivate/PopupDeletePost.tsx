@@ -16,15 +16,17 @@ const PopupDeletePost = () => {
   };
 
   return (
-      <Popup
-        popupActive={
-          propsContext?.popupDeletePost.popupActiveDeletePost ? propsContext.popupDeletePost.popupActiveDeletePost : false
-        }
-        popupTitle="Vous êtes sûr de vouloir supprimer ?"
-        popupBtnText="Oui Supprimer"
-        handleDiscard={handleDelete}
-        handleClose={handleClosePopup}
-      />
+    <Popup
+      popupActive={
+        propsContext?.popupDeletePost.popupActiveDeletePost
+          ? propsContext.popupDeletePost.popupActiveDeletePost
+          : false
+      }
+      popupTitle="Vous êtes sûr de vouloir supprimer ?"
+      popupBtnText="Oui Supprimer"
+      handleDiscard={handleDelete}
+      handleClose={handleClosePopup}
+    />
   );
 };
 

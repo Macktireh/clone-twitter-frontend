@@ -7,7 +7,8 @@ const PopupDeleteComment = () => {
   const propsContext = useTweetComment();
 
   const handleClosePopup = () => {
-    propsContext?.popupDeleteComment.setPopupActiveDeleteComment && propsContext.popupDeleteComment.setPopupActiveDeleteComment();
+    propsContext?.popupDeleteComment.setPopupActiveDeleteComment &&
+      propsContext.popupDeleteComment.setPopupActiveDeleteComment();
   };
 
   const handleDelete = () => {
@@ -15,15 +16,17 @@ const PopupDeleteComment = () => {
   };
 
   return (
-      <Popup
-        popupActive={
-          propsContext?.popupDeleteComment.popupActiveDeleteComment ? propsContext.popupDeleteComment.popupActiveDeleteComment : false
-        }
-        popupTitle="Vous êtes sûr de vouloir supprimer ?"
-        popupBtnText="Oui Supprimer"
-        handleDiscard={handleDelete}
-        handleClose={handleClosePopup}
-      />
+    <Popup
+      popupActive={
+        propsContext?.popupDeleteComment.popupActiveDeleteComment
+          ? propsContext.popupDeleteComment.popupActiveDeleteComment
+          : false
+      }
+      popupTitle="Vous êtes sûr de vouloir supprimer ?"
+      popupBtnText="Oui Supprimer"
+      handleDiscard={handleDelete}
+      handleClose={handleClosePopup}
+    />
   );
 };
 
