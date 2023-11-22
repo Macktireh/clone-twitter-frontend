@@ -26,3 +26,6 @@ cd clone-twitter-backend
 ```bash
 npm install
 ```
+```bash
+npm start
+```
