@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import ButtonCustom from "@/widgets/ButtonCustom";
 import { authRoutes } from "@/routes/auth.routes";
+import { GoogleLoginButton } from "@/components/auth/GoogleLoginButton";
 
 const HomePublic: React.FC = () => {
   React.useEffect(() => {
@@ -21,11 +22,7 @@ const HomePublic: React.FC = () => {
         </div>
         <div className="frame-btn-connexion">
           <div className="frame1">
-            <ButtonCustom
-              nameClass={"btn-signup-ext"}
-              pic={"/static/svg/google.svg"}
-              text={"S'inscrire avec Google"}
-            />
+            <GoogleLoginButton text={"S'inscrire avec Google"} nameClass="btn-signup-ext btn-signup" />
             <ButtonCustom
               nameClass={"btn-signup-ext"}
               pic={"/static/svg/apple.svg"}

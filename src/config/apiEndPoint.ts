@@ -9,6 +9,7 @@ export const resetPasswordEndpoint : string = "/api/auth/user/reset-password/"
 export const verifyTokenEndpoint : string = "/api/auth/user/jwt/verify/"
 export const refreshTokenEndpoint : string = "/api/auth/user/token/refresh/"
 export const logoutEndpoint : string = "/api/auth/user/logout/"
+export const googleLoginEndpoint : string = "/api/auth/user/login/google/"
 
 
 /***

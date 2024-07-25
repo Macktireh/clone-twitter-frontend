@@ -69,6 +69,12 @@
               width: 18px;
             }
           }
+          .btn-signup-ext[disabled] {
+            background-color: rgba($color2, 0.7) !important;
+            border-color: transparent;
+            color: $color1;
+            cursor: not-allowed;
+          }
         }
 
         .sep {
@@ -124,7 +130,7 @@
         .btn-signup[disabled] {
           background-color: rgba($color2, 0.7) !important;
           color: $color1;
-          cursor: default;
+          cursor: not-allowed;
         }
 
         .info {
