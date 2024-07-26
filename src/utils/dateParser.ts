@@ -32,26 +32,26 @@ export const timeSince = function (d: string) {
 
     let interval = Math.floor(seconds / 31536000);
     if (interval >= 1) {
-      intervalType = "année";
+      intervalType = "year";
     } else {
       interval = Math.floor(seconds / 2592000);
       if (interval >= 1) {
-        intervalType = "mois";
+        intervalType = "month";
       } else {
         interval = Math.floor(seconds / 86400);
         if (interval >= 1) {
-          intervalType = "jour";
+          intervalType = "day";
         } else {
           interval = Math.floor(seconds / 3600);
           if (interval >= 1) {
-            intervalType = "heure";
+            intervalType = "hour";
           } else {
             interval = Math.floor(seconds / 60);
             if (interval >= 1) {
               intervalType = "minute";
             } else {
               interval = seconds;
-              intervalType = "seconde";
+              intervalType = "second";
             }
           }
         }

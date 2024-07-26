@@ -22,8 +22,8 @@ const PopupDeletePost = () => {
           ? propsContext.popupDeletePost.popupActiveDeletePost
           : false
       }
-      popupTitle="Vous êtes sûr de vouloir supprimer ?"
-      popupBtnText="Oui Supprimer"
+      popupTitle="Are you sure you want to delete?"
+      popupBtnText="Yes Delete"
       handleDiscard={handleDelete}
       handleClose={handleClosePopup}
     />
