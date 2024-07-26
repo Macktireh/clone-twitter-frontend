@@ -9,6 +9,7 @@ import useLogin from "@/hooks/UseLogin";
 import loginAction from "@/actions/auth/login.action";
 import { IAuthLogin } from "@/models";
 import { authRoutes } from "@/routes/auth.routes";
+import { GoogleLoginButton } from "@/components/auth/GoogleLoginButton";
 
 type propsTypes = { loginAction: (isAuthenticated?: boolean) => Promise<void> };
 
@@ -39,11 +40,7 @@ const Login: React.FC<propsTypes> = ({ loginAction }) => {
   return (
     <ModalAuth title="Connectez-vous à Clone Twitter" loading={loading} disabled={disabled}>
       <div className="box-social-auth">
-        <ButtonCustom
-          nameClass={"btn-signup-ext"}
-          pic={"/static/svg/google.svg"}
-          text={"Se connecter avec Google"}
-        />
+        <GoogleLoginButton text={"Se connecter avec Google"} nameClass="btn-signup-ext btn-signup" />
         <ButtonCustom
           nameClass={"btn-signup-ext"}
           pic={"/static/svg/apple.svg"}
