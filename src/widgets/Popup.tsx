@@ -42,7 +42,7 @@ const Popup: React.FC<propsTypes> = ({
             onClick={handleDiscard}
           />
           {hiddenBtnCancel ? null : (
-            <ButtonCustom text="Annuler" nameClass="btn-cancel" onClick={handleClose} />
+            <ButtonCustom text="Cancel" nameClass="btn-cancel" onClick={handleClose} />
           )}
         </div>
       </div>

@@ -12,15 +12,13 @@ const RequestResetPasswordConfirm: React.FC = () => {
     <ModalAuth>
       <div className="info-auth">
         <img src="/static/svg/envelope.svg" alt="" />
-        <h3>Réinitialisation du mot de passe envoyée</h3>
+        <h3>Password reset sent</h3>
         <br />
         <p>
-          Nous vous avons envoyé par email des instructions pour définir votre mot de passe, si un compte
-          existe avec l'e-mail que vous avez saisi. Vous devriez les recevoir sous peu.
+          We have sent you an email with instructions to set your password, if an account exists with the email you entered. You should receive it shortly.
         </p>
         <p>
-          Si vous ne recevez pas d'e-mail, assurez-vous d'avoir entré l'adresse avec laquelle vous vous êtes
-          inscrit et vérifiez votre dossier spam.
+          If you do not receive an email, make sure you entered the address you used to sign up and check your spam folder.
         </p>
       </div>
     </ModalAuth>

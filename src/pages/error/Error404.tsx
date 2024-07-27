@@ -22,11 +22,10 @@ const Error404: React.FC = () => {
           <h2>404</h2>
           <h4>Opps! page not found</h4>
           <p>
-            La page que vous recherchez n'existe pas. Il se peut que vous ayez mal saisi l'adresse
-            ou que la page ait été déplacée.
+            The page you are looking for does not exist. You may have entered the address incorrectly, or the page may have been moved.
           </p>
           <Link to="/">
-            <span>Revenir à la page d'acceuil</span>
+            <span>Back to home page</span>
           </Link>
         </div>
       </div>

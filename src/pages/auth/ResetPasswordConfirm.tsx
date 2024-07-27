@@ -16,11 +16,11 @@ const ResetPasswordConfirm: React.FC = () => {
         <img src="/static/svg/success.svg" alt="" />
         <br />
         <br />
-        <h2>Réinitialisation du mot de passe terminée !</h2>
+        <h2>Password reset complete!</h2>
         <br />
-        <p>Votre mot de passe a été bien défini. Vous pouvez continuer et vous connecter maintenant.</p>
+        <p>Your password has been set successfully. You can proceed and log in now.</p>
         <br />
-        <Link to={authRoutes.login.path} className="btn-login">Se connecter</Link>
+        <Link to={authRoutes.login.path} className="btn-login">Sign in</Link>
       </div>
     </ModalAuth>
   );

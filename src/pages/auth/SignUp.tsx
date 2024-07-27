@@ -45,8 +45,8 @@ const SignUp: React.FC<propsTypes> = ({ signupAction }) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const checkFirstName = await controlField.blankValidator("Prénom", firstName);
-    const checkLastName = await controlField.blankValidator("Nom", lastName);
+    const checkFirstName = await controlField.blankValidator("First Name", firstName);
+    const checkLastName = await controlField.blankValidator("Last Name", lastName);
     const checkEmail = await controlField.emailValidator(email);
     const checkPassword = await controlField.passwordValidator(password, confirmPassword);
 
@@ -79,7 +79,7 @@ const SignUp: React.FC<propsTypes> = ({ signupAction }) => {
   };
 
   return (
-    <ModalAuth title="Créer votre compte" loading={loading} disabled={disabled}>
+    <ModalAuth title="Create your account" loading={loading} disabled={disabled}>
       <form onSubmit={onSubmit}>
         {displayError && (
           <div className="error-auth">
@@ -90,7 +90,7 @@ const SignUp: React.FC<propsTypes> = ({ signupAction }) => {
         <InputCustom
           id="firstName"
           name="firstName"
-          label="Prénom *"
+          label="First Name *"
           maxLength="50"
           onChange={handleChange}
           value={firstName}
@@ -98,7 +98,7 @@ const SignUp: React.FC<propsTypes> = ({ signupAction }) => {
         <InputCustom
           id="lastName"
           name="lastName"
-          label="Nom *"
+          label="Last Name *"
           maxLength="50"
           onChange={handleChange}
           value={lastName}
@@ -115,7 +115,7 @@ const SignUp: React.FC<propsTypes> = ({ signupAction }) => {
           id="password"
           name="password"
           type="password"
-          label="Mot de passe *"
+          label="Password *"
           onChange={handleChange}
           isPasswords={true}
           value={password}
@@ -124,19 +124,19 @@ const SignUp: React.FC<propsTypes> = ({ signupAction }) => {
           id="confirmPassword"
           name="confirmPassword"
           type="password"
-          label="Confimer mot de passe *"
+          label="Confirm Password *"
           onChange={handleChange}
           isPasswords={true}
           value={confirmPassword}
         />
         <ButtonCustom
           nameClass={disabled ? "btn-signup disabled" : "btn-signup"}
-          text={"S'inscrire"}
+          text={"Sign up"}
           isDisabled={disabled}
         />
         <div className="info">
           <h4>
-            Vous avez déjà un compte ?<Link to={disabled ? "" : authRoutes.login.path}> Connectez-vous</Link>
+            Already have an account?<Link to={disabled ? "" : authRoutes.login.path}> Sign in</Link>
           </h4>
         </div>
       </form>

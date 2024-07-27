@@ -15,13 +15,11 @@ const SignUpConfirm: React.FC = () => {
     <ModalAuth>
       <div className="info-auth">
         <img src="/static/svg/envelope.svg" alt="envelope" />
-        <h3>Merci de vous être inscrit à un compte Clone Twitter</h3>
+        <h3>Thank you for signing up for a Twitter Clone account.</h3>
         <br />
-        <p>Veuillez vérifier votre adresse e-mail afin d'accéder à votre compte Clone Twitter.</p>
+        <p>Please verify your email address to access your Twitter Clone account.</p>
         <p>
-          Nous avons envoyé un email à <strong>{state as string}</strong> <br /> Pour continuer, veuillez
-          vérifier votre boîte de réception et vérifier votre adresse e-mail. Si vous n'avez pas reçu l'email,
-          veuillez vérifier votre dossier spam.
+          We have sent an email to <strong>{state as string}</strong> <br /> To continue, please check your inbox and verify your email address. If you did not receive the email, please check your spam folder.
         </p>
       </div>
     </ModalAuth>
