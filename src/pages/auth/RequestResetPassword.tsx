@@ -33,11 +33,10 @@ const RequestResetPassword: React.FC<propsTypes> = ({ requestResetPasswordAction
   };
 
   return (
-    <ModalAuth title="Réinitialisation du mot de passe" loading={loading} disabled={disabled}>
+    <ModalAuth title="Request password reset" loading={loading} disabled={disabled}>
       <form onSubmit={onSubmit}>
         <p>
-          Mot de passe oublié ? Entrez votre adresse email ci-dessous et si votre adresse email existe, nous
-          vous enverrons par e-mail des instructions pour en définir une nouvelle.
+        Forgot your password? Enter your email address below, and if your email address exists, we will send you instructions on how to set a new one.
         </p>
         <InputCustom
           id="email"
@@ -47,7 +46,7 @@ const RequestResetPassword: React.FC<propsTypes> = ({ requestResetPasswordAction
           onChange={handleChange}
           value={email}
         />
-        <ButtonCustom nameClass={"btn-signup"} text={"Envoyer"} isDisabled={disabled} />
+        <ButtonCustom nameClass={"btn-signup"} text={"Send"} isDisabled={disabled} />
       </form>
     </ModalAuth>
   );

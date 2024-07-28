@@ -17,39 +17,39 @@ const HomePublic: React.FC = () => {
           <img className="logo" src="/static/svg/twitter.svg" alt="logo Twitter" />
         </header>
         <div className="frame-title">
-          <h1>Ça se passe maintenant</h1>
-          <h2>Rejoignez Twitter dès aujourd'hui.</h2>
+          <h1>It's happening now</h1>
+          <h2>Join Twitter Clone today.</h2>
         </div>
         <div className="frame-btn-connexion">
           <div className="frame1">
-            <GoogleLoginButton text={"S'inscrire avec Google"} nameClass="btn-signup-ext btn-signup" />
+            <GoogleLoginButton text={"Sign up with Google"} nameClass="btn-signup-ext btn-signup" />
             <ButtonCustom
               nameClass={"btn-signup-ext"}
               pic={"/static/svg/apple.svg"}
-              text={"S'inscrire avec Apple"}
+              text={"Sign up with Apple"}
             />
             <div className="sep">
               <hr />
-              <span>ou</span>
+              <span>or</span>
             </div>
             <div className="frame-signup-int">
               <Link to={authRoutes.signup.path}>
-                <ButtonCustom nameClass={"btn-signup-int"} text={"S'inscrire avec email et password"} />
+                <ButtonCustom nameClass={"btn-signup-int"} text={"Sign up with email and password"} />
               </Link>
               <p>
-                En vous inscrivant, vous acceptez les
+                By registering, you accept the
                 <Link to="/">
-                  <span> Conditions d'Utilisation</span>
+                  <span> Terms of use </span>
                 </Link>
-                et la <span> Politique de Confidentialité</span>, incluant l'
-                <span>Utilisation de Cookies</span>.
+                and <span> Privacy Policy</span>, including the
+                <span> Use of Cookies</span>.
               </p>
             </div>
           </div>
           <div className="frame-signin">
-            <h4>Vous avez déjà un compte ?</h4>
+            <h4>Already have an account?</h4>
             <Link to={authRoutes.login.path}>
-              <ButtonCustom nameClass={"btn-signin"} text={"Se connecter"} />
+              <ButtonCustom nameClass={"btn-signin"} text={"Sign in"} />
             </Link>
           </div>
         </div>
@@ -58,24 +58,24 @@ const HomePublic: React.FC = () => {
         <img src="/static/svg/twitter.svg" alt="" />
       </div>
       <div className="container-footer">
-        <span id="items-footer-home">À propos</span>
-        <span id="items-footer-home">Centre d'assistance</span>
-        <span id="items-footer-home">Conditions d’utilisation</span>
-        <span id="items-footer-home">Politique de Confidentialité</span>
-        <span id="items-footer-home">Politique relative aux cookies</span>
+        <span id="items-footer-home">About us</span>
+        <span id="items-footer-home">Support Center</span>
+        <span id="items-footer-home">Terms of use</span>
+        <span id="items-footer-home">Privacy Policy</span>
+        <span id="items-footer-home">Cookie policy</span>
         <span id="items-footer-home">Accessibilité</span>
-        <span id="items-footer-home">Informations sur les publicités</span>
+        <span id="items-footer-home">Advertising information</span>
         <span id="items-footer-home">Blog</span>
         <span id="items-footer-home">Statut</span>
-        <span id="items-footer-home">Carrières</span>
-        <span id="items-footer-home">Ressources de la marque</span>
-        <span id="items-footer-home">Publicité</span>
+        <span id="items-footer-home">Careers</span>
+        <span id="items-footer-home">Brand resources</span>
+        <span id="items-footer-home">Advertising</span>
         <span id="items-footer-home">Marketing</span>
-        <span id="items-footer-home">Twitter pour les professionnels</span>
-        <span id="items-footer-home">Développeurs</span>
-        <span id="items-footer-home">Répertoire</span>
-        <span id="items-footer-home">Paramètres</span>
-        <span id="items-footer-home">© 2022 Twitter, Inc.</span>
+        <span id="items-footer-home">Twitter Clone for professionals</span>
+        <span id="items-footer-home">Developers</span>
+        <span id="items-footer-home">Directory</span>
+        <span id="items-footer-home">Parameters</span>
+        <span id="items-footer-home">© {new Date().getFullYear()} Twitter Clone, Inc.</span>
       </div>
     </div>
   );

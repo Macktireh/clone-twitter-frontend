@@ -38,18 +38,18 @@ const Login: React.FC<propsTypes> = ({ loginAction }) => {
   };
 
   return (
-    <ModalAuth title="Connectez-vous à Clone Twitter" loading={loading} disabled={disabled}>
+    <ModalAuth title="Connect to Twitter Clone" loading={loading} disabled={disabled}>
       <div className="box-social-auth">
-        <GoogleLoginButton text={"Se connecter avec Google"} nameClass="btn-signup-ext btn-signup" />
+        <GoogleLoginButton text={"Login with Google"} nameClass="btn-signup-ext btn-signup" />
         <ButtonCustom
           nameClass={"btn-signup-ext"}
           pic={"/static/svg/apple.svg"}
-          text={"Se connecter avec Apple"}
+          text={"Login with Apple"}
         />
       </div>
       <div className="sep">
         <hr />
-        <span>ou</span>
+        <span>or</span>
       </div>
       <form onSubmit={onSubmit}>
         {displayError && (
@@ -70,19 +70,19 @@ const Login: React.FC<propsTypes> = ({ loginAction }) => {
           id="password"
           name="password"
           type="password"
-          label="Mot de passe"
+          label="Password"
           onChange={handleChange}
           isPasswords={true}
           value={password}
         />
-        <ButtonCustom nameClass={"btn-signup"} text={"Se connecter"} isDisabled={disabled} />
+        <ButtonCustom nameClass={"btn-signup"} text={"Sign in"} isDisabled={disabled} />
         <div className="info">
           <h4>
-            Mot de passe ?<Link to={disabled ? "" : authRoutes.requestResetPassword.path}> Cliquer ici</Link>
+            Forgot your password?<Link to={disabled ? "" : authRoutes.requestResetPassword.path}> Click here</Link>
           </h4>
           <h4>
-            Vous n'avez pas de compte ?
-            <Link to={disabled ? "" : authRoutes.signup.path}> Inscrivez-vous</Link>
+            Don't have an account?
+            <Link to={disabled ? "" : authRoutes.signup.path}> Sign up</Link>
             <br />
             <br />
           </h4>
