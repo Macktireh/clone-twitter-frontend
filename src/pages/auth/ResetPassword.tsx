@@ -63,7 +63,7 @@ const ResetPassword: React.FC<propsTypes> = ({ resetPasswordAction }) => {
   };
 
   return (
-    <ModalAuth title="Réinitialisation votre mot de passe" loading={loading} disabled={disabled}>
+    <ModalAuth title="Reset my password" loading={loading} disabled={disabled}>
       <form onSubmit={onSubmit}>
         {displayError && (
           <div className="error-auth">
@@ -75,7 +75,7 @@ const ResetPassword: React.FC<propsTypes> = ({ resetPasswordAction }) => {
           id="password"
           name="password"
           type="password"
-          label="Mot de passe"
+          label="Password *"
           onChange={handleChange}
           isPasswords={true}
           value={password}
@@ -84,12 +84,12 @@ const ResetPassword: React.FC<propsTypes> = ({ resetPasswordAction }) => {
           id="confirmPassword"
           name="confirmPassword"
           type="password"
-          label="Confimer mot de passe *"
+          label="Confirm Password *"
           onChange={handleChange}
           isPasswords={true}
           value={confirmPassword}
         />
-        <ButtonCustom nameClass={"btn-signup"} text={"Valider"} isDisabled={disabled} />
+        <ButtonCustom nameClass={"btn-signup"} text={"Send"} isDisabled={disabled} />
       </form>
     </ModalAuth>
   );

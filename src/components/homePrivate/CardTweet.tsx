@@ -73,7 +73,7 @@ const CardTweet: React.FC<propsTypes> = ({ currentUser, post, users, disabledToo
                 <span>@{authorPost.pseudo}</span>
               </Link>
               <span>·</span>
-              <span>{tweet?.created && `il y a ${timeSince(dateParserCreated(tweet.created))}`}</span>
+              <span>{tweet?.created && `${timeSince(dateParserCreated(tweet.created))} ago`}</span>
             </p>
           )}
           <Tippy

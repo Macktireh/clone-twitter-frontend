@@ -98,7 +98,7 @@ const EdidProfile: React.FC<propsTypes> = ({ currentUser }) => {
           id="first_name"
           name="first_name"
           type="text"
-          label="Prénom"
+          label="First Name"
           maxLength="50"
           onChange={propsContext?.handleChange}
           value={propsContext?.userData.first_name ? propsContext.userData.first_name : ""}
@@ -108,7 +108,7 @@ const EdidProfile: React.FC<propsTypes> = ({ currentUser }) => {
           id="last_name"
           name="last_name"
           type="text"
-          label="Nom"
+          label="Last Name"
           maxLength="50"
           onChange={propsContext?.handleChange}
           value={propsContext?.userData.last_name ? propsContext.userData.last_name : ""}
@@ -118,7 +118,7 @@ const EdidProfile: React.FC<propsTypes> = ({ currentUser }) => {
           id="pseudo"
           name="pseudo"
           type="text"
-          label="Pseudo"
+          label="Username"
           maxLength="50"
           onChange={propsContext?.handleChange}
           value={propsContext?.userData.pseudo ? propsContext.userData.pseudo : ""}
@@ -127,7 +127,7 @@ const EdidProfile: React.FC<propsTypes> = ({ currentUser }) => {
           nameClass="entry-container"
           id="bio"
           name="bio"
-          label="bio"
+          label="Bio"
           maxLength="160"
           onChange={propsContext?.handleChange}
           value={propsContext?.userData.bio ? propsContext.userData.bio : ""}

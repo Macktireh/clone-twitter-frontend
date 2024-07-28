@@ -15,11 +15,11 @@ const AccountActivationSuccess: React.FC = () => {
         <img src="/static/svg/success.svg" alt="" />
         <br />
         <br />
-        <h2>Votre compte a été créé et activé avec succès !</h2>
+        <h2>Your account has been created and activated successfully!</h2>
         <br />
-        <p>Vous pouvez continuer et vous connecter maintenant.</p>
+        <p>You can proceed and log in now.</p>
         <br />
-        <Link to={authRoutes.login.path} className="btn-login">Se connecter</Link>
+        <Link to={authRoutes.login.path} className="btn-login">Sign in</Link>
       </div>
     </ModalAuth>
   );
