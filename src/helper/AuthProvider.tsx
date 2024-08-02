@@ -19,11 +19,11 @@ const AuthProvider: React.FC<TProps> = ({ isPublic, isAuthenticated, children, g
   let [searchParams, setSearchParams] = useSearchParams();
 
   React.useEffect(() => {
-    const code = searchParams.get("code")
-    if (code && isAuthenticated === false || isAuthenticated === null) {
+    const code = searchParams.get("code")    
+    if (code && (isAuthenticated === false || isAuthenticated === null)) {
       (async () => {
         await googleLoginAction( code );
-        setTimeout(() => setLoading(false), 800);
+        setTimeout(() => setLoading(false), 1000);
       })();
     } else if (isAuthenticated !== null) setLoading(false);
   }, [loading, isAuthenticated]);
