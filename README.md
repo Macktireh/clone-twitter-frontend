@@ -1,3 +1,4 @@
+
 <p align="center"> <h1 align="center">Frontend Twitter Clone</h1> </p>
 
 
@@ -68,6 +69,7 @@ cd clone-twitter-backend
 ```
 
 2. Install dependencies:
+
 
 ```bash
 npm install
