@@ -21,7 +21,7 @@ const App: React.FC<propsTypes> = ({ getCurrentUserAction }) => {
     if (!flag.current) {
       (async () => {
         await getCurrentUserAction();
-        setTimeout(() => setLoading(false), 800);
+        setTimeout(() => setLoading(false), 2500);
         flag.current = true;
       })();
     }
