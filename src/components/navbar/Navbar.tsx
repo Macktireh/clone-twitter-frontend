@@ -102,7 +102,7 @@ const Navbar: React.FC<propsTypes> = ({ currentUser, notification }) => {
             <span className={active === "profile" ? "active" : ""}>Profile</span>
           </NavLink>
 
-          <div className="nav-link" onClick={() => console.log("Show More")}>
+          <div className="nav-link" onClick={() => void 0}>
             <IconSVG iconName="more" />
             <span>More</span>
           </div>
