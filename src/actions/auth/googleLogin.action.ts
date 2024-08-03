@@ -16,8 +16,6 @@ const googleLoginAction =
 
     const body = JSON.stringify({ code });
 
-    console.log("googleLoginAction body", body);
-
     try {
       const res = await Axios.post(Api.googleLoginEndpoint, body, config);
 
