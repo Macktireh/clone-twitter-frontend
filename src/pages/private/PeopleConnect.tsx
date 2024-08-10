@@ -64,7 +64,6 @@ const PeopleConnect: React.FC<propsTypes> = ({
             <div className="list-cardPeopleConnect">
               {peopleConnect &&
                 peopleConnect
-                  .slice(0, 3)
                   .map((u, i) => (
                     <CardFollow
                       key={i}
