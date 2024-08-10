@@ -81,7 +81,7 @@ const CardComment: React.FC<propsTypes> = ({ currentUser, comment, users }) => {
                 <span>@{authorPost.pseudo}</span>
               </Link>
               <span>·</span>
-              <span>{ReTweet?.created && `il y a ${timeSince(dateParserCreated(ReTweet.created))}`}</span>
+              <span>{ReTweet?.created && `${timeSince(dateParserCreated(ReTweet.created))} ago`}</span>
             </p>
           )}
           <Tippy
